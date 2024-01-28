@@ -21,3 +21,6 @@ sudo ln -s /bin/systemctl /sbin/reboot
 
 
 The above didnt work, i will try something else at a later date.
+
+read last line of the log file:
+tac Shutdown.log | head -n 1
