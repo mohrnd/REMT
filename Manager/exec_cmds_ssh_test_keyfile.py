@@ -19,7 +19,7 @@ def run_ssh_command(hostname, username, private_key_path, command):
 
 hostname = "192.168.68.43"
 username = "server1"
-private_key_path = r"C:\Users\BALLS\Desktop\REST-PFE\REST-Remote-Execution-and-Security-Toolkit-Linux\Manager\id_rsa.pub"  
+private_key_path = r"C:\Users\username\Desktop\REST-PFE\REST-Remote-Execution-and-Security-Toolkit-Linux\Manager\id_rsa.pub"  
 command_to_run = "ls -l"  
 
 run_ssh_command(hostname, username, private_key_path, command_to_run)
