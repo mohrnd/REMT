@@ -16,10 +16,10 @@ def run_ssh_command(hostname, username, password, command):
         # Close the SSH connection
         ssh.close()
         
-hostname = "192.168.69.43"
+hostname = "192.168.69.41"
 username = "server1"
 password = "Pa$$w0rd"
-command_to_run = "ls -l" 
+command_to_run = "ip a" 
 
 
 run_ssh_command(hostname, username, password, command_to_run)
