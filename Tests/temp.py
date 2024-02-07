@@ -2,7 +2,9 @@ import getpass
 from fabric import Connection, Config
 from termcolor import colored
 
-#fixed sudo and cd, everything should be working as intended, just need to do some more tests
+# fixed sudo and cd, everything should be working as intended, just need to do some more tests
+#issue in the script below: command outputs are being printed 2 times
+
 
 hostname = "192.168.69.41"
 port = 22
@@ -27,19 +29,28 @@ def exec_cmd(conn):
         elif "sudo " in command:
             exec_sudo(conn, command)
         else:
-            result = conn.run(command)
-            # print(result.stdout.strip())
+            result = conn.run(command, warn=True)
+            if result.exited:
+                print(colored(f"Command exited with status {result.exited}", 'red'))
+            if result.stdout:
+                print(result.stdout.strip())
+            if result.stderr:
+                print(colored(result.stderr.strip(), 'red'))
 
 def exec_cd(conn, cmd):
     directory = cmd.split("cd ")[1].strip()
     with conn.cd(directory):
-        exec_cmd(conn)
-        
+        pass
+
 def exec_sudo(conn, cmd):
     cmd_no_sudo = cmd.split("sudo ")[1].strip()
-    result = conn.sudo(cmd_no_sudo)
-    # print(result.stdout.strip())
-    exec_cmd(conn)
+    result = conn.sudo(cmd_no_sudo, warn=True)
+    if result.exited:
+        print(colored(f"Command exited with status {result.exited}", 'red'))
+    if result.stdout:
+        print(result.stdout.strip())
+    if result.stderr:
+        print(colored(result.stderr.strip(), 'red'))
 
 try:
     with Connection(host=hostname, user=user, port=port, connect_kwargs={"password": password}, config=config) as conn:
