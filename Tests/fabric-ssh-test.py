@@ -3,6 +3,12 @@ from fabric import Connection, Config
 from termcolor import colored
 
 #fixed sudo and cd, everything should be working as intended, just need to do some more tests
+##known issues:
+#cat doesnt work sometimes, if the file doesnt exist it will close the ssh connection
+#nano doesnt work
+#when there is an error with a command, the ssh connection is closed
+# ctrl + c sometimes doesnt work
+# cat > filename, cant exit (ctrl + D doesnt work) and sometimes the text is duplicated 
 
 hostname = "192.168.69.41"
 port = 22
@@ -49,3 +55,4 @@ except KeyboardInterrupt:
     print("\nExited by user.")
 except Exception as e:
     print(f"An error occurred: {e}")
+

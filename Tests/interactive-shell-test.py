@@ -1,32 +1,37 @@
 import paramiko
-import time
+import getpass
 
-# kinda bad, will use fabric from now on
-#the issue with this is when i run a sudo dnf update, the installation is not being updated in real time
+def interactive_shell(channel):
+    try:
+        while True:
 
-wait_time = 1
+            command = input("")
 
-def ssh_interactive_shell():
-    ssh = paramiko.SSHClient()
-    ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-    ssh.connect('192.168.69.41', username='root', password='Pa$$w0rd', port=22)
-    channel = ssh.invoke_shell()
-    output = channel.recv(9999)
-    print(output.decode("utf-8"), end='')
-    print("Press enter")
-    while True:
-        command = input('')
-        if command.lower() == 'exit':
-            break
-        ######################################################
-        channel.send(command + '\n')
-        # Wait for a brief moment to allow command to be executed
-        time.sleep(wait_time)
-        # Receive output
-        output = channel.recv(9999)
-        print(output.decode("utf-8"), end='')
-        ######################################################
-    ssh.close()
+            if command.strip() == 'exit':
+                break
+            channel.send(command + '\n')
 
-if __name__ == "__main__":
-    ssh_interactive_shell()
+            while channel.recv_ready():
+                print(channel.recv(1024).decode('utf-8'), end='')
+    except KeyboardInterrupt:
+        print("\nExiting...")
+
+
+hostname = "192.168.69.41"
+username = "server1"
+password = getpass.getpass("Enter password: ")
+
+
+client = paramiko.SSHClient()
+client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+
+try:
+    client.connect(hostname, username=username, password=password)
+
+    channel = client.invoke_shell()
+
+    interactive_shell(channel)
+
+finally:
+
+    client.close()
