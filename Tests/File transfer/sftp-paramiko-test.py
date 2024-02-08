@@ -9,7 +9,7 @@ paramiko.util.log_to_file("paramiko.log")
 
 ssh = paramiko.SSHClient()
 
-# Automatically add unknown hosts to the `known_hosts` file
+# Automatically add unknown hosts to the `known_hosts` file.
 ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 
 try:
