@@ -4,6 +4,8 @@ import select
 import tty
 import termios #only on linux, coz windows is not a POSIX platform
 import socket
+from time import sleep
+from tqdm import tqdm
 
 #we need to create a pseudo-terminal (PTY) on the SSH server
 #wont work on windows, only linux
@@ -15,6 +17,9 @@ def ssh_connect(hostname, username, password):
     ssh_client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 
     try:
+        var = 50
+        for _ in tqdm(range(var), desc="Establishing SSH Connection", bar_format="{l_bar}{bar}{r_bar}", ascii=True, colour='red'):
+            sleep(0.01)
         ssh_client.connect(hostname, username=username, password=password)
         print("SSH connection established to", hostname)
         return ssh_client
@@ -54,7 +59,7 @@ def shell(channel):
 
 if __name__ == "__main__":
     # Provide SSH credentials and server information
-    hostname = "192.168.69.41"
+    hostname = "192.168.69.42"
     username = "server1"
     password = "Pa$$w0rd"
 
