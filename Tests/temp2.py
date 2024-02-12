@@ -17,6 +17,14 @@ def ssh_connect(hostname, username, password):
     ssh_client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 
     try:
+        print("    ____  _________________")
+        print("   / __ \/ ____/ ___/_  __/")
+        print("  / /_/ / __/  \__ \ / /   ")
+        print(" / _  _/ /___ ___/ // /    ")
+        print("/_/ |_/_____//____//_/     ")
+        print("")
+        print("Remote Execution and Security Toolkit")
+        print("")
         var = 50
         for _ in tqdm(range(var), desc="Establishing SSH Connection", bar_format="{l_bar}{bar}{r_bar}", ascii=True, colour='red'):
             sleep(0.01)
