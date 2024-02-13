@@ -41,12 +41,12 @@ def ssh_connect(hostname, username, password):
 def shell(channel):
     oldtty = termios.tcgetattr(sys.stdin)
     try:
-        tty.setraw(sys.stdin.fileno())
+        tty.setraw(sys.stdin.fileno()) #Character-by-character input, Disabling line buffering, Disabling echo, Control characters. This is essential for creating an interactive shell-like environment 
         tty.setcbreak(sys.stdin.fileno())
-        channel.settimeout(0.0)
+        channel.settimeout(0.0)  #makes the channel non-blocking, meaning that operations on the channel will not wait for data to be available before returning
 
         while True:
-            r, w, e = select.select([channel, sys.stdin], [], [])
+            r, w, e = select.select([channel, sys.stdin], [], []) #allows the script to monitor multiple file descriptors for read, write, and error events simultaneously.
             if channel in r:
                 try:
                     x = channel.recv(1024)
@@ -66,7 +66,6 @@ def shell(channel):
         termios.tcsetattr(sys.stdin, termios.TCSADRAIN, oldtty)
 
 if __name__ == "__main__":
-    # Provide SSH credentials and server information
     hostname = "192.168.69.42"
     username = "server1"
     password = "Pa$$w0rd"
@@ -79,3 +78,9 @@ if __name__ == "__main__":
     shell(channel)
     channel.close()
     ssh_client.close()
+
+#security vulnerabilities:
+#Password-based Authentication
+#Potential Information Leakage: The script prints diagnostic messages to the console, which could potentially leak sensitive information about the SSH connection, such as IP addresses, hostnames, or error messages.
+#No Transport Layer Security (TLS): The script uses SSH for secure communication, but it does not use TLS for securing the initial connection.
+#ssh_client.set_missing_host_key_policy(paramiko.AutoAddPolicy()) must be removed
