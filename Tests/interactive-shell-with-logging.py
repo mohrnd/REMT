@@ -60,7 +60,7 @@ def shell(channel):
                     if len(x) == 0:
                         print("\r\n*** EOF\r\n")
                         break
-                    sys.stdout.write(x.decode())
+                    sys.stdout.write(x.decode()) #this line gets the input/output of the ssh
                     sys.stdout.flush()
                 except socket.timeout:
                     pass
