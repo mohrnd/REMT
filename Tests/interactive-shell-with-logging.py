@@ -69,7 +69,6 @@ def shell(channel):
                 if len(x) == 0:
                     break
                 elif x == '\r':
-                    print("Command executed:", command_buffer)
                     logging.info(f"Command executed: {command_buffer}")
                     command_buffer = ""
                 else:
