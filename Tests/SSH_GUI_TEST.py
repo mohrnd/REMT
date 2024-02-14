@@ -115,7 +115,7 @@ set_default_color_theme("dark-blue")  # Thème de couleur par défaut
 app.title("SSH_SESSION")  # Titre de la fenêtre
 app.geometry("750x550")  # Dimensions de la fenêtre
 
-# Création d'un cadre pour le texte de sortie
+# Création d'un cadre pour le texte de sortie.
 frame_principal = CTkFrame(app,fg_color="#140716")
 frame_principal.pack(padx=0, pady=0, fill="both", expand=True)
 
