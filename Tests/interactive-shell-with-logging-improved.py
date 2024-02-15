@@ -8,6 +8,7 @@ from time import sleep
 from tqdm import tqdm
 import logging
 import os
+import re
 #we need to create a pseudo-terminal (PTY) on the SSH server
 #wont work on windows, only linux
 #closest thing we have to an interactive ssh
@@ -43,6 +44,7 @@ def ssh_connect(hostname, username, password):
         print("SSH connection failed to", hostname, ":", e)
         logging.error(f"SSH connection established by {current_user} failed {hostname}: {e}")
         sys.exit(1)
+PASSWORD_PROMPT_PATTERN = re.compile(r'[Pp]assword:?\s*$')
 
 def shell(channel):
     oldtty = termios.tcgetattr(sys.stdin)
@@ -51,6 +53,7 @@ def shell(channel):
         tty.setcbreak(sys.stdin.fileno())
         channel.settimeout(0.0)  #makes the channel non-blocking, meaning that operations on the channel will not wait for data to be available before returning
         command_buffer = ""
+        password_input = False  # Flag to track if password input is in progress
         while True:
             r, w, e = select.select([channel, sys.stdin], [], []) #allows the script to monitor multiple file descriptors for read, write, and error events simultaneously.
             
@@ -60,20 +63,37 @@ def shell(channel):
                     if len(x) == 0:
                         print("\r\n*** EOF\r\n")
                         break
-                    sys.stdout.write(x.decode()) #this line gets the input/output of the ssh
+                    sys.stdout.write(x.decode()) #this line gets the input/output of the ssh (tab autocomplete too)
+                    
+                    if not password_input:
+                        logging.info(f"[Server]: {x.decode().strip()}")
+
                     sys.stdout.flush()
+
+                    # Check if the server response contains a password prompt
+                    if not password_input and PASSWORD_PROMPT_PATTERN.search(x.decode()):
+                        logging.info("Password input requested by the server. Logging paused.")
+                        password_input = True
                 except socket.timeout:
                     pass
-            if sys.stdin in r:
-                x = sys.stdin.read(1)
+            if sys.stdin in r and not password_input:
+                x = sys.stdin.read(1) #reads user input only
                 if len(x) == 0:
                     break
                 elif x == '\r':
-                    logging.info(f"Command executed: {command_buffer}")
-                    command_buffer = ""
+                    if 'sudo' not in command_buffer:
+                        logging.info(f"Command executed by [{os.getenv('USER')}]: {command_buffer}")
+                        command_buffer = ""
                 else:
                     command_buffer += x
+                
                 channel.send(x)
+
+            if sys.stdin in r and password_input:
+                x = sys.stdin.read(1) #reads user input only
+                if x == '\r':
+                    password_input = False
+                continue
     finally:
         termios.tcsetattr(sys.stdin, termios.TCSADRAIN, oldtty)
 
@@ -96,5 +116,4 @@ if __name__ == "__main__":
 #No Transport Layer Security (TLS): The script uses SSH for secure communication, but it does not use TLS for securing the initial connection.
 #ssh_client.set_missing_host_key_policy(paramiko.AutoAddPolicy()) must be removed
 
-#TODO: IMPLEMENT BETTER LOGGING (LOG THE input/OUTPUT OF THE COMMAND AND WHEN THE USER PRESSES ON TAB)
-#TODO: PERMA DISABLE LOGGING WHEN USER IS ENTERING A PASSWORD
+
