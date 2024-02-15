@@ -78,11 +78,12 @@ def shell(channel):
                     pass
             if sys.stdin in r and not password_input:
                 x = sys.stdin.read(1) #reads user input only
+          
                 if len(x) == 0:
                     break
                 elif x == '\r':
                     if 'sudo' not in command_buffer:
-                        logging.info(f"Command executed by [{os.getenv('USER')}]: {command_buffer}")
+                        logging.info(f"[Client] Command executed by [{os.getenv('USER')}]: {command_buffer}")
                         command_buffer = ""
                 else:
                     command_buffer += x
@@ -115,5 +116,4 @@ if __name__ == "__main__":
 #Password-based Authentication
 #No Transport Layer Security (TLS): The script uses SSH for secure communication, but it does not use TLS for securing the initial connection.
 #ssh_client.set_missing_host_key_policy(paramiko.AutoAddPolicy()) must be removed
-
 
