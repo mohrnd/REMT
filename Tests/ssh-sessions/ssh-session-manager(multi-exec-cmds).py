@@ -12,6 +12,12 @@ ssh_sessions = [ssh_session_1, ssh_session_2]
 
 combined_command = "ls -la && cd Desktop && ls -la"
 
+#or a script: 
+
+with open('script.sh', 'r') as file:
+    script_contents = file.read()
+script_command = Command(script_contents)
+
 combined_ls_cd_update_command = Command(combined_command)
 
 with SSHSessionManager(ssh_sessions) as ssh_session_manager:
