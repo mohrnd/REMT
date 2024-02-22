@@ -1,0 +1,34 @@
+* {
+    color: rgb(0, 0, 0);
+    font-size: 20px;
+    background-color: #dfb6e6;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+QMainWindow::title {
+    background-color: #ffffff;
+    color: rgb(255, 0, 0);
+}
+
+QPushButton {
+    background-color:#a04595;
+    color: #F5E8F7;
+    border-radius: 5px;
+    padding: 3px 5px;
+    margin-left: 55px;
+    font-size: 14px;
+}
+
+QPushButton:hover {
+    background-color: #D88CE3;
+}
+
+QMainWindow {
+    background-color:#dfb6e6;
+}
+
+QToolBar {
+    background-color:#140716;
+    border: 1px solid #D88CE3;
+    min-height: 45px;
+}
