@@ -59,9 +59,9 @@ class CodeEditor(QPlainTextEdit):
         
         self.highlighter = PythonHighlighter(self.document())
 
-class RTE(QMainWindow):
+class mon_editeur(QMainWindow):
     def __init__(self):
-        super(RTE, self).__init__()
+        super(mon_editeur, self).__init__()
         self.editor = CodeEditor() 
         self.fontSizeBox = QSpinBox()
         
@@ -149,6 +149,6 @@ class RTE(QMainWindow):
             
 
 app = QApplication(sys.argv)
-window = RTE()
+window = mon_editeur()
 window.show()
 sys.exit(app.exec_())
