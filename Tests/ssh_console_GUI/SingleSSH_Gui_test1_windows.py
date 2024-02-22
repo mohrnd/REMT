@@ -214,6 +214,7 @@ class SSHWindow(QMainWindow):
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     window = SSHWindow("192.168.69.44", "server1", "Pa$$w0rd")
+    window.setGeometry(200, 200, 1200, 600) 
     window.show()
     sys.exit(app.exec_())
 
