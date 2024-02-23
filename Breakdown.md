@@ -1,5 +1,3 @@
-The project will be segmented into distinct sections, with the requirement that each section be completed within a one-week timeframe.
-
 GET THIS BADGE: https://www.bestpractices.dev/en/projects
 READ THIS: https://www.bestpractices.dev/en/criteria/0
 
