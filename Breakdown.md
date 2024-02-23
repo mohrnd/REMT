@@ -1,5 +1,3 @@
-The project will be segmented into distinct sections, with the requirement that each section be completed within a one-week timeframe.
-
 GET THIS BADGE: https://www.bestpractices.dev/en/projects
 READ THIS: https://www.bestpractices.dev/en/criteria/0
 
@@ -64,10 +62,4 @@ READ THIS: https://www.bestpractices.dev/en/criteria/0
 - Employ encryption techniques to protect stored passwords.
 - Ensure secure access controls and authentication mechanisms.
 
-# PART 2:
-Vulnerability Detection and Remediation
 
-## Correct Mistakes and Refinement
-- Review (SEND TO OTHER PEOPLE FOR TESTING) and correct any mistakes in the existing system.
-- Refine the implementation for better performance and security.
-- Ensure adherence to best practices in vulnerability detection and remediation.
