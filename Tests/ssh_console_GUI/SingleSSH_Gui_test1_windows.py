@@ -104,10 +104,20 @@ class SSHWindow(QMainWindow):
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
+    
     window = SSHWindow("192.168.69.44", "server1", "Pa$$w0rd")
     window.setGeometry(200, 200, 1200, 600) 
     window.show()
     sys.exit(app.exec_())
 
 
-# TODO: FIX LOGGING, Detect nano/vim/ect.. input and print a message, make it more secure (use ssh keys), remove the "self.ssh_client.set_missing_host_key_policy(paramiko.AutoAddPolicy())"
+# TODO: #Detect password input and hide the password
+        #FIX LOGGING
+        #make it so we cant delete the text above
+        #fix the tab thingy (when i press on tab, i want it to autofill)
+        #Detect nano/vim/vi/ect.. input and print a message (i dont want vim)
+        #make it more secure (use ssh keys)
+        #remove the "self.ssh_client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+        #fix ctrl + D logout
+        #add an insert password button
+        #ls -al crashes the whole thing it also makes the text above dissapear
