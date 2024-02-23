@@ -82,6 +82,7 @@ class SSHWindow(QMainWindow):
             self.text_edit.insertPlainText(event.text())
             if event.key() == Qt.Key_Enter or event.key() == Qt.Key_Return:
                 self.channel.send(self.buffer + "\n")
+                # logging.info(f"Command executed: {self.buffer}")
                 self.buffer = ""
             else:
                 self.buffer += event.text()
@@ -95,6 +96,7 @@ class SSHWindow(QMainWindow):
                     break
                 decoded_text = x.decode('utf-8', errors='ignore')
                 filtered_text = self.filter_special_chars(decoded_text)
+                logging.info(f"Command output: {filtered_text}")
                 self.update_text_edit(filtered_text)
             except socket.timeout:
                 pass
@@ -126,7 +128,7 @@ class SSHWindow(QMainWindow):
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    hostname = "192.168.69.49"
+    hostname = "192.168.69.44"
     username = "server1"
     password = "Pa$$w0rd"
     window = SSHWindow(hostname, username, password)
@@ -134,11 +136,10 @@ if __name__ == '__main__':
     window.show()
     sys.exit(app.exec_())
 
-
 # TODO: 
         #Fix text formatting (Ansi to formatted/colored text) 
         #Detect password input and hide the password
-        #FIX LOGGING
+        #FIX LOGGING (log the output too!)
         #fix the tab thingy (when i press on tab, i want it to autofill it does but the proposition is not printed in the terminal)
         #Detect nano/vim/vi/ect.. input and print a message (i dont want vim)
         #make it more secure (use ssh keys)
