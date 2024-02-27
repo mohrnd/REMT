@@ -139,11 +139,9 @@ if __name__ == '__main__':
 # TODO: 
         #Fix text formatting (Ansi to formatted/colored text) 
         #Detect password input and hide the password
-        #FIX LOGGING (log the output too!)
         #fix the tab thingy (when i press on tab, i want it to autofill it does but the proposition is not printed in the terminal)
         #Detect nano/vim/vi/ect.. input and print a message (i dont want vim)
         #make it more secure (use ssh keys)
         #remove the "self.ssh_client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-        #fix ctrl + D logout
         #add an insert password button
         #ls -al crashes the whole thing it also makes the text above dissapear
