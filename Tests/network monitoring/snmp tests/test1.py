@@ -3,9 +3,9 @@ from pysnmp.hlapi import *
 # SNMPv3 parameters
 snmp_engine = SnmpEngine()
 security = UsmUserData('roadmin', 'admin123', 'admin123', authProtocol=usmHMACSHAAuthProtocol, privProtocol=usmAesCfb128Protocol)
-
+ip_address = '192.168.69.39'
 # Target parameters
-target_address = UdpTransportTarget(('192.168.69.40', 161))
+target_address = UdpTransportTarget((ip_address, 161))
 
 # SNMP walk operation
 error_indication, error_status, error_index, var_binds = next(
@@ -21,4 +21,4 @@ else:
             sys_uptime_hundredths = int(var_bind[1])
             sys_uptime_seconds = sys_uptime_hundredths // 100
             sys_uptime_minutes = sys_uptime_seconds // 60
-            print(f"Uptime: {sys_uptime_minutes} minutes")
+            print(f"{ip_address}'s Uptime: {sys_uptime_minutes} minutes")
