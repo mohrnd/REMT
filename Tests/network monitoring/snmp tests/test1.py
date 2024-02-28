@@ -9,7 +9,7 @@ target_address = UdpTransportTarget(('192.168.69.40', 161))
 
 # SNMP walk operation
 error_indication, error_status, error_index, var_binds = next(
-    getCmd(snmp_engine,security,target_address,ContextData(),ObjectType(ObjectIdentity('1.3.6.1.2.1.1.3.0'))))
+    getCmd(snmp_engine, security, target_address, ContextData(), ObjectType(ObjectIdentity('1.3.6.1.2.1.1.3.0'))))
 
 if error_indication:
     print(f"SNMP walk failed: {error_indication}")
@@ -18,4 +18,7 @@ else:
         print(f"SNMP walk failed: {error_status.prettyPrint()}")
     else:
         for var_bind in var_binds:
-            print(f"success ! {var_bind[0]} = {var_bind[1]}")
+            sys_uptime_hundredths = int(var_bind[1])
+            sys_uptime_seconds = sys_uptime_hundredths / 100
+            sys_uptime_minutes = sys_uptime_seconds / 60
+            print(f"Uptime: {sys_uptime_minutes} minutes")
