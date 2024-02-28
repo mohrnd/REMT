@@ -19,12 +19,10 @@ security = UsmUserData(user, auth_key, priv_key, authProtocol=auth_proto, privPr
 # Create SNMPv3 context
 context = ContextData()
 
-# OID for system description
-oid_sys_descr = ObjectIdentity('SNMPv2-MIB', 'sysDescr')
-# OID for system name
-oid_sys_name = ObjectIdentity('SNMPv2-MIB', 'sysName')
-# OID for system uptime
-oid_sys_uptime = ObjectIdentity('DISMAN-EVENT-MIB', 'sysUpTimeInstance')
+
+oid_sys_descr = ObjectIdentity(ObjectIdentity('1.3.6.1.2.1.1.1.0'))
+oid_sys_name = ObjectIdentity(ObjectIdentity('1.3.6.1.2.1.1.3.0'))
+oid_sys_uptime = ObjectIdentity(ObjectIdentity('1.3.6.1.2.1.1.5.0'))
 
 # Build SNMP GET request for each OID
 get_sys_descr = getCmd(snmp_engine, security, UdpTransportTarget((device_ip, 161)), context, ObjectType(oid_sys_descr))
@@ -43,14 +41,14 @@ sys_uptime = var_binds[0][1].prettyPrint() if not error_indication else None
 
 # Print system information
 if sys_descr:
-    print("System Description:", sys_descr)
+    print("1:", sys_descr)
 else:
     print("Failed to retrieve system description.")
 if sys_name:
-    print("System Name:", sys_name)
+    print("2:", sys_name)
 else:
     print("Failed to retrieve system name.")
 if sys_uptime:
-    print("System Uptime:", sys_uptime)
+    print("3:", sys_uptime)
 else:
     print("Failed to retrieve system uptime.")
