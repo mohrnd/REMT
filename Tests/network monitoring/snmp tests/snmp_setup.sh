@@ -18,4 +18,8 @@ systemctl enable snmpd
 systemctl start snmpd
 systemctl restart snmpd
 
+echo "Setting up the firewall..."
+firewall-cmd --add-service=snmp --permanent
+firewall-cmd --reload
+
 echo "SNMP configuration completed."
