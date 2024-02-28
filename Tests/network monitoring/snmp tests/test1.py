@@ -19,6 +19,6 @@ else:
     else:
         for var_bind in var_binds:
             sys_uptime_hundredths = int(var_bind[1])
-            sys_uptime_seconds = sys_uptime_hundredths / 100
-            sys_uptime_minutes = sys_uptime_seconds / 60
+            sys_uptime_seconds = sys_uptime_hundredths // 100
+            sys_uptime_minutes = sys_uptime_seconds // 60
             print(f"Uptime: {sys_uptime_minutes} minutes")
