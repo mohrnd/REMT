@@ -1,0 +1,30 @@
+2) Install net-snmp RPMs
+yum install net-snmp net-snmp-libs net-snmp-utils \
+ net-snmp-agent-libs
+
+3) Open /etc/snmp/snmpd.conf
+vim /etc/snmp/snmpd.conf
+
+4) Add SNMP v3 users.
+In this example 'roadmin' for read-only access and
+ 'rwadmin' for read-write access. Let's use SHA 
+as password hash algorithm and AES for session
+ encryption:
+
+createUser roadmin SHA admin123 AES
+createUser rwadmin SHA admin321 AES
+rouser roadmin authpriv system
+rwuser rwadmin authpriv system
+
+5) Enable snmpd and start it
+systemctl enable snmpd
+systemctl start snmpd
+
+
+6) For test use following SNMP v3 request
+snmpget -v 3 -u roadmin -l authPriv -a SHA -x AES \
+ -A admin123 -X admin123 localhost sysUpTime.0
+
+if the command above doesnt work (you get this:  snmpget: Unknown user name (Sub-id not found: (top) -> sysUpTime)) run systemctl restart snmpd
+
+It works. aya tarba7
