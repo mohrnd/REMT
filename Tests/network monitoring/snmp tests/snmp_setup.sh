@@ -2,6 +2,8 @@
 #turn into an executable with: chmod +x setup.sh
 #run as root
 
+
+
 echo "Installing net-snmp RPMs..."
 yum install -y net-snmp net-snmp-libs net-snmp-utils net-snmp-agent-libs
 
@@ -20,6 +22,12 @@ systemctl restart snmpd
 
 echo "Setting up the firewall..."
 firewall-cmd --add-service=snmp --permanent
+firewall-cmd --zone=public --add-port=161/udp --permanent
+firewall-cmd --zone=public --add-port=162/udp --permanent
 firewall-cmd --reload
 
+
 echo "SNMP configuration completed."
+
+
+# TODO: DISABLE SNMPV1 AND SNMPV2C
