@@ -5,11 +5,10 @@ from pysnmp.proto.api import v2c
 
 #works !!!
 '''
-both 1 and 2 work, you have to use one at a time
+
 trapsess -v 3 -u roadmin -l authPriv -a SHA -x AES 192.168.69.44:162
-1-trapsink -v 3 -u roadmin -l authPriv -a SHA -A admin123 -x AES -X admin123 -e 0x80001f8880ad8ba63fe904de6500000000 192.168.69.44:162 SNMPv2-MIB::coldStart
-2-trap2sink 192.168.69.44:162 roadmin SNMPv2-MIB::coldStart
-we will use 2 ofc
+snmptrap -v3 -u roadmin -l authPriv -a SHA -A admin123 -x AES -X admin123 -e 0x80001f8880ad8ba63fe904de6500000000 192.168.69.44:162 123 1.3.6.1.6.3.1.1.5.1
+snmpinform -v3 -u roadmin -l authPriv -a SHA -A admin123 -x AES -X admin123 192.168.69.44 6969 1.3.6.1.6.3.1.1.5.1
 
 getting the engine id: 
 sudo grep oldEngineID /var/lib/net-snmp/snmpd.conf
@@ -24,7 +23,7 @@ snmpEngine = engine.SnmpEngine()
 config.addTransport(
     snmpEngine,
     udp.domainName,
-    udp.UdpTransport().openServerMode(('192.168.69.44', 162))
+    udp.UdpTransport().openServerMode(('127.0.0.1', 162))
 )
 
 # SNMPv3/USM setup
