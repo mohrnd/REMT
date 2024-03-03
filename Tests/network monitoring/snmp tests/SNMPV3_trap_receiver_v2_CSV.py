@@ -3,7 +3,35 @@ from pysnmp.carrier.asyncore.dgram import udp
 from pysnmp.entity.rfc3413 import ntfrcv
 from pysnmp.proto.api import v2c
 import datetime
+import csv
 
+def add_snmp_users_from_csv(CSV_File_Path):
+    with open(CSV_File_Path, 'r') as file:
+        reader = csv.DictReader(file)
+        for row in reader:
+            username = row['username']
+            auth_protocol = getattr(config, row['auth_protocol'])
+            auth_password = row['auth_password']
+            priv_protocol = getattr(config, row['priv_protocol'])
+            priv_password = row['priv_password']
+            security_engine_id = v2c.OctetString(hexValue=row['security_engine_id'])
+            
+            snmpEngine = engine.SnmpEngine()
+            config.addV3User(
+                snmpEngine,
+                username,
+                auth_protocol,
+                auth_password,
+                priv_protocol,
+                priv_password,
+                securityEngineId=security_engine_id
+          
+                
+            )
+
+csv_file_path = r'C:\Users\BALLS2 (rip BALLS)\Desktop\REMT\Tests\network monitoring\snmp tests\snmp_users.csv'
+
+add_snmp_users_from_csv(csv_file_path)
 
 
 
@@ -49,6 +77,7 @@ config.addV3User(
 )
 
 # Register SNMP Application at the SNMP engine
+
 ntfrcv.NotificationReceiver(snmpEngine, cbFun)
 
 # Run I/O dispatcher which would receive queries and send confirmations
