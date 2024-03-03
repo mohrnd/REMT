@@ -31,8 +31,8 @@ receiver:
 
 
 EVERYTHING WORKS CORRECTLY !!
-snmptrap -v3 -u roadmin -l authPriv -a SHA -A admin123 -x AES -X admin123 -e 0x80001f8880ad8ba63fe904de6500000000 192.168.69.44:162 123 1.3.6.1.6.3.1.1.5.1
-snmpinform -v3 -u roadmin -l authPriv -a SHA -A admin123 -x AES -X admin123 192.168.69.44 6969 1.3.6.1.6.3.1.1.5.1
+snmptrap -v3 -u roadmin -l authPriv -a SHA -A admin123 -x AES -X admin123 -e 0x80001f8880ad8ba63fe904de6500000000 192.168.69.45:162 123 1.3.6.1.6.3.1.1.5.1
+snmpinform -v3 -u roadmin -l authPriv -a SHA -A admin123 -x AES -X admin123 192.168.69.45 6969 1.3.6.1.6.3.1.1.5.1
 
 """#
 from pysnmp.entity import engine, config
@@ -50,7 +50,7 @@ snmpEngine = engine.SnmpEngine()
 config.addTransport(
     snmpEngine,
     udp.domainName,
-    udp.UdpTransport().openServerMode(('192.168.69.44', 162))
+    udp.UdpTransport().openServerMode(('192.168.69.45', 162))
 )
 
 # SNMPv1/2c setup
@@ -125,3 +125,8 @@ except:
     snmpEngine.transportDispatcher.closeDispatcher()
     raise
 
+
+'''
+snmptrap -v 3 -l authPriv -u roadmin -a SHA -A admin123 -x AES -X admin123 -e 0x80001f8880ad8ba63fe904de6500000000 192.168.69.45:162 '' 1.3.6.1.4.1.8072.9999.9999 1.3.6.1.4.1.8072.9999.9999 s "gang shit"
+
+'''
