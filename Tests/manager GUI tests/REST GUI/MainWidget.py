@@ -7,22 +7,29 @@ from PyQt5.QtWidgets import QApplication, QFrame, QHBoxLayout
 from qfluentwidgets import (NavigationItemPosition, MessageBox, setTheme, Theme, FluentWindow,
                             NavigationAvatarWidget, qrouter, SubtitleLabel, setFont, InfoBadge,
                             InfoBadgePosition)
-
-
+from PyQt5.QtWidgets import QPushButton, QHBoxLayout
+from SSH_Widget import SSHWidget 
 
 class Widget(QFrame):
 
     def __init__(self, text: str, parent=None):
         super().__init__(parent=parent)
         self.label = SubtitleLabel(text, self)
+        self.button = QPushButton('Upload Button', self)
         self.hBoxLayout = QHBoxLayout(self)
-        
-
         setFont(self.label, 24)
         self.label.setAlignment(Qt.AlignCenter)
         self.hBoxLayout.addWidget(self.label, 1, Qt.AlignCenter)
         self.setObjectName(text.replace('', '-'))
 
+class Widget1(QFrame):
+#SSH WIDGET 
+    def __init__(self, text: str, parent=None):
+        super().__init__(parent=parent)
+        self.hBoxLayout = QHBoxLayout(self)
+        self.ssh_widget = SSHWidget("192.168.69.38", "manager1", "Pa$$w0rd")  # Provide appropriate hostname, username, and password
+        self.hBoxLayout.addWidget(self.ssh_widget)  # Add SSHWidget to layout
+        self.setObjectName(text.replace('-', '-'))
 
 class Window(FluentWindow):
 
@@ -32,7 +39,7 @@ class Window(FluentWindow):
         # create sub interface
         self.Dashboard = Widget('Dashboard', self)
         self.RemoteExecInt = Widget('RemoteExecInt', self)
-        self.SingleSSH = Widget('SingleSSH', self)
+        self.SingleSSH = Widget1('Single Channel', self)
         self.MultiSSH = Widget('MultiSSH', self)
         self.Schedule = Widget('Schedule', self)
         self.Txteditor = Widget('Txteditor', self)
@@ -56,7 +63,7 @@ class Window(FluentWindow):
     def initNavigation(self):
         self.addSubInterface(self.Dashboard, QIcon(r'C:\Users\BALLS2 (rip BALLS)\Desktop\REST GUI\RestIcons\dashboard'), 'Dashboard')
         self.addSubInterface(self.RemoteExecInt, QIcon(r'C:\Users\BALLS2 (rip BALLS)\Desktop\REST GUI\RestIcons\SSH'), 'Remote execution', NavigationItemPosition.SCROLL)
-        self.addSubInterface(self.SingleSSH, QIcon(r'C:\Users\BALLS2 (rip BALLS)\Desktop\REST GUI\RestIcons\singlechannel'), 'Signle Channel', parent=self.RemoteExecInt)
+        self.addSubInterface(self.SingleSSH, QIcon(r'C:\Users\BALLS2 (rip BALLS)\Desktop\REST GUI\RestIcons\singlechannel'), 'Single Channel', parent=self.RemoteExecInt)
         self.addSubInterface(self.MultiSSH, QIcon(r'C:\Users\BALLS2 (rip BALLS)\Desktop\REST GUI\RestIcons\multichannel'), 'Multi-Channel', parent=self.RemoteExecInt)
         self.addSubInterface(self.Schedule, QIcon(r'C:\Users\BALLS2 (rip BALLS)\Desktop\REST GUI\RestIcons\schedule'), 'Schedule', parent=self.RemoteExecInt)
         self.addSubInterface(self.Txteditor, QIcon(r'C:\Users\BALLS2 (rip BALLS)\Desktop\REST GUI\RestIcons\writescript'), 'Write a script', parent=self.RemoteExecInt)
@@ -80,7 +87,7 @@ class Window(FluentWindow):
     def initWindow(self):
         self.resize(900, 700)
         self.setWindowIcon(QIcon(r'C:\Users\BALLS2 (rip BALLS)\Desktop\REST GUI\rest logo\black'))
-        self.setWindowTitle('Rest')
+        self.setWindowTitle('REMT')
 
         desktop = QApplication.desktop().availableGeometry()
         w, h = desktop.width(), desktop.height()

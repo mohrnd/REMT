@@ -126,23 +126,13 @@ class SSHWidget(QWidget):
         else:
             sys.exit()
 
-if __name__ == '__main__':
-    app = QApplication(sys.argv)
-    hostname = "192.168.69.38"
-    username = "manager1"
-    password = "Pa$$w0rd"
-    widget = SSHWidget(hostname, username, password)
-    widget.setGeometry(200, 200, 1200, 900) 
-    widget.show()
-    sys.exit(app.exec_())
+# if __name__ == '__main__':
+#     app = QApplication(sys.argv)
+#     hostname = "192.168.69.38"
+#     username = "manager1"
+#     password = "Pa$$w0rd"
+#     widget = SSHWidget(hostname, username, password)
+#     widget.setGeometry(200, 200, 1200, 900) 
+#     widget.show()
+#     sys.exit(app.exec_())
 
-
-# TODO: 
-        #Fix text formatting (Ansi to formatted/colored text) 
-        #Detect password input and hide the password
-        #fix the tab thingy (when i press on tab, i want it to autofill it does but the proposition is not printed in the terminal)
-        #Detect nano/vim/vi/ect.. input and print a message (i dont want vim)
-        #make it more secure (use ssh keys)
-        #remove the "self.ssh_client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-        #add an insert password button
-        #ls -al crashes the whole thing it also makes the text above dissapear
