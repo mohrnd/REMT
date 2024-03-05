@@ -1,15 +1,14 @@
 # coding:utf-8
 import sys
-
 from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QApplication, QWidget, QStackedWidget, QVBoxLayout, QLabel, QSizePolicy
+from PyQt5.QtWidgets import QApplication, QWidget, QStackedWidget, QVBoxLayout, QLabel
+from qfluentwidgets import SegmentedWidget
+from PyQt5.QtCore import Qt, QUrl
+from PyQt5.QtWidgets import QApplication, QFrame, QHBoxLayout, QSizePolicy
+from SSH_Widget import SSHWidget 
 
-from qfluentwidgets import Pivot, setTheme, Theme, SegmentedWidget, FluentIcon
-from PyQt5.QtGui import *
-from qfluentwidgets import *
 
 class MainWidget(QWidget):
-
     def __init__(self):
         super().__init__()
         self.setStyleSheet("""
@@ -26,47 +25,61 @@ class MainWidget(QWidget):
         self.stackedWidget = QStackedWidget(self)
         self.vBoxLayout = QVBoxLayout(self)
 
-        self.Upload = QLabel('Upload Interface', self)
-        self.Download = QLabel('Download Interface', self)
-
-
-        # add items to pivot
-        self.addSubInterface(self.Upload, 'Upload', 'Upload')
-        self.addSubInterface(self.Download, 'Download', 'Download')
-
+        self.addSubInterface1('PUT', 'PUT')
+        self.addSubInterface2('GET', 'GET')
 
         self.vBoxLayout.addWidget(self.pivot)
         self.vBoxLayout.addWidget(self.stackedWidget)
         self.vBoxLayout.setContentsMargins(30, 10, 30, 30)
 
         self.stackedWidget.currentChanged.connect(self.onCurrentIndexChanged)
-        self.stackedWidget.setCurrentWidget(self.Upload)
-        self.pivot.setCurrentItem(self.Upload.objectName())
 
-    def addSubInterface(self, widget: QLabel, objectName, text):
+    def addSubInterface1(self, objectName, text):
+        widget = PUT(text + ' interface', self)  # Instantiate Widget1 with different names
         widget.setObjectName(objectName)
-        widget.setAlignment(Qt.AlignCenter)
         self.stackedWidget.addWidget(widget)
         self.pivot.addItem(
             routeKey=objectName,
             text=text,
             onClick=lambda: self.stackedWidget.setCurrentWidget(widget),
         )
-
+    def addSubInterface2(self, objectName, text):
+        widget = GET(text + ' interface', self)
+        widget.setObjectName(objectName)
+        self.stackedWidget.addWidget(widget)
+        self.pivot.addItem(
+            routeKey=objectName,
+            text=text,
+            onClick=lambda: self.stackedWidget.setCurrentWidget(widget),
+        )
+        
     def onCurrentIndexChanged(self, index):
         widget = self.stackedWidget.widget(index)
         self.pivot.setCurrentItem(widget.objectName())
 
+class PUT(QFrame):
+    def __init__(self, text: str, parent=None):
+        super().__init__(parent=parent)
+        self.ssh_widget = SSHWidget("192.168.69.38", "manager1", "Pa$$w0rd")  # Provide appropriate hostname, username, and password
+        layout = QVBoxLayout(self)
+        layout.addWidget(self.ssh_widget)  # Add SSHWidget to layout
+        self.setObjectName(text.replace('-', '-'))
+
+class GET(QFrame):
+    def __init__(self, text: str, parent=None):
+        super().__init__(parent=parent)
+        self.ssh_widget = SSHWidget("192.168.69.38", "manager1", "Pa$$w0rd")  # Provide appropriate hostname, username, and password
+        layout = QVBoxLayout(self)
+        layout.addWidget(self.ssh_widget)  # Add SSHWidget to layout
+        self.setObjectName(text.replace('-', '-'))
 
 if __name__ == '__main__':
     QApplication.setHighDpiScaleFactorRoundingPolicy(Qt.HighDpiScaleFactorRoundingPolicy.PassThrough)
     QApplication.setAttribute(Qt.AA_EnableHighDpiScaling)
     QApplication.setAttribute(Qt.AA_UseHighDpiPixmaps)
 
-    color = QColor('#351392')
-    setThemeColor(color ,Qt.GlobalColor , '') 
-    
     app = QApplication(sys.argv)
     w = MainWidget()
     w.show()
-    app.exec_()
+    sys.exit(app.exec_())
+

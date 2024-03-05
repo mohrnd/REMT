@@ -22,7 +22,7 @@ class Widget(QFrame):
         self.hBoxLayout.addWidget(self.label, 1, Qt.AlignCenter)
         self.setObjectName(text.replace('', '-'))
 
-class Widget1(QFrame):
+class SingleSSHwidget(QFrame):
 #SSH WIDGET 
     def __init__(self, text: str, parent=None):
         super().__init__(parent=parent)
@@ -39,7 +39,7 @@ class Window(FluentWindow):
         # create sub interface
         self.Dashboard = Widget('Dashboard', self)
         self.RemoteExecInt = Widget('RemoteExecInt', self)
-        self.SingleSSH = Widget1('Single Channel', self)
+        self.SingleSSH = SingleSSHwidget('Single Channel', self)
         self.MultiSSH = Widget('MultiSSH', self)
         self.Schedule = Widget('Schedule', self)
         self.Txteditor = Widget('Txteditor', self)
@@ -53,9 +53,6 @@ class Window(FluentWindow):
         self.ViewScanRES = Widget('ViewScanRES', self)
         self.Settings = Widget('Settings', self)
 
-        
-
-        
 
         self.initNavigation()
         self.initWindow()
@@ -85,10 +82,11 @@ class Window(FluentWindow):
 
 
     def initWindow(self):
-        self.resize(900, 700)
+        self.resize(1271, 972)
+        self.setFixedSize(self.size())
         self.setWindowIcon(QIcon(r'C:\Users\BALLS2 (rip BALLS)\Desktop\REST GUI\rest logo\black'))
         self.setWindowTitle('REMT')
-
+    
         desktop = QApplication.desktop().availableGeometry()
         w, h = desktop.width(), desktop.height()
         self.move(w//2 - self.width()//2, h//2 - self.height()//2)
