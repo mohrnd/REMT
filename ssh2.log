@@ -1,481 +1,0 @@
-2024-03-05 12:52:00,863 - Connected (version 2.0, client OpenSSH_8.7)
-2024-03-05 12:52:13,036 - Connected (version 2.0, client OpenSSH_8.7)
-2024-03-05 12:52:13,207 - Authentication (password) successful!
-2024-03-05 12:52:13,207 - SSH connection established to 192.168.69.38 by user BALLS2 (rip BALLS)
-2024-03-05 12:52:13,274 - Command output: Activate the web console with: systemctl enable --now cockpit.socket
-
-Last login: Tue Mar  5 08:45:47 2024 from 192.168.69.45
-
-2024-03-05 12:52:13,685 - Command output: 
-2024-03-05 12:52:13,686 - Command output: [manager1@rocky-linux ~]$ 
-2024-03-05 12:56:00,170 - Connected (version 2.0, client OpenSSH_8.7)
-2024-03-05 12:56:00,342 - Authentication (password) successful!
-2024-03-05 12:56:00,363 - SSH connection established to 192.168.69.38 by user BALLS2 (rip BALLS)
-2024-03-05 12:56:00,420 - Command output: Activate the web console with: systemctl enable --now cockpit.socket
-
-Last login: Tue Mar  5 12:52:13 2024 from 192.168.69.45
-
-2024-03-05 12:56:00,796 - Command output: 
-2024-03-05 12:56:00,797 - Command output: [manager1@rocky-linux ~]$ 
-2024-03-05 12:56:24,639 - Connected (version 2.0, client OpenSSH_8.7)
-2024-03-05 12:56:24,818 - Authentication (password) successful!
-2024-03-05 12:56:24,818 - SSH connection established to 192.168.69.38 by user BALLS2 (rip BALLS)
-2024-03-05 12:56:24,892 - Command output: Activate the web console with: systemctl enable --now cockpit.socket
-
-Last login: Tue Mar  5 12:56:00 2024 from 192.168.69.45
-
-2024-03-05 12:56:25,269 - Command output: [manager1@rocky-linux ~]$ 
-2024-03-05 13:03:42,813 - Connected (version 2.0, client OpenSSH_8.7)
-2024-03-05 13:03:42,985 - Authentication (password) successful!
-2024-03-05 13:03:42,985 - SSH connection established to 192.168.69.38 by user BALLS2 (rip BALLS)
-2024-03-05 13:03:43,063 - Command output: Activate the web console with: systemctl enable --now cockpit.socket
-
-Last login: Tue Mar  5 12:56:24 2024 from 192.168.69.45
-
-2024-03-05 13:03:43,084 - Connected (version 2.0, client OpenSSH_8.7)
-2024-03-05 13:03:43,158 - Command output: 
-2024-03-05 13:03:43,158 - Command output: [manager1@rocky-linux ~]$ 
-2024-03-05 13:03:43,256 - Authentication (password) successful!
-2024-03-05 13:03:43,257 - SSH connection established to 192.168.69.38 by user BALLS2 (rip BALLS)
-2024-03-05 13:03:43,331 - Command output: Activate the web console with: systemctl enable --now cockpit.socket
-
-Last login: Tue Mar  5 13:03:42 2024 from 192.168.69.45
-
-2024-03-05 13:03:43,346 - Connected (version 2.0, client OpenSSH_8.7)
-2024-03-05 13:03:43,391 - Command output: [manager1@rocky-linux ~]$ 
-2024-03-05 13:03:43,521 - Authentication (password) successful!
-2024-03-05 13:03:43,521 - SSH connection established to 192.168.69.38 by user BALLS2 (rip BALLS)
-2024-03-05 13:03:43,584 - Command output: Activate the web console with: systemctl enable --now cockpit.socket
-
-Last login: Tue Mar  5 13:03:43 2024 from 192.168.69.45
-
-2024-03-05 13:03:43,598 - Connected (version 2.0, client OpenSSH_8.7)
-2024-03-05 13:03:43,646 - Command output: [manager1@rocky-linux ~]$ 
-2024-03-05 13:03:43,778 - Authentication (password) successful!
-2024-03-05 13:03:43,778 - SSH connection established to 192.168.69.38 by user BALLS2 (rip BALLS)
-2024-03-05 13:03:43,853 - Command output: Activate the web console with: systemctl enable --now cockpit.socket
-
-Last login: Tue Mar  5 13:03:43 2024 from 192.168.69.45
-
-2024-03-05 13:03:43,865 - Connected (version 2.0, client OpenSSH_8.7)
-2024-03-05 13:03:43,912 - Command output: [manager1@rocky-linux ~]$ 
-2024-03-05 13:03:44,042 - Authentication (password) successful!
-2024-03-05 13:03:44,042 - SSH connection established to 192.168.69.38 by user BALLS2 (rip BALLS)
-2024-03-05 13:03:44,104 - Command output: Activate the web console with: systemctl enable --now cockpit.socket
-
-Last login: Tue Mar  5 13:03:43 2024 from 192.168.69.45
-
-2024-03-05 13:03:44,118 - Connected (version 2.0, client OpenSSH_8.7)
-2024-03-05 13:03:44,167 - Command output: 
-2024-03-05 13:03:44,167 - Command output: [manager1@rocky-linux ~]$ 
-2024-03-05 13:03:44,320 - Authentication (password) successful!
-2024-03-05 13:03:44,320 - SSH connection established to 192.168.69.38 by user BALLS2 (rip BALLS)
-2024-03-05 13:03:44,392 - Command output: Activate the web console with: systemctl enable --now cockpit.socket
-
-Last login: Tue Mar  5 13:03:44 2024 from 192.168.69.45
-
-2024-03-05 13:03:44,405 - Connected (version 2.0, client OpenSSH_8.7)
-2024-03-05 13:03:44,450 - Command output: [manager1@rocky-linux ~]$ 
-2024-03-05 13:03:44,618 - Authentication (password) successful!
-2024-03-05 13:03:44,618 - SSH connection established to 192.168.69.38 by user BALLS2 (rip BALLS)
-2024-03-05 13:03:44,690 - Command output: Activate the web console with: systemctl enable --now cockpit.socket
-
-Last login: Tue Mar  5 13:03:44 2024 from 192.168.69.45
-
-2024-03-05 13:03:44,702 - Connected (version 2.0, client OpenSSH_8.7)
-2024-03-05 13:03:44,748 - Command output: [manager1@rocky-linux ~]$ 
-2024-03-05 13:03:44,874 - Authentication (password) successful!
-2024-03-05 13:03:44,874 - SSH connection established to 192.168.69.38 by user BALLS2 (rip BALLS)
-2024-03-05 13:03:44,944 - Command output: Activate the web console with: systemctl enable --now cockpit.socket
-
-Last login: Tue Mar  5 13:03:44 2024 from 192.168.69.45
-
-2024-03-05 13:03:44,958 - Connected (version 2.0, client OpenSSH_8.7)
-2024-03-05 13:03:45,000 - Command output: [manager1@rocky-linux ~]$ 
-2024-03-05 13:03:45,129 - Authentication (password) successful!
-2024-03-05 13:03:45,129 - SSH connection established to 192.168.69.38 by user BALLS2 (rip BALLS)
-2024-03-05 13:03:45,200 - Command output: Activate the web console with: systemctl enable --now cockpit.socket
-
-Last login: Tue Mar  5 13:03:44 2024 from 192.168.69.45
-
-2024-03-05 13:03:45,213 - Connected (version 2.0, client OpenSSH_8.7)
-2024-03-05 13:03:45,256 - Command output: [manager1@rocky-linux ~]$ 
-2024-03-05 13:03:45,407 - Authentication (password) successful!
-2024-03-05 13:03:45,407 - SSH connection established to 192.168.69.38 by user BALLS2 (rip BALLS)
-2024-03-05 13:03:45,482 - Command output: Activate the web console with: systemctl enable --now cockpit.socket
-
-Last login: Tue Mar  5 13:03:45 2024 from 192.168.69.45
-
-2024-03-05 13:03:45,503 - Connected (version 2.0, client OpenSSH_8.7)
-2024-03-05 13:03:45,699 - Authentication (password) successful!
-2024-03-05 13:03:45,699 - SSH connection established to 192.168.69.38 by user BALLS2 (rip BALLS)
-2024-03-05 13:03:45,778 - Command output: Activate the web console with: systemctl enable --now cockpit.socket
-
-Last login: Tue Mar  5 13:03:45 2024 from 192.168.69.45
-
-2024-03-05 13:03:45,812 - Connected (version 2.0, client OpenSSH_8.7)
-2024-03-05 13:03:45,827 - Command output: [manager1@rocky-linux ~]$ 
-2024-03-05 13:03:45,898 - Command output: [manager1@rocky-linux ~]$ 
-2024-03-05 13:03:45,989 - Authentication (password) successful!
-2024-03-05 13:03:45,989 - SSH connection established to 192.168.69.38 by user BALLS2 (rip BALLS)
-2024-03-05 13:03:46,061 - Command output: Activate the web console with: systemctl enable --now cockpit.socket
-
-Last login: Tue Mar  5 13:03:45 2024 from 192.168.69.45
-
-2024-03-05 13:03:46,076 - Connected (version 2.0, client OpenSSH_8.7)
-2024-03-05 13:03:46,250 - Authentication (password) successful!
-2024-03-05 13:03:46,250 - SSH connection established to 192.168.69.38 by user BALLS2 (rip BALLS)
-2024-03-05 13:03:46,363 - Command output: Activate the web console with: systemctl enable --now cockpit.socket
-
-Last login: Tue Mar  5 13:03:45 2024 from 192.168.69.45
-
-2024-03-05 13:03:46,443 - Connected (version 2.0, client OpenSSH_8.7)
-2024-03-05 13:03:46,579 - Command output: [manager1@rocky-linux ~]$ 
-2024-03-05 13:03:46,579 - Command output: [manager1@rocky-linux ~]$ 
-2024-03-05 13:03:46,619 - Authentication (password) successful!
-2024-03-05 13:03:46,619 - SSH connection established to 192.168.69.38 by user BALLS2 (rip BALLS)
-2024-03-05 13:03:46,694 - Command output: Activate the web console with: systemctl enable --now cockpit.socket
-
-Last login: Tue Mar  5 13:03:46 2024 from 192.168.69.45
-
-2024-03-05 13:03:46,707 - Connected (version 2.0, client OpenSSH_8.7)
-2024-03-05 13:03:46,755 - Command output: [manager1@rocky-linux ~]$ 
-2024-03-05 13:03:46,887 - Authentication (password) successful!
-2024-03-05 13:03:46,887 - SSH connection established to 192.168.69.38 by user BALLS2 (rip BALLS)
-2024-03-05 13:03:46,964 - Command output: Activate the web console with: systemctl enable --now cockpit.socket
-
-Last login: Tue Mar  5 13:03:46 2024 from 192.168.69.45
-
-2024-03-05 13:03:47,389 - Command output: 
-2024-03-05 13:03:47,389 - Command output: [manager1@rocky-linux ~]$ 
-2024-03-05 13:04:43,416 - Connected (version 2.0, client OpenSSH_8.7)
-2024-03-05 13:04:43,589 - Authentication (password) successful!
-2024-03-05 13:04:43,589 - SSH connection established to 192.168.69.38 by user BALLS2 (rip BALLS)
-2024-03-05 13:04:43,686 - Command output: Activate the web console with: systemctl enable --now cockpit.socket
-
-Last login: Tue Mar  5 13:03:46 2024 from 192.168.69.45
-
-2024-03-05 13:04:51,960 - Connected (version 2.0, client OpenSSH_8.7)
-2024-03-05 13:04:52,133 - Authentication (password) successful!
-2024-03-05 13:04:52,133 - SSH connection established to 192.168.69.38 by user BALLS2 (rip BALLS)
-2024-03-05 13:04:52,213 - Command output: Activate the web console with: systemctl enable --now cockpit.socket
-
-Last login: Tue Mar  5 13:04:43 2024 from 192.168.69.45
-
-2024-03-05 13:04:52,233 - Connected (version 2.0, client OpenSSH_8.7)
-2024-03-05 13:04:52,354 - Command output: [manager1@rocky-linux ~]$ 
-2024-03-05 13:04:52,406 - Authentication (password) successful!
-2024-03-05 13:04:52,407 - SSH connection established to 192.168.69.38 by user BALLS2 (rip BALLS)
-2024-03-05 13:04:52,479 - Command output: Activate the web console with: systemctl enable --now cockpit.socket
-
-Last login: Tue Mar  5 13:04:52 2024 from 192.168.69.45
-
-2024-03-05 13:04:52,493 - Connected (version 2.0, client OpenSSH_8.7)
-2024-03-05 13:04:52,544 - Command output: [manager1@rocky-linux ~]$ 
-2024-03-05 13:04:52,674 - Authentication (password) successful!
-2024-03-05 13:04:52,674 - SSH connection established to 192.168.69.38 by user BALLS2 (rip BALLS)
-2024-03-05 13:04:52,747 - Command output: Activate the web console with: systemctl enable --now cockpit.socket
-
-Last login: Tue Mar  5 13:04:52 2024 from 192.168.69.45
-
-2024-03-05 13:04:52,765 - Connected (version 2.0, client OpenSSH_8.7)
-2024-03-05 13:04:52,808 - Command output: 
-2024-03-05 13:04:52,808 - Command output: [manager1@rocky-linux ~]$ 
-2024-03-05 13:04:52,943 - Authentication (password) successful!
-2024-03-05 13:04:52,943 - SSH connection established to 192.168.69.38 by user BALLS2 (rip BALLS)
-2024-03-05 13:04:53,015 - Command output: Activate the web console with: systemctl enable --now cockpit.socket
-
-Last login: Tue Mar  5 13:04:52 2024 from 192.168.69.45
-
-2024-03-05 13:04:53,031 - Connected (version 2.0, client OpenSSH_8.7)
-2024-03-05 13:04:53,076 - Command output: [manager1@rocky-linux ~]$ 
-2024-03-05 13:04:53,208 - Authentication (password) successful!
-2024-03-05 13:04:53,208 - SSH connection established to 192.168.69.38 by user BALLS2 (rip BALLS)
-2024-03-05 13:04:53,285 - Command output: Activate the web console with: systemctl enable --now cockpit.socket
-
-Last login: Tue Mar  5 13:04:52 2024 from 192.168.69.45
-
-2024-03-05 13:04:53,297 - Connected (version 2.0, client OpenSSH_8.7)
-2024-03-05 13:04:53,338 - Command output: [manager1@rocky-linux ~]$ 
-2024-03-05 13:04:53,488 - Authentication (password) successful!
-2024-03-05 13:04:53,488 - SSH connection established to 192.168.69.38 by user BALLS2 (rip BALLS)
-2024-03-05 13:04:53,568 - Command output: Activate the web console with: systemctl enable --now cockpit.socket
-
-Last login: Tue Mar  5 13:04:53 2024 from 192.168.69.45
-
-2024-03-05 13:04:53,587 - Connected (version 2.0, client OpenSSH_8.7)
-2024-03-05 13:04:53,628 - Command output: [manager1@rocky-linux ~]$ 
-2024-03-05 13:04:53,772 - Authentication (password) successful!
-2024-03-05 13:04:53,772 - SSH connection established to 192.168.69.38 by user BALLS2 (rip BALLS)
-2024-03-05 13:04:53,850 - Command output: Activate the web console with: systemctl enable --now cockpit.socket
-
-Last login: Tue Mar  5 13:04:53 2024 from 192.168.69.45
-
-2024-03-05 13:04:53,866 - Connected (version 2.0, client OpenSSH_8.7)
-2024-03-05 13:04:53,938 - Command output: [manager1@rocky-linux ~]$ 
-2024-03-05 13:04:54,044 - Authentication (password) successful!
-2024-03-05 13:04:54,044 - SSH connection established to 192.168.69.38 by user BALLS2 (rip BALLS)
-2024-03-05 13:04:54,122 - Command output: Activate the web console with: systemctl enable --now cockpit.socket
-
-Last login: Tue Mar  5 13:04:53 2024 from 192.168.69.45
-
-2024-03-05 13:04:54,142 - Connected (version 2.0, client OpenSSH_8.7)
-2024-03-05 13:04:54,186 - Command output: [manager1@rocky-linux ~]$ 
-2024-03-05 13:05:08,762 - Connected (version 2.0, client OpenSSH_8.7)
-2024-03-05 13:05:08,953 - Authentication (password) successful!
-2024-03-05 13:05:08,953 - SSH connection established to 192.168.69.38 by user BALLS2 (rip BALLS)
-2024-03-05 13:05:09,030 - Command output: Activate the web console with: systemctl enable --now cockpit.socket
-
-Last login: Tue Mar  5 13:04:54 2024 from 192.168.69.45
-
-2024-03-05 13:05:36,819 - Connected (version 2.0, client OpenSSH_8.7)
-2024-03-05 13:05:36,994 - Authentication (password) successful!
-2024-03-05 13:05:36,994 - SSH connection established to 192.168.69.38 by user BALLS2 (rip BALLS)
-2024-03-05 13:05:37,069 - Command output: Activate the web console with: systemctl enable --now cockpit.socket
-
-Last login: Tue Mar  5 13:05:08 2024 from 192.168.69.45
-
-2024-03-05 13:05:37,082 - Connected (version 2.0, client OpenSSH_8.7)
-2024-03-05 13:05:37,131 - Command output: [manager1@rocky-linux ~]$ 
-2024-03-05 13:05:37,261 - Authentication (password) successful!
-2024-03-05 13:05:37,261 - SSH connection established to 192.168.69.38 by user BALLS2 (rip BALLS)
-2024-03-05 13:05:37,333 - Command output: Activate the web console with: systemctl enable --now cockpit.socket
-
-Last login: Tue Mar  5 13:05:36 2024 from 192.168.69.45
-
-2024-03-05 13:05:37,345 - Connected (version 2.0, client OpenSSH_8.7)
-2024-03-05 13:05:37,393 - Command output: [manager1@rocky-linux ~]$ 
-2024-03-05 13:05:37,526 - Authentication (password) successful!
-2024-03-05 13:05:37,526 - SSH connection established to 192.168.69.38 by user BALLS2 (rip BALLS)
-2024-03-05 13:05:37,599 - Command output: Activate the web console with: systemctl enable --now cockpit.socket
-
-Last login: Tue Mar  5 13:05:37 2024 from 192.168.69.45
-
-2024-03-05 13:05:37,610 - Connected (version 2.0, client OpenSSH_8.7)
-2024-03-05 13:05:37,653 - Command output: 
-2024-03-05 13:05:37,653 - Command output: [manager1@rocky-linux ~]$ 
-2024-03-05 13:05:37,793 - Authentication (password) successful!
-2024-03-05 13:05:37,793 - SSH connection established to 192.168.69.38 by user BALLS2 (rip BALLS)
-2024-03-05 13:05:37,862 - Command output: Activate the web console with: systemctl enable --now cockpit.socket
-
-Last login: Tue Mar  5 13:05:37 2024 from 192.168.69.45
-
-2024-03-05 13:05:37,876 - Connected (version 2.0, client OpenSSH_8.7)
-2024-03-05 13:05:37,928 - Command output: [manager1@rocky-linux ~]$ 
-2024-03-05 13:05:38,055 - Authentication (password) successful!
-2024-03-05 13:05:38,055 - SSH connection established to 192.168.69.38 by user BALLS2 (rip BALLS)
-2024-03-05 13:05:38,134 - Command output: Activate the web console with: systemctl enable --now cockpit.socket
-
-Last login: Tue Mar  5 13:05:37 2024 from 192.168.69.45
-
-2024-03-05 13:05:38,157 - Connected (version 2.0, client OpenSSH_8.7)
-2024-03-05 13:05:38,206 - Command output: 
-2024-03-05 13:05:38,206 - Command output: [manager1@rocky-linux ~]$ 
-2024-03-05 13:05:38,329 - Authentication (password) successful!
-2024-03-05 13:05:38,330 - SSH connection established to 192.168.69.38 by user BALLS2 (rip BALLS)
-2024-03-05 13:05:38,398 - Command output: Activate the web console with: systemctl enable --now cockpit.socket
-
-Last login: Tue Mar  5 13:05:38 2024 from 192.168.69.45
-
-2024-03-05 13:05:38,411 - Connected (version 2.0, client OpenSSH_8.7)
-2024-03-05 13:05:38,459 - Command output: 
-2024-03-05 13:05:38,460 - Command output: [manager1@rocky-linux ~]$ 
-2024-03-05 13:05:38,586 - Authentication (password) successful!
-2024-03-05 13:05:38,586 - SSH connection established to 192.168.69.38 by user BALLS2 (rip BALLS)
-2024-03-05 13:05:38,649 - Command output: Activate the web console with: systemctl enable --now cockpit.socket
-
-Last login: Tue Mar  5 13:05:38 2024 from 192.168.69.45
-
-2024-03-05 13:05:38,663 - Connected (version 2.0, client OpenSSH_8.7)
-2024-03-05 13:05:38,711 - Command output: [manager1@rocky-linux ~]$ 
-2024-03-05 13:05:38,838 - Authentication (password) successful!
-2024-03-05 13:05:38,838 - SSH connection established to 192.168.69.38 by user BALLS2 (rip BALLS)
-2024-03-05 13:05:38,901 - Command output: Activate the web console with: systemctl enable --now cockpit.socket
-
-Last login: Tue Mar  5 13:05:38 2024 from 192.168.69.45
-
-2024-03-05 13:05:38,912 - Connected (version 2.0, client OpenSSH_8.7)
-2024-03-05 13:05:38,957 - Command output: [manager1@rocky-linux ~]$ 
-2024-03-05 13:05:39,089 - Authentication (password) successful!
-2024-03-05 13:05:39,089 - SSH connection established to 192.168.69.38 by user BALLS2 (rip BALLS)
-2024-03-05 13:05:39,154 - Command output: Activate the web console with: systemctl enable --now cockpit.socket
-
-Last login: Tue Mar  5 13:05:38 2024 from 192.168.69.45
-
-2024-03-05 13:05:39,166 - Connected (version 2.0, client OpenSSH_8.7)
-2024-03-05 13:05:39,218 - Command output: [manager1@rocky-linux ~]$ 
-2024-03-05 13:05:39,345 - Authentication (password) successful!
-2024-03-05 13:05:39,345 - SSH connection established to 192.168.69.38 by user BALLS2 (rip BALLS)
-2024-03-05 13:05:39,421 - Command output: Activate the web console with: systemctl enable --now cockpit.socket
-
-Last login: Tue Mar  5 13:05:39 2024 from 192.168.69.45
-
-2024-03-05 13:05:39,433 - Connected (version 2.0, client OpenSSH_8.7)
-2024-03-05 13:05:39,523 - Command output: [manager1@rocky-linux ~]$ 
-2024-03-05 13:05:39,626 - Authentication (password) successful!
-2024-03-05 13:05:39,626 - SSH connection established to 192.168.69.38 by user BALLS2 (rip BALLS)
-2024-03-05 13:05:39,694 - Command output: Activate the web console with: systemctl enable --now cockpit.socket
-
-Last login: Tue Mar  5 13:05:39 2024 from 192.168.69.45
-
-2024-03-05 13:05:39,709 - Connected (version 2.0, client OpenSSH_8.7)
-2024-03-05 13:05:39,766 - Command output: 
-2024-03-05 13:05:39,767 - Command output: [manager1@rocky-linux ~]$ 
-2024-03-05 13:05:43,166 - Connected (version 2.0, client OpenSSH_8.7)
-2024-03-05 13:05:43,340 - Authentication (password) successful!
-2024-03-05 13:05:43,340 - SSH connection established to 192.168.69.38 by user BALLS2 (rip BALLS)
-2024-03-05 13:05:43,412 - Command output: Activate the web console with: systemctl enable --now cockpit.socket
-
-Last login: Tue Mar  5 13:05:39 2024 from 192.168.69.45
-
-2024-03-05 13:05:43,423 - Connected (version 2.0, client OpenSSH_8.7)
-2024-03-05 13:05:43,467 - Command output: [manager1@rocky-linux ~]$ 
-2024-03-05 13:05:43,599 - Authentication (password) successful!
-2024-03-05 13:05:43,599 - SSH connection established to 192.168.69.38 by user BALLS2 (rip BALLS)
-2024-03-05 13:05:43,678 - Command output: Activate the web console with: systemctl enable --now cockpit.socket
-
-Last login: Tue Mar  5 13:05:43 2024 from 192.168.69.45
-
-2024-03-05 13:05:43,688 - Connected (version 2.0, client OpenSSH_8.7)
-2024-03-05 13:05:43,726 - Command output: [manager1@rocky-linux ~]$ 
-2024-03-05 13:05:43,869 - Authentication (password) successful!
-2024-03-05 13:05:43,870 - SSH connection established to 192.168.69.38 by user BALLS2 (rip BALLS)
-2024-03-05 13:05:43,947 - Command output: Activate the web console with: systemctl enable --now cockpit.socket
-
-Last login: Tue Mar  5 13:05:43 2024 from 192.168.69.45
-
-2024-03-05 13:05:43,966 - Connected (version 2.0, client OpenSSH_8.7)
-2024-03-05 13:05:44,013 - Command output: [manager1@rocky-linux ~]$ 
-2024-03-05 13:05:44,144 - Authentication (password) successful!
-2024-03-05 13:05:44,144 - SSH connection established to 192.168.69.38 by user BALLS2 (rip BALLS)
-2024-03-05 13:05:44,215 - Command output: Activate the web console with: systemctl enable --now cockpit.socket
-
-Last login: Tue Mar  5 13:05:43 2024 from 192.168.69.45
-
-2024-03-05 13:05:44,227 - Connected (version 2.0, client OpenSSH_8.7)
-2024-03-05 13:05:44,275 - Command output: 
-2024-03-05 13:05:44,276 - Command output: [manager1@rocky-linux ~]$ 
-2024-03-05 13:05:44,410 - Authentication (password) successful!
-2024-03-05 13:05:44,410 - SSH connection established to 192.168.69.38 by user BALLS2 (rip BALLS)
-2024-03-05 13:05:44,482 - Command output: Activate the web console with: systemctl enable --now cockpit.socket
-
-Last login: Tue Mar  5 13:05:44 2024 from 192.168.69.45
-
-2024-03-05 13:05:44,494 - Connected (version 2.0, client OpenSSH_8.7)
-2024-03-05 13:05:44,541 - Command output: [manager1@rocky-linux ~]$ 
-2024-03-05 13:05:44,674 - Authentication (password) successful!
-2024-03-05 13:05:44,674 - SSH connection established to 192.168.69.38 by user BALLS2 (rip BALLS)
-2024-03-05 13:05:44,751 - Command output: Activate the web console with: systemctl enable --now cockpit.socket
-
-Last login: Tue Mar  5 13:05:44 2024 from 192.168.69.45
-
-2024-03-05 13:05:44,763 - Connected (version 2.0, client OpenSSH_8.7)
-2024-03-05 13:05:44,817 - Command output: [manager1@rocky-linux ~]$ 
-2024-03-05 13:05:44,969 - Authentication (password) successful!
-2024-03-05 13:05:44,969 - SSH connection established to 192.168.69.38 by user BALLS2 (rip BALLS)
-2024-03-05 13:05:45,036 - Command output: Activate the web console with: systemctl enable --now cockpit.socket
-
-Last login: Tue Mar  5 13:05:44 2024 from 192.168.69.45
-
-2024-03-05 13:05:45,046 - Connected (version 2.0, client OpenSSH_8.7)
-2024-03-05 13:05:45,090 - Command output: [manager1@rocky-linux ~]$ 
-2024-03-05 13:05:45,222 - Authentication (password) successful!
-2024-03-05 13:05:45,222 - SSH connection established to 192.168.69.38 by user BALLS2 (rip BALLS)
-2024-03-05 13:05:45,301 - Command output: Activate the web console with: systemctl enable --now cockpit.socket
-
-Last login: Tue Mar  5 13:05:44 2024 from 192.168.69.45
-
-2024-03-05 13:05:45,318 - Connected (version 2.0, client OpenSSH_8.7)
-2024-03-05 13:05:45,354 - Command output: [manager1@rocky-linux ~]$ 
-2024-03-05 13:05:45,510 - Authentication (password) successful!
-2024-03-05 13:05:45,510 - SSH connection established to 192.168.69.38 by user BALLS2 (rip BALLS)
-2024-03-05 13:05:45,585 - Command output: Activate the web console with: systemctl enable --now cockpit.socket
-
-Last login: Tue Mar  5 13:05:45 2024 from 192.168.69.45
-
-2024-03-05 13:05:45,596 - Connected (version 2.0, client OpenSSH_8.7)
-2024-03-05 13:05:45,639 - Command output: [manager1@rocky-linux ~]$ 
-2024-03-05 13:05:45,769 - Authentication (password) successful!
-2024-03-05 13:05:45,769 - SSH connection established to 192.168.69.38 by user BALLS2 (rip BALLS)
-2024-03-05 13:05:45,840 - Command output: Activate the web console with: systemctl enable --now cockpit.socket
-
-Last login: Tue Mar  5 13:05:45 2024 from 192.168.69.45
-
-2024-03-05 13:05:45,853 - Connected (version 2.0, client OpenSSH_8.7)
-2024-03-05 13:05:45,895 - Command output: [manager1@rocky-linux ~]$ 
-2024-03-05 13:05:46,048 - Authentication (password) successful!
-2024-03-05 13:06:22,933 - Connected (version 2.0, client OpenSSH_8.7)
-2024-03-05 13:06:23,105 - Authentication (password) successful!
-2024-03-05 13:06:23,105 - SSH connection established to 192.168.69.38 by user BALLS2 (rip BALLS)
-2024-03-05 13:06:23,183 - Command output: Activate the web console with: systemctl enable --now cockpit.socket
-
-Last login: Tue Mar  5 13:05:45 2024 from 192.168.69.45
-
-2024-03-05 13:06:23,551 - Command output: [manager1@rocky-linux ~]$ 
-2024-03-05 13:06:35,787 - Connected (version 2.0, client OpenSSH_8.7)
-2024-03-05 13:06:35,978 - Authentication (password) successful!
-2024-03-05 13:06:35,978 - SSH connection established to 192.168.69.38 by user BALLS2 (rip BALLS)
-2024-03-05 13:06:36,056 - Command output: Activate the web console with: systemctl enable --now cockpit.socket
-
-Last login: Tue Mar  5 13:06:23 2024 from 192.168.69.45
-
-2024-03-05 13:06:36,150 - Command output: [manager1@rocky-linux ~]$ 
-2024-03-05 13:07:52,049 - Connected (version 2.0, client OpenSSH_8.7)
-2024-03-05 13:07:52,221 - Authentication (password) successful!
-2024-03-05 13:07:52,221 - SSH connection established to 192.168.69.38 by user BALLS2 (rip BALLS)
-2024-03-05 13:07:52,297 - Command output: Activate the web console with: systemctl enable --now cockpit.socket
-
-Last login: Tue Mar  5 13:06:35 2024 from 192.168.69.45
-
-2024-03-05 13:07:52,666 - Command output: [manager1@rocky-linux ~]$ 
-2024-03-05 13:08:43,753 - Connected (version 2.0, client OpenSSH_8.7)
-2024-03-05 13:08:43,944 - Authentication (password) successful!
-2024-03-05 13:08:43,945 - SSH connection established to 192.168.69.38 by user BALLS2 (rip BALLS)
-2024-03-05 13:08:44,015 - Command output: Activate the web console with: systemctl enable --now cockpit.socket
-
-Last login: Tue Mar  5 13:07:52 2024 from 192.168.69.45
-
-2024-03-05 13:11:43,486 - Connected (version 2.0, client OpenSSH_8.7)
-2024-03-05 13:11:43,657 - Authentication (password) successful!
-2024-03-05 13:11:43,657 - SSH connection established to 192.168.69.38 by user BALLS2 (rip BALLS)
-2024-03-05 13:11:43,729 - Command output: Activate the web console with: systemctl enable --now cockpit.socket
-
-Last login: Tue Mar  5 13:08:43 2024 from 192.168.69.45
-
-2024-03-05 13:12:44,389 - Connected (version 2.0, client OpenSSH_8.7)
-2024-03-05 13:12:44,566 - Authentication (password) successful!
-2024-03-05 13:12:44,566 - SSH connection established to 192.168.69.38 by user BALLS2 (rip BALLS)
-2024-03-05 13:12:44,650 - Command output: Activate the web console with: systemctl enable --now cockpit.socket
-
-Last login: Tue Mar  5 13:11:43 2024 from 192.168.69.45
-
-2024-03-05 13:13:41,733 - Connected (version 2.0, client OpenSSH_8.7)
-2024-03-05 13:13:41,903 - Authentication (password) successful!
-2024-03-05 13:13:41,903 - SSH connection established to 192.168.69.38 by user BALLS2 (rip BALLS)
-2024-03-05 13:13:41,971 - Command output: Activate the web console with: systemctl enable --now cockpit.socket
-
-Last login: Tue Mar  5 13:12:44 2024 from 192.168.69.45
-
-2024-03-05 13:13:42,334 - Command output: [manager1@rocky-linux ~]$ 
-2024-03-05 13:13:51,056 - Command output: ls 
-
-2024-03-05 13:13:51,059 - Command output: Desktop  Documents  Downloads  Music  Pictures  Public  Templates  Videos
-
-2024-03-05 13:13:51,060 - Command output: [manager1@rocky-linux ~]$ 
-2024-03-05 13:14:20,482 - Connected (version 2.0, client OpenSSH_8.7)
-2024-03-05 13:14:20,659 - Authentication (password) successful!
-2024-03-05 13:14:20,659 - SSH connection established to 192.168.69.38 by user BALLS2 (rip BALLS)
-2024-03-05 13:14:20,740 - Command output: Activate the web console with: systemctl enable --now cockpit.socket
-
-Last login: Tue Mar  5 13:13:41 2024 from 192.168.69.45
-
-2024-03-05 13:14:21,123 - Command output: 
-2024-03-05 13:14:21,126 - Command output: [manager1@rocky-linux ~]$ 
-2024-03-05 13:16:09,125 - Connected (version 2.0, client OpenSSH_8.7)
-2024-03-05 13:16:09,296 - Authentication (password) successful!
-2024-03-05 13:16:09,296 - SSH connection established to 192.168.69.38 by user BALLS2 (rip BALLS)
-2024-03-05 13:16:09,370 - Command output: Activate the web console with: systemctl enable --now cockpit.socket
-
-Last login: Tue Mar  5 13:14:20 2024 from 192.168.69.45
-
-2024-03-05 13:16:09,718 - Command output: [manager1@rocky-linux ~]$ 
