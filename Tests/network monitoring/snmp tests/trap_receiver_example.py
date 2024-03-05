@@ -128,5 +128,6 @@ except:
 
 '''
 snmptrap -v 3 -l authPriv -u roadmin -a SHA -A admin123 -x AES -X admin123 -e 0x80001f8880ad8ba63fe904de6500000000 192.168.69.45:162 '' 1.3.6.1.4.1.8072.9999.9999 1.3.6.1.4.1.8072.9999.9999 s "gang shit"
-
+!!!!!!!!!!!!! running external commands (exec, extend, pass) !!!!!!!!!!!!!
+http://www.net-snmp.org/docs/man/snmpd.conf.html#lbAX
 '''

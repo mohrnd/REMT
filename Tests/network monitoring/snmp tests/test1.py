@@ -1,9 +1,12 @@
 from pysnmp.hlapi import *
 
+
+# FETCH UPTIME
+
 # SNMPv3 parameters
 snmp_engine = SnmpEngine()
 security = UsmUserData('roadmin', 'admin123', 'admin123', authProtocol=usmHMACSHAAuthProtocol, privProtocol=usmAesCfb128Protocol)
-ip_address = '192.168.69.40'
+ip_address = '192.168.69.38'
 # Target parameters
 target_address = UdpTransportTarget((ip_address, 161))
 
@@ -21,4 +24,11 @@ else:
             sys_uptime_hundredths = int(var_bind[1])
             sys_uptime_seconds = sys_uptime_hundredths // 100
             sys_uptime_minutes = sys_uptime_seconds // 60
-            print(f"{ip_address}'s Uptime: {sys_uptime_minutes} minutes")
+            sys_uptime_hours = sys_uptime_minutes // 60
+            sys_uptime_days = sys_uptime_hours // 24
+            if sys_uptime_minutes <= 60:
+                print(f"{ip_address}'s Uptime: {sys_uptime_minutes} minutes")
+            elif sys_uptime_minutes >= 60:
+                print(f"{ip_address}'s Uptime: {sys_uptime_hours} Hours")
+            elif sys_uptime_hours >= 24:
+                print(f"{ip_address}'s Uptime: {sys_uptime_days} Days")
