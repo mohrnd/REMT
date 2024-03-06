@@ -49,49 +49,12 @@ class SetupScriptGenerator(QWidget):
         aes_password = self.aes_input.text()
         ip = self.ip.text()
 
-        setup_script_content = f'''#!/bin/bash
-#turn into an executable with: chmod +x setup.sh
-#run as root
+        with open(r'C:\Users\BALLS2 (rip BALLS)\Desktop\REMT\Tests\network monitoring\snmp tests\snmp_agent_conf_template.txt', 'r') as file:
+            setup_script_content = file.read()
 
-echo "Installing net-snmp RPMs..."
-yum install -y net-snmp net-snmp-libs net-snmp-utils net-snmp-agent-libs
+        setup_script_content = setup_script_content.format(community_string=community_string, username=username, sha_password=sha_password, aes_password=aes_password, ip=ip)
 
-rm -rf  /etc/snmp/snmpd.conf
-touch /etc/snmp/snmpd.conf
-
-systemctl stop snmpd
-
-echo "Setting up..."
-echo "com2sec notConfigUser  default       {community_string}" >> /etc/snmp/snmpd.conf
-echo "group   notConfigGroup v1           notConfigUser" >> /etc/snmp/snmpd.conf
-echo "group   notConfigGroup v2c           notConfigUser" >> /etc/snmp/snmpd.conf
-echo "view    systemview    included   .1.3.6.1.2.1.1" >> /etc/snmp/snmpd.conf
-echo "view    systemview    included   .1.3.6.1.2.1.25.1.1" >> /etc/snmp/snmpd.conf
-echo "access  notConfigGroup \"\"      any       noauth    exact  systemview none none" >> /etc/snmp/snmpd.conf
-echo "syslocation " >> /etc/snmp/snmpd.conf #can be removed
-echo "syscontact " >> /etc/snmp/snmpd.conf
-echo "dontLogTCPWrappersConnects yes" >> /etc/snmp/snmpd.conf
-echo "createUser {username} SHA {sha_password} AES {aes_password}" >> /etc/snmp/snmpd.conf
-echo "rouser {username} authpriv system" >> /etc/snmp/snmpd.conf
-echo "informsink {ip} {community_string}" >> /etc/snmp/snmpd.conf
-echo "authtrapenable 2" >> /etc/snmp/snmpd.conf
-echo "agentSecName {username}" >> /etc/snmp/snmpd.conf
-echo "defaultMonitors yes" >> /etc/snmp/snmpd.conf
-
-echo "Enabling and starting snmpd service..."
-systemctl enable snmpd
-systemctl start snmpd
-systemctl restart snmpd
-
-echo "Setting up the firewall..."
-firewall-cmd --add-service=snmp --permanent
-firewall-cmd --zone=public --add-port=161/udp --permanent
-firewall-cmd --zone=public --add-port=162/udp --permanent
-firewall-cmd --reload
-
-echo "SNMP configuration completed."
-'''
-        with open('setup.sh', 'w') as file:
+        with open('setup_2.sh', 'w') as file:
             file.write(setup_script_content.format(community_string=community_string, username=username, sha_password=sha_password, aes_password=aes_password))
 
         sys.exit("Setup script generated successfully!")
