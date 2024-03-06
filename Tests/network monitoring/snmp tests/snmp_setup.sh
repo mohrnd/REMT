@@ -54,3 +54,17 @@ Below is the /etc/snmp/snmpd.conf file with snmp v1 and v2 disabled
  createUser roadmin SHA admin123 AES admin123
  rouser roadmin authpriv system
  mkdir /etc/remt
+
+
+# the following config works (somewhat)
+createUser roadmin SHA admin123 AES admin123
+authuser   read -s usm roadmin noauth  .1
+rouser roadmin
+disk / 10%
+disk /var/log 10%
+iquerySecName roadmin
+trapsess -v 3 -l authPriv -u roadmin 192.168.69.45
+authtrapenable 2
+monitor -r 10 -u roadmin -I "VM CPU Load Too High" hrProcessorLoad > 1
+monitor -r 10 -u roadmin -I "VM RAM Usage Too High" hrStorageUsed.1 > 4194304
+monitor -r 10 -u roadmin -I "Folder HDD Space Low" dskErrorFlag != 0
