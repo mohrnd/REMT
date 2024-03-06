@@ -16,10 +16,10 @@ def run_ssh_command(hostname, username, password, command):
         # Close the SSH connection
         ssh.close()
         
-hostname = "192.168.69.41"
-username = "server1"
+hostname = "192.168.69.40"
+username = "manager1"
 password = "Pa$$w0rd"
-command_to_run = "ip a" 
+command_to_run = "sudo dnf update" 
 
 
 run_ssh_command(hostname, username, password, command_to_run)

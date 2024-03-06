@@ -43,3 +43,13 @@ firewall-cmd --reload
 
 echo "SNMP configuration completed."
 
+Below is the /etc/snmp/snmpd.conf file with snmp v1 and v2 disabled
+
+ view    systemview    included   .1.3.6.1.2.1.1
+ view    systemview    included   .1.3.6.1.2.1.25.1.1
+ view all    included  .1                               80
+ view mib2   included  .iso.org.dod.internet.mgmt.mib-2 fc
+ syslocation Unknown 
+ syscontact Root 
+ createUser roadmin SHA admin123 AES admin123
+ rouser roadmin authpriv system

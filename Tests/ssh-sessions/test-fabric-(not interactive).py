@@ -6,9 +6,9 @@ from termcolor import colored
 #issue in the script below: command outputs are being printed 2 times
 
 
-hostname = "192.168.69.41"
+hostname = "192.168.69.40"
 port = 22
-user = "server1"
+user = "manager1"
 password = "Pa$$w0rd"
 
 config = Config(overrides={'sudo': {'password': password}})
@@ -54,7 +54,7 @@ def exec_sudo(conn, cmd):
 
 try:
     with Connection(host=hostname, user=user, port=port, connect_kwargs={"password": password}, config=config) as conn:
-        exec_cmd(conn)
+        conn.sudo('dnf install gedit', warn=True)# exec_cmd(conn)
 
 except KeyboardInterrupt:
     print("\nExited by user.")
