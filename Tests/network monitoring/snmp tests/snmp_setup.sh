@@ -53,3 +53,4 @@ Below is the /etc/snmp/snmpd.conf file with snmp v1 and v2 disabled
  syscontact Root 
  createUser roadmin SHA admin123 AES admin123
  rouser roadmin authpriv system
+ mkdir /etc/remt
