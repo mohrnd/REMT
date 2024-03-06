@@ -1,3 +1,3 @@
-username,auth_protocol,auth_password,priv_protocol,priv_password,security_engine_id,ip_add,community_string,password,linux_username,online
-roadmin,usmHMACSHAAuthProtocol,admin123,usmAesCfb128Protocol,admin123,80001f8880ad8ba63fe904de6500000000,192.168.69.38,teststring,Pa$$w0rd,manager1,True
-roadmin,usmHMACSHAAuthProtocol,admin123,usmAesCfb128Protocol,admin123,80001f8880ad8ba63fe904de6500000000,192.168.69.47,teststring,Pa$$w0rd,server1,False
+username,auth_protocol,auth_password,priv_protocol,priv_password,security_engine_id,ip_add,password,linux_username,online
+roadmin,usmHMACSHAAuthProtocol,admin123,usmAesCfb128Protocol,admin123,80001f8880ad8ba63fe904de6500000000,192.168.69.40,Pa$$w0rd,manager1,True
+roadmin,usmHMACSHAAuthProtocol,admin123,usmAesCfb128Protocol,admin123,80001f8880ad8ba63fe904de6500000000,192.168.69.47,Pa$$w0rd,server1,False

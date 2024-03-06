@@ -25,11 +25,6 @@ def add_snmp_users_from_csv(CSV_File_Path, snmpEngine):
                 priv_password,
                 securityEngineId=security_engine_id
             )
-
-            # SNMPv1/2c setup
-            community_string = row['community_string']
-            config.addV1System(snmpEngine, 'default', community_string)
-
 # Initialize SNMP engine
 snmpEngine = engine.SnmpEngine()
 

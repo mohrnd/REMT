@@ -34,6 +34,10 @@ EVERYTHING WORKS CORRECTLY !!
 snmptrap -v3 -u roadmin -l authPriv -a SHA -A admin123 -x AES -X admin123 -e 0x80001f8880ad8ba63fe904de6500000000 192.168.69.45:162 123 1.3.6.1.6.3.1.1.5.1
 snmpinform -v3 -u roadmin -l authPriv -a SHA -A admin123 -x AES -X admin123 192.168.69.45 6969 1.3.6.1.6.3.1.1.5.1
 
+trapsess -v3 -u roadmin -l authPriv -a SHA -A admin123 -x AES -X admin123 192.168.69.45
+
+
+
 """#
 from pysnmp.entity import engine, config
 from pysnmp.carrier.asyncore.dgram import udp
