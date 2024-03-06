@@ -27,7 +27,7 @@ class SingleSSHwidget(QFrame):
     def __init__(self, text: str, parent=None):
         super().__init__(parent=parent)
         self.hBoxLayout = QHBoxLayout(self)
-        self.ssh_widget = SSHWidget("192.168.69.38", "manager1", "Pa$$w0rd")  # Provide appropriate hostname, username, and password
+        self.ssh_widget = SSHWidget("192.168.69.40", "manager1", "Pa$$w0rd")  # Provide appropriate hostname, username, and password
         self.hBoxLayout.addWidget(self.ssh_widget)  # Add SSHWidget to layout
         self.setObjectName(text.replace('-', '-'))
 
