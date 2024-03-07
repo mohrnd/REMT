@@ -6,7 +6,7 @@ from pysnmp.hlapi import *
 # SNMPv3 parameters
 snmp_engine = SnmpEngine()
 security = UsmUserData('roadmin', 'admin123', 'admin123', authProtocol=usmHMACSHAAuthProtocol, privProtocol=usmAesCfb128Protocol)
-ip_address = '192.168.69.38'
+ip_address = '192.168.69.47'
 # Target parameters
 target_address = UdpTransportTarget((ip_address, 161))
 
