@@ -1,0 +1,15 @@
+add a cronjob:
+must be ran as sudo
+(crontab -u {user} -l ; echo {job}) | crontab -u {user} -
+
+Removes a job:
+crontab -u manager1 -l | grep -v 'perl /home/mobman/test.pl'  | crontab -u manager1 -
+
+leaves only the command/path 
+echo "*/5 * * * 2 perl /home/mobman/somethinf.pl" | awk '{print $NF}'
+
+this does everything:
+echo {path} | awk '{print $NF}' | (crontab -u {user} -l | grep -v "$(cat -)") | crontab -u {user} -
+
+Removes all jobs: 
+crontab -r
