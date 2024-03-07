@@ -10,6 +10,11 @@ def test_cron(ssh_client, cron):
         return error
     return True
 
+def Fix(cron_job):
+    # Replace '*' with '\*' in the cron job string
+    escaped_job = cron_job.replace('*', r'\*')
+    return escaped_job
+
 def add_cron(ssh_client, job):
     # Add cron job
     if test_cron(ssh_client, job) is True:
@@ -22,7 +27,8 @@ def add_cron(ssh_client, job):
 
 def remove_cron(ssh_client, job):
     # Remove cron job
-    stdin, stdout, stderr = ssh_client.exec_command(f'crontab -l | grep -v "{job}" | crontab -', get_pty=True)
+    fixed_cron = Fix(job)
+    stdin, stdout, stderr = ssh_client.exec_command(f"crontab -l | grep -v '{fixed_cron}' | crontab -", get_pty=True)
     print("Cron job removed successfully!")
     print("Output:", stdout.read().decode().strip())
     print("Error:", stderr.read().decode().strip())
@@ -41,11 +47,13 @@ if __name__ == "__main__":
     ssh_client.connect(hostname=host, port=port, username=username, password=password)
 
     # Add job
-    for job in jobs:
-        add_cron(ssh_client, job)
+    # for job in jobs:
+    #     add_cron(ssh_client, job)
 
+
+    job = "*/5 * * * * /path/to/command1"
     # Remove job
-    # remove_cron(ssh_client, job)
+    remove_cron(ssh_client, job)
 
     # Close SSH connection
     ssh_client.close()
