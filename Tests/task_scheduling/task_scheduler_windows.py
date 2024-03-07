@@ -47,7 +47,7 @@ def print_active_jobs(ssh_client):
             print(f"Job {number}: ",cron_job)
             number += 1
     else:
-        print("Nada")
+        print("No active jobs")
 
 def job_exists(ssh_client, job):
     stdin, stdout, stderr = ssh_client.exec_command("crontab -l")
