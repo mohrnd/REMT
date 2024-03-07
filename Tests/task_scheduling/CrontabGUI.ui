@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Frame</class>
+ <widget class="QFrame" name="Frame">
+  <property name="enabled">
+   <bool>true</bool>
+  </property>
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>578</width>
+    <height>530</height>
+   </rect>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>1000</width>
+    <height>1000</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>Crontab GUI</string>
+  </property>
+  <widget class="QFrame" name="frame">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>270</y>
+     <width>571</width>
+     <height>251</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">#Frame{border:&quot;5px solid black&quot;}</string>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::StyledPanel</enum>
+   </property>
+   <property name="frameShadow">
+    <enum>QFrame::Raised</enum>
+   </property>
+   <widget class="QWidget" name="horizontalLayoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>60</y>
+      <width>561</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="LineEdit" name="minute_input">
+       <property name="text">
+        <string/>
+       </property>
+       <property name="placeholderText">
+        <string>Minute</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="LineEdit" name="hour_input">
+       <property name="text">
+        <string/>
+       </property>
+       <property name="placeholderText">
+        <string>Hour</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="LineEdit" name="day_input">
+       <property name="text">
+        <string/>
+       </property>
+       <property name="placeholderText">
+        <string>Day</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="LineEdit" name="month_input">
+       <property name="text">
+        <string/>
+       </property>
+       <property name="placeholderText">
+        <string>Month</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="LineEdit" name="LineEdit">
+       <property name="text">
+        <string/>
+       </property>
+       <property name="placeholderText">
+        <string>Week</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="PrimaryPushButton" name="add_button">
+       <property name="text">
+        <string>Add</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="horizontalLayoutWidget_3">
+    <property name="geometry">
+     <rect>
+      <x>7</x>
+      <y>0</y>
+      <width>561</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <layout class="QHBoxLayout" name="horizontalLayout_3">
+     <property name="sizeConstraint">
+      <enum>QLayout::SetDefaultConstraint</enum>
+     </property>
+     <item>
+      <widget class="PushButton" name="PushButton_3">
+       <property name="text">
+        <string>On Startup</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="PushButton" name="hourly">
+       <property name="text">
+        <string>Hourly</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="PushButton" name="PushButton_4">
+       <property name="enabled">
+        <bool>true</bool>
+       </property>
+       <property name="text">
+        <string>Daily</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="PushButton" name="weekly_2">
+       <property name="text">
+        <string>Weekly</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="PushButton" name="monthly_2">
+       <property name="text">
+        <string>Monthly</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="PushButton" name="PushButton_5">
+       <property name="text">
+        <string>Yearly</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="LineEdit" name="Command_input">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>130</y>
+      <width>541</width>
+      <height>33</height>
+     </rect>
+    </property>
+    <property name="placeholderText">
+     <string>Command/Path to script</string>
+    </property>
+   </widget>
+   <widget class="LineEdit" name="Job_Preview">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>170</y>
+      <width>451</width>
+      <height>33</height>
+     </rect>
+    </property>
+    <property name="readOnly">
+     <bool>true</bool>
+    </property>
+    <property name="placeholderText">
+     <string>Preview</string>
+    </property>
+   </widget>
+   <widget class="PrimaryPushButton" name="Apply">
+    <property name="geometry">
+     <rect>
+      <x>480</x>
+      <y>170</y>
+      <width>81</width>
+      <height>32</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Apply</string>
+    </property>
+   </widget>
+   <widget class="PrimaryPushButton" name="Save">
+    <property name="geometry">
+     <rect>
+      <x>300</x>
+      <y>210</y>
+      <width>153</width>
+      <height>32</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Save</string>
+    </property>
+   </widget>
+   <widget class="PushButton" name="Cancel">
+    <property name="geometry">
+     <rect>
+      <x>460</x>
+      <y>210</y>
+      <width>102</width>
+      <height>32</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Cancel</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="ScrollArea" name="ScrollArea">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>10</y>
+     <width>561</width>
+     <height>251</height>
+    </rect>
+   </property>
+   <property name="widgetResizable">
+    <bool>true</bool>
+   </property>
+   <widget class="QWidget" name="scrollAreaWidgetContents">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>559</width>
+      <height>249</height>
+     </rect>
+    </property>
+   </widget>
+  </widget>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>PushButton</class>
+   <extends>QPushButton</extends>
+   <header>qfluentwidgets</header>
+  </customwidget>
+  <customwidget>
+   <class>PrimaryPushButton</class>
+   <extends>PushButton</extends>
+   <header>qfluentwidgets</header>
+  </customwidget>
+  <customwidget>
+   <class>ScrollArea</class>
+   <extends>QScrollArea</extends>
+   <header>qfluentwidgets</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>LineEdit</class>
+   <extends>QLineEdit</extends>
+   <header>qfluentwidgets</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>
