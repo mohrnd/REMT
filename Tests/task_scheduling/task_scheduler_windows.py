@@ -1,7 +1,6 @@
 import paramiko
 # Adding/remove  jobs both work !!
 
-
 def test_cron(ssh_client, cron):
     # Check cron syntax validity, found this somewhere, idk what it does lol
     stdin, stdout, stderr = ssh_client.exec_command(f'echo "{cron}" | crontab -l', get_pty=True)
@@ -36,7 +35,6 @@ def remove_cron(ssh_client, job):
 
 
 
-
 if __name__ == "__main__":
     host = '192.168.69.40'
     port = 22 
@@ -50,15 +48,15 @@ if __name__ == "__main__":
 
     # Add job
     
-    # for job in jobs:
-    #     add_cron(ssh_client, job)
+    for job in jobs:
+        add_cron(ssh_client, job)
 
 
     job = "* * * * * command1"
     #issue 1: if i delete job, it will delete both "* * * * * command1", and "* * * * * command1.sh" might leave it as is, coz i dont really care ngl
     
     # Remove job
-    remove_cron(ssh_client, job)
+    # remove_cron(ssh_client, job)
 
     # Close SSH connection
     ssh_client.close()
