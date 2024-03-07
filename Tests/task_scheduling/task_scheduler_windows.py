@@ -1,9 +1,9 @@
 import paramiko
-# Adding jobs works !!
-# Removing jobs doesnt work
+# Adding/remove  jobs both work !!
+
 
 def test_cron(ssh_client, cron):
-    # Check cron syntax validity
+    # Check cron syntax validity, found this somewhere, idk what it does lol
     stdin, stdout, stderr = ssh_client.exec_command(f'echo "{cron}" | crontab -l', get_pty=True)
     error = stderr.read().decode().strip()
     if error:
@@ -33,25 +33,30 @@ def remove_cron(ssh_client, job):
     print("Output:", stdout.read().decode().strip())
     print("Error:", stderr.read().decode().strip())
 
+
+
+
+
 if __name__ == "__main__":
-    # SSH credentials and job
     host = '192.168.69.40'
-    port = 22  # Default SSH port
+    port = 22 
     username = 'manager1'
     password = 'Pa$$w0rd'
-    jobs = ["*/5 * * * * /path/to/command2", "*/5 * * * * /path/to/test", "*/5 * * * * /path/to/command1"]
+    jobs = ["@monthly /path/to/command2", "5 4 4-8 * * /path/to/test", "5 4 4,8 * * /path/to/command1", "* * * * * command1.sh", "* * * * * command1"]
 
-    # Connect to remote machine
     ssh_client = paramiko.SSHClient()
     ssh_client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
     ssh_client.connect(hostname=host, port=port, username=username, password=password)
 
     # Add job
+    
     # for job in jobs:
     #     add_cron(ssh_client, job)
 
 
-    job = "*/5 * * * * /path/to/command1"
+    job = "* * * * * command1"
+    #issue 1: if i delete job, it will delete both "* * * * * command1", and "* * * * * command1.sh" might leave it as is, coz i dont really care ngl
+    
     # Remove job
     remove_cron(ssh_client, job)
 
