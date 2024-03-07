@@ -1,6 +1,13 @@
 import paramiko
 # Adding/remove  jobs both work !!
 
+def ssh_client_creation(host, port, username, password):
+    ssh_client = paramiko.SSHClient()
+    ssh_client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+    ssh_client.connect(hostname=host, port=port, username=username, password=password)
+    return ssh_client
+
+
 def test_cron(ssh_client, cron):
     # Check cron syntax validity, found this somewhere, idk what it does lol
     stdin, stdout, stderr = ssh_client.exec_command(f'echo "{cron}" | crontab -l', get_pty=True)
@@ -67,10 +74,8 @@ if __name__ == "__main__":
     username = 'manager1'
     password = 'Pa$$w0rd'
     jobs = ["@monthly /path/to/command2", "5 4 4-8 * * /path/to/test", "5 4 4,8 * * /path/to/command1", "* * * * * command1.sh", "* * * * * command1"]
-
-    ssh_client = paramiko.SSHClient()
-    ssh_client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-    ssh_client.connect(hostname=host, port=port, username=username, password=password)
+    
+    ssh_client = ssh_client_creation(host, port, username, password)
 
     # Add job
     
