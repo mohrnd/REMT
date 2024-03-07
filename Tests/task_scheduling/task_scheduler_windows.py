@@ -15,14 +15,18 @@ def Fix(cron_job):
     return escaped_job
 
 def add_cron(ssh_client, job):
-    # Add cron job
     if test_cron(ssh_client, job) is True:
-        stdin, stdout, stderr = ssh_client.exec_command(f'(crontab -l; echo "{job}") | crontab -', get_pty=True)
-        print("Cron job added successfully!")
-        print("Output:", stdout.read().decode().strip())
-        print("Error:", stderr.read().decode().strip())
+        if not job_exists(ssh_client, job):
+            # Add the cron job
+            stdin, stdout, stderr = ssh_client.exec_command(f'(crontab -l; echo "{job}") | crontab -', get_pty=True)
+            print("Cron job added successfully!")
+            print("Output:", stdout.read().decode().strip())
+            print("Error:", stderr.read().decode().strip())
+        else:
+            print("Job already exists")
     else:
         print("Syntax Error:", test_cron(ssh_client, job))
+
 
 def remove_cron(ssh_client, job):
     # Remove cron job
@@ -32,6 +36,28 @@ def remove_cron(ssh_client, job):
     print("Output:", stdout.read().decode().strip())
     print("Error:", stderr.read().decode().strip())
 
+def print_active_jobs(ssh_client):
+    stdin, stdout, stderr = ssh_client.exec_command("crontab -l")
+    cron_output = stdout.read().decode().strip()
+    if cron_output:
+        print("Active cron jobs:")
+        cron_list = cron_output.split('\n')
+        number = 1
+        for cron_job in cron_list:
+            print(f"Job {number}: ",cron_job)
+            number += 1
+    else:
+        print("Nada")
+
+def job_exists(ssh_client, job):
+    stdin, stdout, stderr = ssh_client.exec_command("crontab -l")
+    cron_output = stdout.read().decode().strip()
+    if cron_output:
+        cron_list = cron_output.split('\n')
+        for cron_job in cron_list:
+            if cron_job.strip() == job.strip():
+                return True
+    return False
 
 
 
@@ -49,14 +75,15 @@ if __name__ == "__main__":
     # Add job
     
     for job in jobs:
-        add_cron(ssh_client, job)
-
-
+        add_cron(ssh_client, job)          
+    
     job = "* * * * * command1"
     #issue 1: if i delete job, it will delete both "* * * * * command1", and "* * * * * command1.sh" might leave it as is, coz i dont really care ngl
     
     # Remove job
     # remove_cron(ssh_client, job)
 
+
+    print_active_jobs(ssh_client)
     # Close SSH connection
     ssh_client.close()
