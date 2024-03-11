@@ -5,6 +5,8 @@ from pysnmp.proto.api import v2c
 import datetime
 import logging
 import csv
+from notifications import win_notif
+
 
 logging.basicConfig(filename='TrapsReceived.log', level=logging.INFO, format='%(asctime)s - %(message)s')
 
@@ -62,7 +64,10 @@ def cbFun(snmpEngine, stateReference, contextEngineId, contextName,
         ip_address = transport_info[1][0]
         print(current_time,'Trap from "%s"' % (ip_address))
         logging.info('Trap from "%s"', ip_address)
-
+        notification_title = 'SNMP Trap Received'
+        notification_message = f'Trap from {ip_address} received at {current_time}'
+        notification_icon = None
+        win_notif(notification_title, notification_message, notification_icon)
     else:
         print('error')
         logging.error('error')
