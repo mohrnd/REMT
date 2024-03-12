@@ -6,6 +6,7 @@ import logging
 import os
 import re
 from PyQt5.QtWidgets import QWidget, QTextEdit, QMessageBox, QApplication
+from PyQt5.QtWidgets import QPushButton, QCheckBox
 from PyQt5.QtGui import QTextCursor, QFont
 from PyQt5.QtCore import Qt
 
@@ -13,19 +14,37 @@ logging.basicConfig(filename='ssh2.log', level=logging.INFO, format='%(asctime)s
 
 PASSWORD_PROMPT_PATTERN = re.compile(r'[Pp]assword:?\s*$')
 
+from PyQt5.QtWidgets import QPushButton, QVBoxLayout, QHBoxLayout, QWidget
+
 class SSHWidget(QWidget):
     def __init__(self, hostname, username, password):
         super().__init__()
         self.hostname = hostname
         self.username = username
         self.password = password
-        
-        font = QFont("Cairo Bold", 14) 
+        self.layout = QVBoxLayout(self)
+
+        font = QFont("Cairo Bold", 14)
         self.text_edit = QTextEdit(self)
-        self.text_edit.setFont(font)  
+        self.text_edit.setFont(font)
         self.text_edit.setGeometry(0, 0, 1200, 900)
         self.buffer = ""
-        
+
+
+        self.toggle_button = QCheckBox("toggle input", self)
+        # self.toggle_button.stateChanged.connect(self.toggle_ssh_connection)
+
+
+        self.pushButton = QPushButton("Insert password", self)
+        # self.pushButton.clicked.connect(self.push_button_clicked)
+
+        self.layout.addWidget(self.text_edit)
+        self.layout.addWidget(self.toggle_button)
+        self.layout.addWidget(self.pushButton)
+
+        # Set layout for the widget
+        self.setLayout(self.layout)
+
         self.ssh_client = None
         self.transport = None
         self.channel = None
