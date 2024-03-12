@@ -101,7 +101,7 @@ class SSHWidget(QWidget):
             self.text_edit.insertPlainText(event.text())
             if event.key() == Qt.Key_Enter or event.key() == Qt.Key_Return:
                 self.channel.send(self.buffer + "\n")
-                logging.info(f"Command executed: {self.buffer}")
+                logging.info(f"Command executed in {self.hostname}: {self.buffer}")
                 self.buffer = ""
             else:
                 self.buffer += event.text()
