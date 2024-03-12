@@ -1,6 +1,6 @@
 import sys
 from PyQt5.QtWidgets import QApplication, QVBoxLayout, QWidget
-from SingleSSH_Gui_test1_windows import SSHWidget  # Assuming your SSHWidget class is defined in ssh_widget.py
+from SingleSSH_Gui_test1_windows import SSHWidget  
 
 class MultiSSHWindow(QWidget):
     def __init__(self, hosts):
@@ -23,10 +23,9 @@ if __name__ == '__main__':
     hosts = [
         ('192.168.69.47', 'server1', 'Pa$$w0rd'),
         ('192.168.69.40', 'manager1', 'Pa$$w0rd'),
-        # Add more hostnames, usernames, and passwords as needed
     ]
     window = MultiSSHWindow(hosts)
-    window.setGeometry(100, 100, 800, 600)  # Adjust window size as needed
+    window.setGeometry(100, 100, 800, 600)  
     window.show()
     sys.exit(app.exec_())
 
