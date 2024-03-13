@@ -1,7 +1,7 @@
 * {
     color: rgb(0, 0, 0);
     font-size: 20px;
-    background-color: #dfb6e6;
+    background-color: whitesmoke;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
@@ -11,11 +11,11 @@ QMainWindow::title {
 }
 
 QPushButton {
-    background-color:#a04595;
-    color: #F5E8F7;
+    background-color:whitesmoke;
+    color: black;
     border-radius: 5px;
     padding: 3px 5px;
-    margin-left: 55px;
+    margin-left: 25px;
     font-size: 14px;
 }
 
@@ -24,11 +24,11 @@ QPushButton:hover {
 }
 
 QMainWindow {
-    background-color:#dfb6e6;
+    background-color:whitesmoke;
 }
 
 QToolBar {
-    background-color:#140716;
-    border: 1px solid #D88CE3;
+    background-color:black;
+    border: 1px solid black;
     min-height: 45px;
 }

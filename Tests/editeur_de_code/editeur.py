@@ -3,6 +3,7 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 import subprocess
+import csv
 
 class PythonHighlighter(QSyntaxHighlighter):
     def __init__(self, parent=None):
@@ -59,6 +60,38 @@ class CodeEditor(QPlainTextEdit):
         
         self.highlighter = PythonHighlighter(self.document())
 
+class OnlineIPDialog(QDialog):
+    def __init__(self, online_ips):
+        super().__init__()
+
+        self.setWindowTitle("Adresses IP en ligne")
+        self.online_ips = online_ips
+        self.initUI()
+
+    def initUI(self):
+        layout = QVBoxLayout()
+
+        self.checkbox_list = []
+
+        for ip_data in self.online_ips:
+            ip_checkbox = QCheckBox(ip_data['ip'])
+            layout.addWidget(ip_checkbox)
+            self.checkbox_list.append(ip_checkbox)
+
+        buttonBox = QDialogButtonBox(QDialogButtonBox.Ok | QDialogButtonBox.Cancel)
+        buttonBox.accepted.connect(self.accept)
+        buttonBox.rejected.connect(self.reject)
+        layout.addWidget(buttonBox)
+
+        self.setLayout(layout)
+
+    def get_checked_ips(self):
+        checked_ips = []
+        for checkbox in self.checkbox_list:
+            if checkbox.isChecked():
+                checked_ips.append(checkbox.text())
+        return checked_ips
+
 class mon_editeur(QMainWindow):
     def __init__(self):
         super(mon_editeur, self).__init__()
@@ -68,10 +101,10 @@ class mon_editeur(QMainWindow):
         self.path = ""
         self.setCentralWidget(self.editor)
         self.setWindowTitle('Éditeur de code')
-        self.resize(630,470)  
+        self.resize(630,400)  
         self.create_tool_bar()
         
-        style_file = QFile("style.qss")
+        style_file = QFile(r"C:\Users\dell-5320\Desktop\ide\editeur_de_code\style.qss")
         style_file.open(QFile.ReadOnly | QFile.Text)
         stream = QTextStream(style_file)
         app.setStyleSheet(stream.readAll())
@@ -79,25 +112,27 @@ class mon_editeur(QMainWindow):
     def create_tool_bar(self):
         toolbar = QToolBar()
         
-        openIcon = QIcon("open.png")  
+        openIcon = QIcon(r"C:\Users\dell-5320\Desktop\ide\editeur_de_code\open.png")  
         openBtn = QPushButton(openIcon, 'Ouvrir', self)
         openBtn.clicked.connect(self.openFile)
         toolbar.addWidget(openBtn)
         
-        saveIcon = QIcon("save.png")  
+        saveIcon = QIcon(r"C:\Users\dell-5320\Desktop\ide\editeur_de_code\save.png")  
         saveBtn = QPushButton(saveIcon, 'Sauvegarder', self)
         saveBtn.clicked.connect(self.saveFile)
         toolbar.addWidget(saveBtn)
         
-        executeIcon = QIcon("execute.png")  
+        executeIcon = QIcon(r"C:\Users\dell-5320\Desktop\ide\editeur_de_code\execute.png")  
         executeBtn = QPushButton(executeIcon, 'Exécuter Script Shell', self)
         executeBtn.clicked.connect(self.executeScript)
         toolbar.addWidget(executeBtn)
 
+        showOnlineIPsBtn = QPushButton("Afficher les IP en ligne")
+        showOnlineIPsBtn.clicked.connect(self.show_online_ips)
+        toolbar.addWidget(showOnlineIPsBtn)
 
         self.addToolBar(toolbar)
 
-        
     def executeScript(self):
         script = self.editor.toPlainText()
         if script:
@@ -145,8 +180,30 @@ class mon_editeur(QMainWindow):
                 self.editor.setPlainText(text)
                 self.update_title()
         except Exception as e:
-            print(e)    
-            
+            print(e)
+
+    def extract_online_ips(self, csv_path):
+        online_ips = []
+        try:
+            with open(csv_path, newline='') as csvfile:
+                reader = csv.DictReader(csvfile)
+                for row in reader:
+                    if row['online'].lower() == 'true':
+                        online_ips.append({'ip': row['ip_add'], 'password': row['password'], 'linux_username': row['linux_username']})
+        except Exception as e:
+            print(e)
+        return online_ips
+
+    def show_online_ips(self):
+      
+        csv_path = r"C:\Users\dell-5320\Desktop\ide\editeur_de_code\snmp_users.csv"
+        
+        online_ips = self.extract_online_ips(csv_path)
+        
+        dialog = OnlineIPDialog(online_ips)
+        if dialog.exec_():
+            checked_ips = dialog.get_checked_ips()
+            print("Adresses IP sélectionnées :", checked_ips)
 
 app = QApplication(sys.argv)
 window = mon_editeur()
