@@ -103,7 +103,7 @@ class OnlineIPDialog(QDialog):
             return
 
         local_path = self.current_file_path
-        remote_path = "/home/user2/Bureau/" + os.path.basename(local_path)
+        remote_path = "/home/server1/remt/" + os.path.basename(local_path)
                             #change it by: "/etc/remt" + os.path.basename(local_path)
 
         success_ips = []
@@ -134,7 +134,7 @@ class mon_editeur(QMainWindow):
         self.setFixedSize(self.size())  # Empêcher le redimensionnement de la fenêtre
         self.create_tool_bar()
         
-        style_file = QFile(r"C:\Users\dell-5320\Desktop\ide\editeur_de_code\style.qss")
+        style_file = QFile("../REMT/Tests/editeur_de_code/style.qss")
         style_file.open(QFile.ReadOnly | QFile.Text)
         stream = QTextStream(style_file)
         app.setStyleSheet(stream.readAll())
@@ -142,23 +142,23 @@ class mon_editeur(QMainWindow):
     def create_tool_bar(self):
         toolbar = QToolBar()
         
-        newIcon = QIcon(r"C:\Users\dell-5320\Desktop\ide\editeur_de_code\new.png")  
+        newIcon = QIcon("../REMT/Tests/editeur_de_code/new.png")  
         newBtn = QPushButton(newIcon, 'Nouveau', self)
         newBtn.clicked.connect(self.newFile)
         toolbar.addWidget(newBtn)
         
-        openIcon = QIcon(r"C:\Users\dell-5320\Desktop\ide\editeur_de_code\open.png")  
+        openIcon = QIcon("../REMT/Tests/editeur_de_code/open.png")  
         openBtn = QPushButton(openIcon, 'Ouvrir', self)
         openBtn.clicked.connect(self.openFile)
         toolbar.addWidget(openBtn)
         
-        saveIcon = QIcon(r"C:\Users\dell-5320\Desktop\ide\editeur_de_code\save.png")  
+        saveIcon = QIcon("../REMT/Tests/editeur_de_code/save.png")  
         saveBtn = QPushButton(saveIcon, 'Sauvegarder', self)
         saveBtn.clicked.connect(self.saveFile)
         toolbar.addWidget(saveBtn)
         
         
-        executeIcon = QIcon(r"C:\Users\dell-5320\Desktop\ide\editeur_de_code\execute.png")  
+        executeIcon = QIcon("../REMT/Tests/editeur_de_code/execute.png")  
         executeBtn = QPushButton(executeIcon, 'Exécuter Script Shell', self)
         executeBtn.clicked.connect(self.executeScript)
         toolbar.addWidget(executeBtn)
@@ -225,7 +225,7 @@ class mon_editeur(QMainWindow):
         return online_ips
 
     def show_online_ips(self):
-        csv_path = r"C:\Users\dell-5320\Desktop\ide\editeur_de_code\snmp_users.csv"
+        csv_path = "../REMT/Tests/editeur_de_code/snmp_users.csv"
         online_ips = self.extract_online_ips(csv_path)
         dialog = OnlineIPDialog(online_ips, self.path)
         dialog.exec_()
