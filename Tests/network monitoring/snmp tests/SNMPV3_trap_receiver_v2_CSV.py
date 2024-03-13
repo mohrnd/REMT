@@ -35,7 +35,7 @@ def add_snmp_users_from_csv(CSV_File_Path, snmpEngine):
 snmpEngine = engine.SnmpEngine()
 
 # Add SNMP users from CSV
-csv_file_path = r'C:\Users\BALLS2 (rip BALLS)\Desktop\REMT\Tests\network monitoring\snmp tests\snmp_users.csv'
+csv_file_path = '../REMT/Tests/network monitoring/snmp tests/snmp_users.csv'
 add_snmp_users_from_csv(csv_file_path, snmpEngine)
 
 # Transport setup
@@ -78,7 +78,7 @@ def cbFun(snmpEngine, stateReference, contextEngineId, contextName,
         interpreted_oid = interpret_oid(oid_str)
         print('%s = %s' % (interpreted_oid, value_str))
         logging.info('%s = %s', interpreted_oid, value_str)
-        with open(r'C:\Users\BALLS2 (rip BALLS)\Desktop\REMT\Tests\network monitoring\snmp tests\OID_interpretations.csv', 'r') as file:
+        with open('../REMT/Tests/network monitoring/snmp tests/OID_interpretations.csv', 'r') as file:
             reader = csv.DictReader(file)
             for row in reader:
                 if value_str == row['OID']:
