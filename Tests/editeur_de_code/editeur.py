@@ -184,7 +184,7 @@ class mon_editeur(QMainWindow):
 
     def saveFile(self):
         if self.path == '':
-            self.path, _ = QFileDialog.getSaveFileName(self, "Enregistrer le fichier", "", "Documents texte (*.txt)")
+            self.path, _ = QFileDialog.getSaveFileName(self, "Enregistrer le fichier", "", "Python Script (*.py);;Shell Script (*.sh);;Tous les fichiers (*)")
             if self.path == '':
                 return   
         text = self.editor.toPlainText()
