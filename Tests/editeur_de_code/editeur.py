@@ -16,6 +16,7 @@ def Check_ip(hostname):
         return True  
     else:
         return False 
+    
 class PythonHighlighter(QSyntaxHighlighter):
     def __init__(self, parent=None):
         super(PythonHighlighter, self).__init__(parent)

@@ -1,4 +1,4 @@
-username,auth_protocol,auth_password,priv_protocol,priv_password,security_engine_id,ip_add,password,linux_username,online
-roadmin,usmHMACSHAAuthProtocol,admin123,usmAesCfb128Protocol,admin123,80001f8880ad8ba63fe904de6500000000,192.168.1.22,Didine.2003,user2
+username,auth_protocol,auth_password,priv_protocol,priv_password,security_engine_id,ip_add,password,linux_username
+roadmin,usmHMACSHAAuthProtocol,admin123,usmAesCfb128Protocol,admin123,80001f8880ad8ba63fe904de6500000000,192.168.1.41,Pa$$w0rd,user2
 roadmin,usmHMACSHAAuthProtocol,admin123,usmAesCfb128Protocol,admin123,80001f8880ad8ba63fe904de6500000000,192.168.43.159,Didine.2003,user2
 roadmin,usmHMACSHAAuthProtocol,admin123,usmAesCfb128Protocol,admin123,80001f88804038b87722b5de6500000000,192.168.69.47,Pa$$w0rd,server1
