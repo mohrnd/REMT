@@ -47,7 +47,6 @@ class MainWindow(QWidget, Ui_Frame):
                                 password = row['password']
                                 ssh_client = ssh_client_creation(ip_address, 22, username, password)
                                 remove_cron(ssh_client, job)
-                                print(table_row)
                                 ssh_client.close()
                                 self.TableWidget.removeRow(int(table_row));
                                 break
@@ -246,23 +245,8 @@ if __name__ == "__main__":
     
     
 
-# Notes: 
-# minute allowed values: *, ',', -, /, 0-59
-# hour allowed values: *, ',', -, /, 0-23
-# day allowed values: *, ',', -, /, 1-31
-# month allowed values: *, ',', -, /, 1-12, JAN-DEC
-# day: * , - / 0-6 SUN-SAT 
-
-
-
-
-# Onstartup = On Startup @reboot
-# hourly = Hourly @hourly
-# Daily = Daily @daily  
-# weekly_2 = Weekly @weekly 
-# monthly_2 = Monthly @monthly 
-# Yearly = Yearly @yearly 
-
-# Command_input = Command/Path to script
-# Job_Preview = Preview
-# Apply = Apply
+# Known issues:
+    #Cant delete jobs that were just added
+    
+# TODO: 
+    # ADD THE INTERPRETATION
