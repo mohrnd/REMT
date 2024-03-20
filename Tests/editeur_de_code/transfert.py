@@ -42,7 +42,6 @@ class Transfer:
             return f"An error occurred: {e}"
 
 #Example usage:
-transfer = Transfer()
 # result = transfer.PUT("192.168.69.38", "manager1", "Pa$$w0rd", r"C:\Users\BALLS2 (rip BALLS)\Desktop\REMT\Tests\manager GUI tests\REST GUI\rest logo\black.png", "/home/manager1/Desktop/black.png")
 # print(result)
 #result = transfer.GET("192.168.69.38", "manager1", "Pa$$w0rd", r"C:\Users\BALLS2 (rip BALLS)\Desktop\REMT\Tests\manager GUI tests\REST GUI\black.png", "/home/manager1/Desktop/black.png")
