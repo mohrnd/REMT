@@ -44,7 +44,7 @@ class SSHWidget(QWidget):
         self.connect()
 
         # Checkbox
-        self.checkbox = QCheckBox("Enable Text Input")
+        self.checkbox = QCheckBox("Enable Text Input", checked=True) 
         self.layout.addWidget(self.checkbox)
 
         # Connect checkbox state change to toggle_input method
@@ -183,7 +183,6 @@ class MultiSSHWindow(QWidget):
             ssh_widget = SSHWidget(host[0], host[1], host[2], self.shared_text_edit)
             self.layout.addWidget(ssh_widget)
             self.shared_text_edit.terminals.append(ssh_widget)
-
         self.toggle_button = QCheckBox("Toggle Input for All Terminals")
         self.toggle_button.stateChanged.connect(self.toggle_input)
 
