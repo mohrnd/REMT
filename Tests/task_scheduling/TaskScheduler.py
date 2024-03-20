@@ -70,24 +70,18 @@ def job_exists(ssh_client, job):
 
 # exple usage
 # if __name__ == "__main__":
-#     host = '192.168.69.40'
-#     port = 22 
-#     username = 'manager1'
-#     password = 'Pa$$w0rd'
-#     jobs = ["@monthly /path/to/command2", "5 4 4-8 * * /path/to/test", "5 4 4,8 * * /path/to/command1", "* * * * * command1.sh", "* * * * * command1"]
-    
-#     ssh_client = ssh_client_creation(host, port, username, password)
+    # host = '192.168.69.41'
+    # port = 22 
+    # username = 'manager1'
+    # password = 'Pa$$w0rd'
+    # jobs = ["@monthly /path/to/command2", "5 4 4-8 * * /path/to/test", "5 4 4,8 * * /path/to/command1", "* * * * * command1.sh", "* * * * * command1"]  
+    # ssh_client = ssh_client_creation(host, port, username, password)  
+    # for job in jobs:
+        # add_cron(ssh_client, job)            
 
-#     # Add job
-    
-#     for job in jobs:
-#         add_cron(ssh_client, job)          
-    
-#     job = "* * * * * command1"
-#     #issue 1: if i delete job, it will delete both "* * * * * command1", and "* * * * * command1.sh" might leave it as is, coz i dont really care ngl
-    
-#     # Remove job
-#     # remove_cron(ssh_client, job)
-#     print_active_jobs(ssh_client)
-#     # Close SSH connection
-#     ssh_client.close()
+    # issue 1: if i delete job, it will delete both "* * * * * command1", and "* * * * * command1.sh" might leave it as is, coz i dont really care ngl  
+    # Remove job
+    # remove_cron(ssh_client, job)
+    # print_active_jobs(ssh_client)
+    # Close SSH connection
+    # ssh_client.close()

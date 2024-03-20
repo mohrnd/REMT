@@ -1,5 +1,5 @@
 import sys
-from PyQt5.QtWidgets import QApplication, QWidget, QTableWidgetItem
+from PyQt5.QtWidgets import QApplication, QWidget, QTableWidgetItem, QMessageBox
 from Ui_CrontabGUI import Ui_Frame  
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import *
@@ -16,8 +16,32 @@ class MainWindow(QWidget, Ui_Frame):
         self.setupUi(self)
         self.show_active_machines()
         self.show_active_crons()
-        self.add_button.clicked.connect(self.test)
+        self.add_button.clicked.connect(self.Add_to_preview)
         self.Apply.clicked.connect(self.Apply_cron)
+        
+    def delete_cron(self):
+        sender_button = self.sender()
+        for table_row in range(self.TableWidget.rowCount()):
+            delete_button = self.TableWidget.cellWidget(table_row, 2)
+            if sender_button == delete_button:
+                ip_address_item = self.TableWidget.item(table_row, 0)
+                job_item = self.TableWidget.item(table_row, 1)
+                if ip_address_item and job_item:
+                    ip_address = ip_address_item.text()
+                    job = job_item.text()
+                    CSV_File_Path = '../REMT/Tests/task_scheduling/snmp_users.csv'
+                    with open(CSV_File_Path, 'r') as file:
+                        reader = csv.DictReader(file)
+                        for row in reader:
+                            if row['ip_add'] == ip_address:
+                                username = row['linux_username']
+                                password = row['password']
+                                ssh_client = ssh_client_creation(ip_address, 22, username, password)
+                                remove_cron(ssh_client, job)
+                                print(table_row)
+                                ssh_client.close()
+                                self.TableWidget.removeRow(int(table_row));
+                                break
 
         
     def show_active_crons(self):
@@ -41,8 +65,6 @@ class MainWindow(QWidget, Ui_Frame):
                             self.TableWidget.setItem(rowPositionMachines, 0, QTableWidgetItem(hostname))
                             self.TableWidget.setItem(rowPositionMachines, 1, QTableWidgetItem(cron_job))
                             DeleteButton = PushButton('Delete')
-                            # DeleteButton.setText(_translate("Frame", "Daily"))  
-    
                             self.TableWidget.setCellWidget(rowPositionMachines, 2, DeleteButton) 
                 else:
                     pass
@@ -73,28 +95,57 @@ class MainWindow(QWidget, Ui_Frame):
                 ip_address_item = self.Machines.item(row, 0)
                 if ip_address_item is not None:
                     selectedIPS.append(ip_address_item.text())
-        print(selectedIPS)
-        
-        ### add the add_cron method
-    
-
-    def test(self):
-        text = self.minute_input.text()
-        if text == '':
-            print('*')
+        if selectedIPS == []:
+            no_ip_error_dialog()
         else: 
-            print(text)
+            temp = self.Job_Preview.text()
+            for IP in selectedIPS:
+                pass
             
-        # insert data in the machines table (get data from the csv file)
-        rowPositionMachines = self.Machines.rowCount()
-        self.Machines.insertRow(rowPositionMachines)
-        # Set data for the new row in Machines table
-        self.Machines.setItem(rowPositionMachines, 0, QTableWidgetItem(text))
-        self.Machines.setItem(rowPositionMachines, 1, QTableWidgetItem('Machine 1'))
+            
+    def Add_to_preview(self):
+        # add value checking
+        Months = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC']
+        Weekdays = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT']
+        if self.Command_input.text() == '': 
+            no_cmd_error_dialog()
+        else: 
+            Minutes = '*' if not self.minute_input.text() else self.minute_input.text()
+            Hours = '*' if not self.hour_input.text() else self.hour_input.text()
+            Days = '*' if not self.day_input.text() else self.day_input.text()
+            months = '*' if not self.month_input.text() else self.month_input.text()
+            weekdays = '*' if not self.LineEdit.text() else self.LineEdit.text()
+            cmd = self.Command_input.text()
+            self.Job_Preview.setText(f"{Minutes} {Hours} {Days} {months} {weekdays} {cmd}")
+            # to fetch the content of the job preview: temp = self.Job_Preview.text()
         
-        checkbox = CheckBox()  
-        checkbox.setChecked(False)
-        self.Machines.setCellWidget(rowPositionMachines, 2, checkbox)  # Set the CheckBox widget in the table cell
+
+def no_ip_error_dialog():
+    msg_box = QMessageBox()
+    msg_box.setIcon(QMessageBox.Critical)
+    msg_box.setText(f"No IP selected")
+    msg_box.setWindowTitle("Error")
+    msg_box.setStandardButtons(QMessageBox.Cancel)
+    msg_box.setDefaultButton(QMessageBox.Cancel)
+    result = msg_box.exec_()
+
+def no_cmd_error_dialog():
+    msg_box = QMessageBox()
+    msg_box.setIcon(QMessageBox.Critical)
+    msg_box.setText(f"No Command/path entered")
+    msg_box.setWindowTitle("Error")
+    msg_box.setStandardButtons(QMessageBox.Cancel)
+    msg_box.setDefaultButton(QMessageBox.Cancel)
+    result = msg_box.exec_()
+
+def value_error_dialog():
+    msg_box = QMessageBox()
+    msg_box.setIcon(QMessageBox.Critical)
+    msg_box.setText(f"Value error")
+    msg_box.setWindowTitle("Error")
+    msg_box.setStandardButtons(QMessageBox.Cancel)
+    msg_box.setDefaultButton(QMessageBox.Cancel)
+    result = msg_box.exec_()
 
 def Check_ip(hostname):
     param = '-n' if os.name.lower() == 'nt' else '-c'
@@ -105,17 +156,46 @@ def Check_ip(hostname):
         return False
 
 def main():
-    
     color = QColor('#351392')
     setThemeColor(color ,Qt.GlobalColor , '') 
-    
-    
     app = QApplication(sys.argv)
     window = MainWindow()
     window.show()
-    sys.exit(app.exec_())
     
+    
+    #////////////////////////////////////////////////////////////////
+    for row in range(window.TableWidget.rowCount()):
+        delete_button = window.TableWidget.cellWidget(row, 2)
+        delete_button.clicked.connect(window.delete_cron)
+    #////////////////////////////////////////////////////////////////    
+
+
+    sys.exit(app.exec_())
+
+
+
 if __name__ == "__main__":
     main()
     
+    
 
+# Notes: 
+# minute allowed values: *, ',', -, /, 0-59
+# hour allowed values: *, ',', -, /, 0-23
+# day allowed values: *, ',', -, /, 1-31
+# month allowed values: *, ',', -, /, 1-12, JAN-DEC
+# day: * , - / 0-6 SUN-SAT 
+
+
+
+
+# Onstartup = On Startup @reboot
+# hourly = Hourly @hourly
+# Daily = Daily @daily  
+# weekly_2 = Weekly @weekly 
+# monthly_2 = Monthly @monthly 
+# Yearly = Yearly @yearly 
+
+# Command_input = Command/Path to script
+# Job_Preview = Preview
+# Apply = Apply
