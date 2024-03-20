@@ -5,8 +5,7 @@ import socket
 import logging
 import os
 import re
-from PyQt5.QtWidgets import QWidget, QTextEdit, QMessageBox, QApplication
-from PyQt5.QtWidgets import QPushButton, QCheckBox
+from PyQt5.QtWidgets import QWidget, QTextEdit, QMessageBox, QApplication, QVBoxLayout, QHBoxLayout, QPushButton, QCheckBox
 from PyQt5.QtGui import QTextCursor, QFont
 from PyQt5.QtCore import Qt
 
@@ -14,14 +13,13 @@ logging.basicConfig(filename='ssh2.log', level=logging.INFO, format='%(asctime)s
 
 PASSWORD_PROMPT_PATTERN = re.compile(r'[Pp]assword:?\s*$')
 
-from PyQt5.QtWidgets import QPushButton, QVBoxLayout, QHBoxLayout, QWidget
-
 class SSHWidget(QWidget):
-    def __init__(self, hostname, username, password):
+    def __init__(self, hostname, username, password, shared_text_edit):
         super().__init__()
         self.hostname = hostname
         self.username = username
         self.password = password
+        self.shared_text_edit = shared_text_edit
         self.layout = QVBoxLayout(self)
 
         font = QFont("Cairo Bold", 14)
@@ -30,19 +28,8 @@ class SSHWidget(QWidget):
         self.text_edit.setGeometry(0, 0, 1200, 900)
         self.buffer = ""
 
-
-        self.toggle_button = QCheckBox("toggle input", self)
-        # self.toggle_button.stateChanged.connect(self.toggle_ssh_connection)
-
-
-        self.pushButton = QPushButton("Insert password", self)
-        # self.pushButton.clicked.connect(self.push_button_clicked)
-
         self.layout.addWidget(self.text_edit)
-        self.layout.addWidget(self.toggle_button)
-        self.layout.addWidget(self.pushButton)
 
-        # Set layout for the widget
         self.setLayout(self.layout)
 
         self.ssh_client = None
@@ -86,26 +73,47 @@ class SSHWidget(QWidget):
             self.show_connection_error_dialog()
 
     def keyPressEvent(self, event):
-        if event.key() == Qt.Key_Backspace:
-            self.buffer = self.buffer[:-1]  #Remove the last character from the buffer
-            cursor = self.text_edit.textCursor()
-            cursor.deletePreviousChar()  # Delete the last char
-        elif event.modifiers() == Qt.ControlModifier:
-            if event.key() == Qt.Key_C:  # Ctrl+C
-                self.channel.send('\x03')
-            elif event.key() == Qt.Key_D:  # Ctrl+D
-                self.channel.send('\x04')
-            elif event.key() == Qt.Key_L:  # Ctrl+L
-                self.text_edit.clear()
-        else:
-            self.text_edit.insertPlainText(event.text())
-            if event.key() == Qt.Key_Enter or event.key() == Qt.Key_Return:
-                self.channel.send(self.buffer + "\n")
-                logging.info(f"Command executed in {self.hostname}: {self.buffer}")
-                self.buffer = ""
+        if self.shared_text_edit.isChecked():  # If checkbox is checked, send text to all terminals
+            for widget in self.shared_text_edit.terminals:
+                if event.key() == Qt.Key_Backspace:
+                    widget.buffer = widget.buffer[:-1]
+                    cursor = widget.text_edit.textCursor()
+                    cursor.deletePreviousChar()
+                elif event.modifiers() == Qt.ControlModifier:
+                    if event.key() == Qt.Key_C:
+                        widget.channel.send('\x03')
+                    elif event.key() == Qt.Key_D:
+                        widget.channel.send('\x04')
+                    elif event.key() == Qt.Key_L:
+                        widget.text_edit.clear()
+                else:
+                    widget.text_edit.insertPlainText(event.text())
+                    if event.key() == Qt.Key_Enter or event.key() == Qt.Key_Return:
+                        widget.channel.send(widget.buffer + "\n")
+                        logging.info(f"Command executed in {widget.hostname}: {widget.buffer}")
+                        widget.buffer = ""
+                    else:
+                        widget.buffer += event.text()
+        else:  # If checkbox is not checked, only send text to the current terminal
+            if event.key() == Qt.Key_Backspace:
+                self.buffer = self.buffer[:-1]
+                cursor = self.text_edit.textCursor()
+                cursor.deletePreviousChar()
+            elif event.modifiers() == Qt.ControlModifier:
+                if event.key() == Qt.Key_C:
+                    self.channel.send('\x03')
+                elif event.key() == Qt.Key_D:
+                    self.channel.send('\x04')
+                elif event.key() == Qt.Key_L:
+                    self.text_edit.clear()
             else:
-                self.buffer += event.text()
-
+                self.text_edit.insertPlainText(event.text())
+                if event.key() == Qt.Key_Enter or event.key() == Qt.Key_Return:
+                    self.channel.send(self.buffer + "\n")
+                    logging.info(f"Command executed in {self.hostname}: {self.buffer}")
+                    self.buffer = ""
+                else:
+                    self.buffer += event.text()
 
     def read_ssh_output(self):
         while True:
@@ -115,14 +123,12 @@ class SSHWidget(QWidget):
                     break
                 decoded_text = x.decode('utf-8', errors='ignore')
                 filtered_text = self.filter_special_chars(decoded_text)
-                # logging.info(f"Command output: {filtered_text}")
                 self.update_text_edit(filtered_text)
             except socket.timeout:
                 pass
 
     def filter_special_chars(self, text):
         filtered_text = re.sub(r'\x1b\[[^a-zA-Z]*[a-zA-Z]', '', text)
-        #Fix text formatting (Ansi to formatted/colored text) 
         return filtered_text
 
     def update_text_edit(self, text):
@@ -138,30 +144,58 @@ class SSHWidget(QWidget):
         msg_box.setStandardButtons(QMessageBox.Retry | QMessageBox.Cancel)
         msg_box.setDefaultButton(QMessageBox.Retry)
 
-        # Handle the result of the message box
         result = msg_box.exec_()
         if result == QMessageBox.Retry:
             self.connect()
         else:
             sys.exit()
 
-# if __name__ == '__main__':
-#     app = QApplication(sys.argv)
-#     hostname = "192.168.69.47"
-#     username = "server1"
-#     password = "Pa$$w0rd"
-#     widget = SSHWidget(hostname, username, password)
-#     # widget.setGeometry(200, 200, 1200, 900) 
-#     widget.show()
-#     sys.exit(app.exec_())
+
+class MultiSSHWindow(QWidget):
+    def __init__(self, hosts):
+        super().__init__()
+        self.hosts = hosts
+        self.setWindowTitle("Multiple SSH Terminals")
+        self.layout = QVBoxLayout(self)
+
+        self.shared_text_edit = SharedTextEdit()
+
+        for host in self.hosts:
+            ssh_widget = SSHWidget(host[0], host[1], host[2], self.shared_text_edit)
+            self.layout.addWidget(ssh_widget)
+            self.shared_text_edit.terminals.append(ssh_widget)
+
+        self.toggle_button = QCheckBox("Toggle Input for All Terminals")
+        self.toggle_button.stateChanged.connect(self.toggle_input)
+
+        self.layout.addWidget(self.toggle_button)
+
+        self.setLayout(self.layout)
+
+    def toggle_input(self, state):
+        if state == Qt.Checked:
+            self.shared_text_edit.setChecked(True)
+        else:
+            self.shared_text_edit.setChecked(False)
 
 
-# TODO: 
-        #Fix text formatting (Ansi to formatted/colored text) 
-        #Detect password input and hide the password
-        #fix the tab thingy (when i press on tab, i want it to autofill it does but the proposition is not printed in the terminal)
-        #Detect nano/vim/vi/ect.. input and print a message (i dont want vim)
-        #make it more secure (use ssh keys)
-        #remove the "self.ssh_client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-        #add an insert password button
-        #ls -al crashes the whole thing it also makes the text above dissapear
+class SharedTextEdit:
+    def __init__(self):
+        self.terminals = []
+        self.checked = False
+
+    def isChecked(self):
+        return self.checked
+
+    def setChecked(self, value):
+        self.checked = value
+
+
+if __name__ == "__main__":
+    hosts = [('192.168.69.47', 'server1', 'Pa$$w0rd'),('192.168.69.41', 'manager1', 'Pa$$w0rd'),('192.168.69.41', 'manager1', 'Pa$$w0rd')]
+
+    app = QApplication(sys.argv)
+    window = MultiSSHWindow(hosts)
+    window.show()
+    sys.exit(app.exec_())
+
