@@ -4,10 +4,17 @@ import sys
 from PyQt5.QtCore import Qt, QUrl
 from PyQt5.QtGui import QIcon, QDesktopServices
 from PyQt5.QtWidgets import QApplication, QFrame, QHBoxLayout
-from qfluentwidgets import (NavigationItemPosition, MessageBox, setTheme, Theme, FluentWindow,
+from qfluentwidgets import (NavigationItemPosition, MessageBox, setTheme, setThemeColor, Theme, FluentWindow,
                             NavigationAvatarWidget, qrouter, SubtitleLabel, setFont, InfoBadge,
                             InfoBadgePosition)
 from PyQt5.QtWidgets import QPushButton, QHBoxLayout
+import sys
+from PyQt5.QtCore import Qt
+from PyQt5.QtGui import *
+from PyQt5.QtWidgets import QApplication, QFrame, QHBoxLayout
+from qfluentwidgets import (NavigationItemPosition, MessageBox, setTheme, setThemeColor, Theme, FluentWindow,
+                            NavigationAvatarWidget, qrouter, SubtitleLabel, setFont, InfoBadge,
+                            InfoBadgePosition)
 from SSH_Widget import SSHWidget 
 
 class Widget(QFrame):
@@ -102,7 +109,9 @@ if __name__ == '__main__':
     QApplication.setHighDpiScaleFactorRoundingPolicy(Qt.HighDpiScaleFactorRoundingPolicy.PassThrough)
     QApplication.setAttribute(Qt.AA_EnableHighDpiScaling)
     QApplication.setAttribute(Qt.AA_UseHighDpiPixmaps)
-
+    color = QColor('#351392')
+    setThemeColor(color ,Qt.GlobalColor , '') #THIS CHANGED TO COLOR OF THE LIL THINGY
+    
     app = QApplication(sys.argv)
     w = Window()
     w.show()

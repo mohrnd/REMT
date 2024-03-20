@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>578</width>
-    <height>530</height>
+    <width>579</width>
+    <height>768</height>
    </rect>
   </property>
   <property name="maximumSize">
@@ -28,7 +28,7 @@
      <x>0</x>
      <y>270</y>
      <width>571</width>
-     <height>251</height>
+     <height>481</height>
     </rect>
    </property>
    <property name="styleSheet">
@@ -44,7 +44,7 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>60</y>
+      <y>50</y>
       <width>561</width>
       <height>41</height>
      </rect>
@@ -172,9 +172,9 @@
    <widget class="LineEdit" name="Command_input">
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>130</y>
-      <width>541</width>
+      <x>10</x>
+      <y>390</y>
+      <width>551</width>
       <height>33</height>
      </rect>
     </property>
@@ -185,9 +185,9 @@
    <widget class="LineEdit" name="Job_Preview">
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>170</y>
-      <width>451</width>
+      <x>10</x>
+      <y>430</y>
+      <width>461</width>
       <height>33</height>
      </rect>
     </property>
@@ -202,7 +202,7 @@
     <property name="geometry">
      <rect>
       <x>480</x>
-      <y>170</y>
+      <y>430</y>
       <width>81</width>
       <height>32</height>
      </rect>
@@ -211,54 +211,107 @@
      <string>Apply</string>
     </property>
    </widget>
-   <widget class="PrimaryPushButton" name="Save">
+   <widget class="StrongBodyLabel" name="StrongBodyLabel">
     <property name="geometry">
      <rect>
-      <x>300</x>
-      <y>210</y>
-      <width>153</width>
-      <height>32</height>
+      <x>10</x>
+      <y>100</y>
+      <width>121</width>
+      <height>21</height>
      </rect>
     </property>
     <property name="text">
-     <string>Save</string>
+     <string>Select a machine:</string>
     </property>
    </widget>
-   <widget class="PushButton" name="Cancel">
+   <widget class="TableWidget" name="Machines">
     <property name="geometry">
      <rect>
-      <x>460</x>
-      <y>210</y>
-      <width>102</width>
-      <height>32</height>
+      <x>10</x>
+      <y>120</y>
+      <width>561</width>
+      <height>261</height>
      </rect>
     </property>
-    <property name="text">
-     <string>Cancel</string>
-    </property>
+    <column>
+     <property name="text">
+      <string>Number</string>
+     </property>
+     <property name="font">
+      <font>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Machine IP address</string>
+     </property>
+     <property name="font">
+      <font>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Machine Name</string>
+     </property>
+     <property name="font">
+      <font>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+    </column>
    </widget>
   </widget>
-  <widget class="ScrollArea" name="ScrollArea">
+  <widget class="QFrame" name="Active_jobs">
    <property name="geometry">
     <rect>
-     <x>10</x>
-     <y>10</y>
-     <width>561</width>
-     <height>251</height>
+     <x>0</x>
+     <y>0</y>
+     <width>571</width>
+     <height>271</height>
     </rect>
    </property>
-   <property name="widgetResizable">
-    <bool>true</bool>
+   <property name="frameShape">
+    <enum>QFrame::StyledPanel</enum>
    </property>
-   <widget class="QWidget" name="scrollAreaWidgetContents">
+   <property name="frameShadow">
+    <enum>QFrame::Raised</enum>
+   </property>
+   <widget class="TableWidget" name="TableWidget">
     <property name="geometry">
      <rect>
       <x>0</x>
-      <y>0</y>
-      <width>559</width>
-      <height>249</height>
+      <y>40</y>
+      <width>571</width>
+      <height>231</height>
      </rect>
     </property>
+    <column>
+     <property name="text">
+      <string>Number</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Machine</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Job</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Delete</string>
+     </property>
+    </column>
    </widget>
   </widget>
  </widget>
@@ -274,14 +327,18 @@
    <header>qfluentwidgets</header>
   </customwidget>
   <customwidget>
-   <class>ScrollArea</class>
-   <extends>QScrollArea</extends>
+   <class>StrongBodyLabel</class>
+   <extends>QLabel</extends>
    <header>qfluentwidgets</header>
-   <container>1</container>
   </customwidget>
   <customwidget>
    <class>LineEdit</class>
    <extends>QLineEdit</extends>
+   <header>qfluentwidgets</header>
+  </customwidget>
+  <customwidget>
+   <class>TableWidget</class>
+   <extends>QTableWidget</extends>
    <header>qfluentwidgets</header>
   </customwidget>
  </customwidgets>
