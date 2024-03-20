@@ -46,15 +46,16 @@ def remove_cron(ssh_client, job):
 def print_active_jobs(ssh_client):
     stdin, stdout, stderr = ssh_client.exec_command("crontab -l")
     cron_output = stdout.read().decode().strip()
-    if cron_output:
-        print("Active cron jobs:")
-        cron_list = cron_output.split('\n')
-        number = 1
-        for cron_job in cron_list:
-            print(f"Job {number}: ",cron_job)
-            number += 1
-    else:
-        print("No active jobs")
+    return cron_output
+
+# usage
+    # if cron_output:
+    #     print("Active cron jobs:")
+    #     cron_list = cron_output.split('\n')
+    #     for cron_job in cron_list:
+    #         print(cron_job)
+    # else:
+    #     print("No active jobs")
 
 def job_exists(ssh_client, job):
     stdin, stdout, stderr = ssh_client.exec_command("crontab -l")
