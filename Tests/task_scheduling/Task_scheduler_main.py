@@ -19,6 +19,15 @@ class MainWindow(QWidget, Ui_Frame):
         self.add_button.clicked.connect(self.Add_to_preview)
         self.Apply.clicked.connect(self.Apply_cron)
         
+        self.Onstartup.clicked.connect(self.on_startup_clicked)
+        self.hourly.clicked.connect(self.hourly_clicked)
+        self.Daily_2.clicked.connect(self.daily_clicked)
+        self.weekly_2.clicked.connect(self.weekly_clicked)
+        self.monthly_2.clicked.connect(self.monthly_clicked)
+        self.Yearly_2.clicked.connect(self.yearly_clicked)
+
+
+        
     def delete_cron(self):
         sender_button = self.sender()
         for table_row in range(self.TableWidget.rowCount()):
@@ -98,11 +107,28 @@ class MainWindow(QWidget, Ui_Frame):
         if selectedIPS == []:
             no_ip_error_dialog()
         else: 
-            temp = self.Job_Preview.text()
+            job = self.Job_Preview.text()
             for IP in selectedIPS:
-                pass
-            
-            
+                CSV_File_Path = '../REMT/Tests/task_scheduling/snmp_users.csv'
+                with open(CSV_File_Path, 'r') as file:
+                    reader = csv.DictReader(file)
+                    for row in reader:
+                        if row['ip_add'] == IP:
+                            hostname = IP
+                            port  = 22
+                            username = row['linux_username']
+                            password = row['password']
+                            ssh_client = ssh_client_creation(hostname, port, username, password)
+                            add_cron(ssh_client, job)
+                            ssh_client.close()
+                            rowPositionMachines = self.TableWidget.rowCount()
+                            self.TableWidget.insertRow(rowPositionMachines)
+                            self.TableWidget.setItem(rowPositionMachines, 0, QTableWidgetItem(hostname))
+                            self.TableWidget.setItem(rowPositionMachines, 1, QTableWidgetItem(job))
+                            DeleteButton = PushButton('Delete')
+                            self.TableWidget.setCellWidget(rowPositionMachines, 2, DeleteButton)
+                            break
+    
     def Add_to_preview(self):
         # add value checking
         Months = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC']
@@ -118,7 +144,48 @@ class MainWindow(QWidget, Ui_Frame):
             cmd = self.Command_input.text()
             self.Job_Preview.setText(f"{Minutes} {Hours} {Days} {months} {weekdays} {cmd}")
             # to fetch the content of the job preview: temp = self.Job_Preview.text()
-        
+    
+    def on_startup_clicked(self):
+        cmd = self.Command_input.text()
+        if cmd == '':
+            no_cmd_error_dialog()
+        else:
+            self.Job_Preview.setText(f"@reboot {cmd}")
+
+    def hourly_clicked(self):
+        cmd = self.Command_input.text()
+        if cmd == '':
+            no_cmd_error_dialog()
+        else:
+            self.Job_Preview.setText(f"@hourly {cmd}")
+
+    def daily_clicked(self):
+        cmd = self.Command_input.text()
+        if cmd == '':
+            no_cmd_error_dialog()
+        else:
+            self.Job_Preview.setText(f"@daily {cmd}")
+
+    def weekly_clicked(self):
+        cmd = self.Command_input.text()
+        if cmd == '':
+            no_cmd_error_dialog()
+        else:
+            self.Job_Preview.setText(f"@weekly {cmd}")
+            
+    def monthly_clicked(self):
+        cmd = self.Command_input.text()
+        if cmd == '':
+            no_cmd_error_dialog()
+        else:
+            self.Job_Preview.setText(f"@monthly {cmd}")
+
+    def yearly_clicked(self):
+        cmd = self.Command_input.text()
+        if cmd == '':
+            no_cmd_error_dialog()
+        else:
+            self.Job_Preview.setText(f"@yearly {cmd}")
 
 def no_ip_error_dialog():
     msg_box = QMessageBox()
