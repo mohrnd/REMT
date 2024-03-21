@@ -218,11 +218,4 @@ class SharedTextEdit:
 
 
 
-# if __name__ == "__main__":
-#     hosts = [('192.168.69.47', 'server1', 'Pa$$w0rd'),('192.168.69.41', 'manager1', 'Pa$$w0rd'),('192.168.69.41', 'manager1', 'Pa$$w0rd')]
-
-#     app = QApplication(sys.argv)
-#     window = MultiSSHWindow(hosts)
-#     window.show()
-#     sys.exit(app.exec_())
 
