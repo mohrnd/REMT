@@ -83,8 +83,10 @@ class MainWindow(Ui_Frame, QWidget):
                             password = row['password']
                             temp = [ip, username, password]
                             hosts.append(temp.copy())  
-                            break  
-            if hosts:
+                            break
+            if len(hosts) < 2:
+                multissh_error_dialog()
+            else:
                 self.multi_ssh_window = MultiSSHWindow(hosts)
                 self.multi_ssh_window.show()
             
@@ -109,6 +111,15 @@ def no_ip_error_dialog():
     msg_box.setIcon(QMessageBox.Critical)
     msg_box.setText(f"No IP selected")
     msg_box.setWindowTitle("Error")
+    msg_box.setStandardButtons(QMessageBox.Cancel)
+    msg_box.setDefaultButton(QMessageBox.Cancel)
+    result = msg_box.exec_()
+    
+def multissh_error_dialog():
+    msg_box = QMessageBox()
+    msg_box.setIcon(QMessageBox.Warning)
+    msg_box.setText(f"Please select 2 or more machines for multi-SSH")
+    msg_box.setWindowTitle("Info")
     msg_box.setStandardButtons(QMessageBox.Cancel)
     msg_box.setDefaultButton(QMessageBox.Cancel)
     result = msg_box.exec_()
