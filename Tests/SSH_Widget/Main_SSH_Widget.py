@@ -1,5 +1,5 @@
 import sys
-from PyQt5.QtWidgets import QApplication, QWidget, QTableWidgetItem, QHBoxLayout, QSpacerItem, QSizePolicy, QAbstractItemView
+from PyQt5.QtWidgets import QApplication, QWidget, QTableWidgetItem, QHBoxLayout, QSpacerItem, QSizePolicy, QAbstractItemView, QMessageBox
 from Ui_main import Ui_Frame
 from qfluentwidgets import setTheme, setThemeColor, FluentWindow, CheckBox, PushButton, ToggleButton
 
@@ -7,14 +7,20 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QColor
 import csv
 import os
+from SingleSSH import SSHWidget
+from MultiSSH import MultiSSHWidget, MultiSSHWindow
+
 class MainWindow(Ui_Frame, QWidget):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
         self.show_active_machines()
-        # self.MainTable.setShowGrid(True)
         self.MainTable.setStyleSheet("QTableWidget { border: 1px solid gray; selection-background-color: #AF9BE5;  }")
         self.MainTable.setEditTriggers(QAbstractItemView.NoEditTriggers) 
+        self.OpenMultiSSH.clicked.connect(self.MultiSSH)
+        self.single_ssh_window = [] 
+        self.multi_ssh_window = None  
+        
     def show_active_machines(self):
         CSV_File_Path = '../REMT/Tests/task_scheduling/snmp_users.csv'
         with open(CSV_File_Path, 'r') as file:
@@ -34,24 +40,78 @@ class MainWindow(Ui_Frame, QWidget):
                     buttons_layout.setAlignment(Qt.AlignCenter)
                     
                     # PushButton
-                    push_button = PushButton("Open terminal")
-                    push_button.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
-                    buttons_layout.addWidget(push_button)
+                    OpenTerminal = PushButton("Open terminal")
+                    OpenTerminal.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
+                    buttons_layout.addWidget(OpenTerminal)
+                    # Connect the clicked signal with a lambda function passing the IP address
+                    OpenTerminal.clicked.connect(lambda checked, ip=hostname: self.SingleSSH(ip))
                     
                     # Spacer
                     spacer = QSpacerItem(20, 20, QSizePolicy.Fixed, QSizePolicy.Fixed)
                     buttons_layout.addItem(spacer)
                     
-                    # ToggleButton
-                    toggle_button = ToggleButton("Select")
-                    toggle_button.setCheckable(True)
-                    toggle_button.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
-                    buttons_layout.addWidget(toggle_button)
+                    # Checkbox
+                    Checkbox_select = CheckBox()
+                    Checkbox_select.setCheckable(True)
+                    buttons_layout.addWidget(Checkbox_select)
                     
                     buttons_layout.setContentsMargins(0, 0, 0, 0)
                     buttons_widget.setLayout(buttons_layout)
 
                     self.MainTable.setCellWidget(rowPositionMachines, 2, buttons_widget)
+    
+    def MultiSSH(self):
+        selectedIPS = []
+        for row in range(self.MainTable.rowCount()):
+            items = self.MainTable.cellWidget(row, 2)
+            checkbox_select = items.findChild(CheckBox)
+            if checkbox_select is not None and checkbox_select.isChecked():
+                ip_address_item = self.MainTable.item(row, 1)
+                if ip_address_item is not None:
+                    selectedIPS.append(ip_address_item.text())
+        if not selectedIPS:
+            no_ip_error_dialog()
+        else:
+            hosts = []
+            for ip in selectedIPS:
+                CSV_File_Path = '../REMT/Tests/task_scheduling/snmp_users.csv'
+                with open(CSV_File_Path, 'r') as file:
+                    reader = csv.DictReader(file)
+                    for row in reader:
+                        if row['ip_add'] == ip: 
+                            username = row['linux_username']
+                            password = row['password']
+                            temp = [ip, username, password]
+                            hosts.append(temp.copy())  
+                            break  
+            if hosts:
+                self.multi_ssh_window = MultiSSHWindow(hosts)
+                self.multi_ssh_window.show()
+            
+            
+    def SingleSSH(self, ip_address):
+        hostname = ip_address
+        CSV_File_Path = '../REMT/Tests/task_scheduling/snmp_users.csv'
+        with open(CSV_File_Path, 'r') as file:
+            reader = csv.DictReader(file)
+            for row in reader:
+                if row['ip_add'] == hostname: 
+                    username = row['linux_username']
+                    password = row['password']
+                    single_ssh_window = SSHWidget(hostname, username, password)
+                    single_ssh_window.setGeometry(200, 200, 1200, 900) 
+                    single_ssh_window.show()
+                    return
+
+
+def no_ip_error_dialog():
+    msg_box = QMessageBox()
+    msg_box.setIcon(QMessageBox.Critical)
+    msg_box.setText(f"No IP selected")
+    msg_box.setWindowTitle("Error")
+    msg_box.setStandardButtons(QMessageBox.Cancel)
+    msg_box.setDefaultButton(QMessageBox.Cancel)
+    result = msg_box.exec_()
                     
 def Check_ip(hostname):
     param = '-n' if os.name.lower() == 'nt' else '-c'
