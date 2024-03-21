@@ -1,5 +1,5 @@
 import sys
-from PyQt5.QtWidgets import QApplication, QWidget, QTableWidgetItem, QMessageBox
+from PyQt5.QtWidgets import QApplication, QWidget, QTableWidgetItem, QMessageBox, QAbstractItemView
 from Ui_CrontabGUI import Ui_Frame  
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import *
@@ -14,6 +14,10 @@ class MainWindow(QWidget, Ui_Frame):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
+        self.TableWidget.setEditTriggers(QAbstractItemView.NoEditTriggers) 
+        self.Machines.setEditTriggers(QAbstractItemView.NoEditTriggers) 
+        self.Machines.setStyleSheet("QTableWidget { border: 1px solid gray; selection-background-color: #AF9BE5;}")
+        self.TableWidget.setStyleSheet("QTableWidget { border: 1px solid gray; selection-background-color: #AF9BE5;}")
         self.show_active_machines()
         self.show_active_crons()
         self.add_button.clicked.connect(self.Add_to_preview)

@@ -136,7 +136,7 @@ class Ui_Frame(object):
         self.Active_jobs.setFrameShadow(QtWidgets.QFrame.Raised)
         self.Active_jobs.setObjectName("Active_jobs")
         self.TableWidget = TableWidget(self.Active_jobs)
-        self.TableWidget.setGeometry(QtCore.QRect(0, 40, 571, 231))
+        self.TableWidget.setGeometry(QtCore.QRect(10, 40, 560, 190))
         self.TableWidget.setObjectName("TableWidget")
         self.TableWidget.setColumnCount(3)
         self.TableWidget.setRowCount(0)
