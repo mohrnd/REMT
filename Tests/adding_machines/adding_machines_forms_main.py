@@ -135,10 +135,10 @@ class MainWindow(QWidget, Ui_Form):
             setup_script_content = setup_script_content.format(SNMPv3_username=SNMPv3_username, UserType=UserType, auth_Protocole =auth_Protocole, Auth_password=Auth_password, Priv_Protocole=Priv_Protocole, Priv_password=Priv_password, ip=managerIP)
             content_lines = setup_script_content.split('\n')
             for line in content_lines:
-                print(line,'\n')
-                conn = Connection(hostname, user=username, port=port, connect_kwargs={"password": password})
-                result = conn.run(f'sudo {line}', warn=True)
-                print(result)
+                client = ssh_client_creation(hostname, port, username, password)
+                stdin, stdout, stderr = client.exec_command(f"{line}", get_pty=True)
+                output = stdout.read().decode().strip()
+                print(output)
 
 
         
@@ -149,7 +149,12 @@ def Check_ip(hostname):
         return True
     else:
         return False
-        
+def ssh_client_creation(host, port, username, password):
+    ssh_client = paramiko.SSHClient()
+    ssh_client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+    ssh_client.connect(hostname=host, port=port, username=username, password=password)
+    return ssh_client        
+
 def main():
     color = QColor('#351392')
     setThemeColor(color ,Qt.GlobalColor , '') 
