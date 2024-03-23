@@ -132,14 +132,44 @@ class MainWindow(QWidget, Ui_Form):
         if SNMPv3_username == '' or UserType == '' or auth_Protocole == '' or Priv_Protocole == '' or Auth_password == '' or Priv_password == '' or hostname == '':
             QMessageBox.warning(self, "Error", "Please fill all of the forms.")
         else:
-            setup_script_content = setup_script_content.format(SNMPv3_username=SNMPv3_username, UserType=UserType, auth_Protocole =auth_Protocole, Auth_password=Auth_password, Priv_Protocole=Priv_Protocole, Priv_password=Priv_password, ip=managerIP)
+            setup_script_content = setup_script_content.format(SNMPv3_username=SNMPv3_username, UserType=UserType, 
+                                                               auth_Protocole=auth_Protocole, Auth_password=Auth_password, 
+                                                               Priv_Protocole=Priv_Protocole, Priv_password=Priv_password, ip=managerIP)
+
             content_lines = setup_script_content.split('\n')
             for line in content_lines:
                 client = ssh_client_creation(hostname, port, username, password)
                 stdin, stdout, stderr = client.exec_command(f"{line}", get_pty=True)
                 output = stdout.read().decode().strip()
                 print(output)
+                Machine_Info = 'something'
+                security_engine_id = ''
+            create_or_update_csv(SNMPv3_username, auth_Protocole, Auth_password, Priv_Protocole, Priv_password, security_engine_id, hostname, password, username, MachineName, Machine_Info)
+                
+# the config only works using root, now i can either make a form to enter the root password and only use it for the initial config, or i will try to find a way to make it work
 
+def create_or_update_csv(SNMPv3_username, auth_Protocole, auth_password, Priv_Protocole, priv_password, security_engine_id, ip_add, password, linux_username, Machine_Name, Machine_Info):
+    columns = ['SNMPv3_username', 
+               'auth_Protocole', 
+               'auth_password',
+               'Priv_Protocole',
+               'priv_password',
+               'security_engine_id',
+               'ip_add', 
+               'password',
+               'linux_username',
+               'Machine_Name',
+               'Machine_Info']
+    data = [SNMPv3_username, auth_Protocole, auth_password, Priv_Protocole, priv_password, security_engine_id, ip_add, password, linux_username, Machine_Name, Machine_Info]
+    csv_file_path = 'machines.csv'
+    if not os.path.exists(csv_file_path):
+        with open(csv_file_path, 'w', newline='') as file:
+            writer = csv.writer(file)
+            writer.writerow(columns)
+            
+    with open(csv_file_path, 'a', newline='') as file:
+        writer = csv.writer(file)
+        writer.writerow(data)
 
         
 def Check_ip(hostname):
@@ -162,9 +192,6 @@ def main():
     window = MainWindow()
     window.show()
     
-
-
-
     sys.exit(app.exec_())
 
 if __name__ == "__main__":

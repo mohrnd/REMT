@@ -17,4 +17,6 @@ firewall-cmd --add-service=snmp --permanent
 firewall-cmd --zone=public --add-port=161/udp --permanent
 firewall-cmd --zone=public --add-port=162/udp --permanent
 firewall-cmd --reload
+echo "The engine ID:"
+grep oldEngineID /var/lib/net-snmp/snmpd.conf
 echo "SNMP configuration completed."
