@@ -22,11 +22,8 @@ class Ui_Form(object):
         self.MachineName.setGeometry(QtCore.QRect(10, 60, 561, 33))
         self.MachineName.setObjectName("MachineName")
         self.IPAddress = LineEdit(Form)
-        self.IPAddress.setGeometry(QtCore.QRect(10, 110, 561, 33))
+        self.IPAddress.setGeometry(QtCore.QRect(10, 110, 461, 33))
         self.IPAddress.setObjectName("IPAddress")
-        
-        
-        
         self.ipstatusONLINE = CaptionLabel(Form)
         self.ipstatusONLINE.setGeometry(QtCore.QRect(10, 150, 70, 15))
         self.ipstatusONLINE.setStyleSheet("FluentLabelBase {\n"
@@ -58,9 +55,7 @@ class Ui_Form(object):
 "    color: #00a7b3;\n"
 "}\n"
 "FluentLabelBase{color:green}")
-        
         self.ipstatusONLINE.setObjectName("ipstatusONLINE")
-        
         self.ipstatusOFFLINE = CaptionLabel(Form)
         self.ipstatusOFFLINE.setGeometry(QtCore.QRect(10, 150, 70, 15))
         self.ipstatusOFFLINE.setStyleSheet("FluentLabelBase {\n"
@@ -93,7 +88,6 @@ class Ui_Form(object):
 "}\n"
 "FluentLabelBase{color:red}")
         self.ipstatusOFFLINE.setObjectName("ipstatusOFFLINE")
-        
         self.MachineUsername = LineEdit(Form)
         self.MachineUsername.setGeometry(QtCore.QRect(10, 180, 441, 33))
         self.MachineUsername.setObjectName("MachineUsername")
@@ -148,13 +142,17 @@ class Ui_Form(object):
         self.CaptionLabel = CaptionLabel(Form)
         self.CaptionLabel.setGeometry(QtCore.QRect(10, 610, 561, 21))
         self.CaptionLabel.setObjectName("CaptionLabel")
+        self.Port = LineEdit(Form)
+        self.Port.setGeometry(QtCore.QRect(490, 110, 81, 33))
+        self.Port.setText("")
+        self.Port.setObjectName("Port")
 
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
 
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
-        Form.setWindowTitle(_translate("Form", "Add a machine"))
+        Form.setWindowTitle(_translate("Form", "Form"))
         self.SubtitleLabel.setText(_translate("Form", "Machine info:"))
         self.MachineName.setPlaceholderText(_translate("Form", "Machine name"))
         self.IPAddress.setPlaceholderText(_translate("Form", "IP Address"))
@@ -177,4 +175,5 @@ class Ui_Form(object):
         self.ADD_BUTTON.setText(_translate("Form", "Add"))
         self.RESET_FORMS.setText(_translate("Form", "Reset"))
         self.CaptionLabel.setText(_translate("Form", "Note: If you want to change the default configuration, you can edit the configuration template text file."))
+        self.Port.setPlaceholderText(_translate("Form", "Port"))
 from qfluentwidgets import BodyLabel, CaptionLabel, CheckBox, HorizontalSeparator, LineEdit, PasswordLineEdit, PrimaryPushButton, PushButton, SubtitleLabel

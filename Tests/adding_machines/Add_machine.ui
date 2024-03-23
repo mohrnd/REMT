@@ -44,7 +44,7 @@
     <rect>
      <x>10</x>
      <y>110</y>
-     <width>561</width>
+     <width>461</width>
      <height>33</height>
     </rect>
    </property>
@@ -99,7 +99,7 @@ FluentLabelBase{color:green}</string>
   <widget class="CaptionLabel" name="ipstatusOFFLINE">
    <property name="geometry">
     <rect>
-     <x>80</x>
+     <x>10</x>
      <y>150</y>
      <width>70</width>
      <height>15</height>
@@ -369,6 +369,22 @@ FluentLabelBase{color:red}</string>
    </property>
    <property name="text">
     <string>Note: If you want to change the default configuration, you can edit the configuration template text file.</string>
+   </property>
+  </widget>
+  <widget class="LineEdit" name="Port">
+   <property name="geometry">
+    <rect>
+     <x>490</x>
+     <y>110</y>
+     <width>81</width>
+     <height>33</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="placeholderText">
+    <string>Port</string>
    </property>
   </widget>
  </widget>
