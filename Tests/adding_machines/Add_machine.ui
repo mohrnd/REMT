@@ -219,7 +219,7 @@ FluentLabelBase{color:red}</string>
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>440</y>
+     <y>480</y>
      <width>131</width>
      <height>19</height>
     </rect>
@@ -245,7 +245,7 @@ FluentLabelBase{color:red}</string>
    <property name="geometry">
     <rect>
      <x>160</x>
-     <y>440</y>
+     <y>480</y>
      <width>92</width>
      <height>22</height>
     </rect>
@@ -257,8 +257,8 @@ FluentLabelBase{color:red}</string>
   <widget class="CheckBox" name="SHACheckBox">
    <property name="geometry">
     <rect>
-     <x>230</x>
-     <y>440</y>
+     <x>240</x>
+     <y>480</y>
      <width>92</width>
      <height>22</height>
     </rect>
@@ -271,7 +271,7 @@ FluentLabelBase{color:red}</string>
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>480</y>
+     <y>520</y>
      <width>111</width>
      <height>19</height>
     </rect>
@@ -284,7 +284,7 @@ FluentLabelBase{color:red}</string>
    <property name="geometry">
     <rect>
      <x>130</x>
-     <y>480</y>
+     <y>520</y>
      <width>92</width>
      <height>22</height>
     </rect>
@@ -296,8 +296,8 @@ FluentLabelBase{color:red}</string>
   <widget class="CheckBox" name="AESCheckBox">
    <property name="geometry">
     <rect>
-     <x>200</x>
-     <y>480</y>
+     <x>210</x>
+     <y>520</y>
      <width>92</width>
      <height>22</height>
     </rect>
@@ -306,24 +306,11 @@ FluentLabelBase{color:red}</string>
     <string>AES256</string>
    </property>
   </widget>
-  <widget class="LineEdit" name="EncryptionKey">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>520</y>
-     <width>561</width>
-     <height>33</height>
-    </rect>
-   </property>
-   <property name="placeholderText">
-    <string>Encryption Key</string>
-   </property>
-  </widget>
   <widget class="LineEdit" name="SNMPTIMEOUT">
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>570</y>
+     <y>620</y>
      <width>561</width>
      <height>33</height>
     </rect>
@@ -336,39 +323,13 @@ FluentLabelBase{color:red}</string>
    <property name="geometry">
     <rect>
      <x>420</x>
-     <y>660</y>
+     <y>690</y>
      <width>153</width>
      <height>32</height>
     </rect>
    </property>
    <property name="text">
     <string>Add</string>
-   </property>
-  </widget>
-  <widget class="PushButton" name="RESET_FORMS">
-   <property name="geometry">
-    <rect>
-     <x>300</x>
-     <y>660</y>
-     <width>102</width>
-     <height>32</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Reset</string>
-   </property>
-  </widget>
-  <widget class="CaptionLabel" name="CaptionLabel">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>610</y>
-     <width>561</width>
-     <height>21</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Note: If you want to change the default configuration, you can edit the configuration template text file.</string>
    </property>
   </widget>
   <widget class="LineEdit" name="Port">
@@ -385,6 +346,58 @@ FluentLabelBase{color:red}</string>
    </property>
    <property name="placeholderText">
     <string>Port</string>
+   </property>
+  </widget>
+  <widget class="CheckBox" name="ReadOnly">
+   <property name="geometry">
+    <rect>
+     <x>90</x>
+     <y>440</y>
+     <width>101</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Read Only</string>
+   </property>
+  </widget>
+  <widget class="CheckBox" name="ReadWrite">
+   <property name="geometry">
+    <rect>
+     <x>200</x>
+     <y>440</y>
+     <width>121</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Read-Write</string>
+   </property>
+  </widget>
+  <widget class="BodyLabel" name="UserTypeLabel">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>440</y>
+     <width>71</width>
+     <height>19</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>User Type:</string>
+   </property>
+  </widget>
+  <widget class="PasswordLineEdit" name="EncryptionKey">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>570</y>
+     <width>561</width>
+     <height>33</height>
+    </rect>
+   </property>
+   <property name="placeholderText">
+    <string>Encryption Key</string>
    </property>
   </widget>
  </widget>

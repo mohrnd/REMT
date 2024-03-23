@@ -61,7 +61,7 @@ class MainWindow(QWidget, Ui_Form):
                 ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
                 ssh.connect(hostname, port, username, password)
                 ssh.close()
-                QMessageBox.information(self, "Success", f"SSH connection to {MachineName} successful!")
+                QMessageBox.information(self, "Success", f"SSH connection to '{MachineName}' successful!")
                 self.enable_snmp_form_fields()
             
             except SSHException as e:
