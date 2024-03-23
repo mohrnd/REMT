@@ -9,6 +9,8 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtWidgets import QButtonGroup
+
 
 
 class Ui_Form(object):
@@ -94,7 +96,7 @@ class Ui_Form(object):
         self.MachinePassword = PasswordLineEdit(Form)
         self.MachinePassword.setGeometry(QtCore.QRect(10, 230, 441, 33))
         self.MachinePassword.setObjectName("MachinePassword")
-        self.VerifyMachineInfo = PushButton(Form)
+        self.VerifyMachineInfo = PrimaryPushButton(Form)
         self.VerifyMachineInfo.setGeometry(QtCore.QRect(470, 230, 102, 32))
         self.VerifyMachineInfo.setObjectName("VerifyMachineInfo")
         self.SubtitleLabel_2 = SubtitleLabel(Form)
@@ -127,7 +129,7 @@ class Ui_Form(object):
         self.AESCheckBox = CheckBox(Form)
         self.AESCheckBox.setGeometry(QtCore.QRect(200, 480, 92, 22))
         self.AESCheckBox.setObjectName("AESCheckBox")
-        self.EncryptionKey = LineEdit(Form)
+        self.EncryptionKey = PasswordLineEdit(Form)
         self.EncryptionKey.setGeometry(QtCore.QRect(10, 520, 561, 33))
         self.EncryptionKey.setObjectName("EncryptionKey")
         self.SNMPTIMEOUT = LineEdit(Form)
@@ -146,6 +148,14 @@ class Ui_Form(object):
         self.Port.setGeometry(QtCore.QRect(490, 110, 81, 33))
         self.Port.setText("")
         self.Port.setObjectName("Port")
+        self.authTypeButtonGroup = QButtonGroup(Form)
+        self.authTypeButtonGroup.addButton(self.MD5CheckBox)
+        self.authTypeButtonGroup.addButton(self.SHACheckBox)
+        
+        self.privTypeButtonGroup = QButtonGroup(Form)
+        self.privTypeButtonGroup.addButton(self.DESCheckBoX)
+        self.privTypeButtonGroup.addButton(self.AESCheckBox)
+        
 
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)

@@ -23,14 +23,14 @@ class MainWindow(QWidget, Ui_Form):
         self.ip_check_timer.timeout.connect(self.check_ip_status)
         
         self.VerifyMachineInfo.clicked.connect(self.verify_machine_data)
-        self.disable_form_fields()
+        self.disable_snmp_form_fields()
         
-    def disable_form_fields(self):
+    def disable_snmp_form_fields(self):
         for widget in self.findChildren(QWidget):
             if widget.geometry().top() > self.HorizontalSeparator.geometry().bottom():
                 widget.setEnabled(False)
                 
-    def enable_form_fields(self):
+    def enable_snmp_form_fields(self):
         for widget in self.findChildren(QWidget):
             if widget.geometry().top() > self.HorizontalSeparator.geometry().bottom():
                 widget.setEnabled(True)
@@ -62,7 +62,7 @@ class MainWindow(QWidget, Ui_Form):
                 ssh.connect(hostname, port, username, password)
                 ssh.close()
                 QMessageBox.information(self, "Success", f"SSH connection to {MachineName} successful!")
-                self.enable_form_fields()
+                self.enable_snmp_form_fields()
             
             except SSHException as e:
                 QMessageBox.warning(self, "Error", f"SSH connection failed: {str(e)}")
