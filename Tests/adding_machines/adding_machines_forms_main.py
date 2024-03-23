@@ -142,8 +142,10 @@ class MainWindow(QWidget, Ui_Form):
                 stdin, stdout, stderr = client.exec_command(f"{line}", get_pty=True)
                 output = stdout.read().decode().strip()
                 print(output)
-                Machine_Info = 'something'
-                security_engine_id = ''
+                Machine_Info = 'None'
+                if 'oldEngineID' in output:
+                    substring_to_remove = "oldEngineID 0x"
+                    security_engine_id = output.replace(substring_to_remove, "") 
             create_or_update_csv(SNMPv3_username, auth_Protocole, Auth_password, Priv_Protocole, Priv_password, security_engine_id, hostname, password, username, MachineName, Machine_Info)
                 
 # the config only works using root, now i can either make a form to enter the root password and only use it for the initial config, or i will try to find a way to make it work
