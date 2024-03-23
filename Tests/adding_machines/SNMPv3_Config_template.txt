@@ -1,28 +1,20 @@
 echo "Installing net-snmp RPMs..."
 yum install -y net-snmp net-snmp-libs net-snmp-utils net-snmp-agent-libs
-
 rm -rf  /etc/snmp/snmpd.conf
 touch /etc/snmp/snmpd.conf
-
 systemctl stop snmpd
 echo "Setting up the /etc/snmp/snmpd.conf file"
-
 echo "createUser {SNMPv3_username} {auth_Protocole} {Auth_password} {Priv_Protocole} {Priv_password}" >> /etc/snmp/snmpd.conf
 echo "{UserType} {SNMPv3_username} authpriv system" >> /etc/snmp/snmpd.conf
 echo "iquerySecName {SNMPv3_username}" >> /etc/snmp/snmpd.conf
 echo "trapsess -v 3 -l authPriv -u {SNMPv3_username} {ip}" >> /etc/snmp/snmpd.conf
-
-
 echo "Enabling and starting snmpd service..."
 systemctl enable snmpd
 systemctl start snmpd
 systemctl restart snmpd
-
-
 echo "Setting up the firewall..."
 firewall-cmd --add-service=snmp --permanent
 firewall-cmd --zone=public --add-port=161/udp --permanent
 firewall-cmd --zone=public --add-port=162/udp --permanent
 firewall-cmd --reload
-
 echo "SNMP configuration completed."

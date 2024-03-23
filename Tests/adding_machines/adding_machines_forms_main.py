@@ -10,6 +10,8 @@ import os
 import csv
 import paramiko
 from paramiko import SSHException
+from fabric import Connection
+
 
 
 class MainWindow(QWidget, Ui_Form):
@@ -23,6 +25,8 @@ class MainWindow(QWidget, Ui_Form):
         self.ip_check_timer.timeout.connect(self.check_ip_status)
         
         self.VerifyMachineInfo.clicked.connect(self.verify_machine_data)
+        self.ADD_BUTTON.clicked.connect(self.snmpconf_setup)
+        
         self.disable_snmp_form_fields()
         
     def disable_snmp_form_fields(self):
@@ -95,16 +99,47 @@ class MainWindow(QWidget, Ui_Form):
     def snmpconf_setup(self):
         with open('../REMT/tests/adding_machines/SNMPv3_Config_template.txt', 'r') as file:
             setup_script_content = file.read()
+        hostname = self.IPAddress.text()
+        username = self.MachineUsername.text()
+        password = self.MachinePassword.text()
+        MachineName = self.MachineName.text()
         SNMPv3_username = self.SNMPv3USERNAME.text()
-        UserType = ''
-        auth_Protocole = ''
-        Auth_password = ''
-        Priv_Protocole = ''
-        Priv_password = ''
-        ip = ''
-        setup_script_content = setup_script_content.format(SNMPv3_username=SNMPv3_username, UserType=UserType, auth_Protocole =auth_Protocole, Auth_password=Auth_password, Priv_Protocole=Priv_Protocole, Priv_password=Priv_password, ip=ip)
+        if self.ReadOnly.isChecked():
+            UserType = 'rouser'
+        elif self.ReadWrite.isChecked():
+            UserType = 'rwuser'
         
-        pass 
+        if self.MD5CheckBox.isChecked():
+            auth_Protocole= 'MD5'
+        elif self.SHACheckBox.isChecked():
+            auth_Protocole = 'SHA'
+        
+        if self.DESCheckBoX.isChecked():
+            Priv_Protocole = 'DES'
+        elif self.AESCheckBox.isChecked():
+            Priv_Protocole = 'AES'
+            
+        port = self.Port.text()
+        if port == '':
+            port = 22
+        else:
+            port = int(port) 
+            
+        Auth_password = self.SNMPv3PASSWORD.text()
+        Priv_password = self.EncryptionKey.text()
+        managerIP = self.ManagerIP.text()
+        
+        if SNMPv3_username == '' or UserType == '' or auth_Protocole == '' or Priv_Protocole == '' or Auth_password == '' or Priv_password == '' or hostname == '':
+            QMessageBox.warning(self, "Error", "Please fill all of the forms.")
+        else:
+            setup_script_content = setup_script_content.format(SNMPv3_username=SNMPv3_username, UserType=UserType, auth_Protocole =auth_Protocole, Auth_password=Auth_password, Priv_Protocole=Priv_Protocole, Priv_password=Priv_password, ip=managerIP)
+            content_lines = setup_script_content.split('\n')
+            for line in content_lines:
+                print(line,'\n')
+                conn = Connection(hostname, user=username, port=port, connect_kwargs={"password": password})
+                result = conn.run(f'sudo {line}', warn=True)
+                print(result)
+
 
         
 def Check_ip(hostname):
