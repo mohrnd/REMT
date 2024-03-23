@@ -92,6 +92,21 @@ class MainWindow(QWidget, Ui_Form):
             self.ipstatusOFFLINE.hide()
             return False
         
+    def snmpconf_setup(self):
+        with open('../REMT/tests/adding_machines/SNMPv3_Config_template.txt', 'r') as file:
+            setup_script_content = file.read()
+        SNMPv3_username = self.SNMPv3USERNAME.text()
+        UserType = ''
+        auth_Protocole = ''
+        Auth_password = ''
+        Priv_Protocole = ''
+        Priv_password = ''
+        ip = ''
+        setup_script_content = setup_script_content.format(SNMPv3_username=SNMPv3_username, UserType=UserType, auth_Protocole =auth_Protocole, Auth_password=Auth_password, Priv_Protocole=Priv_Protocole, Priv_password=Priv_password, ip=ip)
+        
+        pass 
+
+        
 def Check_ip(hostname):
     param = '-n' if os.name.lower() == 'nt' else '-c'
     response = os.system(f"ping {param} 1 -w 100 {hostname}> NUL 2>&1")   # 100 ms wait time, might change it later

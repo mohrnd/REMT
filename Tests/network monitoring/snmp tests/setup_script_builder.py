@@ -53,9 +53,9 @@ class SetupScriptGenerator(QWidget):
             setup_script_content = file.read()
 
         setup_script_content = setup_script_content.format(community_string=community_string, username=username, sha_password=sha_password, aes_password=aes_password, ip=ip)
-
-        with open('setup_2.sh', 'w') as file:
-            file.write(setup_script_content.format(community_string=community_string, username=username, sha_password=sha_password, aes_password=aes_password))
+        print(setup_script_content)
+        # with open('setup_2.sh', 'w') as file:
+            # file.write(setup_script_content.format(community_string=community_string, username=username, sha_password=sha_password, aes_password=aes_password))
 
         sys.exit("Setup script generated successfully!")
 

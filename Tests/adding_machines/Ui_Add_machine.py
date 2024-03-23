@@ -9,6 +9,7 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+
 from PyQt5.QtWidgets import QButtonGroup
 
 class Ui_Form(object):
@@ -22,7 +23,7 @@ class Ui_Form(object):
         self.MachineName.setGeometry(QtCore.QRect(10, 60, 561, 33))
         self.MachineName.setObjectName("MachineName")
         self.IPAddress = LineEdit(Form)
-        self.IPAddress.setGeometry(QtCore.QRect(10, 110, 461, 33))
+        self.IPAddress.setGeometry(QtCore.QRect(10, 110, 441, 33))
         self.IPAddress.setObjectName("IPAddress")
         self.ipstatusONLINE = CaptionLabel(Form)
         self.ipstatusONLINE.setGeometry(QtCore.QRect(10, 150, 70, 15))
@@ -131,10 +132,10 @@ class Ui_Form(object):
         self.SNMPTIMEOUT.setGeometry(QtCore.QRect(10, 620, 561, 33))
         self.SNMPTIMEOUT.setObjectName("SNMPTIMEOUT")
         self.ADD_BUTTON = PrimaryPushButton(Form)
-        self.ADD_BUTTON.setGeometry(QtCore.QRect(420, 690, 153, 32))
+        self.ADD_BUTTON.setGeometry(QtCore.QRect(420, 720, 153, 32))
         self.ADD_BUTTON.setObjectName("ADD_BUTTON")
         self.Port = LineEdit(Form)
-        self.Port.setGeometry(QtCore.QRect(490, 110, 81, 33))
+        self.Port.setGeometry(QtCore.QRect(470, 110, 101, 33))
         self.Port.setText("")
         self.Port.setObjectName("Port")
         self.ReadOnly = CheckBox(Form)
@@ -149,6 +150,10 @@ class Ui_Form(object):
         self.EncryptionKey = PasswordLineEdit(Form)
         self.EncryptionKey.setGeometry(QtCore.QRect(10, 570, 561, 33))
         self.EncryptionKey.setObjectName("EncryptionKey")
+        self.ManagerIP = LineEdit(Form)
+        self.ManagerIP.setGeometry(QtCore.QRect(10, 670, 561, 33))
+        self.ManagerIP.setObjectName("ManagerIP")
+        
         self.authTypeButtonGroup = QButtonGroup(Form)
         self.authTypeButtonGroup.addButton(self.MD5CheckBox)
         self.authTypeButtonGroup.addButton(self.SHACheckBox)
@@ -160,7 +165,6 @@ class Ui_Form(object):
         self.UserTypeButtonGroup = QButtonGroup(Form)
         self.UserTypeButtonGroup.addButton(self.ReadOnly)
         self.UserTypeButtonGroup.addButton(self.ReadWrite)
-        
 
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
@@ -192,4 +196,5 @@ class Ui_Form(object):
         self.ReadWrite.setText(_translate("Form", "Read-Write"))
         self.UserTypeLabel.setText(_translate("Form", "User Type:"))
         self.EncryptionKey.setPlaceholderText(_translate("Form", "Encryption Key"))
+        self.ManagerIP.setPlaceholderText(_translate("Form", "Manager IP"))
 from qfluentwidgets import BodyLabel, CaptionLabel, CheckBox, HorizontalSeparator, LineEdit, PasswordLineEdit, PrimaryPushButton, PushButton, SubtitleLabel

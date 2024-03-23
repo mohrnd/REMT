@@ -55,3 +55,11 @@ usm3DESEDEPrivProtocol
 usmAesCfb128Protocol
 usmAesCfb192Protocol
 usmAesCfb256Protocol
+
+the ones i am going to use: 
+usmHMACMD5AuthProtocol
+usmHMAC384SHA512AuthProtocol
+
+usmDESPrivProtocol
+usmAesCfb256Protocol
+

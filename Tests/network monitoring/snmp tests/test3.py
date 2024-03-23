@@ -8,7 +8,7 @@ auth_proto = usmHMACSHAAuthProtocol
 priv_proto = usmAesCfb128Protocol
 
 # Rocky Linux device IP address
-device_ip = '192.168.69.40'
+device_ip = '192.168.69.47'
 
 # SNMPv3 engine creation
 snmp_engine = SnmpEngine()

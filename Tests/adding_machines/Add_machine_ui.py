@@ -34,7 +34,7 @@ class Ui_Form(object):
         self.MachineName.setGeometry(QRect(10, 60, 561, 33))
         self.IPAddress = LineEdit(Form)
         self.IPAddress.setObjectName(u"IPAddress")
-        self.IPAddress.setGeometry(QRect(10, 110, 461, 33))
+        self.IPAddress.setGeometry(QRect(10, 110, 441, 33))
         self.ipstatusONLINE = CaptionLabel(Form)
         self.ipstatusONLINE.setObjectName(u"ipstatusONLINE")
         self.ipstatusONLINE.setGeometry(QRect(10, 150, 70, 15))
@@ -143,10 +143,10 @@ class Ui_Form(object):
         self.SNMPTIMEOUT.setGeometry(QRect(10, 620, 561, 33))
         self.ADD_BUTTON = PrimaryPushButton(Form)
         self.ADD_BUTTON.setObjectName(u"ADD_BUTTON")
-        self.ADD_BUTTON.setGeometry(QRect(420, 690, 153, 32))
+        self.ADD_BUTTON.setGeometry(QRect(420, 720, 153, 32))
         self.Port = LineEdit(Form)
         self.Port.setObjectName(u"Port")
-        self.Port.setGeometry(QRect(490, 110, 81, 33))
+        self.Port.setGeometry(QRect(470, 110, 101, 33))
         self.ReadOnly = CheckBox(Form)
         self.ReadOnly.setObjectName(u"ReadOnly")
         self.ReadOnly.setGeometry(QRect(90, 440, 101, 22))
@@ -159,6 +159,9 @@ class Ui_Form(object):
         self.EncryptionKey = PasswordLineEdit(Form)
         self.EncryptionKey.setObjectName(u"EncryptionKey")
         self.EncryptionKey.setGeometry(QRect(10, 570, 561, 33))
+        self.ManagerIP = LineEdit(Form)
+        self.ManagerIP.setObjectName(u"ManagerIP")
+        self.ManagerIP.setGeometry(QRect(10, 670, 561, 33))
 
         self.retranslateUi(Form)
 
@@ -192,5 +195,6 @@ class Ui_Form(object):
         self.ReadWrite.setText(QCoreApplication.translate("Form", u"Read-Write", None))
         self.UserTypeLabel.setText(QCoreApplication.translate("Form", u"User Type:", None))
         self.EncryptionKey.setPlaceholderText(QCoreApplication.translate("Form", u"Encryption Key", None))
+        self.ManagerIP.setPlaceholderText(QCoreApplication.translate("Form", u"Manager IP", None))
     # retranslateUi
 

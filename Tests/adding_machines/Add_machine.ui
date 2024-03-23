@@ -44,7 +44,7 @@
     <rect>
      <x>10</x>
      <y>110</y>
-     <width>461</width>
+     <width>441</width>
      <height>33</height>
     </rect>
    </property>
@@ -323,7 +323,7 @@ FluentLabelBase{color:red}</string>
    <property name="geometry">
     <rect>
      <x>420</x>
-     <y>690</y>
+     <y>720</y>
      <width>153</width>
      <height>32</height>
     </rect>
@@ -335,9 +335,9 @@ FluentLabelBase{color:red}</string>
   <widget class="LineEdit" name="Port">
    <property name="geometry">
     <rect>
-     <x>490</x>
+     <x>470</x>
      <y>110</y>
-     <width>81</width>
+     <width>101</width>
      <height>33</height>
     </rect>
    </property>
@@ -398,6 +398,19 @@ FluentLabelBase{color:red}</string>
    </property>
    <property name="placeholderText">
     <string>Encryption Key</string>
+   </property>
+  </widget>
+  <widget class="LineEdit" name="ManagerIP">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>670</y>
+     <width>561</width>
+     <height>33</height>
+    </rect>
+   </property>
+   <property name="placeholderText">
+    <string>Manager IP</string>
    </property>
   </widget>
  </widget>
