@@ -1,5 +1,5 @@
 import sys
-from PyQt5.QtWidgets import QApplication, QWidget, QTableWidgetItem, QMessageBox, QAbstractItemView
+from PyQt5.QtWidgets import QApplication, QWidget, QTableWidgetItem, QMessageBox, QAbstractItemView, QDialog
 from Ui_Add_machine import Ui_Form
 from PyQt5.QtCore import Qt, QTimer
 from PyQt5.QtGui import *
@@ -11,8 +11,8 @@ import csv
 import paramiko
 from paramiko import SSHException
 from fabric import Connection
-
-
+from Ui_root_password_master_password_forms import *
+from password_hash_storage import check_password 
 
 class MainWindow(QWidget, Ui_Form):
     def __init__(self):
@@ -23,12 +23,27 @@ class MainWindow(QWidget, Ui_Form):
         self.ipstatusOFFLINE.hide()
         self.ip_check_timer = QTimer(self)
         self.ip_check_timer.timeout.connect(self.check_ip_status)
-        
         self.VerifyMachineInfo.clicked.connect(self.verify_machine_data)
-        self.ADD_BUTTON.clicked.connect(self.snmpconf_setup)
-        
+        self.ADD_BUTTON.clicked.connect(self.show_root_password_form)  
         self.disable_snmp_form_fields()
         
+    def show_root_password_form(self):
+        self.root_password_form = QDialog()
+        ui = Ui_Form2()
+        ui.setupUi(self.root_password_form)
+        ui.StartTheConf_config.clicked.connect(self.fetch_root_values)
+        self.root_password_form.exec_()
+        
+    def fetch_root_values(self):
+        root_user = self.root_password_form.findChild(QtWidgets.QLineEdit, "RootUser_config").text()
+        root_password = self.root_password_form.findChild(QtWidgets.QLineEdit, "RootPassword_config").text()
+        master_password = self.root_password_form.findChild(QtWidgets.QLineEdit, "MasterPassword_config").text()
+        output = check_password(master_password)
+        if output == True:
+            self.snmpconf_setup(root_user, root_password, master_password)
+        else:
+            QMessageBox.warning(self, "Error", "Master password incorrect, this incident will be reported")
+
     def disable_snmp_form_fields(self):
         for widget in self.findChildren(QWidget):
             if widget.geometry().top() > self.HorizontalSeparator.geometry().bottom():
@@ -96,7 +111,8 @@ class MainWindow(QWidget, Ui_Form):
             self.ipstatusOFFLINE.hide()
             return False
         
-    def snmpconf_setup(self):
+    def snmpconf_setup(self, root_username, root_password, master_password):
+
         with open('../REMT/tests/adding_machines/SNMPv3_Config_template.txt', 'r') as file:
             setup_script_content = file.read()
         hostname = self.IPAddress.text()
@@ -138,7 +154,7 @@ class MainWindow(QWidget, Ui_Form):
 
             content_lines = setup_script_content.split('\n')
             for line in content_lines:
-                client = ssh_client_creation(hostname, port, username, password)
+                client = ssh_client_creation(hostname, port, root_username, root_password)
                 stdin, stdout, stderr = client.exec_command(f"{line}", get_pty=True)
                 output = stdout.read().decode().strip()
                 print(output)
@@ -147,8 +163,6 @@ class MainWindow(QWidget, Ui_Form):
                     substring_to_remove = "oldEngineID 0x"
                     security_engine_id = output.replace(substring_to_remove, "") 
             create_or_update_csv(SNMPv3_username, auth_Protocole, Auth_password, Priv_Protocole, Priv_password, security_engine_id, hostname, password, username, MachineName, Machine_Info)
-                
-# the config only works using root, now i can either make a form to enter the root password and only use it for the initial config, or i will try to find a way to make it work
 
 def create_or_update_csv(SNMPv3_username, auth_Protocole, auth_password, Priv_Protocole, priv_password, security_engine_id, ip_add, password, linux_username, Machine_Name, Machine_Info):
     columns = ['SNMPv3_username', 
