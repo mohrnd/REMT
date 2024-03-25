@@ -1,0 +1,5 @@
+QFrame {
+	background-color: rgb(13, 9, 36);
+	border: none;
+	border-radius: 12px;
+}

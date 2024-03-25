@@ -67,6 +67,16 @@ def job_exists(ssh_client, job):
                 return True
     return False
 
+def splitter(job):
+    if job.split()[0].startswith('@'):
+        schedule_expression, *command_parts = job.split(' ', 1)
+        command = ' '.join(command_parts)
+        return schedule_expression, command
+    
+    else:
+        schedule_expression, command = job.split(' ', 5)[:5], job.split(' ', 5)[5:]
+        return ' '.join(schedule_expression), ' '.join(command)
+    
 
 # exple usage
 # if __name__ == "__main__":

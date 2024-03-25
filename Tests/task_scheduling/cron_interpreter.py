@@ -18,7 +18,7 @@ def next_run_for_annotation(annotation):
     elif annotation == "@hourly":
         next_run = now + timedelta(hours=1, minutes=-now.minute, seconds=-now.second, microseconds=-now.microsecond)
     elif annotation == "@reboot":
-        next_run = "Au redémarrage avec les droits utilisateurs"
+        next_run = "When restarting with user rights"
     else:
         next_run = None
     return next_run
@@ -31,9 +31,8 @@ def interpret_schedule(schedule_input):
         cron = croniter(schedule_input, now)
         next_run = cron.get_next(datetime)
 
-        print("Interpretation of the cron expression: ")
-        print(expression_description)
-        print("Next planned execution: ", next_run)
+        return expression_description, next_run
+    
     except Exception as e:
         
         schedule_annotations = {
@@ -48,13 +47,13 @@ def interpret_schedule(schedule_input):
         }
 
         if schedule_input in schedule_annotations:
-            print("Interpretation of the planning annotation: ")
-            print(schedule_annotations[schedule_input])
             next_run = next_run_for_annotation(schedule_input)
-            print("Next planned execution: ", next_run)
+            inter = schedule_annotations[schedule_input]
+            return inter, next_run
         else:
-            print("Unable to interpret input.")
+            return "Error"
 
-if __name__ == "__main__":
-    user_input = input("Please enter a cron expression or scheduling annotation: ")
-    interpret_schedule(user_input)
+# if __name__ == "__main__":
+#     user_input = input("Please enter a cron expression or scheduling annotation: ")
+#     inter, next = interpret_schedule(user_input)
+#     print(inter, 'Next execution: ',next)
