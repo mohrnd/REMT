@@ -13,6 +13,8 @@ from paramiko import SSHException
 from fabric import Connection
 from Ui_root_password_master_password_forms import *
 from password_hash_storage import check_password 
+from Ui_Config_progress import *
+
 
 class MainWindow(QWidget, Ui_Form):
     def __init__(self):
@@ -32,7 +34,9 @@ class MainWindow(QWidget, Ui_Form):
         ui = Ui_Form2()
         ui.setupUi(self.root_password_form)
         ui.StartTheConf_config.clicked.connect(self.fetch_root_values)
+        ui.CancelTheConf_config.clicked.connect(self.root_password_form.reject)
         self.root_password_form.exec_()
+
         
     def fetch_root_values(self):
         root_user = self.root_password_form.findChild(QtWidgets.QLineEdit, "RootUser_config").text()
@@ -41,6 +45,7 @@ class MainWindow(QWidget, Ui_Form):
         output = check_password(master_password)
         if output == True:
             self.snmpconf_setup(root_user, root_password, master_password)
+
         else:
             QMessageBox.warning(self, "Error", "Master password incorrect, this incident will be reported")
 
@@ -112,7 +117,14 @@ class MainWindow(QWidget, Ui_Form):
             return False
         
     def snmpconf_setup(self, root_username, root_password, master_password):
-
+        self.config_progress_form = QDialog()
+        ui = Ui_Form3()
+        ui.setupUi(self.config_progress_form)
+        ui.failure.hide()
+        ui.machine_added.hide()
+        ui.configprogress_finish.clicked.connect(self.root_password_form.reject)
+        self.config_progress_form.open()
+        
         with open('../REMT/tests/adding_machines/SNMPv3_Config_template.txt', 'r') as file:
             setup_script_content = file.read()
         hostname = self.IPAddress.text()
@@ -157,13 +169,15 @@ class MainWindow(QWidget, Ui_Form):
                 client = ssh_client_creation(hostname, port, root_username, root_password)
                 stdin, stdout, stderr = client.exec_command(f"{line}", get_pty=True)
                 output = stdout.read().decode().strip()
-                print(output)
+                
+                ui.configprogress_TextEdit.append(output)
                 Machine_Info = 'None'
                 if 'oldEngineID' in output:
                     substring_to_remove = "oldEngineID 0x"
                     security_engine_id = output.replace(substring_to_remove, "") 
             create_or_update_csv(SNMPv3_username, auth_Protocole, Auth_password, Priv_Protocole, Priv_password, security_engine_id, hostname, password, username, MachineName, Machine_Info)
-
+        
+        
 def create_or_update_csv(SNMPv3_username, auth_Protocole, auth_password, Priv_Protocole, priv_password, security_engine_id, ip_add, password, linux_username, Machine_Name, Machine_Info):
     columns = ['SNMPv3_username', 
                'auth_Protocole', 

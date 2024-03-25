@@ -13,7 +13,7 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <widget class="TextEdit" name="TextEdit">
+  <widget class="TextEdit" name="configprogress_TextEdit">
    <property name="geometry">
     <rect>
      <x>10</x>
@@ -23,7 +23,7 @@
     </rect>
    </property>
   </widget>
-  <widget class="ProgressBar" name="ProgressBar">
+  <widget class="ProgressBar" name="configprogress_ProgressBar">
    <property name="geometry">
     <rect>
      <x>10</x>
@@ -33,7 +33,7 @@
     </rect>
    </property>
   </widget>
-  <widget class="StrongBodyLabel" name="StrongBodyLabel">
+  <widget class="StrongBodyLabel" name="configprogress_StrongBodyLabel">
    <property name="geometry">
     <rect>
      <x>10</x>
@@ -46,7 +46,7 @@
     <string>Progress:</string>
    </property>
   </widget>
-  <widget class="PrimaryPushButton" name="PrimaryPushButton">
+  <widget class="PrimaryPushButton" name="configprogress_finish">
    <property name="geometry">
     <rect>
      <x>332</x>
@@ -59,17 +59,85 @@
     <string>Finish</string>
    </property>
   </widget>
-  <widget class="PushButton" name="PushButton">
-   <property name="geometry">
-    <rect>
-     <x>210</x>
-     <y>440</y>
-     <width>102</width>
-     <height>32</height>
-    </rect>
+  <widget class="SubtitleLabel" name="machine_added">
+   <property name="styleSheet">
+    <string notr="true">FluentLabelBase {
+    color: black;
+}
+
+HyperlinkLabel {
+    color: #009faa;
+    border: none;
+    background-color: transparent;
+    text-align: left;
+    padding: 0;
+    margin: 0;
+}
+
+HyperlinkLabel[underline=true] {
+    text-decoration: underline;
+}
+
+HyperlinkLabel[underline=false] {
+    text-decoration: none;
+}
+
+HyperlinkLabel:hover {
+    color: #007780;
+}
+
+HyperlinkLabel:pressed {
+    color: #00a7b3;
+}
+FluentLabelBase{color:green}</string>
    </property>
    <property name="text">
-    <string>Cancel</string>
+    <string>machine added successfully !</string>
+   </property>
+  </widget>
+  <widget class="SubtitleLabel" name="failure">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>440</y>
+     <width>261</width>
+     <height>28</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">FluentLabelBase {
+    color: black;
+}
+
+HyperlinkLabel {
+    color: #009faa;
+    border: none;
+    background-color: transparent;
+    text-align: left;
+    padding: 0;
+    margin: 0;
+}
+
+HyperlinkLabel[underline=true] {
+    text-decoration: underline;
+}
+
+HyperlinkLabel[underline=false] {
+    text-decoration: none;
+}
+
+HyperlinkLabel:hover {
+    color: #007780;
+}
+
+HyperlinkLabel:pressed {
+    color: #00a7b3;
+}
+FluentLabelBase{color:red
+}</string>
+   </property>
+   <property name="text">
+    <string>machine addition failed!</string>
    </property>
   </widget>
  </widget>
@@ -86,6 +154,11 @@
   </customwidget>
   <customwidget>
    <class>StrongBodyLabel</class>
+   <extends>QLabel</extends>
+   <header>qfluentwidgets</header>
+  </customwidget>
+  <customwidget>
+   <class>SubtitleLabel</class>
    <extends>QLabel</extends>
    <header>qfluentwidgets</header>
   </customwidget>
