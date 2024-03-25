@@ -9,14 +9,12 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget
 
 
 class Ui_Form2(object):
     def setupUi(self, Form):
         Form.setObjectName("Form")
-        Form.resize(413, 276)
-        Form.setFixedSize(413, 276)
+        Form.resize(413, 315)
         self.RootPassword_config = PasswordLineEdit(Form)
         self.RootPassword_config.setGeometry(QtCore.QRect(10, 140, 391, 33))
         self.RootPassword_config.setObjectName("RootPassword_config")
@@ -44,6 +42,12 @@ class Ui_Form2(object):
         self.MasterPassword_config = PasswordLineEdit(Form)
         self.MasterPassword_config.setGeometry(QtCore.QRect(10, 180, 391, 33))
         self.MasterPassword_config.setObjectName("MasterPassword_config")
+        self.ProgressBar_2 = ProgressBar(Form)
+        self.ProgressBar_2.setGeometry(QtCore.QRect(10, 290, 391, 4))
+        self.ProgressBar_2.setObjectName("ProgressBar_2")
+        self.StrongBodyLabel_2 = StrongBodyLabel(Form)
+        self.StrongBodyLabel_2.setGeometry(QtCore.QRect(10, 270, 111, 19))
+        self.StrongBodyLabel_2.setObjectName("StrongBodyLabel_2")
 
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
@@ -52,7 +56,7 @@ class Ui_Form2(object):
         _translate = QtCore.QCoreApplication.translate
         Form.setWindowTitle(_translate("Form", "Form"))
         self.RootPassword_config.setPlaceholderText(_translate("Form", "Password"))
-        self.StartTheConf_config.setText(_translate("Form", "Start the config"))
+        self.StartTheConf_config.setText(_translate("Form", "Start "))
         self.CancelTheConf_config.setText(_translate("Form", "Cancel"))
         self.StrongBodyLabel.setText(_translate("Form", "Enter the machine\'s root user and password"))
         self.BodyLabel.setText(_translate("Form", "Please be aware that the password you\'re entering in this form "))
@@ -60,5 +64,5 @@ class Ui_Form2(object):
         self.BodyLabel_3.setText(_translate("Form", "stored anywhere afterward."))
         self.RootUser_config.setPlaceholderText(_translate("Form", "Root user"))
         self.MasterPassword_config.setPlaceholderText(_translate("Form", "Master Password"))
-
-from qfluentwidgets import BodyLabel, LineEdit, PasswordLineEdit, PrimaryPushButton, PushButton, StrongBodyLabel
+        self.StrongBodyLabel_2.setText(_translate("Form", "Progress:"))
+from qfluentwidgets import BodyLabel, LineEdit, PasswordLineEdit, PrimaryPushButton, ProgressBar, PushButton, StrongBodyLabel

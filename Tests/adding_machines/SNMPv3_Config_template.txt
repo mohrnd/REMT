@@ -1,22 +1,32 @@
-echo "Installing net-snmp RPMs..."
-yum install -y net-snmp net-snmp-libs net-snmp-utils net-snmp-agent-libs
-rm -rf  /etc/snmp/snmpd.conf
-touch /etc/snmp/snmpd.conf
-systemctl stop snmpd
-echo "Setting up the /etc/snmp/snmpd.conf file"
-echo "createUser {SNMPv3_username} {auth_Protocole} {Auth_password} {Priv_Protocole} {Priv_password}" >> /etc/snmp/snmpd.conf
-echo "{UserType} {SNMPv3_username} authpriv system" >> /etc/snmp/snmpd.conf
-echo "iquerySecName {SNMPv3_username}" >> /etc/snmp/snmpd.conf
-echo "trapsess -v 3 -l authPriv -u {SNMPv3_username} {ip}" >> /etc/snmp/snmpd.conf
-echo "Enabling and starting snmpd service..."
-systemctl enable snmpd
-systemctl start snmpd
-systemctl restart snmpd
-echo "Setting up the firewall..."
-firewall-cmd --add-service=snmp --permanent
-firewall-cmd --zone=public --add-port=161/udp --permanent
-firewall-cmd --zone=public --add-port=162/udp --permanent
-firewall-cmd --reload
+echo "Installing net-snmp RPMs..." 
+yum install -y net-snmp net-snmp-libs net-snmp-utils net-snmp-agent-libs 
+echo "Net-SNMP RPMs installed successfully." 
+echo "Removing old snmpd.conf file..." 
+rm -rf /etc/snmp/snmpd.conf 
+echo "Old snmpd.conf removed successfully." 
+echo "Creating a new snmpd.conf file..." 
+touch /etc/snmp/snmpd.conf 
+echo "New snmpd.conf created successfully." 
+echo "Stopping snmpd service..." 
+systemctl stop snmpd 
+echo "snmpd service stopped successfully." 
+echo "Setting up the /etc/snmp/snmpd.conf file..." 
+echo "createUser {SNMPv3_username} {auth_Protocole} {Auth_password} {Priv_Protocole} {Priv_password}" >> /etc/snmp/snmpd.conf && echo "Line added to /etc/snmp/snmpd.conf."
+echo "{UserType} {SNMPv3_username} authpriv system" >> /etc/snmp/snmpd.conf && echo "Line added to /etc/snmp/snmpd.conf."
+echo "iquerySecName {SNMPv3_username}" >> /etc/snmp/snmpd.conf && echo "Line added to /etc/snmp/snmpd.conf."
+echo "trapsess -v 3 -l authPriv -u {SNMPv3_username} {ip}" >> /etc/snmp/snmpd.conf && echo "Line added to /etc/snmp/snmpd.conf."
+echo "snmpd.conf configured successfully." 
+echo "Enabling and starting snmpd service..." 
+systemctl enable snmpd 
+systemctl start snmpd 
+systemctl restart snmpd 
+echo "snmpd service enabled and started successfully." 
+echo "Setting up the firewall..." 
+firewall-cmd --add-service=snmp --permanent 
+firewall-cmd --zone=public --add-port=161/udp --permanent 
+firewall-cmd --zone=public --add-port=162/udp --permanent 
+firewall-cmd --reload 
+echo "Firewall configured successfully."
 echo "The engine ID:"
 grep oldEngineID /var/lib/net-snmp/snmpd.conf
 echo "SNMP configuration completed."

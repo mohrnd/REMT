@@ -1,11 +1,11 @@
 import sys
 from PyQt5.QtWidgets import QApplication, QWidget, QTableWidgetItem, QMessageBox, QAbstractItemView, QDialog
 from Ui_Add_machine import Ui_Form
-from PyQt5.QtCore import Qt, QTimer
+from PyQt5.QtCore import Qt, QTimer, QThread, pyqtSignal, QRect
 from PyQt5.QtGui import *
 from qfluentwidgets import (NavigationItemPosition, MessageBox, setTheme, setThemeColor, Theme, FluentWindow,
                             NavigationAvatarWidget, SubtitleLabel, setFont, InfoBadge,
-                            InfoBadgePosition, CheckBox, PushButton)
+                            InfoBadgePosition, CheckBox, PushButton, IndeterminateProgressRing)
 import os
 import csv
 import paramiko
@@ -31,11 +31,23 @@ class MainWindow(QWidget, Ui_Form):
         
     def show_root_password_form(self):
         self.root_password_form = QDialog()
-        ui = Ui_Form2()
-        ui.setupUi(self.root_password_form)
-        ui.StartTheConf_config.clicked.connect(self.fetch_root_values)
-        ui.CancelTheConf_config.clicked.connect(self.root_password_form.reject)
+        self.show_root_password_form_ui = Ui_Form2()
+        self.show_root_password_form_ui.setupUi(self.root_password_form)
+        self.show_root_password_form_ui.StartTheConf_config.clicked.connect(self.fetch_root_values)
+        self.show_root_password_form_ui.CancelTheConf_config.clicked.connect(self.root_password_form.reject)
+        self.show_root_password_form_ui.ProgressBar_2.hide()  
+        self.show_root_password_form_ui.StrongBodyLabel_2.hide()  
         self.root_password_form.exec_()
+    
+
+    def show_config_progress(self):
+        self.config_progress_form = QDialog()
+        self.ui_config_progress = Ui_Form3() 
+        self.ui_config_progress.setupUi(self.config_progress_form)
+        self.ui_config_progress.failure.hide()
+        self.ui_config_progress.machine_added.hide()
+        self.ui_config_progress.configprogress_finish.clicked.connect(self.config_progress_form.reject)
+        self.config_progress_form.show()
 
         
     def fetch_root_values(self):
@@ -44,7 +56,8 @@ class MainWindow(QWidget, Ui_Form):
         master_password = self.root_password_form.findChild(QtWidgets.QLineEdit, "MasterPassword_config").text()
         output = check_password(master_password)
         if output == True:
-            self.snmpconf_setup(root_user, root_password, master_password)
+            self.snmpconf_setup(root_user, root_password, master_password)  
+            
 
         else:
             QMessageBox.warning(self, "Error", "Master password incorrect, this incident will be reported")
@@ -115,16 +128,11 @@ class MainWindow(QWidget, Ui_Form):
             self.ipstatusONLINE.hide()
             self.ipstatusOFFLINE.hide()
             return False
-        
+
+    
     def snmpconf_setup(self, root_username, root_password, master_password):
-        self.config_progress_form = QDialog()
-        ui = Ui_Form3()
-        ui.setupUi(self.config_progress_form)
-        ui.failure.hide()
-        ui.machine_added.hide()
-        ui.configprogress_finish.clicked.connect(self.root_password_form.reject)
-        self.config_progress_form.open()
-        
+        self.show_root_password_form_ui.ProgressBar_2.show()
+        self.show_root_password_form_ui.StrongBodyLabel_2.show()  
         with open('../REMT/tests/adding_machines/SNMPv3_Config_template.txt', 'r') as file:
             setup_script_content = file.read()
         hostname = self.IPAddress.text()
@@ -165,16 +173,28 @@ class MainWindow(QWidget, Ui_Form):
                                                                Priv_Protocole=Priv_Protocole, Priv_password=Priv_password, ip=managerIP)
 
             content_lines = setup_script_content.split('\n')
+            num_lines = len(content_lines)
+            unit = num_lines // 100
+            current_progress = 0
             for line in content_lines:
                 client = ssh_client_creation(hostname, port, root_username, root_password)
                 stdin, stdout, stderr = client.exec_command(f"{line}", get_pty=True)
                 output = stdout.read().decode().strip()
+                print(output)
+                current_progress += unit
+                if current_progress > 100:
+                    current_progress = 100
+
+                self.show_root_password_form_ui.ProgressBar_2.setValue(current_progress)
+            
                 
-                ui.configprogress_TextEdit.append(output)
+
                 Machine_Info = 'None'
                 if 'oldEngineID' in output:
                     substring_to_remove = "oldEngineID 0x"
-                    security_engine_id = output.replace(substring_to_remove, "") 
+                    security_engine_id = output.replace(substring_to_remove, "")
+                    
+            QMessageBox.information(self, "Info", f"Machine {hostname} added successfully.")
             create_or_update_csv(SNMPv3_username, auth_Protocole, Auth_password, Priv_Protocole, Priv_password, security_engine_id, hostname, password, username, MachineName, Machine_Info)
         
         
@@ -226,3 +246,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+    
+    
+    # TODO : FIX THE FREEZING ISSUE
+            # ADD THE PASSWORD CIPHER

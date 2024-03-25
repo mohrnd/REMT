@@ -18,6 +18,7 @@ class Ui_Form3(object):
         self.configprogress_TextEdit = TextEdit(Form)
         self.configprogress_TextEdit.setGeometry(QtCore.QRect(10, 10, 451, 351))
         self.configprogress_TextEdit.setObjectName("configprogress_TextEdit")
+        self.configprogress_TextEdit.setReadOnly(True) 
         self.configprogress_ProgressBar = ProgressBar(Form)
         self.configprogress_ProgressBar.setGeometry(QtCore.QRect(10, 410, 451, 4))
         self.configprogress_ProgressBar.setObjectName("configprogress_ProgressBar")
