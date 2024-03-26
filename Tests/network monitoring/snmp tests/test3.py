@@ -7,17 +7,16 @@ community_data = CommunityData(community_string, mpModel=1)
 context = ContextData()
 
 oids = [
-    ('NIC names', '.1.3.6.1.2.1.2.2.1.2'), 
-    ('NIC Status', '1.3.6.1.2.1.2.2.1.8'), 
-    ('Mac address', '1.3.6.1.2.1.2.2.1.6'), 
-    ('Bytes IN', '.1.3.6.1.2.1.2.2.1.10'), 
-    ('Bytes OUT', '.1.3.6.1.2.1.2.2.1.16'), 
+    #('NIC names', '.1.3.6.1.2.1.2.2.1.2'), 
+    #('NIC Status', '1.3.6.1.2.1.2.2.1.8'),  
+    #('Bytes IN', '.1.3.6.1.2.1.2.2.1.10'), 
+    #('Bytes OUT', '.1.3.6.1.2.1.2.2.1.16'), 
     ('1 minute Load', '.1.3.6.1.4.1.2021.10.1.3.1'), 
     ('5 minute Load', '.1.3.6.1.4.1.2021.10.1.3.2'),
     ('15 minute Load', '.1.3.6.1.4.1.2021.10.1.3.3'),
     ('percentage of user CPU time', '.1.3.6.1.4.1.2021.11.9.0'),
     ('raw user cpu time', '.1.3.6.1.4.1.2021.11.50.0'),
-    ('Number of CPU cores', '1.3.6.1.2.1.25.3.3.1.2'), 
+    #('Number of CPU cores', '1.3.6.1.2.1.25.3.3.1.2'), 
     ('percentages of system CPU time', '.1.3.6.1.4.1.2021.11.10.0'),
     ('raw system cpu time', '.1.3.6.1.4.1.2021.11.52.0'),
     ('percentages of idle CPU time', '.1.3.6.1.4.1.2021.11.11.0'),

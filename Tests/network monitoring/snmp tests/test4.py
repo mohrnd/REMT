@@ -1,5 +1,6 @@
 from pysnmp.hlapi import *
-#works remotly but not secure
+
+
 def snmp_get(oid, host='192.168.69.47', community='public', port=161):
     errorIndication, errorStatus, errorIndex, varBinds = next(
         nextCmd(SnmpEngine(),
@@ -8,7 +9,7 @@ def snmp_get(oid, host='192.168.69.47', community='public', port=161):
             ContextData(),
             ObjectType(ObjectIdentity(oid)),
             lexicographicMode=False)
-)
+    )
 
     if errorIndication:
         print(errorIndication)
@@ -21,10 +22,25 @@ def snmp_get(oid, host='192.168.69.47', community='public', port=161):
         )
         return None
     else:
+        results = []
         for varBind in varBinds:
-            return varBind[1].prettyPrint()
+            results.append(varBind[1].prettyPrint())
+        return results
 
+            
 
-result = snmp_get('1.3.6.1.2.1.25.3.3.1.2')
-if result:
-    print("Result:", result)
+oids = [
+    ('NIC names', '.1.3.6.1.2.1.2.2.1.2'), 
+    ('Bytes IN', '.1.3.6.1.2.1.2.2.1.10'), 
+    ('Bytes OUT', '.1.3.6.1.2.1.2.2.1.16'), 
+    ('Number of CPU cores', '1.3.6.1.2.1.25.3.3.1.2')
+]
+
+for name, oid in oids:
+    try:
+        result = snmp_get(oid)
+        if result:
+            print(f"{name}:", result)
+    except StopIteration:
+        print("No result for this OID")
+    print()
