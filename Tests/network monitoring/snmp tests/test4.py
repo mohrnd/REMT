@@ -1,5 +1,6 @@
 from pysnmp.hlapi import *
 
+# TODO :if there are several lines in the outputs it only prints the first line MUST FIX !!!!!!!!
 
 def snmp_get(oid, host='192.168.69.47', community='public', port=161):
     errorIndication, errorStatus, errorIndex, varBinds = next(
