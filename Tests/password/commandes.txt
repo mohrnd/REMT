@@ -1,0 +1,16 @@
+lister tous les fichiers, y compris les fichiers cachés et super cachés dans Music
+dir /a C:\Users\dell-5320\Music
+
+Pour ouvrir un fichier ou un dossier
+start chemin_vers_le_fichier_ou_dossier
+exemples:
+start C:\Users\dell-5320\Music\test         (test  est le nom du dossier)
+start C:\Users\dell-5320\Music\test.txt
+start C:\Users\dell-5320\Music\test.csv
+
+Pour supprimer un dossier
+rmdir /s /q C:\chemin\vers\votre\dossier
+L'option /s indique à la commande de supprimer le dossier spécifié, ainsi que tous les sous-dossiers et fichiers qu'il contient.
+L'option /q supprime le dossier sans demander de confirmation. Assurez-vous d'utiliser cette option avec prudence car elle supprime le dossier de manière irréversible.
+exemple:
+rmdir /s /q C:\Users\dell-5320\Music\test   (test  est le nom du dossier)
