@@ -1,6 +1,6 @@
 from pysnmp.hlapi import *
 #works remotly but not secure
-def snmp_get(oid, host='192.168.69.40', community='teststring', port=161):
+def snmp_get(oid, host='192.168.69.47', community='public', port=161):
     errorIndication, errorStatus, errorIndex, varBinds = next(
         getCmd(SnmpEngine(),
                CommunityData(community),
@@ -24,6 +24,6 @@ def snmp_get(oid, host='192.168.69.40', community='teststring', port=161):
             return varBind[1].prettyPrint()
 
 
-result = snmp_get('1.3.6.1.2.1.1.1.0')
+result = snmp_get('1.3.6.1.2.1.2.2.1.8')
 if result:
     print("Result:", result)
