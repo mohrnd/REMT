@@ -24,7 +24,7 @@ def snmp_get_v3(oid, username, authkey, privkey, host, port=161, auth_protocol=u
         results = []
         for varBind in varBinds:
             results.append(varBind[1].prettyPrint())
-        return results
+        return varBinds
 
             
 

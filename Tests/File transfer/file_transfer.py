@@ -32,7 +32,7 @@ class Transfer:
             sftp.get(remotepath, localpath)
             sftp.close()
             ssh.close()
-            result_string = f"File '{remotepath}' successfully GETed to '{localpath}'"
+            result_string = f"File '{remotepath}' successfully received to '{localpath}'"
             return result_string
         except paramiko.AuthenticationException as auth_exception:
             return f"Authentication failed: {auth_exception}"
