@@ -15,7 +15,7 @@ def create_password_file(hashed_password):
 
     # this sets the file attributes to read-only and hidden
     try:
-        os.system('attrib +R +H "{}"'.format(file_path))
+        os.system('attrib +R +H +S"{}"'.format(file_path))
         print("Password file created successfully.")
     except Exception as e:
         print("Error occurred while setting file attributes:", e)
