@@ -1,22 +1,22 @@
 from pysnmp.hlapi import *
 
-community_string = 'public'
+username = 'roadmin'
+authkey = 'admin123'
+privkey = 'admin123'
 device_ip = '192.168.69.47'
+
+auth_protocol = usmHMACSHAAuthProtocol
+priv_protocol = usmAesCfb128Protocol
+
 snmp_engine = SnmpEngine()
-community_data = CommunityData(community_string, mpModel=1)
-context = ContextData()
+user = UsmUserData(username, authkey, privkey, auth_protocol, priv_protocol)
 
 oids = [
-    #('NIC names', '.1.3.6.1.2.1.2.2.1.2'), 
-    #('NIC Status', '1.3.6.1.2.1.2.2.1.8'),  
-    #('Bytes IN', '.1.3.6.1.2.1.2.2.1.10'), 
-    #('Bytes OUT', '.1.3.6.1.2.1.2.2.1.16'), 
     ('1 minute Load', '.1.3.6.1.4.1.2021.10.1.3.1'), 
     ('5 minute Load', '.1.3.6.1.4.1.2021.10.1.3.2'),
     ('15 minute Load', '.1.3.6.1.4.1.2021.10.1.3.3'),
     ('percentage of user CPU time', '.1.3.6.1.4.1.2021.11.9.0'),
     ('raw user cpu time', '.1.3.6.1.4.1.2021.11.50.0'),
-    #('Number of CPU cores', '1.3.6.1.2.1.25.3.3.1.2'), 
     ('percentages of system CPU time', '.1.3.6.1.4.1.2021.11.10.0'),
     ('raw system cpu time', '.1.3.6.1.4.1.2021.11.52.0'),
     ('percentages of idle CPU time', '.1.3.6.1.4.1.2021.11.11.0'),
@@ -38,13 +38,11 @@ oids = [
     ('Percentage of space used on disk', '.1.3.6.1.4.1.2021.9.1.9.1'),
     ('Percentage of inodes used on disk', '.1.3.6.1.4.1.2021.9.1.10.1'),
     ('System Uptime', '.1.3.6.1.2.1.1.3.0')
-    
-    
 ]
 
 def retrieve_data(oid):
     error_indication, error_status, error_index, var_binds = next(
-        getCmd(snmp_engine, community_data, UdpTransportTarget((device_ip, 161)), context, ObjectType(ObjectIdentity(oid)))
+        getCmd(snmp_engine, user, UdpTransportTarget((device_ip, 161)), ContextData(), ObjectType(ObjectIdentity(oid)))
     )
     if error_indication:
         return None
@@ -57,4 +55,3 @@ for name, oid in oids:
         print(f"{name}: {data}")
     else:
         print(f"Failed to retrieve data for {name}.")
-

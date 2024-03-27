@@ -1,11 +1,9 @@
 from pysnmp.hlapi import *
 
-# TODO :if there are several lines in the outputs it only prints the first line MUST FIX !!!!!!!!
-
-def snmp_get(oid, host='192.168.69.47', community='public', port=161):
+def snmp_get_v3(oid, username, authkey, privkey, host, port=161, auth_protocol=usmHMACSHAAuthProtocol, priv_protocol=usmAesCfb128Protocol):
     errorIndication, errorStatus, errorIndex, varBinds = next(
         nextCmd(SnmpEngine(),
-            CommunityData(community),
+            UsmUserData(username, authkey, privkey, auth_protocol, priv_protocol),
             UdpTransportTarget((host, port)),
             ContextData(),
             ObjectType(ObjectIdentity(oid)),
@@ -37,9 +35,13 @@ oids = [
     ('Number of CPU cores', '1.3.6.1.2.1.25.3.3.1.2')
 ]
 
+username = 'roadmin'
+authkey = 'admin123'
+privkey = 'admin123'
+hostname = '192.168.69.47'
 for name, oid in oids:
     try:
-        result = snmp_get(oid)
+        result = snmp_get_v3(oid, username, authkey, privkey, hostname)
         if result:
             print(f"{name}:", result)
     except StopIteration:

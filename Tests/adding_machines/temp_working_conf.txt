@@ -70,15 +70,17 @@
 # KNOWN AT YOUR SITE.  YOU *MUST* CHANGE THE NETWORK TOKEN BELOW TO
 # SOMETHING REFLECTING YOUR LOCAL NETWORK ADDRESS SPACE.
 
-##       sec.name  source          community
-com2sec local     localhost       public
-com2sec mynetwork 192.168.69.35      public
+createUser roadmin SHA admin123 AES admin123
+rwuser roadmin authpriv -V all
 
+##       sec.name  source          community
+#com2sec local     localhost       public
+#com2sec mynetwork 192.168.69.35      public
 ##     group.name sec.model  sec.name
-group MyRWGroup  v1        local
-group MyRWGroup  v1        mynetwork
-group MyRWGroup  v2c        local
-group MyRWGroup  v2c        mynetwork
+#group MyRWGroup  v1        local
+#group MyRWGroup  v1        mynetwork
+#group MyRWGroup  v2c        local
+#group MyRWGroup  v2c        mynetwork
 
 #
 #group MyRWGroup  any        otherv3user
@@ -96,8 +98,8 @@ view all    included  .1                               80
 
 ##                context sec.model sec.level prefix read   write  notif
 #access MyROGroup ""      any       noauth    0      all    none   none
-access MyRWGroup ""      v1       noauth    0      all    all    all
-access MyRWGroup ""      v2c       noauth    0      all    all    all
+#access MyRWGroup ""      v1       noauth    0      all    all    all
+#access MyRWGroup ""      v2c       noauth    0      all    all    all
 
 ###############################################################################
 # Sample configuration to make net-snmpd RFC 1213.
@@ -114,12 +116,12 @@ access MyRWGroup ""      v2c       noauth    0      all    all    all
 
 # First, map the community name "public" into a "security name"
 #       sec.name        source          community
-com2sec notConfigUser   default         public
+#com2sec notConfigUser   default         public
 
 # Second, map the security name into a group name:
 #       groupName       securityModel   securityName
-group   notConfigGroup  v1              notConfigUser
-group   notConfigGroup  v2c             notConfigUser
+#GROUP   notConfigGroup  v1              notConfigUser
+#GROUP   notConfigGroup  v2c             notConfigUser
 
 # Third, create a view for us to let the group have rights to:
 # Open up the whole tree for ro, make the RFC 1213 required ones rw.
@@ -154,10 +156,8 @@ view    rwview          included        .1
 # Finally, grant the group read-only access to the systemview view.
 #       group          context sec.model sec.level prefix read   write  notif
 #access  notConfigGroup ""      any       noauth    exact  roview rwview none
-access notConfigGroup ""      v1       noauth    0      all    all    all
-access notConfigGroup ""      v2c       noauth    0      all    all    all
-
-
+#access notConfigGroup ""      v1       noauth    0      all    all    all
+#access notConfigGroup ""      v2c       noauth    0      all    all    all
 
 ###############################################################################
 # System contact information
@@ -466,3 +466,4 @@ load 12 14 14
 # Further Information
 #
 #  See the snmpd.conf manual page, and the output of "snmpd -H".
+
