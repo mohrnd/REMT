@@ -15,7 +15,7 @@ oids = [
     ('1 minute Load', '.1.3.6.1.4.1.2021.10.1.3.1'), 
     ('5 minute Load', '.1.3.6.1.4.1.2021.10.1.3.2'),
     ('15 minute Load', '.1.3.6.1.4.1.2021.10.1.3.3'),
-    ('percentage of user CPU time', '.1.3.6.1.4.1.2021.11.9.0'),
+    ('percentage of user CPU time', '.1.3.6.1.4.1.2021.11.9.0'), #calculated over the last minute
     ('raw user cpu time', '.1.3.6.1.4.1.2021.11.50.0'),
     ('percentages of system CPU time', '.1.3.6.1.4.1.2021.11.10.0'),
     ('raw system cpu time', '.1.3.6.1.4.1.2021.11.52.0'),

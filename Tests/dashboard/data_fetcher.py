@@ -4,10 +4,18 @@ import os
 Notes: 
 -our monitoring is more about trend analysis or identifying long-term patterns (longer refresh times or averaging data might be more suitable)
 '''
+def fetch_monitoring_data():
+    pass
+
+
+
+
+
+
 
 # this function will only append a new line to the json file
 #now this function is pretty fast
-def create_or_update_json(timestamp, LOAD1min, LOAD5min, LOAD15min, MachineName, CPUcores, CPUusage, RAMtotal, RAMusage, DISKtotal, DISKusage, UPTIME, NICnames, dataIN, dataOUT):
+def create_or_update_json(timestamp, LOAD1min, LOAD5min, LOAD15min, MachineName, CPUcores, CPUusage, RAMtotal, RAMusage, DISKtotal, DISKusage, UPTIME,TotalSWAP, AvailableSWAP, TotalCachedMemory, NICnames, dataIN, dataOUT):
     data = {
         'timestamp': timestamp,
         'LOAD1min': LOAD1min,
@@ -20,6 +28,9 @@ def create_or_update_json(timestamp, LOAD1min, LOAD5min, LOAD15min, MachineName,
         'DISKtotal': DISKtotal,
         'DISKusage': DISKusage,
         'UPTIME': UPTIME,
+        'TotalSWAP':TotalSWAP, 
+        'AvailableSWAP':AvailableSWAP,
+        'TotalCachedMemory':TotalCachedMemory,
         'NICnames': NICnames,
         'dataIN': dataIN,
         'dataOUT': dataOUT
@@ -39,7 +50,7 @@ def create_or_update_json(timestamp, LOAD1min, LOAD5min, LOAD15min, MachineName,
             file.write('\n]')  # Close the square brackets to maintain JSON format
 
 # expl usage for the function above
-#create_or_update_json(f'2024-01-01 00:20:30', 1.2, 3.4, 5.6, 'MyMachine', 4, 30, 8192, 2048, 1024000, 512000, '10:00:00', ['NIC1', 'NIC2'], ['1000','200'], ['200','400'])
+#create_or_update_json(timestamp, LOAD1min, LOAD5min, LOAD15min, MachineName, CPUcores, CPUusage, RAMtotal, RAMusage, DISKtotal, DISKusage, UPTIME,TotalSWAP, AvailableSWAP, TotalCachedMemory, NICnames, dataIN, dataOUT)
 # idk might find a use for this later
 def timestamp_finder(json_file_path, target):
     with open(json_file_path, 'r') as file:
