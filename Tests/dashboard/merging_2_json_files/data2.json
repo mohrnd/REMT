@@ -1,0 +1,10 @@
+[
+    {"Time": 103, "Temperature": 30},
+    {"Time": 113, "Temperature": 31},
+    {"Time": 123, "Temperature": 33},
+    {"Time": 133, "Temperature": 35},
+    {"Time": 143, "Temperature": 36},
+    {"Time": 153, "Temperature": 34},
+    {"Time": 163, "Temperature": 32},
+    {"Time": 173, "Temperature": 60}
+]
