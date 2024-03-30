@@ -189,7 +189,7 @@ class Ui_Form(object):
         self.PRIVTYPELABEL.setText(_translate("Form", "Encryption Type:"))
         self.DESCheckBoX.setText(_translate("Form", "DES"))
         self.AESCheckBox.setText(_translate("Form", "AES"))
-        self.SNMPTIMEOUT.setPlaceholderText(_translate("Form", "SNMP Timeout (Default 5 Sec)"))
+        self.SNMPTIMEOUT.setPlaceholderText(_translate("Form", "SNMP Timeout (recommended value 30 Sec)"))
         self.ADD_BUTTON.setText(_translate("Form", "Add"))
         self.Port.setPlaceholderText(_translate("Form", "Port"))
         self.ReadOnly.setText(_translate("Form", "Read Only"))

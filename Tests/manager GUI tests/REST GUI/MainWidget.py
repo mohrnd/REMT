@@ -15,7 +15,7 @@ from PyQt5.QtWidgets import QApplication, QFrame, QHBoxLayout
 from qfluentwidgets import (NavigationItemPosition, MessageBox, setTheme, setThemeColor, Theme, FluentWindow,
                             NavigationAvatarWidget, qrouter, SubtitleLabel, setFont, InfoBadge,
                             InfoBadgePosition)
-from SSH_Widget import SSHWidget 
+
 
 class Widget(QFrame):
 
@@ -27,16 +27,30 @@ class Widget(QFrame):
         setFont(self.label, 24)
         self.label.setAlignment(Qt.AlignCenter)
         self.hBoxLayout.addWidget(self.label, 1, Qt.AlignCenter)
+
         self.setObjectName(text.replace('', '-'))
 
-class SingleSSHwidget(QFrame):
-#SSH WIDGET 
-    def __init__(self, text: str, parent=None):
-        super().__init__(parent=parent)
-        self.hBoxLayout = QHBoxLayout(self)
-        self.ssh_widget = SSHWidget("192.168.69.40", "manager1", "Pa$$w0rd")  # Provide appropriate hostname, username, and password
-        self.hBoxLayout.addWidget(self.ssh_widget)  # Add SSHWidget to layout
-        self.setObjectName(text.replace('-', '-'))
+
+# class SingleSSHwidget(QFrame):
+# #SSH WIDGET 
+#     def __init__(self, text: str, parent=None):
+#         super().__init__(parent=parent)
+#         self.hBoxLayout = QHBoxLayout(self)
+#         self.ssh_widget = SSHWidget("192.168.69.40", "manager1", "Pa$$w0rd")  # Provide appropriate hostname, username, and password
+#         self.hBoxLayout.addWidget(self.ssh_widget)  # Add SSHWidget to layout
+#         self.setObjectName(text.replace('-', '-'))
+
+
+# this is an example on how to add the widgets to the main window
+# class dashboard(QFrame):
+#     def __init__(self, text: str, parent=None):
+#         super().__init__(parent=parent)
+#         self.main_window = MainWindow()  # Creating an instance of MainWindow
+#         self.setLayout(QVBoxLayout())  # Assuming you have a QVBoxLayout as your central layout
+#         self.layout().addWidget(self.main_window) 
+#         self.setObjectName(text.replace('-', '-'))
+
+
 
 class Window(FluentWindow):
 
@@ -46,7 +60,7 @@ class Window(FluentWindow):
         # create sub interface
         self.Dashboard = Widget('Dashboard', self)
         self.RemoteExecInt = Widget('RemoteExecInt', self)
-        self.SingleSSH = SingleSSHwidget('Single Channel', self)
+        # self.SingleSSH = SingleSSHwidget('Single Channel', self)
         self.MultiSSH = Widget('MultiSSH', self)
         self.Schedule = Widget('Schedule', self)
         self.Txteditor = Widget('Txteditor', self)
@@ -67,7 +81,7 @@ class Window(FluentWindow):
     def initNavigation(self):
         self.addSubInterface(self.Dashboard, QIcon(r'C:\Users\BALLS2 (rip BALLS)\Desktop\REST GUI\RestIcons\dashboard'), 'Dashboard')
         self.addSubInterface(self.RemoteExecInt, QIcon(r'C:\Users\BALLS2 (rip BALLS)\Desktop\REST GUI\RestIcons\SSH'), 'Remote execution', NavigationItemPosition.SCROLL)
-        self.addSubInterface(self.SingleSSH, QIcon(r'C:\Users\BALLS2 (rip BALLS)\Desktop\REST GUI\RestIcons\singlechannel'), 'Single Channel', parent=self.RemoteExecInt)
+        # self.addSubInterface(self.SingleSSH, QIcon(r'C:\Users\BALLS2 (rip BALLS)\Desktop\REST GUI\RestIcons\singlechannel'), 'Single Channel', parent=self.RemoteExecInt)
         self.addSubInterface(self.MultiSSH, QIcon(r'C:\Users\BALLS2 (rip BALLS)\Desktop\REST GUI\RestIcons\multichannel'), 'Multi-Channel', parent=self.RemoteExecInt)
         self.addSubInterface(self.Schedule, QIcon(r'C:\Users\BALLS2 (rip BALLS)\Desktop\REST GUI\RestIcons\schedule'), 'Schedule', parent=self.RemoteExecInt)
         self.addSubInterface(self.Txteditor, QIcon(r'C:\Users\BALLS2 (rip BALLS)\Desktop\REST GUI\RestIcons\writescript'), 'Write a script', parent=self.RemoteExecInt)
@@ -99,8 +113,8 @@ class Window(FluentWindow):
         self.move(w//2 - self.width()//2, h//2 - self.height()//2)
 
         # set the minimum window width that allows the navigation panel to be expanded
-        # self.navigationInterface.setMinimumExpandWidth(900)
-        # self.navigationInterface.expand(useAni=False)
+        self.navigationInterface.setMinimumExpandWidth(900)
+        self.navigationInterface.expand(useAni=False)
 
 
 

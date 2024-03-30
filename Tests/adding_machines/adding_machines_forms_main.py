@@ -79,7 +79,7 @@ class MainWindow(QWidget, Ui_Form):
             QMessageBox.warning(self, "Error", "Please verify the IP address.")
             return
         
-        port = self.Port.text()
+        port = self.port.text()
         if port == '':
             port = 22
         else:
@@ -189,16 +189,19 @@ class MainWindow(QWidget, Ui_Form):
             
                 
 
-                Machine_Info = 'None'
+                RefreshTime = self.SNMPTIMEOUT.text()
+                if RefreshTime == '':
+                    RefreshTime = 30
+
                 if 'oldEngineID' in output:
                     substring_to_remove = "oldEngineID 0x"
                     security_engine_id = output.replace(substring_to_remove, "")
                     
             QMessageBox.information(self, "Info", f"Machine {hostname} added successfully.")
-            create_or_update_csv(SNMPv3_username, auth_Protocole, Auth_password, Priv_Protocole, Priv_password, security_engine_id, hostname, password, username, MachineName, Machine_Info)
+            create_or_update_csv(SNMPv3_username, auth_Protocole, Auth_password, Priv_Protocole, Priv_password, security_engine_id, hostname, password, username, port ,MachineName, RefreshTime)
         
         
-def create_or_update_csv(SNMPv3_username, auth_Protocole, auth_password, Priv_Protocole, priv_password, security_engine_id, ip_add, password, linux_username, Machine_Name, Machine_Info):
+def create_or_update_csv(SNMPv3_username, auth_Protocole, auth_password, Priv_Protocole, priv_password, security_engine_id, ip_add, password, linux_username, port ,Machine_Name, RefreshTime):
     columns = ['SNMPv3_username', 
                'auth_Protocole', 
                'auth_password',
@@ -208,9 +211,10 @@ def create_or_update_csv(SNMPv3_username, auth_Protocole, auth_password, Priv_Pr
                'ip_add', 
                'password',
                'linux_username',
+               'port' ,
                'Machine_Name',
-               'Machine_Info']
-    data = [SNMPv3_username, auth_Protocole, auth_password, Priv_Protocole, priv_password, security_engine_id, ip_add, password, linux_username, Machine_Name, Machine_Info]
+               'RefreshTime']
+    data = [SNMPv3_username, auth_Protocole, auth_password, Priv_Protocole, priv_password, security_engine_id, ip_add, password, linux_username, port ,Machine_Name, RefreshTime]
     csv_file_path = 'machines.csv'
     if not os.path.exists(csv_file_path):
         with open(csv_file_path, 'w', newline='') as file:
