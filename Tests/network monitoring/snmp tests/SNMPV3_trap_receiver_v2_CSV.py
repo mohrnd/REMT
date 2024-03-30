@@ -5,19 +5,30 @@ from pysnmp.proto.api import v2c
 import datetime
 import logging
 import csv
+
+# Import win_notif function from notifications module
 from notifications import win_notif
 
-
 logging.basicConfig(filename='TrapsReceived.log', level=logging.INFO, format='%(asctime)s - %(message)s')
+#SNMPv3_username,auth_Protocole,auth_password,Priv_Protocole,priv_password,security_engine_id,ip_add,password,linux_username,port,Machine_Name,RefreshTime
 
 def add_snmp_users_from_csv(CSV_File_Path, snmpEngine):
     with open(CSV_File_Path, 'r') as file:
         reader = csv.DictReader(file)
         for row in reader:
-            username = row['username']
-            auth_protocol = getattr(config, row['auth_protocol'])
+            username = row['SNMPv3_username']
+            auth_protocol = row['auth_Protocole']
+            priv_protocol = row['Priv_Protocole']  # Corrected variable name
+            if auth_protocol == 'SHA':
+                auth_protocol = getattr(config, 'usmHMACSHAAuthProtocol')
+            elif auth_protocol == 'MD5':
+                auth_protocol = getattr(config, 'usmHMACMD5AuthProtocol')
+            if priv_protocol == 'DES':
+                priv_protocol = getattr(config, 'usmDESPrivProtocol')
+            elif priv_protocol == 'AES':
+                priv_protocol = getattr(config, 'usmAesCfb128Protocol')
+                
             auth_password = row['auth_password']
-            priv_protocol = getattr(config, row['priv_protocol'])
             priv_password = row['priv_password']
             security_engine_id = v2c.OctetString(hexValue=row['security_engine_id'])
             # SNMPv3 setup
