@@ -149,9 +149,9 @@ def monitor_params_threads_creator(csv_file):
         time.sleep(60) # checks the users file for any new changes
 
 def main():
-   csv_file = r'C:\Users\BALLS2 (rip BALLS)\Desktop\REMT\Tests\network monitoring\snmp tests\snmp_users.csv'
-   monitor_thread = threading.Thread(target=monitor_params_threads_creator, args=(csv_file,))
-   monitor_thread.start()
+    csv_file = r'C:\Users\BALLS2 (rip BALLS)\Desktop\REMT\Tests\network monitoring\snmp tests\snmp_users.csv'
+    monitor_thread = threading.Thread(target=monitor_params_threads_creator, args=(csv_file,))
+    monitor_thread.start()
 
 
 
