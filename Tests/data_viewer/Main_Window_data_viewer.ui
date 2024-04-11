@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>812</width>
+    <height>886</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="TableWidget" name="TableWidget">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>30</y>
+      <width>371</width>
+      <height>191</height>
+     </rect>
+    </property>
+    <row>
+     <property name="text">
+      <string>CPU cores</string>
+     </property>
+    </row>
+    <row>
+     <property name="text">
+      <string>Total Ram</string>
+     </property>
+    </row>
+    <row>
+     <property name="text">
+      <string>Total Disk</string>
+     </property>
+    </row>
+    <row>
+     <property name="text">
+      <string>NIC</string>
+     </property>
+    </row>
+    <column>
+     <property name="text">
+      <string>Sytem data</string>
+     </property>
+    </column>
+   </widget>
+   <widget class="TableWidget" name="TableWidget_2">
+    <property name="geometry">
+     <rect>
+      <x>390</x>
+      <y>30</y>
+      <width>411</width>
+      <height>191</height>
+     </rect>
+    </property>
+    <row>
+     <property name="text">
+      <string>Uptime</string>
+     </property>
+    </row>
+    <row>
+     <property name="text">
+      <string>Cpu usage</string>
+     </property>
+    </row>
+    <row>
+     <property name="text">
+      <string>Ram usage</string>
+     </property>
+    </row>
+    <row>
+     <property name="text">
+      <string>Disk usage</string>
+     </property>
+    </row>
+    <row>
+     <property name="text">
+      <string>Network Up</string>
+     </property>
+    </row>
+    <row>
+     <property name="text">
+      <string>Network Down</string>
+     </property>
+    </row>
+    <column>
+     <property name="text">
+      <string>Current system data</string>
+     </property>
+    </column>
+   </widget>
+   <widget class="QFrame" name="customframe_2">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>310</y>
+      <width>791</width>
+      <height>531</height>
+     </rect>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
+    </property>
+   </widget>
+   <widget class="LineEdit" name="LineEdit_6">
+    <property name="geometry">
+     <rect>
+      <x>400</x>
+      <y>230</y>
+      <width>71</width>
+      <height>33</height>
+     </rect>
+    </property>
+    <property name="placeholderText">
+     <string>Ticks</string>
+    </property>
+   </widget>
+   <widget class="SubtitleLabel" name="SubtitleLabel">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>0</y>
+      <width>241</width>
+      <height>28</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Machine name: Null</string>
+    </property>
+   </widget>
+   <widget class="TimePicker" name="TimePicker_4">
+    <property name="geometry">
+     <rect>
+      <x>140</x>
+      <y>230</y>
+      <width>240</width>
+      <height>30</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="TimePicker" name="TimePicker_3">
+    <property name="geometry">
+     <rect>
+      <x>140</x>
+      <y>270</y>
+      <width>240</width>
+      <height>30</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="CalendarPicker" name="CalendarPicker_3">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>270</y>
+      <width>112</width>
+      <height>32</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>End Date</string>
+    </property>
+   </widget>
+   <widget class="CalendarPicker" name="CalendarPicker_4">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>230</y>
+      <width>112</width>
+      <height>32</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Start Date</string>
+    </property>
+   </widget>
+   <widget class="PrimaryPushButton" name="PrimaryPushButton_2">
+    <property name="geometry">
+     <rect>
+      <x>400</x>
+      <y>270</y>
+      <width>71</width>
+      <height>32</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Plot</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>812</width>
+     <height>21</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>PushButton</class>
+   <extends>QPushButton</extends>
+   <header>qfluentwidgets</header>
+  </customwidget>
+  <customwidget>
+   <class>PrimaryPushButton</class>
+   <extends>PushButton</extends>
+   <header>qfluentwidgets</header>
+  </customwidget>
+  <customwidget>
+   <class>CalendarPicker</class>
+   <extends>QPushButton</extends>
+   <header>qfluentwidgets</header>
+  </customwidget>
+  <customwidget>
+   <class>TimePicker</class>
+   <extends>QPushButton</extends>
+   <header>qfluentwidgets</header>
+  </customwidget>
+  <customwidget>
+   <class>SubtitleLabel</class>
+   <extends>QLabel</extends>
+   <header>qfluentwidgets</header>
+  </customwidget>
+  <customwidget>
+   <class>LineEdit</class>
+   <extends>QLineEdit</extends>
+   <header>qfluentwidgets</header>
+  </customwidget>
+  <customwidget>
+   <class>TableWidget</class>
+   <extends>QTableWidget</extends>
+   <header>qfluentwidgets</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>
