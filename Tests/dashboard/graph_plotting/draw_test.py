@@ -54,7 +54,7 @@ plt.plot(average_timestamps, averages, marker='o', linestyle='-')
 plt.title('Average LOAD1min per Hour')
 plt.xlabel('Time')
 plt.ylabel('Average LOAD1min')
-plt.xticks(rotation=45)
+plt.xticks(rotation=90)
 plt.grid(True)
 plt.tight_layout()
 
