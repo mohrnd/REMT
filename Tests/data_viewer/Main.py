@@ -1,7 +1,7 @@
 import sys
 from PyQt5.QtWidgets import QApplication, QWidget, QTableWidgetItem, QMessageBox, QAbstractItemView
 from PyQt5 import QtCore
-from PyQt5.QtCore import Qt
+from PyQt5.QtCore import Qt, QTimer
 from PyQt5.QtGui import *
 from qfluentwidgets import (TimePicker, NavigationItemPosition, MessageBox, setTheme, setThemeColor, Theme, FluentWindow,
                             NavigationAvatarWidget, SubtitleLabel, setFont, InfoBadge,
@@ -11,9 +11,10 @@ from PyQt5.QtWidgets import QMainWindow
 import json
 
 class MainWindow(QMainWindow, Ui_MainWindow):
-    def __init__(self):
+    def __init__(self, Machine_Name):
         super().__init__()
         self.setupUi(self)
+        self.Machine_Name = Machine_Name  # Storing machine name
         self.TableWidget_2.setEditTriggers(QAbstractItemView.NoEditTriggers) 
         self.TableWidget.setEditTriggers(QAbstractItemView.NoEditTriggers) 
         self.TableWidget.setStyleSheet("QTableWidget { border: 1px solid gray; selection-background-color: #AF9BE5;}")
@@ -25,11 +26,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.TimePicker_3 = TimePicker(self.centralwidget)
         self.TimePicker_3.setGeometry(QtCore.QRect(140, 270, 240, 30))
         self.TimePicker_3.setObjectName("TimePicker_3")
-        
-        self.RefreshButton = PrimaryPushButton(self.centralwidget)
-        self.RefreshButton.setGeometry(QtCore.QRect(710, 230, 90, 32))
-        self.RefreshButton.setText("Refresh")
+        self.SubtitleLabel.setText(f'Machine Name: {Machine_Name}')
+
         self.FillTables()
+        self.timer = QTimer(self)
+        self.timer.timeout.connect(self.FillTables)
+        self.timer.start(5000)  # 5000 milliseconds -> 5 seconds
         
 
     def PlotData(self):
@@ -40,8 +42,14 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         Ticks = self.TicksForm.text() 
         print(StartDate, EndDate, start_time, end_time, Ticks)
 
+
+
+
+
+
+
     def FillTables(self):
-        filepath = '../REMT/tests/data_viewer/SERVER1.json'
+        filepath = f"../REMT/tests/dashboard/{self.Machine_Name}.json"
         with open(filepath, 'r') as f:
             data = json.load(f)
             Latest_line = data[-1]
@@ -139,12 +147,10 @@ def main():
     color = QColor('#351392')
     setThemeColor(color ,Qt.GlobalColor , '') 
     app = QApplication(sys.argv)
-    window = MainWindow()
+    window = MainWindow('SERVER1') 
     window.show()
 
     sys.exit(app.exec_())
-
-
 
 if __name__ == "__main__":
     main()

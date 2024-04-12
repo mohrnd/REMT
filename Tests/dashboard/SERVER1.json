@@ -1,0 +1,58 @@
+[
+    {
+        "timestamp": "2024-04-12 07:11:48",
+        "LOAD1min": "0.06",
+        "LOAD5min": "0.12",
+        "LOAD15min": "0.09",
+        "CPUcores": "2",
+        "CPUusage": "16",
+        "RAMtotal": "1754368",
+        "RAMusage": "5",
+        "DISKtotal": "17811456",
+        "DISKusage": "36",
+        "UPTIME": "969701",
+        "TotalSWAP": "2097148",
+        "AvailableSWAP": "1824428",
+        "TotalCachedMemory": "887432",
+        "NICnames": [
+            "lo",
+            "eth0"
+        ],
+        "dataIN": [
+            "157316",
+            "281309456"
+        ],
+        "dataOUT": [
+            "157316",
+            "7067996"
+        ]
+    }
+,{
+    "timestamp": "2024-04-12 07:11:58",
+    "LOAD1min": "0.05",
+    "LOAD5min": "0.12",
+    "LOAD15min": "0.09",
+    "CPUcores": "2",
+    "CPUusage": "17",
+    "RAMtotal": "1754368",
+    "RAMusage": "4",
+    "DISKtotal": "17811456",
+    "DISKusage": "36",
+    "UPTIME": "970706",
+    "TotalSWAP": "2097148",
+    "AvailableSWAP": "1824428",
+    "TotalCachedMemory": "887472",
+    "NICnames": [
+        "lo",
+        "eth0"
+    ],
+    "dataIN": [
+        "167817",
+        "281315450"
+    ],
+    "dataOUT": [
+        "167817",
+        "7075656"
+    ]
+}
+]
