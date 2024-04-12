@@ -41,7 +41,14 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         end_time = self.TimePicker_3.time.toString()
         Ticks = self.TicksForm.text() 
         print(StartDate, EndDate, start_time, end_time, Ticks)
-
+        # what we have: 
+        #      - 3 pourcentages
+        #      - 3 floats
+        #      - rest of data
+        
+        # Constraints: 
+        #      - none existant values = 0 
+        #      - 
 
 
 

@@ -1,9 +1,12 @@
+import sys
 import json
-import matplotlib.pyplot as plt
+from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget, QVBoxLayout, QPushButton, QFrame
+from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
+from matplotlib.figure import Figure
 from datetime import datetime, timedelta
 
 # Path to your JSON file
-json_file = r"C:\Users\BALLS2 (rip BALLS)\Desktop\REMT\Tests\data_viewer\SERVER1.json"
+json_file = r"C:\Users\BALLS2 (rip BALLS)\Desktop\REMT\Tests\dashboard\SERVER1.json"
 
 # Function to parse timestamp to datetime object
 def parse_timestamp(timestamp):
@@ -20,43 +23,61 @@ for entry in data:
     load1min_data.append(entry["LOAD1min"])
     timestamps.append(parse_timestamp(entry["timestamp"]))
 
-# Calculate average LOAD1min for each 1-hour interval
-interval_start = timestamps[0]
-interval_end = interval_start + timedelta(hours=1)
-averages = []
-average_timestamps = []
+# Create a custom QMainWindow class
+class MainWindow(QMainWindow):
+    def __init__(self):
+        super().__init__()
+        self.setWindowTitle("LOAD1min Plot")
 
-total_load1min = 0
-count = 0
-i = 0
-while i < len(timestamps):
-    if interval_start <= timestamps[i] < interval_end:
-        total_load1min += load1min_data[i]
-        count += 1
-    elif timestamps[i] >= interval_end:
-        if count > 0:
-            averages.append(total_load1min / count)
-            average_timestamps.append(interval_start)
-        
-        # Move to the next interval
-        interval_start = interval_end
-        interval_end += timedelta(hours=1)
-        
-        total_load1min = 0
-        count = 0
-        continue
-    
-    i += 1
+        # Create a central widget
+        self.centralWidget = QWidget()
+        self.setCentralWidget(self.centralWidget)
 
-# Plotting
-plt.figure(figsize=(10, 6))
-plt.plot(average_timestamps, averages, marker='o', linestyle='-')
-plt.title('Average LOAD1min per Hour')
-plt.xlabel('Time')
-plt.ylabel('Average LOAD1min')
-plt.xticks(rotation=90)
-plt.grid(True)
-plt.tight_layout()
+        # Create a QVBoxLayout to hold the plot and button
+        layout = QVBoxLayout(self.centralWidget)
 
-# Display the plot
-plt.show()
+        # Create a QFrame to hold the plot
+        self.frame = QFrame()
+        layout.addWidget(self.frame)
+
+        # Create a layout for the frame if it does not exist
+        if self.frame.layout() is None:
+            self.frame.setLayout(QVBoxLayout())
+
+        # Create a Figure and a FigureCanvas to embed the plot
+        self.fig = Figure()
+        self.canvas = FigureCanvas(self.fig)
+        self.frame.layout().addWidget(self.canvas)
+
+        # Create a plot
+        self.plot_load1min()
+
+        # Add a refresh button
+        self.refresh_button = QPushButton("Refresh")
+        self.refresh_button.clicked.connect(self.plot_load1min)
+        layout.addWidget(self.refresh_button)
+
+    def plot_load1min(self):
+        # Clear previous plot
+        self.fig.clear()
+
+        # Plotting
+        ax = self.fig.add_subplot(111)
+        ax.plot(timestamps, load1min_data, marker='o', linestyle='-')
+        ax.set_title('Average LOAD1min per Hour')
+        ax.set_xlabel('Time')
+        ax.set_ylabel('Average LOAD1min')
+        ax.grid(True)
+        ax.tick_params(axis='x', rotation=90)
+
+        # Draw the plot
+        self.canvas.draw()
+
+def main():
+    app = QApplication(sys.argv)
+    window = MainWindow()
+    window.show()
+    sys.exit(app.exec_())
+
+if __name__ == "__main__":
+    main()
