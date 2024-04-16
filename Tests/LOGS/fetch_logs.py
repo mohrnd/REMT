@@ -5,6 +5,7 @@ import shutil
 import subprocess
 from fabric import Connection
 import csv
+from datetime import datetime
 
 def ssh_client_creation(host, port, username, password):
     ssh_client = paramiko.SSHClient()
@@ -99,9 +100,12 @@ if __name__ == "__main__":
     results3 = test_cron(ssh_client, commands3, password)
     # Récupérer le nom de la machine 
     machine_name = results3[0]
+    
+    # Récupérer la date du jour
+    date_aujourdhui = datetime.now().strftime("%Y-%m-%d")  
 
     # Spécifier le chemin local en utilisant le nom de la machine
-    local_path_verify = rf'../../REMT/Tests/LOGS/var/logs/{machine_name}'
+    local_path_verify = rf'../../REMT/Tests/LOGS/var/logs/{machine_name}/{machine_name}__{date_aujourdhui}'
     
 
     # Supprimer le dossier existant s'il existe déjà
@@ -110,7 +114,7 @@ if __name__ == "__main__":
         print("Le dossier existant a été supprimé.")
 
     # Spécifier le chemin local en utilisant le nom de la machine
-    local_path = rf'../REMT/Tests/LOGS/var/logs/{machine_name}'
+    local_path = rf'../REMT/Tests/LOGS/var/logs/{machine_name}/{machine_name}__{date_aujourdhui}'
     
     # Créer le répertoire s'il n'existe pas déjà
     os.makedirs(local_path, exist_ok=True)
@@ -124,82 +128,78 @@ if __name__ == "__main__":
     result4 = conn.sudo('rm -r /home/journal', password=password, warn=True)
 
     
-    script_path1 = '../REMT/Tests/LOGS/activites_de_configuration.py'
+    script_path1 = './Tests/LOGS/activites_de_configuration.py'
     subprocess.run(["python", script_path1])
-
-    script_path2 = '../REMT/Tests/LOGS/activites_du_parefeu.py'
+    
+    script_path2 = './Tests/LOGS/activites_du_parefeu.py'
     subprocess.run(["python", script_path2])
 
-    script_path3 = '../REMT/Tests/LOGS/activites_memoire.py'
+    script_path3 = './Tests/LOGS/activites_memoire.py'
     subprocess.run(["python", script_path3])
 
 
     
-    script_path5 = '../REMT/Tests/LOGS/activités_ssh.py'
+    script_path5 = './Tests/LOGS/activités_ssh.py'
     subprocess.run(["python", script_path5])
 
-    script_path6 = '../REMT/Tests/LOGS/activites_usb.py'
+    script_path6 = './Tests/LOGS/activites_usb.py'
     subprocess.run(["python", script_path6])
     
-    script_path7 = '../REMT/Tests/LOGS/Advanced _Configuration_and_Power_Interface_events.py'
+    script_path7 = './Tests/LOGS/Advanced _Configuration_and_Power_Interface_events.py'
     subprocess.run(["python", script_path7])
 
-    script_path8 = '../REMT/Tests/LOGS/cmd_history.py'
+    script_path8 = './Tests/LOGS/cmd_history.py'
     subprocess.run(["python", script_path8])
 
-    script_path9 = '../REMT/Tests/LOGS/cnx_actives.py'
+    script_path9 = './Tests/LOGS/cnx_actives.py'
     subprocess.run(["python", script_path9])
 
-    script_path10 = '../REMT/Tests/LOGS/device_detection.py'
+    script_path10 = './Tests/LOGS/device_detection.py'
     subprocess.run(["python", script_path10])
     
-    script_path11 = '../REMT/Tests/LOGS/kernel_logs.py'
+    script_path11 = './Tests/LOGS/kernel_logs.py'
     subprocess.run(["python", script_path11])
 
-    script_path12 = '../REMT/Tests/LOGS/processus.py'
+    script_path12 = './Tests/LOGS/processus.py'
     subprocess.run(["python", script_path12])
     
-    script_path13 = '../REMT/Tests/LOGS/status_des_services.py'
+    script_path13 = './Tests/LOGS/status_des_services.py'
     subprocess.run(["python", script_path13])
 
-    script_path14 = '../REMT/Tests/LOGS/sys_alert.py'
+    script_path14 = './Tests/LOGS/sys_alert.py'
     subprocess.run(["python", script_path14])
 
-    script_path15 = '../REMT/Tests/LOGS/sys_critical.py'
+    script_path15 = './Tests/LOGS/sys_critical.py'
     subprocess.run(["python", script_path15])
 
-    script_path16 = '../REMT/Tests/LOGS/sys_debug.py'
+    script_path16 = './Tests/LOGS/sys_debug.py'
     subprocess.run(["python", script_path16])
 
-    script_path17 = '../REMT/Tests/LOGS/sys_emerg.py'
+    script_path17 = './Tests/LOGS/sys_emerg.py'
     subprocess.run(["python", script_path17])
 
-    script_path18 = '../REMT/Tests/LOGS/sys_error.py'
+    script_path18 = './Tests/LOGS/sys_error.py'
     subprocess.run(["python", script_path18])
 
-    script_path19 = '../REMT/Tests/LOGS/sys_info.py'
+    script_path19 = './Tests/LOGS/sys_info.py'
     subprocess.run(["python", script_path19])
 
-    script_path20 = '../REMT/Tests/LOGS/sys_notice.py'
+    script_path20 = './Tests/LOGS/sys_notice.py'
     subprocess.run(["python", script_path20])
     
-    script_path21 = '../REMT/Tests/LOGS/sys_warning.py'
+    script_path21 = './Tests/LOGS/sys_warning.py'
     subprocess.run(["python", script_path21])
 
-    script_path22 = '../REMT/Tests/LOGS/system_boots.py'
+    script_path22 = './Tests/LOGS/system_boots.py'
     subprocess.run(["python", script_path22])
     
-    script_path23 = '../REMT/Tests/LOGS/transactions_effectuées.py'
+    script_path23 = './Tests/LOGS/transactions_effectuées.py'
     subprocess.run(["python", script_path23])
     
-    script_path24 = '../REMT/Tests/LOGS/utilisation_disque.py'
+    script_path24 = './Tests/LOGS/utilisation_disque.py'
     subprocess.run(["python", script_path24])
     
+
+
     
-    #### pour 4 et 25 execute les si t'as une cnx internet
-    
-    #script_path4 = '../REMT/Tests/LOGS/activités_reseau.py'
-    #subprocess.run(["python", script_path4])
-    
-    #script_path25 = '../REMT/Tests/LOGS/vérifier_les_mises_à_jour_disponibles.py'
-    #subprocess.run(["python", script_path25])
+

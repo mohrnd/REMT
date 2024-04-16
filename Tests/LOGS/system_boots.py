@@ -101,9 +101,15 @@ if __name__ == "__main__":
     results33 = test_cron2(ssh_client, commands33, password)
     # Récupérer le nom de la machine 
     machine_name = results33[0]
+    
+    from datetime import datetime
+    
+    # Récupérer la date du jour
+    date_aujourdhui = datetime.now().strftime("%Y-%m-%d") 
+    
 
     # Chemin local où vous souhaitez télécharger le fichier
-    localpath =  rf'Tests/LOGS/var/logs/{machine_name}/journal/boot_system.txt'
+    localpath =  rf'Tests/LOGS/var/logs/{machine_name}/{machine_name}__{date_aujourdhui}/journal/boot_system.txt'
 
     # Chemin distant du fichier que vous souhaitez télécharger
     remotepath = f"/home/{username}/Bureau/boot_system.txt"

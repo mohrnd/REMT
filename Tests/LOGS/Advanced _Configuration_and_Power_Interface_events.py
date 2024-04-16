@@ -99,8 +99,14 @@ if __name__ == "__main__":
     # Récupérer le nom de la machine 
     machine_name = results33[0]
     
+    from datetime import datetime
+    
+    # Récupérer la date du jour
+    date_aujourdhui = datetime.now().strftime("%Y-%m-%d") 
+    
+    
     # Chemin local où vous souhaitez télécharger le fichier
-    localpath = rf'Tests/LOGS/var/logs/{machine_name}/journal/ACPI_events.txt'
+    localpath = rf'Tests/LOGS/var/logs/{machine_name}/{machine_name}__{date_aujourdhui}/journal/ACPI_events.txt'
 
     # Chemin distant du fichier que vous souhaitez télécharger
     remotepath = f"/home/{username}/Bureau/ACPI_events.txt"
