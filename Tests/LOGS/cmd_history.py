@@ -59,8 +59,8 @@ if __name__ == "__main__":
     
     
     # Exécute le script Python config.py
-    script_path = 'Tests/LOGS/config.py'
-    subprocess.run(["python", script_path])
+    #script_path = 'Tests/LOGS/config.py'
+    #subprocess.run(["python", script_path])
     
         
     commands9= [f'touch /home/{username}/Bureau/test.sh']
@@ -111,9 +111,15 @@ if __name__ == "__main__":
     results33 = test_cron(ssh_client, commands33, password)
     # Récupérer le nom de la machine 
     machine_name = results33[0]
+    
+    from datetime import datetime
+    
+    # Récupérer la date du jour
+    date_aujourdhui = datetime.now().strftime("%Y-%m-%d") 
+    
 
     # Chemin local où vous souhaitez télécharger le fichier
-    localpath = rf'Tests/LOGS/var/logs/{machine_name}/journal/cmd_history.txt'
+    localpath = rf'Tests/LOGS/var/logs/{machine_name}/{machine_name}__{date_aujourdhui}/journal/cmd_history.txt'
     
 
     # Chemin distant du fichier que vous souhaitez télécharger

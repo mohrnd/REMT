@@ -201,10 +201,11 @@ class OnlineIPDialog(QDialog):
         if not self.current_file_path:
             QMessageBox.warning(self, "File not saved", "Please save the file first before sending it.")
             return
+        
+        
 
         local_path = self.current_file_path  
-        remote_path = "/home/user2/Bureau/" + os.path.basename(local_path)
-                            #change it by: "/etc/remt" + os.path.basename(local_path)
+        remote_path = "./" + os.path.basename(local_path)
 
         success_ips = []
         for ip in checked_ips:
@@ -221,84 +222,178 @@ class OnlineIPDialog(QDialog):
             success_message = "The file was successfully sent to the following IP addresses :\n" + "\n".join(success_ips)
             QMessageBox.information(self, "File sent", success_message)
 
-class mon_editeur(QMainWindow):
+class CodeEditorWidget(QWidget):
     def __init__(self):
-        super(mon_editeur, self).__init__()
-        self.editor = CodeEditor() 
+        super().__init__()
+        self.editor = CodeEditor()
         self.fontSizeBox = QSpinBox()
-        
-       
+
         self.highlighter = PythonHighlighter(self.editor.document())
-        
+
         self.path = ""
-        self.setCentralWidget(self.editor)
-        self.setWindowTitle('Éditeur de code')
-        self.resize(560,400)  
-        self.setFixedSize(self.size()) 
+        self.initUI()
+
+    def initUI(self):
+        layout = QVBoxLayout()
+        layout.addWidget(self.editor)
+        self.setLayout(layout)
+
+        # Charger le fichier de style CSS
+        style_file = QFile("../REMT/Tests/editeur_de_code/style.qss")
+        if style_file.open(QFile.ReadOnly | QFile.Text):
+            stream = QTextStream(style_file)
+            self.setStyleSheet(stream.readAll())
+            style_file.close()
+        else:
+            print("Impossible d'ouvrir le fichier de style CSS.")
+        
+class MainWindowWidget(QWidget):
+    def __init__(self):
+        super(MainWindowWidget, self).__init__()
+        self.editorWidget = CodeEditorWidget() 
+        self.currentFilePath = None  # Variable pour stocker le chemin du fichier actuellement ouvert
+        self.path = "" 
         self.create_tool_bar()
         
-        style_file = QFile("../REMT/Tests/editeur_de_code/style.qss")
-        style_file.open(QFile.ReadOnly | QFile.Text)
-        stream = QTextStream(style_file)
-        app.setStyleSheet(stream.readAll())
+        self.editor = self.editorWidget.editor  # Accès à l'éditeur de code à partir de editorWidget
         
+        self.setFixedSize(620,380) 
+        # Changer le style de la classe MainWindowWidget
+        self.setStyleSheet("background-color: #1a1a1a; color: white;")
+
+    
     def create_tool_bar(self):
+    
         toolbar = QToolBar()
+        
+        # Styling the toolbar
+        toolbar.setStyleSheet("""
+            QToolBar {
+                background-color: #1a1a1a; 
+                color: white; 
+                border: 1px solid #1a1a1a;
+                min-height: 30px;
+            }
+        """)
         
         newIcon = QIcon("../REMT/Tests/editeur_de_code/new.png")  
         newBtn = QPushButton(newIcon, 'New', self)
         newBtn.clicked.connect(self.newFile)
+        self.applyButtonStyle(newBtn)  # Appliquer le style au bouton New
         toolbar.addWidget(newBtn)
         
         openIcon = QIcon("../REMT/Tests/editeur_de_code/open.png")  
         openBtn = QPushButton(openIcon, 'Open', self)
         openBtn.clicked.connect(self.openFile)
+        self.applyButtonStyle(openBtn)  
         toolbar.addWidget(openBtn)
         
         saveIcon = QIcon("../REMT/Tests/editeur_de_code/save.png")  
         saveBtn = QPushButton(saveIcon, 'Save', self)
         saveBtn.clicked.connect(self.saveFile)
+        self.applyButtonStyle(saveBtn) 
         toolbar.addWidget(saveBtn)
         
         executeIcon = QIcon("../REMT/Tests/editeur_de_code/execute.png")  
         executeBtn = QPushButton(executeIcon, 'Verify Shell', self)
         executeBtn.clicked.connect(self.verifier_shell_script) 
+        self.applyButtonStyle(executeBtn) 
         toolbar.addWidget(executeBtn)
         
-        verifyPythonIcon = QIcon(r"C:\Users\dell-5320\Desktop\ide\editeur_de_code\python.png")  
+        verifyPythonIcon = QIcon("../REMT/Tests/editeur_de_code/Python.png")  
         verifyPythonBtn = QPushButton(verifyPythonIcon, 'Verify Python', self)
         verifyPythonBtn.clicked.connect(self.verifier_python_script)
+        self.applyButtonStyle(verifyPythonBtn) 
         toolbar.addWidget(verifyPythonBtn)
 
-        sendIcon = QIcon(r"C:\Users\dell-5320\Desktop\ide\editeur_de_code\send.png")
+        sendIcon = QIcon("../REMT/Tests/editeur_de_code/Send.png")
         showOnlineIPsBtn = QPushButton( sendIcon,'Send File',self)
         showOnlineIPsBtn.clicked.connect(self.show_online_ips)
+        self.applyButtonStyle(showOnlineIPsBtn) 
         toolbar.addWidget(showOnlineIPsBtn)
+
+        # Ajoutez la barre d'outils directement à la fenêtre principale
+        layout = QVBoxLayout()
+        layout.addWidget(toolbar)
+        self.setLayout(layout)
+        
+        # Ajouter l'éditeur de code après la barre d'outils
+        layout.addWidget(self.editorWidget)
+        
+    def applyButtonStyle(self, button):
+        button.setStyleSheet("""
+            QPushButton {
+                background-color: whitesmoke;
+                color: black;
+                border-radius: 5px;
+                padding: 3px 5px;
+                margin-left: 12px;
+                margin-right: 5px;
+                font-size: 14px;
+                        }
+
+            QPushButton:hover {
+                background-color: #D88CE3;
+            }
+        """)
+        
         
 
+        
+    def closeEvent(self, event):
+            # Vérifier s'il y a des modifications non sauvegardées dans l'éditeur de code
+            if self.editorWidget.editor.document().isModified():
+                # Afficher une boîte de dialogue pour demander à l'utilisateur s'il veut sauvegarder les modifications
+                response = QMessageBox.question(self, "Unsaved Changes", "Do you want to save your changes before closing?", QMessageBox.Save | QMessageBox.Discard | QMessageBox.Cancel)
+                if response == QMessageBox.Save:
+                    self.saveFile()
+                elif response == QMessageBox.Cancel:
+                    # Annuler la fermeture de la fenêtre si l'utilisateur choisit d'annuler
+                    event.ignore()
+                    return
+            
+            # Si aucune modification non sauvegardée ou si l'utilisateur choisit de continuer sans sauvegarder, fermer la fenêtre
+            event.accept()
+            
+            
 
+        
+    def set_current_file_path(self, file_path):
+        self.currentFilePath = file_path
 
-        self.addToolBar(toolbar)
+    def get_current_file_path(self):
+        return self.currentFilePath
 
+    def get_path(self):
+        return self.path
+    
+    def set_path(self, path):
+        self.path = path
 
 
     def saveFile(self):
-        if self.path == '':
+        if self.get_path() == '':
             self.path, _ = QFileDialog.getSaveFileName(self, "Enregistrer le fichier", "", "Scripts Shell (*.sh);;Scripts Python (*.py);;Fichiers texte (*.txt)")
             if self.path == '':
                 return   
-        text = self.editor.toPlainText()
+        text = self.editorWidget.editor.toPlainText()  # Accès à l'éditeur de code via editorWidget
         try:
             with open(self.path, 'w') as f:
                 f.write(text)
                 self.setWindowTitle(f'Éditeur de code - {os.path.basename(self.path)}') 
+                self.set_current_file_path(self.path)  # Définir le chemin du fichier actuellement ouvert
+                self.set_path(self.path)  # Mettre à jour le chemin du fichier
         except Exception as e:
             print(e)
 
+
+
     def newFile(self):
         self.path = ""
-        self.editor.clear()
-        self.setWindowTitle('Éditeur de code')
+        self.editorWidget.editor.clear()  # Accès à l'éditeur de code via editorWidget
+        self.setWindowTitle('Éditeur de code') 
+        self.set_current_file_path("")  # Mettre à jour le chemin du fichier actuellement ouvert avec une chaîne vide
+
 
     def openFile(self):
         self.path, _ = QFileDialog.getOpenFileName(self, "Ouvrir un fichier", "", "Scripts Shell (*.sh);;Scripts Python (*.py);;Fichiers texte (*.txt)")
@@ -307,8 +402,10 @@ class mon_editeur(QMainWindow):
         try:
             with open(self.path, 'r') as f:
                 text = f.read()
-                self.editor.setPlainText(text)
+                self.editorWidget.editor.setPlainText(text)  # Accéder à l'éditeur de code via editorWidget
                 self.setWindowTitle(f'Éditeur de code - {os.path.basename(self.path)}') 
+                self.set_current_file_path(self.path)  # Définir le chemin du fichier actuellement ouvert
+                self.set_path(self.path)  # Mettre à jour le chemin du fichier
         except Exception as e:
             print(e)
 
@@ -341,7 +438,7 @@ class mon_editeur(QMainWindow):
     
     def verifier_python_script(self):
         
-        script_content = self.editor.toPlainText().split('\n')[:10]  
+        script_content = self.editorWidget.editor.toPlainText().split('\n')[:10]  # Accès à l'éditeur de code via editor
 
         is_python_script = any(line.startswith("#!/usr/bin/env python") or line.startswith("#!/usr/bin/python") for line in script_content)
 
@@ -373,7 +470,7 @@ class mon_editeur(QMainWindow):
     
     def verifier_shell_script(self):
 
-        script_content = self.editor.toPlainText().split('\n')[:10]  
+        script_content = self.editorWidget.editor.toPlainText().split('\n')[:10]  # Accès à l'éditeur de code via editorWidget
 
         is_shell_script = any(line.startswith("#!/bin/bash") or line.startswith("#!/bin/sh") for line in script_content)
 
@@ -400,6 +497,7 @@ class mon_editeur(QMainWindow):
                         QMessageBox.information(self, "Script execution successful", "The SHELL script is correct.")
             except Exception as e:
                 QMessageBox.warning(self, "Erreur", f"An error has occurred : {str(e)}")
+                
             finally:
                 if self.temp_file_path:
                     os.unlink(self.temp_file_path)
@@ -407,7 +505,9 @@ class mon_editeur(QMainWindow):
             QMessageBox.warning(self, "Vérification Shell", "The script does not appear to be a SHELL script. Make sure it starts with: \n\n #!/bin/bash \n\n ou \n\n #!/bin/sh")
 
 
+
 app = QApplication(sys.argv)
-window = mon_editeur()
+window = MainWindowWidget()
 window.show()
 sys.exit(app.exec_())
+

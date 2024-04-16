@@ -85,7 +85,8 @@ if __name__ == "__main__":
     results6 = test_cron2(ssh_client, commands6, password)
     print(results6)
 
-    # Création d'une instance de la classe Transfer
+    # C
+    # réation d'une instance de la classe Transfer
     transfer = Transfer()
 
 
@@ -95,9 +96,16 @@ if __name__ == "__main__":
     results33 = test_cron2(ssh_client, commands33, password)
     # Récupérer le nom de la machine 
     machine_name = results33[0]
+
+    from datetime import datetime
     
+    # Récupérer la date du jour
+    date_aujourdhui = datetime.now().strftime("%Y-%m-%d") 
+
+    
+
     # Chemin local où vous souhaitez télécharger le fichier
-    localpath = rf'Tests/LOGS/var/logs/{machine_name}/journal/Firewall_events.txt'
+    localpath = rf'Tests/LOGS/var/logs/{machine_name}/{machine_name}__{date_aujourdhui}/journal/Firewall_events.txt'
 
     # Chemin distant du fichier que vous souhaitez télécharger
     remotepath = f"/home/{username}/Bureau/Firewall_events.txt"

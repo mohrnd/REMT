@@ -1,3 +1,6 @@
+### ce code doit etre executé a linstallation ####
+
+
 import paramiko
 import csv 
 

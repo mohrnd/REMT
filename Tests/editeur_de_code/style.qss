@@ -4,31 +4,3 @@
     background-color: whitesmoke;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
-
-QMainWindow::title {
-    background-color: #ffffff;
-    color: rgb(255, 0, 0);
-}
-
-QPushButton {
-    background-color:whitesmoke;
-    color: black;
-    border-radius: 5px;
-    padding: 3px 5px;
-    margin-left: 12px;
-    font-size: 14px;
-}
-
-QPushButton:hover {
-    background-color: #D88CE3;
-}
-
-QMainWindow {
-    background-color:whitesmoke;
-}
-
-QToolBar {
-    background-color:black;
-    border: 1px solid black;
-    min-height: 45px;
-}
