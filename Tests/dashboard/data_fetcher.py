@@ -1,6 +1,7 @@
 import json
 import os
 from fabric import Connection
+from fabric.exceptions import GroupException
 import re
 from datetime import datetime
 import time
@@ -10,7 +11,11 @@ import csv
 Notes: 
 -our monitoring is more about trend analysis or identifying long-term patterns (longer refresh times or averaging data might be more suitable)
 '''
+'''
+Known issues: 
+-if a machine goes offline, the data fetching stops *FIXED*
 
+'''
 
 # this function will only append a new line to the json file
 def create_or_update_json(data, MachineName):
@@ -67,50 +72,60 @@ def create_or_update_json(data, MachineName):
 
 def fetch_monitoring_data(SNMPv3_username, auth_Protocole, auth_password, Priv_Protocole, priv_password, security_engine_id, hostname, password, user, Port,  Machine_Name, RefreshTime):    
     while True:
-        date_time = datetime.now()
-        formated = date_time.strftime('%Y-%m-%d %H:%M:%S')
-        conn = Connection(hostname, user=user, port=Port, connect_kwargs={"password": password})
-        nothing = open(os.devnull, 'w')        
-        OIDs = ['.1.3.6.1.4.1.2021.10.1.3.1', #1 minute Load 0
-                '.1.3.6.1.4.1.2021.10.1.3.2', #5 minute Load 1
-                '.1.3.6.1.4.1.2021.10.1.3.3', #15 minute Load 2
-                '1.3.6.1.2.1.25.3.3.1.2', #Number of CPU cores 3
-                '.1.3.6.1.4.1.2021.11.52.0', #raw system cpu time 4
-                '.1.3.6.1.4.1.2021.4.5.0', #Total RAM in machine 5
-                '.1.3.6.1.4.1.2021.4.6.0', #Total RAM used 6
-                '.1.3.6.1.4.1.2021.9.1.6.1', #Total size of the disk (kBytes) 7
-                '1.3.6.1.4.1.2021.9.1.9.1', #Disk usage Pourcentage 8
-                '.1.3.6.1.2.1.1.3.0', #System Uptime 9
-                '.1.3.6.1.4.1.2021.4.3.0', #Total Swap Size 10
-                '.1.3.6.1.4.1.2021.4.4.0', #Available Swap Space 11
-                '.1.3.6.1.4.1.2021.4.15.0', #Total Cached Memory 12
-                '.1.3.6.1.2.1.2.2.1.2' , #NIC names 13
-                '.1.3.6.1.2.1.2.2.1.10', #Bytes IN 14
-                '.1.3.6.1.2.1.2.2.1.16', #Bytes OUT 15
-                ]
-        outputs = []
-        for OID in OIDs:
-            output = conn.run(f'snmpwalk -v3 -l authPriv -u {SNMPv3_username} -a {auth_Protocole} -A {auth_password} -x {Priv_Protocole} -X {priv_password} {hostname} {OID}', warn=True, out_stream=nothing)
-            values = re.findall(r'(?<=STRING: )\S+|(?<=Counter32: )\d+|(?<=INTEGER: )\d+|(?<=Timeticks: \()\d+', output.stdout)
-            outputs.append(values)
-        outputs[3] = [f'{len(outputs[3])}']
-        total_ram_used = int(outputs[6][0])  
-        total_ram_in_machine = int(outputs[5][0]) 
-        ram_percentage = (total_ram_used / total_ram_in_machine) * 100  
-        outputs[6] = [f'{ram_percentage:.0f}'] 
-        outputs.insert(0,[formated])
-        current_cpu_time = int(outputs[5][0])
-        system_uptime = int(outputs[10][0])
-        system_uptime_seconds = system_uptime // 100
-        number_of_cores = int(outputs[4][0])
-        cpu_usage_per_second_per_core = current_cpu_time / system_uptime_seconds / number_of_cores
-        cpu_usage_percentage = cpu_usage_per_second_per_core * 100
-        outputs[5] =  [f'{cpu_usage_percentage:.0f}'] 
-        nothing.close()
-        create_or_update_json(outputs, Machine_Name)
-        
-        time.sleep(int(RefreshTime)-2)
+        try:
+            date_time = datetime.now()
+            formated = date_time.strftime('%Y-%m-%d %H:%M:%S')
+            conn = Connection(hostname, user=user, port=Port, connect_kwargs={"password": password})
+            nothing = open(os.devnull, 'w')        
+            OIDs = ['.1.3.6.1.4.1.2021.10.1.3.1', #1 minute Load 0
+                    '.1.3.6.1.4.1.2021.10.1.3.2', #5 minute Load 1
+                    '.1.3.6.1.4.1.2021.10.1.3.3', #15 minute Load 2
+                    '1.3.6.1.2.1.25.3.3.1.2', #Number of CPU cores 3
+                    '.1.3.6.1.4.1.2021.11.52.0', #raw system cpu time 4
+                    '.1.3.6.1.4.1.2021.4.5.0', #Total RAM in machine 5
+                    '.1.3.6.1.4.1.2021.4.6.0', #Total RAM used 6
+                    '.1.3.6.1.4.1.2021.9.1.6.1', #Total size of the disk (kBytes) 7
+                    '1.3.6.1.4.1.2021.9.1.9.1', #Disk usage Pourcentage 8
+                    '.1.3.6.1.2.1.1.3.0', #System Uptime 9
+                    '.1.3.6.1.4.1.2021.4.3.0', #Total Swap Size 10
+                    '.1.3.6.1.4.1.2021.4.4.0', #Available Swap Space 11
+                    '.1.3.6.1.4.1.2021.4.15.0', #Total Cached Memory 12
+                    '.1.3.6.1.2.1.2.2.1.2' , #NIC names 13
+                    '.1.3.6.1.2.1.2.2.1.10', #Bytes IN 14
+                    '.1.3.6.1.2.1.2.2.1.16', #Bytes OUT 15
+                    ]
+            outputs = []
+            for OID in OIDs:
+                output = conn.run(f'snmpwalk -v3 -l authPriv -u {SNMPv3_username} -a {auth_Protocole} -A {auth_password} -x {Priv_Protocole} -X {priv_password} {hostname} {OID}', warn=True, out_stream=nothing)
+                values = re.findall(r'(?<=STRING: )\S+|(?<=Counter32: )\d+|(?<=INTEGER: )\d+|(?<=Timeticks: \()\d+', output.stdout)
+                outputs.append(values)
+            outputs[3] = [f'{len(outputs[3])}']
+            total_ram_used = int(outputs[6][0])  
+            total_ram_in_machine = int(outputs[5][0]) 
+            ram_percentage = (total_ram_used / total_ram_in_machine) * 100  
+            outputs[6] = [f'{ram_percentage:.0f}'] 
+            outputs.insert(0,[formated])
+            current_cpu_time = int(outputs[5][0])
+            system_uptime = int(outputs[10][0])
+            system_uptime_seconds = system_uptime // 100
+            number_of_cores = int(outputs[4][0])
+            print(f'{Machine_Name} data fetched successfully')
     
+            if system_uptime_seconds == 0 or current_cpu_time == 0 or number_of_cores == 0:
+                cpu_usage_per_second_per_core = 0.0
+            else:
+                cpu_usage_per_second_per_core = current_cpu_time / system_uptime_seconds / number_of_cores
+            cpu_usage_percentage = cpu_usage_per_second_per_core * 100
+            outputs[5] =  [f'{cpu_usage_percentage:.0f}'] 
+            nothing.close()
+            create_or_update_json(outputs, Machine_Name)
+            time.sleep(int(RefreshTime)-2)
+            
+        except Exception as e:
+            print(f'Error occurred: {e}. Retrying in 10 seconds ...')
+            time.sleep(10)
+
+            
 #test:
 # # fetch_monitoring_data('roadmin', 'SHA', 'admin123', 'AES', 'admin123', 'nothin', '192.168.69.47', 'Pa$$w0rd', 'server1', 22,  'server1', 5)
 # params1 = ('roadmin', 'SHA', 'admin123', 'AES', 'admin123', 'nothin', '192.168.69.47', 'Pa$$w0rd', 'server1', 22,  'server1', 15)

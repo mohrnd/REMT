@@ -70,8 +70,8 @@
 # KNOWN AT YOUR SITE.  YOU *MUST* CHANGE THE NETWORK TOKEN BELOW TO
 # SOMETHING REFLECTING YOUR LOCAL NETWORK ADDRESS SPACE.
 
-createUser roadmin SHA admin123 AES admin123
-rwuser roadmin authpriv -V all
+createUser {SNMPv3_username} {auth_Protocole} {Auth_password} {Priv_Protocole} {Priv_password}
+{UserType} {SNMPv3_username} authpriv -V all
 
 ##       sec.name  source          community
 #com2sec local     localhost       public
@@ -158,6 +158,14 @@ view    rwview          included        .1
 #access  notConfigGroup ""      any       noauth    exact  roview rwview none
 #access notConfigGroup ""      v1       noauth    0      all    all    all
 #access notConfigGroup ""      v2c       noauth    0      all    all    all
+##############################################################################
+############################TRAPS#############################################
+agentSecName {SNMPv3_username}
+trapsess -v 3 -l authPriv -u {SNMPv3_username} {ip}
+authtrapenable 0
+
+
+
 
 ###############################################################################
 # System contact information
@@ -466,4 +474,3 @@ load 12 14 14
 # Further Information
 #
 #  See the snmpd.conf manual page, and the output of "snmpd -H".
-
