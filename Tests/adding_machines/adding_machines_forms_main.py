@@ -16,7 +16,8 @@ from password_hash_storage import check_password
 from Ui_Config_progress import *
 from pyqt_translucent_full_loading_screen_thread import LoadingThread, LoadingTranslucentScreen
 from PyQt5.QtCore import QTimer, QThread
-
+import threading
+import concurrent.futures
 """
 TODO:
 execute the config.py from the LOG folder
@@ -35,9 +36,9 @@ class MainWindow(QWidget, Ui_Form):
         self.VerifyMachineInfo.clicked.connect(self.verify_machine_data)
         self.ADD_BUTTON.clicked.connect(self.show_root_password_form)  
         self.disable_snmp_form_fields()
-        
-        
-        
+
+
+
     def show_root_password_form(self):
         self.root_password_form = QDialog()
         self.show_root_password_form_ui = Ui_Form2()
@@ -60,22 +61,24 @@ class MainWindow(QWidget, Ui_Form):
         self.config_progress_form = QDialog()
         self.ui_config_progress = Ui_Form3() 
         self.ui_config_progress.setupUi(self.config_progress_form)
-        self.ui_config_progress.failure.hide()
-        self.ui_config_progress.machine_added.hide()
         self.ui_config_progress.configprogress_finish.clicked.connect(self.config_progress_form.reject)
         self.config_progress_form.show()
 
         
+
+
     def fetch_root_values(self):
         root_user = self.root_password_form.findChild(QtWidgets.QLineEdit, "RootUser_config").text()
         root_password = self.root_password_form.findChild(QtWidgets.QLineEdit, "RootPassword_config").text()
         master_password = self.root_password_form.findChild(QtWidgets.QLineEdit, "MasterPassword_config").text()
         output = check_password(master_password)
-        if output == True:
-            self.snmpconf_setup(root_user, root_password, master_password)
+        if output:
+            self.show_config_progress() 
+            threading.Thread(target=self.snmpconf_setup, args=(root_user, root_password, master_password)).start()
             self.root_password_form.hide()
         else:
             QMessageBox.warning(self, "Error", "Master password incorrect, this incident will be reported")
+
 
     def disable_snmp_form_fields(self):
         for widget in self.findChildren(QWidget):
@@ -196,6 +199,7 @@ class MainWindow(QWidget, Ui_Form):
                 stdin, stdout, stderr = client.exec_command(f"{line}", get_pty=True)
                 output = stdout.read().decode().strip()
                 print(output)
+                self.ui_config_progress.configprogress_TextEdit.append(output)
                 current_progress += unit
                 if current_progress > 100:
                     current_progress = 100
@@ -213,6 +217,7 @@ class MainWindow(QWidget, Ui_Form):
                     security_engine_id = output.replace(substring_to_remove, "")
                     
             QMessageBox.information(self, "Info", f"Machine {hostname} added successfully.")
+            self.ui_config_progress.Loading.hide()
             create_or_update_csv(SNMPv3_username, auth_Protocole, Auth_password, Priv_Protocole, Priv_password, security_engine_id, hostname, password, username, port ,MachineName, RefreshTime)
         
         

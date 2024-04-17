@@ -11,7 +11,7 @@ from PyQt5.QtGui import *
 # from MainInterface.TaskSchedulerMain.Task_scheduler_main import MainWindow as SchedulerWindow
 
 
-from MainInterface.SSHMain.Main_SSH_Widget import MainWindow as SSHWindow
+from Main_SSH_Widget import MainWindow as SSHWindow
 
 
 
@@ -24,13 +24,12 @@ from MainInterface.SSHMain.Main_SSH_Widget import MainWindow as SSHWindow
 #         self.hBoxLayout.addWidget(self.Scheduler)  
 #         self.setObjectName(text.replace('-', '-'))
         
-class SSH():
-# SSH
+class SSH(QWidget):
     def __init__(self, text: str, parent=None):
         super().__init__(parent=parent)
         self.hBoxLayout = QHBoxLayout(self)
-        self.SSH = SSHWindow()  
-        self.hBoxLayout.addWidget(self.SSH)  
+        self.SSH = SSHWindow()
+        self.hBoxLayout.addWidget(self.SSH)
         self.setObjectName(text.replace('-', '-'))
 
 
@@ -53,8 +52,12 @@ class Window(MSFluentWindow):
     def __init__(self):
         super().__init__()
 
-        self.Dashboard = Widget('Home Interface', self)
-        self.SSH_window = Widget('Application Interface', self)
+        self.Dashboard = Widget('Video Interface 1', self)
+        
+        
+        self.SSH_window = SSH(text='Single', parent=self)
+
+
         # self.TaskScheduler = TaskScheduler(self)
         self.CodeEditor = Widget('Video Interface 2', self)
         self.LogFetcher = Widget('Video Interface 3', self)
@@ -74,7 +77,7 @@ class Window(MSFluentWindow):
         self.addSubInterface(self.DeployFile, QIcon(r'..\REMT\FinishedProduct\MainInterface\RemtIcons\upload.svg'), 'Deploy')
         self.addSubInterface(self.GetFile, QIcon(r'..\REMT\FinishedProduct\MainInterface\RemtIcons\download.svg'), 'Get')
         self.addSubInterface(self.AddMachine, QIcon(r'..\REMT\FinishedProduct\MainInterface\RemtIcons\add.svg'), 'Add server')
-
+        
         
         self.navigationInterface.addItem(
             routeKey='Help',

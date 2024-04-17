@@ -14,84 +14,17 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_Form3(object):
     def setupUi(self, Form):
         Form.setObjectName("Form")
-        Form.resize(474, 488)
+        Form.resize(474, 459)
         self.configprogress_TextEdit = TextEdit(Form)
-        self.configprogress_TextEdit.setGeometry(QtCore.QRect(10, 10, 451, 351))
+        self.configprogress_TextEdit.setGeometry(QtCore.QRect(10, 10, 451, 381))
         self.configprogress_TextEdit.setObjectName("configprogress_TextEdit")
-        self.configprogress_TextEdit.setReadOnly(True) 
-        self.configprogress_ProgressBar = ProgressBar(Form)
-        self.configprogress_ProgressBar.setGeometry(QtCore.QRect(10, 410, 451, 4))
-        self.configprogress_ProgressBar.setObjectName("configprogress_ProgressBar")
-        self.configprogress_StrongBodyLabel = StrongBodyLabel(Form)
-        self.configprogress_StrongBodyLabel.setGeometry(QtCore.QRect(10, 380, 111, 19))
-        self.configprogress_StrongBodyLabel.setObjectName("configprogress_StrongBodyLabel")
         self.configprogress_finish = PrimaryPushButton(Form)
-        self.configprogress_finish.setGeometry(QtCore.QRect(332, 440, 131, 32))
+        self.configprogress_finish.setGeometry(QtCore.QRect(330, 400, 131, 51))
         self.configprogress_finish.setObjectName("configprogress_finish")
-        self.machine_added = SubtitleLabel(Form)
-        self.machine_added.setStyleSheet("FluentLabelBase {\n"
-"    color: black;\n"
-"}\n"
-"\n"
-"HyperlinkLabel {\n"
-"    color: #009faa;\n"
-"    border: none;\n"
-"    background-color: transparent;\n"
-"    text-align: left;\n"
-"    padding: 0;\n"
-"    margin: 0;\n"
-"}\n"
-"\n"
-"HyperlinkLabel[underline=true] {\n"
-"    text-decoration: underline;\n"
-"}\n"
-"\n"
-"HyperlinkLabel[underline=false] {\n"
-"    text-decoration: none;\n"
-"}\n"
-"\n"
-"HyperlinkLabel:hover {\n"
-"    color: #007780;\n"
-"}\n"
-"\n"
-"HyperlinkLabel:pressed {\n"
-"    color: #00a7b3;\n"
-"}\n"
-"FluentLabelBase{color:green}")
-        self.machine_added.setObjectName("machine_added")
-        self.failure = SubtitleLabel(Form)
-        self.failure.setGeometry(QtCore.QRect(10, 440, 261, 28))
-        self.failure.setStyleSheet("FluentLabelBase {\n"
-"    color: black;\n"
-"}\n"
-"\n"
-"HyperlinkLabel {\n"
-"    color: #009faa;\n"
-"    border: none;\n"
-"    background-color: transparent;\n"
-"    text-align: left;\n"
-"    padding: 0;\n"
-"    margin: 0;\n"
-"}\n"
-"\n"
-"HyperlinkLabel[underline=true] {\n"
-"    text-decoration: underline;\n"
-"}\n"
-"\n"
-"HyperlinkLabel[underline=false] {\n"
-"    text-decoration: none;\n"
-"}\n"
-"\n"
-"HyperlinkLabel:hover {\n"
-"    color: #007780;\n"
-"}\n"
-"\n"
-"HyperlinkLabel:pressed {\n"
-"    color: #00a7b3;\n"
-"}\n"
-"FluentLabelBase{color:red\n"
-"}")
-        self.failure.setObjectName("failure")
+        self.Loading = StateToolTip(title='Please Wait', content='Configuration is running', parent=Form)
+        self.Loading.setEnabled(True)
+        self.Loading.setGeometry(QtCore.QRect(10, 400, 256, 51))
+        self.Loading.setObjectName("Loading")
 
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
@@ -99,8 +32,5 @@ class Ui_Form3(object):
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
         Form.setWindowTitle(_translate("Form", "Form"))
-        self.configprogress_StrongBodyLabel.setText(_translate("Form", "Progress:"))
         self.configprogress_finish.setText(_translate("Form", "Finish"))
-        self.machine_added.setText(_translate("Form", "machine added successfully !"))
-        self.failure.setText(_translate("Form", "machine addition failed!"))
-from qfluentwidgets import PrimaryPushButton, ProgressBar, StrongBodyLabel, SubtitleLabel, TextEdit
+from qfluentwidgets import PrimaryPushButton, StateToolTip, TextEdit

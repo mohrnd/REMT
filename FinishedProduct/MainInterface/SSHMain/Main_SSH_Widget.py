@@ -133,13 +133,13 @@ def Check_ip(hostname):
         return False
 
 
-def main():
-    app = QApplication(sys.argv)
-    color = QColor('#351392')
-    setThemeColor(color.name(), Qt.GlobalColor, '') 
-    window = MainWindow()
-    window.show()
-    sys.exit(app.exec_())
+# def main():
+#     app = QApplication(sys.argv)
+#     color = QColor('#351392')
+#     setThemeColor(color.name(), Qt.GlobalColor, '') 
+#     window = MainWindow()
+#     window.show()
+#     sys.exit(app.exec_())
 
 # if __name__ == "__main__":
 #     main()
