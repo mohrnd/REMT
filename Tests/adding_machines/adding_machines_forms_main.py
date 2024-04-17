@@ -14,10 +14,10 @@ from fabric import Connection
 from Ui_root_password_master_password_forms import *
 from password_hash_storage import check_password 
 from Ui_Config_progress import *
-from pyqt_translucent_full_loading_screen_thread import LoadingThread, LoadingTranslucentScreen
 from PyQt5.QtCore import QTimer, QThread
 import threading
 import concurrent.futures
+from qfluentwidgets import StateToolTip
 """
 TODO:
 execute the config.py from the LOG folder
@@ -36,6 +36,7 @@ class MainWindow(QWidget, Ui_Form):
         self.VerifyMachineInfo.clicked.connect(self.verify_machine_data)
         self.ADD_BUTTON.clicked.connect(self.show_root_password_form)  
         self.disable_snmp_form_fields()
+        
 
 
 
@@ -62,6 +63,7 @@ class MainWindow(QWidget, Ui_Form):
         self.ui_config_progress = Ui_Form3() 
         self.ui_config_progress.setupUi(self.config_progress_form)
         self.ui_config_progress.configprogress_finish.clicked.connect(self.config_progress_form.reject)
+        self.ui_config_progress.configprogress_finish.setDisabled(True)
         self.config_progress_form.show()
 
         
@@ -217,7 +219,8 @@ class MainWindow(QWidget, Ui_Form):
                     security_engine_id = output.replace(substring_to_remove, "")
                     
             QMessageBox.information(self, "Info", f"Machine {hostname} added successfully.")
-            self.ui_config_progress.Loading.hide()
+            self.ui_config_progress.Loading.close()
+            self.ui_config_progress.configprogress_finish.setDisabled(False)
             create_or_update_csv(SNMPv3_username, auth_Protocole, Auth_password, Priv_Protocole, Priv_password, security_engine_id, hostname, password, username, port ,MachineName, RefreshTime)
         
         
