@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_Form2(object):
     def setupUi(self, Form):
         Form.setObjectName("Form")
-        Form.resize(413, 315)
+        Form.resize(413, 280)
         self.RootPassword_config = PasswordLineEdit(Form)
         self.RootPassword_config.setGeometry(QtCore.QRect(10, 140, 391, 33))
         self.RootPassword_config.setObjectName("RootPassword_config")

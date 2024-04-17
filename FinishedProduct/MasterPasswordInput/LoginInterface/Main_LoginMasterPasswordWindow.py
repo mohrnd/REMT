@@ -16,6 +16,12 @@ class MainWindow(QWidget, Ui_Form):
         self.setupUi(self)
         self.setWindowTitle("REMT Master Password Form")
         self.setWindowIcon(QIcon("../REMT/FinishedProduct/MasterPasswordInput/FirstLoginInterface/black.png"))
+        self.MasterPWDContinue_login.clicked.connect(self.FetchMasterPasswordLogin)
+        self.CloseMasterPWDWindow_login.clicked.connect(self.close)
+        
+    def FetchMasterPasswordLogin(self):
+        MasterPassword = self.MasterPassword_login.text()
+        return MasterPassword
 
 def main():
     color = QColor('#351392')

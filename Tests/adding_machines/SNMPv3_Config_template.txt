@@ -2,7 +2,7 @@ echo "Installing net-snmp RPMs..."
 yum install -y net-snmp net-snmp-libs net-snmp-utils net-snmp-agent-libs 
 echo "Net-SNMP RPMs installed successfully." 
 echo "Removing old snmpd.conf file..." 
-rm -rf /etc/snmp/snmpd.conf 
+mv /etc/snmp/snmpd.conf /etc/snmp/snmpd.conf.save
 echo "Old snmpd.conf removed successfully." 
 echo "Creating a new snmpd.conf file..." 
 touch /etc/snmp/snmpd.conf 
@@ -12,9 +12,20 @@ systemctl stop snmpd
 echo "snmpd service stopped successfully." 
 echo "Setting up the /etc/snmp/snmpd.conf file..." 
 echo "createUser {SNMPv3_username} {auth_Protocole} {Auth_password} {Priv_Protocole} {Priv_password}" >> /etc/snmp/snmpd.conf && echo "Line added to /etc/snmp/snmpd.conf."
-echo "{UserType} {SNMPv3_username} authpriv system" >> /etc/snmp/snmpd.conf && echo "Line added to /etc/snmp/snmpd.conf."
-echo "iquerySecName {SNMPv3_username}" >> /etc/snmp/snmpd.conf && echo "Line added to /etc/snmp/snmpd.conf."
+echo "{UserType} {SNMPv3_username} authpriv -V all" >> /etc/snmp/snmpd.conf && echo "Line added to /etc/snmp/snmpd.conf."
+echo "view all    included  .1                               80">> /etc/snmp/snmpd.conf && echo "Line added to /etc/snmp/snmpd.conf."
+echo "agentSecName  {SNMPv3_username}" >> /etc/snmp/snmpd.conf && echo "Line added to /etc/snmp/snmpd.conf."
 echo "trapsess -v 3 -l authPriv -u {SNMPv3_username} {ip}" >> /etc/snmp/snmpd.conf && echo "Line added to /etc/snmp/snmpd.conf."
+echo "authtrapenable 0">> /etc/snmp/snmpd.conf && echo "Line added to /etc/snmp/snmpd.conf."
+echo "syslocation Unknown (edit /etc/snmp/snmpd.conf)">> /etc/snmp/snmpd.conf && echo "Line added to /etc/snmp/snmpd.conf."
+echo "syscontact Root <root@localhost> (configure /etc/snmp/snmp.local.conf)">> /etc/snmp/snmpd.conf && echo "Line added to /etc/snmp/snmpd.conf."
+echo "dontLogTCPWrappersConnects yes">> /etc/snmp/snmpd.conf && echo "Line added to /etc/snmp/snmpd.conf."
+echo "disk / 10000">> /etc/snmp/snmpd.conf && echo "Line added to /etc/snmp/snmpd.conf."
+echo "load 12 14 14">> /etc/snmp/snmpd.conf && echo "Line added to /etc/snmp/snmpd.conf."
+
+
+
+
 echo "snmpd.conf configured successfully." 
 echo "Enabling and starting snmpd service..." 
 systemctl enable snmpd 

@@ -14,7 +14,14 @@ from fabric import Connection
 from Ui_root_password_master_password_forms import *
 from password_hash_storage import check_password 
 from Ui_Config_progress import *
+from pyqt_translucent_full_loading_screen_thread import LoadingThread, LoadingTranslucentScreen
+from PyQt5.QtCore import QTimer, QThread
 
+"""
+TODO:
+execute the config.py from the LOG folder
+
+"""
 
 class MainWindow(QWidget, Ui_Form):
     def __init__(self):
@@ -29,6 +36,8 @@ class MainWindow(QWidget, Ui_Form):
         self.ADD_BUTTON.clicked.connect(self.show_root_password_form)  
         self.disable_snmp_form_fields()
         
+        
+        
     def show_root_password_form(self):
         self.root_password_form = QDialog()
         self.show_root_password_form_ui = Ui_Form2()
@@ -36,10 +45,17 @@ class MainWindow(QWidget, Ui_Form):
         self.show_root_password_form_ui.StartTheConf_config.clicked.connect(self.fetch_root_values)
         self.show_root_password_form_ui.CancelTheConf_config.clicked.connect(self.root_password_form.reject)
         self.show_root_password_form_ui.ProgressBar_2.hide()  
-        self.show_root_password_form_ui.StrongBodyLabel_2.hide()  
+        self.show_root_password_form_ui.StrongBodyLabel_2.hide()
         self.root_password_form.exec_()
-    
+        
 
+    def StartLoading(self, message, parent=None):
+        self.__loadingTranslucentScreen = LoadingTranslucentScreen(parent=parent, description_text=message)
+        self.__loadingTranslucentScreen.setDescriptionLabelDirection('Right')
+        self.__thread = LoadingThread(loading_screen=self.__loadingTranslucentScreen)
+        self.__thread.start()
+
+    
     def show_config_progress(self):
         self.config_progress_form = QDialog()
         self.ui_config_progress = Ui_Form3() 
@@ -56,9 +72,8 @@ class MainWindow(QWidget, Ui_Form):
         master_password = self.root_password_form.findChild(QtWidgets.QLineEdit, "MasterPassword_config").text()
         output = check_password(master_password)
         if output == True:
-            self.snmpconf_setup(root_user, root_password, master_password)  
-            
-
+            self.snmpconf_setup(root_user, root_password, master_password)
+            self.root_password_form.hide()
         else:
             QMessageBox.warning(self, "Error", "Master password incorrect, this incident will be reported")
 
@@ -79,7 +94,7 @@ class MainWindow(QWidget, Ui_Form):
             QMessageBox.warning(self, "Error", "Please verify the IP address.")
             return
         
-        port = self.port.text()
+        port = self.PortForm.text()
         if port == '':
             port = 22
         else:
@@ -131,8 +146,8 @@ class MainWindow(QWidget, Ui_Form):
 
     
     def snmpconf_setup(self, root_username, root_password, master_password):
-        self.show_root_password_form_ui.ProgressBar_2.show()
-        self.show_root_password_form_ui.StrongBodyLabel_2.show()  
+        # self.show_root_password_form_ui.ProgressBar_2.show()
+        # self.show_root_password_form_ui.StrongBodyLabel_2.show()  
         with open('../REMT/tests/adding_machines/SNMPv3_Config_template.txt', 'r') as file:
             setup_script_content = file.read()
         hostname = self.IPAddress.text()
@@ -155,7 +170,7 @@ class MainWindow(QWidget, Ui_Form):
         elif self.AESCheckBox.isChecked():
             Priv_Protocole = 'AES'
             
-        port = self.Port.text()
+        port = self.PortForm.text()
         if port == '':
             port = 22
         else:

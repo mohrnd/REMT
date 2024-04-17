@@ -8,6 +8,8 @@ from PyQt5.QtGui import QColor
 import csv
 import os
 from PyQt5.QtCore import QTimer
+from pyqt_translucent_full_loading_screen_thread import LoadingThread, LoadingTranslucentScreen
+from PyQt5.QtCore import QTimer
 
 class MainWindow(Ui_Form, QWidget):
     def __init__(self):
@@ -21,7 +23,12 @@ class MainWindow(Ui_Form, QWidget):
 
         self.TreeWidget.setBorderVisible(True)
         self.TreeWidget.setBorderRadius(8)
-
+        self.StartLoading('Loading')
+    def StartLoading(self, message):
+        self.__loadingTranslucentScreen = LoadingTranslucentScreen(parent=self, description_text=message)
+        self.__loadingTranslucentScreen.setDescriptionLabelDirection('Right')
+        self.__thread = LoadingThread(loading_screen=self.__loadingTranslucentScreen)
+        self.__thread.start()
 
 
 

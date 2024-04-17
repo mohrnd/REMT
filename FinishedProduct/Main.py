@@ -8,21 +8,21 @@ from qfluentwidgets import (NavigationItemPosition, MessageBox, setTheme, setThe
                             NavigationAvatarWidget, qrouter, SubtitleLabel, setFont)
 from qfluentwidgets import FluentIcon as FIF
 from PyQt5.QtGui import *
-from TaskSchedulerMain.Task_scheduler_main import MainWindow as SchedulerWindow
+from MainInterface.TaskSchedulerMain.Task_scheduler_main import MainWindow as SchedulerWindow
 
 
 from MainInterface.SSHMain.Main_SSH_Widget import MainWindow as SSHWindow
 
 
 
-class TaskScheduler():
-#Task Scheduler
-    def __init__(self, text: str, parent=None):
-        super().__init__(parent=parent)
-        self.hBoxLayout = QHBoxLayout(self)
-        self.Scheduler = SchedulerWindow()  
-        self.hBoxLayout.addWidget(self.Scheduler)  
-        self.setObjectName(text.replace('-', '-'))
+# class TaskScheduler():
+# #Task Scheduler
+#     def __init__(self, text: str, parent=None):
+#         super().__init__(parent=parent)
+#         self.hBoxLayout = QHBoxLayout(self)
+#         self.Scheduler = SchedulerWindow()  
+#         self.hBoxLayout.addWidget(self.Scheduler)  
+#         self.setObjectName(text.replace('-', '-'))
         
 class SSH():
 # SSH
