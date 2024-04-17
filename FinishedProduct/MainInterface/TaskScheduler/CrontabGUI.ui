@@ -1,0 +1,351 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Frame</class>
+ <widget class="QFrame" name="Frame">
+  <property name="enabled">
+   <bool>true</bool>
+  </property>
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>813</width>
+    <height>768</height>
+   </rect>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>1000</width>
+    <height>1000</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>Crontab GUI</string>
+  </property>
+  <widget class="QFrame" name="frame">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>270</y>
+     <width>811</width>
+     <height>491</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">#Frame{border:&quot;5px solid black&quot;}</string>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::StyledPanel</enum>
+   </property>
+   <property name="frameShadow">
+    <enum>QFrame::Raised</enum>
+   </property>
+   <widget class="QWidget" name="horizontalLayoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>50</y>
+      <width>791</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="LineEdit" name="minute_input">
+       <property name="text">
+        <string/>
+       </property>
+       <property name="placeholderText">
+        <string>Minute</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="LineEdit" name="hour_input">
+       <property name="text">
+        <string/>
+       </property>
+       <property name="placeholderText">
+        <string>Hour</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="LineEdit" name="day_input">
+       <property name="text">
+        <string/>
+       </property>
+       <property name="placeholderText">
+        <string>Day</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="LineEdit" name="month_input">
+       <property name="text">
+        <string/>
+       </property>
+       <property name="placeholderText">
+        <string>Month</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="LineEdit" name="LineEdit">
+       <property name="text">
+        <string/>
+       </property>
+       <property name="placeholderText">
+        <string>Week</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="PrimaryPushButton" name="add_button">
+       <property name="text">
+        <string>Add</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="horizontalLayoutWidget_3">
+    <property name="geometry">
+     <rect>
+      <x>7</x>
+      <y>0</y>
+      <width>791</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <layout class="QHBoxLayout" name="horizontalLayout_3">
+     <property name="sizeConstraint">
+      <enum>QLayout::SetDefaultConstraint</enum>
+     </property>
+     <item>
+      <widget class="PushButton" name="Onstartup">
+       <property name="text">
+        <string>On Startup</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="PushButton" name="hourly">
+       <property name="text">
+        <string>Hourly</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="PushButton" name="Daily_2">
+       <property name="enabled">
+        <bool>true</bool>
+       </property>
+       <property name="text">
+        <string>Daily</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="PushButton" name="weekly_2">
+       <property name="text">
+        <string>Weekly</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="PushButton" name="monthly_2">
+       <property name="text">
+        <string>Monthly</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="PushButton" name="PushButton_5">
+       <property name="text">
+        <string>Yearly</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="LineEdit" name="Command_input">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>340</y>
+      <width>791</width>
+      <height>33</height>
+     </rect>
+    </property>
+    <property name="placeholderText">
+     <string>Command/Path to script</string>
+    </property>
+   </widget>
+   <widget class="PrimaryPushButton" name="Apply">
+    <property name="geometry">
+     <rect>
+      <x>720</x>
+      <y>440</y>
+      <width>81</width>
+      <height>32</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Apply</string>
+    </property>
+   </widget>
+   <widget class="StrongBodyLabel" name="StrongBodyLabel">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>100</y>
+      <width>121</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Select a machine:</string>
+    </property>
+   </widget>
+   <widget class="TableWidget" name="Machines">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>120</y>
+      <width>791</width>
+      <height>211</height>
+     </rect>
+    </property>
+    <column>
+     <property name="text">
+      <string>Machine IP address</string>
+     </property>
+     <property name="font">
+      <font>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Machine Name</string>
+     </property>
+     <property name="font">
+      <font>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Select</string>
+     </property>
+    </column>
+   </widget>
+   <widget class="TextEdit" name="Preview">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>380</y>
+      <width>701</width>
+      <height>91</height>
+     </rect>
+    </property>
+    <property name="readOnly">
+     <bool>true</bool>
+    </property>
+    <property name="placeholderText">
+     <string>Preview</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QFrame" name="Active_jobs">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>811</width>
+     <height>271</height>
+    </rect>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::StyledPanel</enum>
+   </property>
+   <property name="frameShadow">
+    <enum>QFrame::Raised</enum>
+   </property>
+   <widget class="TableWidget" name="TableWidget">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>40</y>
+      <width>811</width>
+      <height>231</height>
+     </rect>
+    </property>
+    <column>
+     <property name="text">
+      <string>Machine IP address</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Job</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Next execution</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Interpretation</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Delete</string>
+     </property>
+    </column>
+   </widget>
+  </widget>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>PushButton</class>
+   <extends>QPushButton</extends>
+   <header>qfluentwidgets</header>
+  </customwidget>
+  <customwidget>
+   <class>PrimaryPushButton</class>
+   <extends>PushButton</extends>
+   <header>qfluentwidgets</header>
+  </customwidget>
+  <customwidget>
+   <class>StrongBodyLabel</class>
+   <extends>QLabel</extends>
+   <header>qfluentwidgets</header>
+  </customwidget>
+  <customwidget>
+   <class>LineEdit</class>
+   <extends>QLineEdit</extends>
+   <header>qfluentwidgets</header>
+  </customwidget>
+  <customwidget>
+   <class>TextEdit</class>
+   <extends>QTextEdit</extends>
+   <header>qfluentwidgets</header>
+  </customwidget>
+  <customwidget>
+   <class>TableWidget</class>
+   <extends>QTableWidget</extends>
+   <header>qfluentwidgets</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>

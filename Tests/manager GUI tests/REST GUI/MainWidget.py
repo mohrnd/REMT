@@ -113,8 +113,8 @@ class Window(FluentWindow):
         self.move(w//2 - self.width()//2, h//2 - self.height()//2)
 
         # set the minimum window width that allows the navigation panel to be expanded
-        self.navigationInterface.setMinimumExpandWidth(900)
-        self.navigationInterface.expand(useAni=False)
+        # self.navigationInterface.setMinimumExpandWidth(900)
+        # self.navigationInterface.expand(useAni=False)
 
 
 

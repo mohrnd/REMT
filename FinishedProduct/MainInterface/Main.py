@@ -3,10 +3,22 @@ import sys
 
 from PyQt5.QtCore import Qt, QUrl
 from PyQt5.QtGui import QIcon, QDesktopServices
-from PyQt5.QtWidgets import QApplication, QFrame, QHBoxLayout
-from qfluentwidgets import (NavigationItemPosition, MessageBox, setTheme, Theme, MSFluentWindow,
+from PyQt5.QtWidgets import QApplication, QFrame, QHBoxLayout, QWidget
+from qfluentwidgets import (NavigationItemPosition, MessageBox, setTheme, setThemeColor,Theme, MSFluentWindow,
                             NavigationAvatarWidget, qrouter, SubtitleLabel, setFont)
 from qfluentwidgets import FluentIcon as FIF
+from PyQt5.QtGui import *
+from TaskScheduler.Task_scheduler_main import *
+from TaskScheduler import *
+class TaskScheduler():
+# #Task Scheduler
+    def __init__(self, text: str, parent=None):
+        super().__init__(parent=parent)
+        self.hBoxLayout = QHBoxLayout(self)
+        self.Scheduler = MainWindow()  # Provide appropriate hostname, username, and password
+        self.hBoxLayout.addWidget(self.Scheduler)  # Add SSHWidget to layout
+        self.setObjectName(text.replace('-', '-'))
+
 
 
 class Widget(QFrame):
@@ -28,37 +40,44 @@ class Window(MSFluentWindow):
     def __init__(self):
         super().__init__()
 
-        # create sub interface
-        self.homeInterface = Widget('Home Interface', self)
-        self.appInterface = Widget('Application Interface', self)
-        self.videoInterface = Widget('Video Interface', self)
-        self.videoInterface2 = Widget('Video Interface 2', self)
-        self.libraryInterface = Widget('library Interface', self)
+        self.Dashboard = Widget('Home Interface', self)
+        self.SSH_window = Widget('Application Interface', self)
+        self.TaskScheduler = TaskScheduler(self)
+        self.CodeEditor = Widget('Video Interface 2', self)
+        self.LogFetcher = Widget('Video Interface 3', self)
+        self.DeployFile = Widget('Video Interface 4', self)
+        self.GetFile = Widget('Video Interface 5', self)
+        self.AddMachine = Widget('Video Interface 6', self)
 
         self.initNavigation()
         self.initWindow()
 
     def initNavigation(self):
-        self.addSubInterface(self.homeInterface, FIF.HOME, '主页', FIF.HOME_FILL)
-        self.addSubInterface(self.appInterface, FIF.APPLICATION, 'fdfsdfsdfsdffsdf')
-        self.addSubInterface(self.videoInterface, FIF.VIDEO, '视频')
-        self.addSubInterface(self.videoInterface2, FIF.VIDEO, '视频')
-        self.addSubInterface(self.libraryInterface, FIF.BOOK_SHELF, '库', FIF.LIBRARY_FILL, NavigationItemPosition.BOTTOM)
+        self.addSubInterface(self.Dashboard, QIcon(r'..\REMT\FinishedProduct\MainInterface\RemtIcons\dashboard.svg'), 'Dashboard')
+        self.addSubInterface(self.SSH_window, QIcon(r'..\REMT\FinishedProduct\MainInterface\RemtIcons\SSH.svg'), 'SSH')
+        self.addSubInterface(self.TaskScheduler, QIcon(r'..\REMT\FinishedProduct\MainInterface\RemtIcons\schedule.svg'), 'Scheduler')
+        self.addSubInterface(self.CodeEditor, QIcon(r'..\REMT\FinishedProduct\MainInterface\RemtIcons\codeEditor.svg'), 'Code Editor')
+        self.addSubInterface(self.LogFetcher, QIcon(r'..\REMT\FinishedProduct\MainInterface\RemtIcons\logs.svg'), 'Log Fetcher')
+        self.addSubInterface(self.DeployFile, QIcon(r'..\REMT\FinishedProduct\MainInterface\RemtIcons\upload.svg'), 'Deploy')
+        self.addSubInterface(self.GetFile, QIcon(r'..\REMT\FinishedProduct\MainInterface\RemtIcons\download.svg'), 'Get')
+        self.addSubInterface(self.AddMachine, QIcon(r'..\REMT\FinishedProduct\MainInterface\RemtIcons\add.svg'), 'Add server')
+
+        
         self.navigationInterface.addItem(
             routeKey='Help',
             icon=FIF.HELP,
-            text='帮助',
+            text='Help',
             onClick=self.showMessageBox,
             selectable=False,
             position=NavigationItemPosition.BOTTOM,
         )
 
-        self.navigationInterface.setCurrentItem(self.homeInterface.objectName())
-
+        self.navigationInterface.setCurrentItem(self.Dashboard.objectName())
+        
     def initWindow(self):
-        self.resize(900, 700)
-        self.setWindowIcon(QIcon(':/qfluentwidgets/images/logo.png'))
-        self.setWindowTitle('PyQt-Fluent-Widgets')
+        self.resize(1200, 900)
+        self.setWindowTitle("REMT Main Window")
+        self.setWindowIcon(QIcon(r"..\REMT\FinishedProduct\MainInterface\black.png"))
 
         desktop = QApplication.desktop().availableGeometry()
         w, h = desktop.width(), desktop.height()
@@ -66,23 +85,23 @@ class Window(MSFluentWindow):
 
     def showMessageBox(self):
         w = MessageBox(
-            '支持作者🥰',
-            '个人开发不易，如果这个项目帮助到了您，可以考虑请作者喝一瓶快乐水🥤。您的支持就是作者开发和维护项目的动力🚀',
+            'Encountering any issues or have suggestions? Your feedback is invaluable!',
+            'Please assist us in enhancing this project by reporting any problems or offering suggestions ',
             self
         )
-        w.yesButton.setText('来啦老弟')
-        w.cancelButton.setText('下次一定')
+        w.yesButton.setText('Github')
+        w.cancelButton.setText('Cancel')
 
         if w.exec():
-            QDesktopServices.openUrl(QUrl("https://afdian.net/a/zhiyiYo"))
+            QDesktopServices.openUrl(QUrl("https://github.com/mohrnd/REMT"))
 
 
 if __name__ == '__main__':
     QApplication.setHighDpiScaleFactorRoundingPolicy(Qt.HighDpiScaleFactorRoundingPolicy.PassThrough)
     QApplication.setAttribute(Qt.AA_EnableHighDpiScaling)
     QApplication.setAttribute(Qt.AA_UseHighDpiPixmaps)
-
-    # setTheme(Theme.DARK)
+    color = QColor('#351392')
+    setThemeColor(color ,Qt.GlobalColor , '') 
 
     app = QApplication(sys.argv)
     w = Window()
