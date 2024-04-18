@@ -56,7 +56,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
 
     def FillTables(self):
-        filepath = f"../REMT/tests/dashboard/{self.Machine_Name}.json"
+        filepath = f"../REMT/Tests/data_viewer/{self.Machine_Name}.json"
         with open(filepath, 'r') as f:
             data = json.load(f)
             Latest_line = data[-1]

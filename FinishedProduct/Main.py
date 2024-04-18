@@ -8,29 +8,29 @@ from qfluentwidgets import (NavigationItemPosition, MessageBox, setTheme, setThe
                             NavigationAvatarWidget, qrouter, SubtitleLabel, setFont)
 from qfluentwidgets import FluentIcon as FIF
 from PyQt5.QtGui import *
-# from MainInterface.TaskSchedulerMain.Task_scheduler_main import MainWindow as SchedulerWindow
+from MainInterface.TaskSchedulerMain.Task_scheduler_main import MainWindow as SchedulerWindow
 
+# dont forget to add a dot to the files you want to import
 
 from MainInterface.SSHMain.Main_SSH_Widget import MainWindow as SSHWindow
 
 
 
-# class TaskScheduler():
-# #Task Scheduler
-#     def __init__(self, text: str, parent=None):
-#         super().__init__(parent=parent)
-#         self.hBoxLayout = QHBoxLayout(self)
-#         self.Scheduler = SchedulerWindow()  
-#         self.hBoxLayout.addWidget(self.Scheduler)  
-#         self.setObjectName(text.replace('-', '-'))
-        
-class SSH():
-# SSH
+class TaskScheduler(QWidget):
+#Task Scheduler
     def __init__(self, text: str, parent=None):
         super().__init__(parent=parent)
         self.hBoxLayout = QHBoxLayout(self)
-        self.SSH = SSHWindow()  
-        self.hBoxLayout.addWidget(self.SSH)  
+        self.Scheduler = SchedulerWindow()  
+        self.hBoxLayout.addWidget(self.Scheduler)  
+        self.setObjectName(text.replace('-', '-'))
+        
+class SSH(QWidget):
+    def __init__(self, text: str, parent=None):
+        super().__init__(parent=parent)
+        self.hBoxLayout = QHBoxLayout(self)
+        self.SSH = SSHWindow()
+        self.hBoxLayout.addWidget(self.SSH)
         self.setObjectName(text.replace('-', '-'))
 
 
@@ -54,8 +54,8 @@ class Window(MSFluentWindow):
         super().__init__()
 
         self.Dashboard = Widget('Home Interface', self)
-        self.SSH_window = Widget('Application Interface', self)
-        # self.TaskScheduler = TaskScheduler(self)
+        self.SSH_window = SSH(text='Single', parent=self)
+        self.TaskScheduler = TaskScheduler(text='Scheduler', parent=self)
         self.CodeEditor = Widget('Video Interface 2', self)
         self.LogFetcher = Widget('Video Interface 3', self)
         self.DeployFile = Widget('Video Interface 4', self)
@@ -68,7 +68,7 @@ class Window(MSFluentWindow):
     def initNavigation(self):
         self.addSubInterface(self.Dashboard, QIcon(r'..\REMT\FinishedProduct\MainInterface\RemtIcons\dashboard.svg'), 'Dashboard')
         self.addSubInterface(self.SSH_window, QIcon(r'..\REMT\FinishedProduct\MainInterface\RemtIcons\SSH.svg'), 'SSH')
-        # self.addSubInterface(self.TaskScheduler, QIcon(r'..\REMT\FinishedProduct\MainInterface\RemtIcons\schedule.svg'), 'Scheduler')
+        self.addSubInterface(self.TaskScheduler, QIcon(r'..\REMT\FinishedProduct\MainInterface\RemtIcons\schedule.svg'), 'Scheduler')
         self.addSubInterface(self.CodeEditor, QIcon(r'..\REMT\FinishedProduct\MainInterface\RemtIcons\codeEditor.svg'), 'Code Editor')
         self.addSubInterface(self.LogFetcher, QIcon(r'..\REMT\FinishedProduct\MainInterface\RemtIcons\logs.svg'), 'Log Fetcher')
         self.addSubInterface(self.DeployFile, QIcon(r'..\REMT\FinishedProduct\MainInterface\RemtIcons\upload.svg'), 'Deploy')

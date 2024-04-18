@@ -1,15 +1,15 @@
 import sys
 from PyQt5.QtWidgets import QApplication, QWidget, QTableWidgetItem, QMessageBox, QAbstractItemView
-from Ui_CrontabGUI import Ui_Frame  
+from .Ui_CrontabGUI import Ui_Frame  
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import *
 from qfluentwidgets import (NavigationItemPosition, MessageBox, setTheme, setThemeColor, Theme, FluentWindow,
                             NavigationAvatarWidget, SubtitleLabel, setFont, InfoBadge,
                             InfoBadgePosition, CheckBox, PushButton)
-from TaskScheduler import *
+from .TaskScheduler import *
 import os
 import csv
-from cron_interpreter import interpret_schedule
+from .cron_interpreter import interpret_schedule
 import datetime
 
 class MainWindow(QWidget, Ui_Frame):
@@ -268,8 +268,8 @@ def main():
 
 
 
-if __name__ == "__main__":
-    main()
+# if __name__ == "__main__":
+#     main()
     
     
 

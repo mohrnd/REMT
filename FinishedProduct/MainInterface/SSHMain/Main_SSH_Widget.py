@@ -1,15 +1,15 @@
 import sys
 from PyQt5.QtWidgets import QApplication, QWidget, QTableWidgetItem, QHBoxLayout, QSpacerItem, QSizePolicy, QAbstractItemView, QMessageBox
-from Ui_main import Ui_Frame
+from .Ui_main import Ui_Frame
 from qfluentwidgets import setTheme, setThemeColor, FluentWindow, CheckBox, PushButton, ToggleButton
 
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QColor
 import csv
 import os
-from SingleSSH import SSHWidget
-from MultiSSH import MultiSSHWidget, MultiSSHWindow
-
+from .SingleSSH import SSHWidget
+from .MultiSSH import MultiSSHWidget, MultiSSHWindow
+# The dot (.) in the import statement indicates that you want to import the module relative to the current package or directory.
 class MainWindow(Ui_Frame, QWidget):
     def __init__(self):
         super().__init__()
