@@ -2,7 +2,7 @@ import json
 import os
 import random
 def create_or_update_json_batch(data_list, machine_name):
-    json_file_path = f'../REMT/tests/dashboard/{machine_name}.json'
+    json_file_path = fr'C:\Users\BALLS2 (rip BALLS)\Desktop\temptests\{machine_name}.json'
     if os.path.exists(json_file_path):
         with open(json_file_path, 'r') as file:
             existing_data = json.load(file)
@@ -23,7 +23,7 @@ def generate_data(machine_name, start_month, end_month):
                 for minute in range(0, 60):
                     for second in range(0, 60, 30):
                         linenumber += 25
-                        timestamp = f'2024-{month:02d}-{day:02d} {hour:02d}:{minute:02d}:{second:02d}'
+                        timestamp = f'2024-{month:02d}-{day:02d} {hour:02d}:{minute:02d}:{second+2:02d}'
                         data = {
                             'timestamp': timestamp,
                             'LOAD1min': round(random.uniform(0, 10), 2),

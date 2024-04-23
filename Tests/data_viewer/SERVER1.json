@@ -56,34 +56,6 @@
     ]
 }
 ,{
-    "timestamp": "2024-04-12 05:31:04",
-    "LOAD1min": "0.06",
-    "LOAD5min": "0.01",
-    "LOAD15min": "0.00",
-    "CPUcores": "2",
-    "CPUusage": "24",
-    "RAMtotal": "1754368",
-    "RAMusage": "10",
-    "DISKtotal": "17811456",
-    "DISKusage": "36",
-    "UPTIME": "365326",
-    "TotalSWAP": "2097148",
-    "AvailableSWAP": "2093796",
-    "TotalCachedMemory": "499688",
-    "NICnames": [
-        "lo",
-        "eth0"
-    ],
-    "dataIN": [
-        "35766",
-        "23873748"
-    ],
-    "dataOUT": [
-        "35766",
-        "828941"
-    ]
-}
-,{
     "timestamp": "2024-04-12 05:31:14",
     "LOAD1min": "0.05",
     "LOAD5min": "0.01",

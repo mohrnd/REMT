@@ -1,34 +1,45 @@
-from PyQt5 import QtWidgets
-from pyqtgraph import PlotWidget, plot
-import pyqtgraph as pg
 import sys
+import json
+from PyQt5.QtWidgets import QApplication, QWidget, QVBoxLayout
+from PyQt5.QtCore import QTimer
+import pyqtgraph as pg
+from collections import defaultdict
+from datetime import datetime
 
-class MainWindow(QtWidgets.QMainWindow):
-
+class MainWindow(QWidget):
     def __init__(self):
         super().__init__()
+        self.setWindowTitle("Machine Details")
+        layout = QVBoxLayout(self)
+        self.plot_widget = pg.PlotWidget()
+        layout.addWidget(self.plot_widget)
+        self.load_timer = QTimer(self)
+        self.load_timer.timeout.connect(self.plot_all_values)
+        self.load_timer.start(5000)  # Update plot every 5 seconds
 
-        self.graphWidget = pg.PlotWidget()
-        self.setCentralWidget(self.graphWidget)
+    def plot_all_values(self):
+        try:
+            with open(r"C:\Users\BALLS2 (rip BALLS)\Desktop\REMT\Tests\data_viewer\SERVER1.json", "r") as file:
+                data = json.load(file)
 
-        months = [1,2,3,4,5,6,7,8,9,10]
-        temperature = [30,32,34,32,33,31,29,32,35,45]
+            timestamps = [datetime.strptime(entry["timestamp"], "%Y-%m-%d %H:%M:%S") for entry in data]
+            cpu_usage = [float(entry["CPUusage"]) for entry in data]
 
-        self.graphWidget.setBackground('w')
+            self.plot_widget.clear()
+            self.plot_widget.plot(x=timestamps, y=cpu_usage, pen='r', name="CPU Usage")
+            self.plot_widget.setLabel("bottom", "Timestamp")
+            self.plot_widget.setLabel("left", "CPU Usage (%)")
+            self.plot_widget.setTitle("CPU Usage vs Time")
 
-        pen = pg.mkPen(color=(255, 0, 0))
-
-        month_labels = ['10/10/21','10/10/22','10/10/23','10/10/24','10/10/25','10/10/26','10/10/27','10/10/28','10/10/29','10/10/30']
-        self.graphWidget.plot(months, temperature, pen=pen)
-
-        ax = self.graphWidget.getAxis('bottom')
-        ax.setTicks([[(i, label) for i, label in enumerate(month_labels)]])
+        except Exception as e:
+            print("Error:", e)
 
 def main():
-    app = QtWidgets.QApplication(sys.argv)
-    main = MainWindow()
-    main.show()
+    app = QApplication(sys.argv)
+    window = MainWindow()
+    window.setGeometry(100, 100, 800, 600)
+    window.show()
     sys.exit(app.exec_())
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

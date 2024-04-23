@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1080</width>
-    <height>897</height>
+    <height>916</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -561,11 +561,11 @@
      <x>10</x>
      <y>370</y>
      <width>1061</width>
-     <height>521</height>
+     <height>541</height>
     </rect>
    </property>
    <layout class="QGridLayout" name="gridLayout_8">
-    <item row="0" column="0">
+    <item row="1" column="0">
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
        <number>0</number>
@@ -574,6 +574,23 @@
        <attribute name="title">
         <string>Last Hour</string>
        </attribute>
+       <widget class="QStackedWidget" name="LastHourTabGraphs">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>0</y>
+          <width>1041</width>
+          <height>531</height>
+         </rect>
+        </property>
+        <property name="currentIndex">
+         <number>2</number>
+        </property>
+        <widget class="QWidget" name="NetworkGraphs"/>
+        <widget class="QWidget" name="LoadAveragesgraphs"/>
+        <widget class="QWidget" name="CPUandRamGraphs"/>
+        <widget class="QWidget" name="DiskGraphs"/>
+       </widget>
       </widget>
       <widget class="QWidget" name="Last24HoursTab">
        <attribute name="title">
@@ -590,7 +607,7 @@
           <x>0</x>
           <y>10</y>
           <width>1041</width>
-          <height>80</height>
+          <height>71</height>
          </rect>
         </property>
         <layout class="QHBoxLayout" name="horizontalLayout_3">
@@ -610,34 +627,34 @@
             </spacer>
            </item>
            <item row="0" column="2">
-            <widget class="TimePicker" name="TimePicker_4"/>
+            <widget class="TimePicker" name="StartTime"/>
            </item>
            <item row="1" column="1">
-            <widget class="CalendarPicker" name="CalendarPicker_3">
+            <widget class="CalendarPicker" name="EndDate">
              <property name="text">
               <string>End Date</string>
              </property>
             </widget>
            </item>
            <item row="0" column="1">
-            <widget class="CalendarPicker" name="CalendarPicker_4">
+            <widget class="CalendarPicker" name="StartDate">
              <property name="text">
               <string>Start Date</string>
              </property>
             </widget>
            </item>
            <item row="1" column="2">
-            <widget class="TimePicker" name="TimePicker_3"/>
+            <widget class="TimePicker" name="EndTime"/>
            </item>
            <item row="1" column="3">
-            <widget class="PrimaryPushButton" name="PrimaryPushButton_2">
+            <widget class="PrimaryPushButton" name="PlotButton">
              <property name="text">
               <string>Plot</string>
              </property>
             </widget>
            </item>
            <item row="0" column="3">
-            <widget class="LineEdit" name="LineEdit_6">
+            <widget class="LineEdit" name="Ticks">
              <property name="placeholderText">
               <string>Ticks</string>
              </property>
@@ -662,6 +679,30 @@
        </widget>
       </widget>
      </widget>
+    </item>
+    <item row="0" column="0">
+     <layout class="QHBoxLayout" name="horizontalLayout_4">
+      <item>
+       <spacer name="horizontalSpacer_3">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="PrimaryPushButton" name="PrimaryPushButton">
+        <property name="text">
+         <string>Refresh Graphs</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </item>
    </layout>
   </widget>

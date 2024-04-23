@@ -7,6 +7,8 @@ from PyQt5.QtGui import QColor
 from PyQt5.QtCore import Qt, QTimer
 import pyqtgraph as pg
 from Ui_machine_details import Ui_Form
+from collections import defaultdict
+
 
 class MainWindow(QWidget, Ui_Form):
     def __init__(self):
@@ -24,16 +26,10 @@ class MainWindow(QWidget, Ui_Form):
         self.plot_widget.setTitle("Temperature vs Time", color="#333333", size="20pt")
         styles = {"color": "#333333", "font-size": "14px", "font-family": "Arial"}
         self.plot_widget.setLabel("left", "Temperature (°C)", **styles)
-        self.plot_widget.setLabel("right", ".", **styles)
-        self.plot_widget.setLabel("bottom", "Time (min)", **styles)
         self.plot_widget.addLegend(offset=(50, 50))
         self.plot_widget.showGrid(x=True, y=True, alpha=0.5)
     
-        # Add a new axis on the right side ranging from 0 to 1
-        axis = pg.AxisItem(orientation='right')
-        axis.setLabel(text='.', **styles)
-        axis.setRange(0, 1)
-        self.plot_widget.plotItem.layout.addItem(axis, 2, 3)
+
 
         axis = pg.AxisItem(orientation='right')
         axis.setLabel(text='.', **styles)
@@ -47,28 +43,34 @@ class MainWindow(QWidget, Ui_Form):
     def plot_all_values(self):
         time = []
         temperature_1 = []
-
+    
         # Read data from JSON file
         try:
             with open(r'C:\Users\BALLS2 (rip BALLS)\Desktop\REMT\Tests\dashboard\data.json', 'r') as file:
                 data = json.load(file)
+    
+                # Create a dictionary with default values as 0
+                time_dict = defaultdict(int)
                 for entry in data:
-                    time.append(entry['Time'])
-                    temperature_1.append(entry['Temperature'])
-
+                    time_dict[entry['Time']] = entry['Temperature']
+    
+                # Interpolate missing timestamps
+                max_time = max(time_dict.keys())
+                for t in range(max_time + 1):
+                    time.append(t)
+                    temperature_1.append(time_dict[t])
+    
             if time and temperature_1:  # Check if lists are not empty
                 # Update plot
-                time2 = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1]
                 pen = pg.mkPen(color=(255, 0, 0), width=2)
-                pen2 = pg.mkPen(color=(0, 255, 0), width=2)
                 self.plot_widget.clear()
                 self.plot_widget.plot(time, temperature_1, name="Temperature Sensor 1", pen=pen, symbol=None, connect="all")
-                self.plot_widget.plot(time, time2, name="Temperature Sensor 2", pen=pen2, symbol=None, connect="all")
-            month_labels = ['10/10/21','10/10/22 \n time1','10/10/23 \n time1','10/10/24 \n time1','10/10/25 \n time1','10/10/26 \n time1','10/10/27 \n time1','10/10/28 \n time1','10/10/29 \n time1','10/10/30 \n time1']
-
+                # Add more plots as needed
+    
+            # Set tick labels
             ax = self.plot_widget.getAxis('bottom')
+            month_labels = [f'10/10/21 {i}' for i in range(max_time + 1)]
             ax.setTicks([[(i, label) for i, label in enumerate(month_labels)]])
-            
             
         except Exception as e:
             print("Error:", e)
