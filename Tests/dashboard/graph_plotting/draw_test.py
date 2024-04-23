@@ -6,7 +6,7 @@ from matplotlib.figure import Figure
 from datetime import datetime, timedelta
 
 # Path to your JSON file
-json_file = r"C:\Users\BALLS2 (rip BALLS)\Desktop\REMT\Tests\dashboard\SERVER1.json"
+json_file = r"C:\Users\BALLS2 (rip BALLS)\Desktop\REMT\Tests\data_viewer\SERVER1.json"
 
 # Function to parse timestamp to datetime object
 def parse_timestamp(timestamp):
