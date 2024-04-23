@@ -5,18 +5,14 @@ import socket
 import logging
 import os
 import re
-from PyQt5.QtWidgets import QWidget, QTextEdit, QMessageBox, QApplication, QVBoxLayout, QHBoxLayout, QPushButton, QCheckBox
+from PyQt5.QtWidgets import QWidget, QTextEdit, QMessageBox, QApplication, QVBoxLayout, QPushButton, QCheckBox, QScrollArea
 from PyQt5.QtGui import QTextCursor, QFont
 from PyQt5.QtCore import Qt
-
-
-# works perfectly !!!
+from qfluentwidgets import PrimaryPushButton
 
 logging.basicConfig(filename='ssh2.log', level=logging.INFO, format='%(asctime)s - %(message)s')
 
 PASSWORD_PROMPT_PATTERN = re.compile(r'[Pp]assword:?\s*$')
-
-from PyQt5.QtWidgets import QCheckBox
 
 class MultiSSHWidget(QWidget):
     def __init__(self, hostname, username, password, shared_text_edit):
@@ -30,8 +26,9 @@ class MultiSSHWidget(QWidget):
         font = QFont("Cairo Bold", 14)
         self.text_edit = QTextEdit(self)
         self.text_edit.setFont(font)
-        self.text_edit.setGeometry(0, 0, 1200, 900)
+        self.text_edit.setFixedHeight(200)  # Taille fixe pour le widget
         self.buffer = ""
+        self.letter_count = 0  # Variable pour compter les lettres entrées
 
         self.layout.addWidget(self.text_edit)
 
@@ -50,12 +47,18 @@ class MultiSSHWidget(QWidget):
         # Connect checkbox state change to toggle_input method
         self.checkbox.stateChanged.connect(self.toggle_input)
 
+        # Ajout du bouton "Insert Password"
+        self.password_button = PrimaryPushButton("Insert Password")
+        self.password_button.setEnabled(False)  # Désactiver le bouton au démarrage
+        self.password_button.setFixedWidth(191)
+        self.password_button.clicked.connect(self.insert_password)
+        self.layout.addWidget(self.password_button)
+
     def toggle_input(self, state):
         if state == Qt.Checked:
             self.shared_text_edit.addTerminal(self)
         else:
             self.shared_text_edit.removeTerminal(self)
-
 
     def connect(self):
         self.ssh_client = paramiko.SSHClient()
@@ -92,12 +95,14 @@ class MultiSSHWidget(QWidget):
             self.show_connection_error_dialog()
 
     def keyPressEvent(self, event):
-        if self.shared_text_edit.isChecked():  # If checkbox is checked, send text to all terminals
+        if self.shared_text_edit.isChecked():  
             for widget in self.shared_text_edit.terminals:
                 if event.key() == Qt.Key_Backspace:
-                    widget.buffer = widget.buffer[:-1]
-                    cursor = widget.text_edit.textCursor()
-                    cursor.deletePreviousChar()
+                    if widget.letter_count > 0:
+                        widget.letter_count -= 1  # Décrémente la variable pour la touche de suppression
+                        widget.buffer = widget.buffer[:-1]
+                        cursor = widget.text_edit.textCursor()
+                        cursor.deletePreviousChar()
                 elif event.modifiers() == Qt.ControlModifier:
                     if event.key() == Qt.Key_C:
                         widget.channel.send('\x03')
@@ -113,11 +118,14 @@ class MultiSSHWidget(QWidget):
                         widget.buffer = ""
                     else:
                         widget.buffer += event.text()
-        else:  # If checkbox is not checked, only send text to the current terminal
+                        widget.letter_count += 1  # Incrémente la variable pour chaque lettre entrée
+        else:  
             if event.key() == Qt.Key_Backspace:
-                self.buffer = self.buffer[:-1]
-                cursor = self.text_edit.textCursor()
-                cursor.deletePreviousChar()
+                if self.letter_count > 0:
+                    self.letter_count -= 1  # Décrémente la variable pour la touche de suppression
+                    self.buffer = self.buffer[:-1]
+                    cursor = self.text_edit.textCursor()
+                    cursor.deletePreviousChar()
             elif event.modifiers() == Qt.ControlModifier:
                 if event.key() == Qt.Key_C:
                     self.channel.send('\x03')
@@ -133,6 +141,7 @@ class MultiSSHWidget(QWidget):
                     self.buffer = ""
                 else:
                     self.buffer += event.text()
+                    self.letter_count += 1  # Incrémente la variable pour chaque lettre entrée
 
     def read_ssh_output(self):
         while True:
@@ -143,6 +152,17 @@ class MultiSSHWidget(QWidget):
                 decoded_text = x.decode('utf-8', errors='ignore')
                 filtered_text = self.filter_special_chars(decoded_text)
                 self.update_text_edit(filtered_text)
+                
+                # Réinitialiser le compteur de lettres
+                self.letter_count = 0
+                
+                # Si une invite de mot de passe est détectée, activer le bouton
+                if ("[sudo] Mot de passe" in filtered_text or
+                    "[sudo] Password" in filtered_text or 
+                    "Mot de passe" in filtered_text or
+                    "Password" in filtered_text):
+                    self.enable_password_button()
+                    
             except socket.timeout:
                 pass
 
@@ -169,6 +189,25 @@ class MultiSSHWidget(QWidget):
         else:
             sys.exit()
 
+    def insert_password(self):
+        # Stocker le mot de passe dans le buffer
+        self.buffer = self.password
+
+        # Afficher un message sans afficher le mot de passe
+        self.text_edit.moveCursor(QTextCursor.End)  # Déplacer le curseur à la fin
+        # self.text_edit.insertPlainText("Mot de passe inséré\n")
+        
+        # Afficher une boîte de dialogue pour confirmer l'insertion du mot de passe
+        QMessageBox.information(self, "Password inserted", "The password was inserted successfully.")
+        # Désactiver le bouton après l'insertion du mot de passe
+        self.disable_password_button()
+
+    def enable_password_button(self):
+        self.password_button.setEnabled(True)
+
+    def disable_password_button(self):
+        self.password_button.setEnabled(False)
+
 
 class MultiSSHWindow(QWidget):
     def __init__(self, hosts):
@@ -188,14 +227,23 @@ class MultiSSHWindow(QWidget):
 
         self.layout.addWidget(self.toggle_button)
 
-        self.setLayout(self.layout)
+        self.scroll_area = QScrollArea()
+        self.scroll_area.setWidgetResizable(True)
+        self.scroll_area.setVerticalScrollBarPolicy(Qt.ScrollBarAsNeeded)
+        self.scroll_area.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
+        self.scroll_area.setWidget(QWidget())
+        self.scroll_area.setWidgetResizable(True)
+        self.scroll_area.widget().setLayout(self.layout)
+
+        main_layout = QVBoxLayout(self)
+        main_layout.addWidget(self.scroll_area)
+        self.setLayout(main_layout)
 
     def toggle_input(self, state):
         if state == Qt.Checked:
             self.shared_text_edit.setChecked(True)
         else:
             self.shared_text_edit.setChecked(False)
-
 
 class SharedTextEdit:
     def __init__(self):
@@ -215,7 +263,6 @@ class SharedTextEdit:
     def removeTerminal(self, terminal):
         if terminal in self.terminals:
             self.terminals.remove(terminal)
-
 
 
 

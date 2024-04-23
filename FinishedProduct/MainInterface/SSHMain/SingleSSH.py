@@ -5,10 +5,10 @@ import socket
 import logging
 import os
 import re
-from PyQt5.QtWidgets import QWidget, QTextEdit, QMessageBox, QApplication
+from PyQt5.QtWidgets import QWidget, QTextEdit, QMessageBox, QVBoxLayout, QPushButton, QApplication
 from PyQt5.QtGui import QTextCursor, QFont
 from PyQt5.QtCore import Qt
-
+from qfluentwidgets import PrimaryPushButton
 
 logging.basicConfig(filename='ssh2.log', level=logging.INFO, format='%(asctime)s - %(message)s')
 
@@ -20,18 +20,32 @@ class SSHWidget(QWidget):
         self.hostname = hostname
         self.username = username
         self.password = password
-        
-        font = QFont("Cairo Bold", 14) 
+        self.letter_count = 0
+
+        font = QFont("Cairo Bold", 14)
         self.text_edit = QTextEdit(self)
-        self.text_edit.setFont(font)  
-        self.text_edit.setGeometry(0, 0, 1200, 900)
+        self.text_edit.setFont(font)
+        self.text_edit.setGeometry(0, 0, 1200, 700)
         self.buffer = ""
         
         self.ssh_client = None
         self.transport = None
         self.channel = None
 
+        self.init_ui()
         self.connect()
+
+    def init_ui(self):
+        layout = QVBoxLayout()
+        layout.addWidget(self.text_edit)
+
+        self.password_button = PrimaryPushButton("Insert Password", self)
+        self.password_button.clicked.connect(self.insert_password)
+        self.password_button.setEnabled(False)
+        self.password_button.setFixedWidth(191)
+        layout.addWidget(self.password_button)
+
+        self.setLayout(layout)
 
     def connect(self):
         self.ssh_client = paramiko.SSHClient()
@@ -69,25 +83,29 @@ class SSHWidget(QWidget):
 
     def keyPressEvent(self, event):
         if event.key() == Qt.Key_Backspace:
-            self.buffer = self.buffer[:-1]  #Remove the last character from the buffer
-            cursor = self.text_edit.textCursor()
-            cursor.deletePreviousChar()  # Delete the last char
+            if self.letter_count > 0:
+                self.letter_count -= 1  
+                self.buffer = self.buffer[:-1]  
+                cursor = self.text_edit.textCursor()
+                cursor.deletePreviousChar()  
         elif event.modifiers() == Qt.ControlModifier:
-            if event.key() == Qt.Key_C:  # Ctrl+C
+            if event.key() == Qt.Key_C:  
                 self.channel.send('\x03')
-            elif event.key() == Qt.Key_D:  # Ctrl+D
+            elif event.key() == Qt.Key_D:  
                 self.channel.send('\x04')
-            elif event.key() == Qt.Key_L:  # Ctrl+L
+            elif event.key() == Qt.Key_L:  
                 self.text_edit.clear()
         else:
             self.text_edit.insertPlainText(event.text())
             if event.key() == Qt.Key_Enter or event.key() == Qt.Key_Return:
-                self.channel.send(self.buffer + "\n")
-                # logging.info(f"Command executed: {self.buffer}")
+                if PASSWORD_PROMPT_PATTERN.search(self.buffer):
+                    self.enable_password_button()  
+                else:
+                    self.channel.send(self.buffer + "\n")
                 self.buffer = ""
             else:
                 self.buffer += event.text()
-
+                self.letter_count += 1  
 
     def read_ssh_output(self):
         while True:
@@ -99,12 +117,22 @@ class SSHWidget(QWidget):
                 filtered_text = self.filter_special_chars(decoded_text)
                 logging.info(f"Command output: {filtered_text}")
                 self.update_text_edit(filtered_text)
+                
+                if ("[sudo] Mot de passe" in filtered_text or
+                    "[sudo] Password" in filtered_text or 
+                    "Mot de passe" in filtered_text or
+                    "Password" in filtered_text):
+                    self.enable_password_button()  
+                else:
+                    self.disable_password_button()  
+                    
+                self.letter_count = 0
+                
             except socket.timeout:
                 pass
 
     def filter_special_chars(self, text):
         filtered_text = re.sub(r'\x1b\[[^a-zA-Z]*[a-zA-Z]', '', text)
-        #Fix text formatting (Ansi to formatted/colored text) 
         return filtered_text
 
     def update_text_edit(self, text):
@@ -120,11 +148,28 @@ class SSHWidget(QWidget):
         msg_box.setStandardButtons(QMessageBox.Retry | QMessageBox.Cancel)
         msg_box.setDefaultButton(QMessageBox.Retry)
 
-        # Handle the result of the message box
         result = msg_box.exec_()
         if result == QMessageBox.Retry:
             self.connect()
         else:
             sys.exit()
+
+    def insert_password(self):
+        self.buffer = self.password
+        
+        QMessageBox.information(self, "Password inserted", "The password was inserted successfully.")
+
+        self.text_edit.moveCursor(QTextCursor.End)
+        
+        print("Contenu du buffer:", self.buffer)
+
+        self.disable_password_button()
+
+    def enable_password_button(self):
+        self.password_button.setEnabled(True)
+
+    def disable_password_button(self):
+        self.password_button.setEnabled(False)
+
 
 

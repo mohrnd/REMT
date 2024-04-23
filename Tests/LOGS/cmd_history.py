@@ -34,18 +34,17 @@ def test_cron(ssh_client, commands, password):
 
 
 
-if __name__ == "__main__":
+def  fetch9 (machine_name, ip_add, local_path_in):
     
     csv_file = "Tests/LOGS/users.csv"
 
-    machine_name = "localhost"
-    ip_add = "192.168.1.21"
+
 
     with open(csv_file, 'r') as file:
         reader = csv.DictReader(file)
         for row in reader:
             if machine_name == row['Machine_Name'] and ip_add == row['ip_add']:
-                port = 22  # Port par défaut pour SSH
+                port = row['port']
                 username = row['linux_username']
                 password = row['password']
                 host=ip_add
@@ -119,10 +118,13 @@ if __name__ == "__main__":
     # Récupérer la date du jour
     date_aujourdhui = datetime.now().strftime("%Y-%m-%d") 
     
+    # Définition de la variable add
+    add = rf'{machine_name}/{machine_name}__{date_aujourdhui}/journal/cmd_history.txt'
 
-    # Chemin local où vous souhaitez télécharger le fichier
-    localpath = rf'Tests/LOGS/var/logs/{machine_name}/{machine_name}__{date_aujourdhui}/journal/cmd_history.txt'
-    
+    # local_path_in est  Chemin local initial
+
+    # Ajout de la valeur de la variable add au chemin local
+    localpath = local_path_in + add
 
     # Chemin distant du fichier que vous souhaitez télécharger
     remotepath = f"/home/{username}/Bureau/cmd_history.txt"

@@ -2,10 +2,34 @@ from scp import SCPClient
 import paramiko
 import os
 import shutil
-import subprocess
 from fabric import Connection
 import csv
 from datetime import datetime
+from activites_de_configuration import fetch2
+from activites_du_parefeu import  fetch3
+from activites_memoire import  fetch4
+from activites_reseau import  fetch5
+from activites_ssh import  fetch6
+from activites_usb import  fetch7
+from Advanced_Configuration_and_Power_Interface_events import  fetch8
+from cmd_history import  fetch9
+from cnx_actives import  fetch10
+from device_detection import  fetch11
+from kernel_logs import  fetch12
+from processus import  fetch13
+from status_des_services import  fetch14
+from sys_alert import  fetch15
+from sys_critical import  fetch16
+from sys_debug import  fetch17
+from sys_emerg import  fetch18
+from sys_error import  fetch19
+from sys_info import  fetch20
+from sys_notice import  fetch21
+from sys_warning import  fetch22
+from system_boots import  fetch23
+from transactions_effectuées import  fetch24
+from utilisation_disque import  fetch25
+
 
 def ssh_client_creation(host, port, username, password):
     ssh_client = paramiko.SSHClient()
@@ -56,19 +80,16 @@ def download_folder(remote_host, remote_path, local_path, username, password):
         # Fermer la connexion SSH
         ssh_client.close()
 
-def fetch():
+def fetch(machine_name, ip_add, local_path_in):
 
     
     csv_file = "Tests/LOGS/users.csv"
     
-    machine_name = "localhost"
-    ip_add = "192.168.1.21"
-
     with open(csv_file, 'r') as file:
         reader = csv.DictReader(file)
         for row in reader:
             if machine_name == row['Machine_Name'] and ip_add == row['ip_add']:
-                port = 22  # Port par défaut pour SSH
+                port = row['port']
                 username = row['linux_username']
                 password = row['password']
                 host=ip_add
@@ -113,7 +134,14 @@ def fetch():
         print("Le dossier existant a été supprimé.")
 
     # Spécifier le chemin local en utilisant le nom de la machine
-    local_path = rf'../REMT/Tests/LOGS/var/logs/{machine_name}/{machine_name}__{date_aujourdhui}'
+    
+    # Définition de la variable add
+    add = rf'{machine_name}/{machine_name}__{date_aujourdhui}'
+
+    # local_path_in est  Chemin local initial
+
+    # Ajout de la valeur de la variable add au chemin local
+    local_path = local_path_in + add
     
     # Créer le répertoire s'il n'existe pas déjà
     os.makedirs(local_path, exist_ok=True)
@@ -125,81 +153,32 @@ def fetch():
 
 
     result4 = conn.sudo('rm -r /home/journal', password=password, warn=True)
+    
+    fetch2(machine_name, ip_add, local_path_in)
+    fetch3(machine_name, ip_add, local_path_in)
+    fetch4(machine_name, ip_add, local_path_in)
+    fetch5(machine_name, ip_add, local_path_in)
+    fetch6(machine_name, ip_add, local_path_in)
+    fetch7(machine_name, ip_add, local_path_in)
+    fetch8(machine_name, ip_add, local_path_in)
+    fetch9(machine_name, ip_add, local_path_in)
+    fetch10(machine_name, ip_add, local_path_in)
+    fetch11(machine_name, ip_add, local_path_in)
+    fetch12(machine_name, ip_add, local_path_in)
+    fetch13(machine_name, ip_add, local_path_in)
+    fetch14(machine_name, ip_add, local_path_in)
+    fetch15(machine_name, ip_add, local_path_in)
+    fetch16(machine_name, ip_add, local_path_in)
+    fetch17(machine_name, ip_add, local_path_in)
+    fetch18(machine_name, ip_add, local_path_in)
+    fetch19(machine_name, ip_add, local_path_in)
+    fetch20(machine_name, ip_add, local_path_in)
+    fetch21(machine_name, ip_add, local_path_in)
+    fetch22(machine_name, ip_add, local_path_in)
+    fetch23(machine_name, ip_add, local_path_in)
+    fetch24(machine_name, ip_add, local_path_in)
+    fetch25(machine_name, ip_add, local_path_in)
 
     
-    script_path1 = './Tests/LOGS/activites_de_configuration.py'
-    subprocess.run(["python", script_path1])
-    
-    script_path2 = './Tests/LOGS/activites_du_parefeu.py'
-    subprocess.run(["python", script_path2])
-
-    script_path3 = './Tests/LOGS/activites_memoire.py'
-    subprocess.run(["python", script_path3])
-
-
-    
-    script_path5 = './Tests/LOGS/activités_ssh.py'
-    subprocess.run(["python", script_path5])
-
-    script_path6 = './Tests/LOGS/activites_usb.py'
-    subprocess.run(["python", script_path6])
-    
-    script_path7 = './Tests/LOGS/Advanced _Configuration_and_Power_Interface_events.py'
-    subprocess.run(["python", script_path7])
-
-    script_path8 = './Tests/LOGS/cmd_history.py'
-    subprocess.run(["python", script_path8])
-
-    script_path9 = './Tests/LOGS/cnx_actives.py'
-    subprocess.run(["python", script_path9])
-
-    script_path10 = './Tests/LOGS/device_detection.py'
-    subprocess.run(["python", script_path10])
-    
-    script_path11 = './Tests/LOGS/kernel_logs.py'
-    subprocess.run(["python", script_path11])
-
-    script_path12 = './Tests/LOGS/processus.py'
-    subprocess.run(["python", script_path12])
-    
-    script_path13 = './Tests/LOGS/status_des_services.py'
-    subprocess.run(["python", script_path13])
-
-    script_path14 = './Tests/LOGS/sys_alert.py'
-    subprocess.run(["python", script_path14])
-
-    script_path15 = './Tests/LOGS/sys_critical.py'
-    subprocess.run(["python", script_path15])
-
-    script_path16 = './Tests/LOGS/sys_debug.py'
-    subprocess.run(["python", script_path16])
-
-    script_path17 = './Tests/LOGS/sys_emerg.py'
-    subprocess.run(["python", script_path17])
-
-    script_path18 = './Tests/LOGS/sys_error.py'
-    subprocess.run(["python", script_path18])
-
-    script_path19 = './Tests/LOGS/sys_info.py'
-    subprocess.run(["python", script_path19])
-
-    script_path20 = './Tests/LOGS/sys_notice.py'
-    subprocess.run(["python", script_path20])
-    
-    script_path21 = './Tests/LOGS/sys_warning.py'
-    subprocess.run(["python", script_path21])
-
-    script_path22 = './Tests/LOGS/system_boots.py'
-    subprocess.run(["python", script_path22])
-    
-    script_path23 = './Tests/LOGS/transactions_effectuées.py'
-    subprocess.run(["python", script_path23])
-    
-    script_path24 = './Tests/LOGS/utilisation_disque.py'
-    subprocess.run(["python", script_path24])
-    
-
-def main():
-    fetch()
 
 
