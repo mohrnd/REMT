@@ -1,0 +1,6 @@
+* {
+    color: rgb(0, 0, 0);
+    font-size: 20px;
+    background-color: whitesmoke;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
