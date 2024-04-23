@@ -230,14 +230,14 @@ json_data = '''
         ]
     },
     {
-        "timestamp": "2024-01-01 00:04:00",
-        "LOAD1min": 4.87,
-        "LOAD5min": 7.32,
-        "LOAD15min": 0.88,
+        "timestamp": "2024-01-01 00:04:06",
+        "LOAD1min": 7.97,
+        "LOAD5min": 5.99,
+        "LOAD15min": 3.47,
         "CPUcores": 4,
-        "CPUusage": 9,
+        "CPUusage": 17,
         "RAMtotal": 8192,
-        "RAMusage": 49,
+        "RAMusage": 48,
         "DISKtotal": 1024000,
         "DISKusage": 36,
         "UPTIME": "10:00:00",
@@ -258,124 +258,12 @@ json_data = '''
         ]
     },
     {
-        "timestamp": "2024-01-01 00:04:30",
-        "LOAD1min": 7.58,
-        "LOAD5min": 0.36,
-        "LOAD15min": 2.26,
+        "timestamp": "2024-01-01 00:04:36",
+        "LOAD1min": 4.23,
+        "LOAD5min": 3.76,
+        "LOAD15min": 6.75,
         "CPUcores": 4,
-        "CPUusage": 41,
-        "RAMtotal": 8192,
-        "RAMusage": 7,
-        "DISKtotal": 1024000,
-        "DISKusage": 36,
-        "UPTIME": "10:00:00",
-        "TotalSWAP": 1434345,
-        "AvailableSWAP": 2131421,
-        "TotalCachedMemory": 312435,
-        "NICnames": [
-            "NIC1",
-            "NIC2"
-        ],
-        "dataIN": [
-            "1000",
-            "200"
-        ],
-        "dataOUT": [
-            "200",
-            "400"
-        ]
-    },
-    {
-        "timestamp": "2024-01-01 00:05:00",
-        "LOAD1min": 0.32,
-        "LOAD5min": 0.56,
-        "LOAD15min": 2.66,
-        "CPUcores": 4,
-        "CPUusage": 31,
-        "RAMtotal": 8192,
-        "RAMusage": 30,
-        "DISKtotal": 1024000,
-        "DISKusage": 36,
-        "UPTIME": "10:00:00",
-        "TotalSWAP": 1434345,
-        "AvailableSWAP": 2131421,
-        "TotalCachedMemory": 312435,
-        "NICnames": [
-            "NIC1",
-            "NIC2"
-        ],
-        "dataIN": [
-            "1000",
-            "200"
-        ],
-        "dataOUT": [
-            "200",
-            "400"
-        ]
-    },
-    {
-        "timestamp": "2024-01-01 00:05:30",
-        "LOAD1min": 2.23,
-        "LOAD5min": 3.4,
-        "LOAD15min": 7.97,
-        "CPUcores": 4,
-        "CPUusage": 32,
-        "RAMtotal": 8192,
-        "RAMusage": 32,
-        "DISKtotal": 1024000,
-        "DISKusage": 36,
-        "UPTIME": "10:00:00",
-        "TotalSWAP": 1434345,
-        "AvailableSWAP": 2131421,
-        "TotalCachedMemory": 312435,
-        "NICnames": [
-            "NIC1",
-            "NIC2"
-        ],
-        "dataIN": [
-            "1000",
-            "200"
-        ],
-        "dataOUT": [
-            "200",
-            "400"
-        ]
-    },
-    {
-        "timestamp": "2024-01-01 00:06:00",
-        "LOAD1min": 7.07,
-        "LOAD5min": 8.74,
-        "LOAD15min": 8.14,
-        "CPUcores": 4,
-        "CPUusage": 28,
-        "RAMtotal": 8192,
-        "RAMusage": 12,
-        "DISKtotal": 1024000,
-        "DISKusage": 36,
-        "UPTIME": "10:00:00",
-        "TotalSWAP": 1434345,
-        "AvailableSWAP": 2131421,
-        "TotalCachedMemory": 312435,
-        "NICnames": [
-            "NIC1",
-            "NIC2"
-        ],
-        "dataIN": [
-            "1000",
-            "200"
-        ],
-        "dataOUT": [
-            "200",
-            "400"
-        ]
-    },
-    {
-        "timestamp": "2024-01-01 00:06:30",
-        "LOAD1min": 1.03,
-        "LOAD5min": 0.27,
-        "LOAD15min": 3.1,
-        "CPUcores": 4,
-        "CPUusage": 21,
+        "CPUusage": 0,
         "RAMtotal": 8192,
         "RAMusage": 36,
         "DISKtotal": 1024000,
@@ -398,14 +286,14 @@ json_data = '''
         ]
     },
     {
-        "timestamp": "2024-01-01 00:07:00",
-        "LOAD1min": 7.01,
-        "LOAD5min": 9.98,
-        "LOAD15min": 5.35,
+        "timestamp": "2024-01-01 00:05:06",
+        "LOAD1min": 9.14,
+        "LOAD5min": 9.43,
+        "LOAD15min": 9.3,
         "CPUcores": 4,
-        "CPUusage": 47,
+        "CPUusage": 18,
         "RAMtotal": 8192,
-        "RAMusage": 16,
+        "RAMusage": 31,
         "DISKtotal": 1024000,
         "DISKusage": 36,
         "UPTIME": "10:00:00",
@@ -426,14 +314,14 @@ json_data = '''
         ]
     },
     {
-        "timestamp": "2024-01-01 00:07:30",
-        "LOAD1min": 1.52,
-        "LOAD5min": 5.88,
-        "LOAD15min": 0.4,
+        "timestamp": "2024-01-01 00:05:36",
+        "LOAD1min": 0.19,
+        "LOAD5min": 0.88,
+        "LOAD15min": 4.75,
         "CPUcores": 4,
-        "CPUusage": 10,
+        "CPUusage": 18,
         "RAMtotal": 8192,
-        "RAMusage": 43,
+        "RAMusage": 33,
         "DISKtotal": 1024000,
         "DISKusage": 36,
         "UPTIME": "10:00:00",
@@ -454,14 +342,14 @@ json_data = '''
         ]
     },
     {
-        "timestamp": "2024-01-01 00:08:00",
-        "LOAD1min": 0.75,
-        "LOAD5min": 8.37,
-        "LOAD15min": 0.67,
+        "timestamp": "2024-01-01 00:06:06",
+        "LOAD1min": 9.86,
+        "LOAD5min": 9.72,
+        "LOAD15min": 8.56,
         "CPUcores": 4,
-        "CPUusage": 29,
+        "CPUusage": 35,
         "RAMtotal": 8192,
-        "RAMusage": 24,
+        "RAMusage": 42,
         "DISKtotal": 1024000,
         "DISKusage": 36,
         "UPTIME": "10:00:00",
@@ -482,70 +370,14 @@ json_data = '''
         ]
     },
     {
-        "timestamp": "2024-01-01 00:08:30",
-        "LOAD1min": 8.81,
-        "LOAD5min": 5.15,
-        "LOAD15min": 9.03,
+        "timestamp": "2024-01-01 00:06:30",
+        "LOAD1min": 4.84,
+        "LOAD5min": 6.81,
+        "LOAD15min": 1.4,
         "CPUcores": 4,
-        "CPUusage": 5,
+        "CPUusage": 19,
         "RAMtotal": 8192,
-        "RAMusage": 0,
-        "DISKtotal": 1024000,
-        "DISKusage": 36,
-        "UPTIME": "10:00:00",
-        "TotalSWAP": 1434345,
-        "AvailableSWAP": 2131421,
-        "TotalCachedMemory": 312435,
-        "NICnames": [
-            "NIC1",
-            "NIC2"
-        ],
-        "dataIN": [
-            "1000",
-            "200"
-        ],
-        "dataOUT": [
-            "200",
-            "400"
-        ]
-    },
-    {
-        "timestamp": "2024-01-01 00:09:00",
-        "LOAD1min": 2.34,
-        "LOAD5min": 5.56,
-        "LOAD15min": 4.03,
-        "CPUcores": 4,
-        "CPUusage": 45,
-        "RAMtotal": 8192,
-        "RAMusage": 18,
-        "DISKtotal": 1024000,
-        "DISKusage": 36,
-        "UPTIME": "10:00:00",
-        "TotalSWAP": 1434345,
-        "AvailableSWAP": 2131421,
-        "TotalCachedMemory": 312435,
-        "NICnames": [
-            "NIC1",
-            "NIC2"
-        ],
-        "dataIN": [
-            "1000",
-            "200"
-        ],
-        "dataOUT": [
-            "200",
-            "400"
-        ]
-    },
-    {
-        "timestamp": "2024-01-01 00:09:30",
-        "LOAD1min": 0.46,
-        "LOAD5min": 3.82,
-        "LOAD15min": 5.93,
-        "CPUcores": 4,
-        "CPUusage": 14,
-        "RAMtotal": 8192,
-        "RAMusage": 2,
+        "RAMusage": 6,
         "DISKtotal": 1024000,
         "DISKusage": 36,
         "UPTIME": "10:00:00",
@@ -874,7 +706,7 @@ json_data = '''
         ]
     },
     {
-        "timestamp": "2024-01-01 00:23:02",
+        "timestamp": "2024-01-01 00:23:00",
         "LOAD1min": 9.06,
         "LOAD5min": 2.35,
         "LOAD15min": 9.33,
@@ -902,7 +734,7 @@ json_data = '''
         ]
     },
     {
-        "timestamp": "2024-01-01 00:23:32",
+        "timestamp": "2024-01-01 00:23:30",
         "LOAD1min": 9.46,
         "LOAD5min": 5.84,
         "LOAD15min": 8.75,
@@ -1141,11 +973,11 @@ non_numeric_columns = ['UPTIME', 'NICnames', 'dataIN', 'dataOUT']
 df = df.drop(columns=non_numeric_columns)
 
 # Resample data into 30-second intervals and fill missing values with zeros
-df_resampled = df.resample('1Min').fillna(method=None)
+df_resampled = df.resample('30S').fillna(method=None)
 
 # Specify the start and end dates
-StartDate = "2024-01-01 00:00:00"
-EndDate = "2024-01-01 00:15:00"
+StartDate = "2024-01-01 00:00"
+EndDate = "2024-01-01 00:26"
 
 # Check if the specified start and end dates are within the available data range
 # if StartDate not in df_resampled.index or EndDate not in df_resampled.index:
@@ -1168,17 +1000,22 @@ else:
     plt.tight_layout()  # Adjust layout for better spacing
     # Iterate through the DataFrame to identify consecutive missing data points
     is_missing = sliced_df['CPUusage'].isnull()
+    print('is missing',is_missing)
+    
     missing_intervals = []
     start = None
     for timestamp, missing in is_missing.items():
         if missing and start is None:
-            start = timestamp - pd.Timedelta(minutes=1) 
+            start = timestamp - pd.Timedelta(seconds=30) 
         elif not missing and start is not None:
             end = timestamp
             missing_intervals.append((start, end))
             start = None
     # Draw rectangles to represent missing intervals
+    print('missing_intervals',missing_intervals)
+    
     for start, end in missing_intervals:
+        print(start,end)
         plt.axvspan(start, end, color='red', alpha=0.2)
     
     plt.show()
