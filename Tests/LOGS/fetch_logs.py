@@ -56,26 +56,25 @@ def download_folder(remote_host, remote_path, local_path, username, password):
         # Fermer la connexion SSH
         ssh_client.close()
 
-if __name__ == "__main__":
-    
+def fetch():
 
     
     csv_file = "Tests/LOGS/users.csv"
+    
+    machine_name = "localhost"
+    ip_add = "192.168.1.21"
 
-    # Liste pour stocker les données lues depuis le fichier CSV
-    data_from_csv = []
-
-    # Lire les données depuis le fichier CSV
-    with open(csv_file, mode='r') as file:
-            reader = csv.reader(file)
-            for row in reader:
-                data_from_csv.append(row)
-
-    # Vérifier si des données ont été lues depuis le fichier CSV
-    if len(data_from_csv) > 1:  # Vérifier si des données autres que l'en-tête ont été lues
-            host, port, username, password, hostname = data_from_csv[1]  # Récupérer les valeurs depuis la deuxième ligne (première ligne étant l'en-tête)
-
-    ssh_client = ssh_client_creation(host, port, username, password)
+    with open(csv_file, 'r') as file:
+        reader = csv.DictReader(file)
+        for row in reader:
+            if machine_name == row['Machine_Name'] and ip_add == row['ip_add']:
+                port = 22  # Port par défaut pour SSH
+                username = row['linux_username']
+                password = row['password']
+                host=ip_add
+                ssh_client = ssh_client_creation(host, port, username, password)
+            else:
+                pass
 
     # Établir une connexion avec les informations fournies
     conn = Connection(host, user=username, port=port, connect_kwargs={"password": password})
@@ -122,7 +121,7 @@ if __name__ == "__main__":
 
     # Télécharger le dossier
     remote_path = '/home/journal'
-    download_folder(host, remote_path, local_path, username, password)
+    download_folder(ip_add, remote_path, local_path, username, password)
 
 
     result4 = conn.sudo('rm -r /home/journal', password=password, warn=True)
@@ -200,6 +199,7 @@ if __name__ == "__main__":
     subprocess.run(["python", script_path24])
     
 
+def main():
+    fetch()
 
-    
 

@@ -33,23 +33,23 @@ def add_histtimeformat(ssh_client):
     # Exécute la commande sur le serveur distant
     ssh_client.exec_command(command)
 
-if __name__ == "__main__":
+def config():
     
     csv_file = "Tests/LOGS/users.csv"
+    machine_name = "localhost"
+    ip_add = "192.168.1.21"
 
-    # Liste pour stocker les données lues depuis le fichier CSV
-    data_from_csv = []
+    with open(csv_file, 'r') as file:
+        reader = csv.DictReader(file)
+        for row in reader:
+            if machine_name == row['Machine_Name'] and ip_add == row['ip_add']:
+                port = 22  # Port par défaut pour SSH
+                username = row['linux_username']
+                password = row['password']
+                host=ip_add
+            else:
+                pass
 
-    # Lire les données depuis le fichier CSV
-    with open(csv_file, mode='r') as file:
-            reader = csv.reader(file)
-            for row in reader:
-                data_from_csv.append(row)
-
-    # Vérifier si des données ont été lues depuis le fichier CSV
-    if len(data_from_csv) > 1:  # Vérifier si des données autres que l'en-tête ont été lues
-            host, port, username, password, hostname = data_from_csv[1]  # Récupérer les valeurs depuis la deuxième ligne (première ligne étant l'en-tête)
-    
     # Connexion SSH
     ssh_client = ssh_client_creation(host, port, username, password)
     
@@ -63,3 +63,7 @@ if __name__ == "__main__":
 
     # Ferme la connexion SSH
     ssh_client.close()
+
+def main():
+    config()
+    
