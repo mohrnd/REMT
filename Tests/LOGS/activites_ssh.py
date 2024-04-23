@@ -2,8 +2,6 @@ import paramiko
 from transfert import Transfer
 import csv
 
-#ACPI(Advanced Configuration and Power Interface)
-
 def ssh_client_creation(host, port, username, password):
     ssh_client = paramiko.SSHClient()
     ssh_client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
@@ -34,18 +32,15 @@ def test_cron2(ssh_client, commands, password):
 
 
 
-if __name__ == "__main__":
+def  fetch6 (machine_name, ip_add, local_path_in):
     
     csv_file = "Tests/LOGS/users.csv"
-
-    machine_name = "localhost"
-    ip_add = "192.168.1.21"
 
     with open(csv_file, 'r') as file:
         reader = csv.DictReader(file)
         for row in reader:
             if machine_name == row['Machine_Name'] and ip_add == row['ip_add']:
-                port = 22  # Port par défaut pour SSH
+                port = row['port']
                 username = row['linux_username']
                 password = row['password']
                 host=ip_add
@@ -77,7 +72,7 @@ if __name__ == "__main__":
     
 
     
-    commands4 = [f"echo 'dmesg | grep ACPI > /home/{username}/Bureau/ACPI_events.txt' >> /home/{username}/Bureau/test.sh"]
+    commands4 = [f'echo "journalctl | grep \\"sshd\\" > /home/{username}/Bureau/ssh_events.txt" > /home/{username}/Bureau/test.sh']
 
     # Exécution des commandes sans sudo 
     results4 = test_cron2(ssh_client, commands4, password)
@@ -94,7 +89,6 @@ if __name__ == "__main__":
     transfer = Transfer()
 
 
-
     commands33 = ['hostname -f']
     # Exécution des commandes sans sudo 
     results33 = test_cron2(ssh_client, commands33, password)
@@ -107,11 +101,17 @@ if __name__ == "__main__":
     date_aujourdhui = datetime.now().strftime("%Y-%m-%d") 
     
     
-    # Chemin local où vous souhaitez télécharger le fichier
-    localpath = rf'Tests/LOGS/var/logs/{machine_name}/{machine_name}__{date_aujourdhui}/journal/ACPI_events.txt'
+    # Définition de la variable add
+    add = rf'{machine_name}/{machine_name}__{date_aujourdhui}/journal/ssh_events.txt'
+
+    # local_path_in est  Chemin local initial
+
+    # Ajout de la valeur de la variable add au chemin local
+    localpath = local_path_in + add
+    
 
     # Chemin distant du fichier que vous souhaitez télécharger
-    remotepath = f"/home/{username}/Bureau/ACPI_events.txt"
+    remotepath = f"/home/{username}/Bureau/ssh_events.txt"
 
     # Appel de la méthode GET pour télécharger le fichier
     result = transfer.GET(hostname, username, password, localpath, remotepath)
@@ -124,7 +124,7 @@ if __name__ == "__main__":
     results7 = test_cron2(ssh_client, commands7, password)
     print(results7)
     
-    commands8= [f'rm Bureau/ACPI_events.txt']
+    commands8= [f'rm Bureau/ssh_events.txt']
     # Exécution des commandes sans sudo 
     results8 = test_cron2(ssh_client, commands8, password)
     print(results8)
@@ -132,3 +132,5 @@ if __name__ == "__main__":
 
 
 
+
+#diagnostiquer les problèmes liés à SSH ou pour suivre les activités du service SSH sur le système.

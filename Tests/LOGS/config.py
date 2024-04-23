@@ -33,17 +33,16 @@ def add_histtimeformat(ssh_client):
     # Exécute la commande sur le serveur distant
     ssh_client.exec_command(command)
 
-def config():
+def config(machine_name, ip_add):
     
     csv_file = "Tests/LOGS/users.csv"
-    machine_name = "localhost"
-    ip_add = "192.168.1.21"
+
 
     with open(csv_file, 'r') as file:
         reader = csv.DictReader(file)
         for row in reader:
             if machine_name == row['Machine_Name'] and ip_add == row['ip_add']:
-                port = 22  # Port par défaut pour SSH
+                port = row['port']
                 username = row['linux_username']
                 password = row['password']
                 host=ip_add
@@ -64,6 +63,4 @@ def config():
     # Ferme la connexion SSH
     ssh_client.close()
 
-def main():
-    config()
     

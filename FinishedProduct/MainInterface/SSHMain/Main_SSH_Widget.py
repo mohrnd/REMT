@@ -1,5 +1,5 @@
 import sys
-from PyQt5.QtWidgets import QApplication, QWidget, QTableWidgetItem, QHBoxLayout, QSpacerItem, QSizePolicy, QAbstractItemView, QMessageBox
+from PyQt5.QtWidgets import QApplication, QWidget, QTableWidgetItem, QHBoxLayout, QSpacerItem, QSizePolicy, QAbstractItemView, QMessageBox,QDialogButtonBox,QDialog,QVBoxLayout, QLabel,QLineEdit
 from .Ui_main import Ui_Frame
 from qfluentwidgets import setTheme, setThemeColor, FluentWindow, CheckBox, PushButton, ToggleButton
 
@@ -10,6 +10,8 @@ import os
 from .SingleSSH import SSHWidget
 from .MultiSSH import MultiSSHWidget, MultiSSHWindow
 # The dot (.) in the import statement indicates that you want to import the module relative to the current package or directory.
+
+
 class MainWindow(Ui_Frame, QWidget):
     def __init__(self):
         super().__init__()
@@ -20,6 +22,14 @@ class MainWindow(Ui_Frame, QWidget):
         self.OpenMultiSSH.clicked.connect(self.MultiSSH)
         self.single_ssh_window = [] 
         self.multi_ssh_window = None  
+        
+        self.MainTable.setColumnWidth(2, 915)  # Définir la largeur de la colonne "Actions" sur 200 pixels
+        
+        # Ajuster la largeur de toute la table
+        self.MainTable.setMinimumWidth(1280)
+        
+        # Ajuster la hauteur de toute la table
+        self.MainTable.setMinimumHeight(350)
         
     def show_active_machines(self):
         CSV_File_Path = '../REMT/Tests/task_scheduling/snmp_users.csv'
@@ -38,6 +48,7 @@ class MainWindow(Ui_Frame, QWidget):
                     buttons_widget = QWidget()
                     buttons_layout = QHBoxLayout(buttons_widget)
                     buttons_layout.setAlignment(Qt.AlignCenter)
+    
                     
                     # PushButton
                     OpenTerminal = PushButton("Open terminal")
@@ -50,6 +61,8 @@ class MainWindow(Ui_Frame, QWidget):
                     spacer = QSpacerItem(20, 20, QSizePolicy.Fixed, QSizePolicy.Fixed)
                     buttons_layout.addItem(spacer)
                     
+        
+                    
                     # Checkbox
                     Checkbox_select = CheckBox()
                     Checkbox_select.setCheckable(True)
@@ -59,6 +72,7 @@ class MainWindow(Ui_Frame, QWidget):
                     buttons_widget.setLayout(buttons_layout)
 
                     self.MainTable.setCellWidget(rowPositionMachines, 2, buttons_widget)
+    
     
     def MultiSSH(self):
         selectedIPS = []
