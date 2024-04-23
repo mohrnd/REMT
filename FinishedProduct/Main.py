@@ -10,9 +10,12 @@ from qfluentwidgets import FluentIcon as FIF
 from PyQt5.QtGui import *
 from MainInterface.TaskSchedulerMain.Task_scheduler_main import MainWindow as SchedulerWindow
 
+
 # dont forget to add a dot to the files you want to import
 
 from MainInterface.SSHMain.Main_SSH_Widget import MainWindow as SSHWindow
+
+from MainInterface.editeur_de_code.editeur import MainWindowWidget as editeurwindow
 
 
 
@@ -33,6 +36,13 @@ class SSH(QWidget):
         self.hBoxLayout.addWidget(self.SSH)
         self.setObjectName(text.replace('-', '-'))
 
+class code_editeur(QWidget):
+    def __init__(self, text: str, parent=None):
+        super().__init__(parent=parent)
+        self.hBoxLayout = QHBoxLayout(self)
+        self.code_editeur = editeurwindow()  
+        self.hBoxLayout.addWidget(self.code_editeur)  
+        self.setObjectName(text.replace('-', '-'))
 
 class Widget(QFrame):
 
@@ -56,7 +66,7 @@ class Window(MSFluentWindow):
         self.Dashboard = Widget('Home Interface', self)
         self.SSH_window = SSH(text='Single', parent=self)
         self.TaskScheduler = TaskScheduler(text='Scheduler', parent=self)
-        self.CodeEditor = Widget('Video Interface 2', self)
+        self.CodeEditor = code_editeur(text='code_editeur', parent=self)
         self.LogFetcher = Widget('Video Interface 3', self)
         self.DeployFile = Widget('Video Interface 4', self)
         self.GetFile = Widget('Video Interface 5', self)
