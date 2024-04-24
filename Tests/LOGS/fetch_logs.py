@@ -27,8 +27,10 @@ from sys_info import  fetch20
 from sys_notice import  fetch21
 from sys_warning import  fetch22
 from system_boots import  fetch23
-from transactions_effectuées import  fetch24
+from transactions_effectuees import  fetch24
 from utilisation_disque import  fetch25
+import datetime
+from datetime import datetime
 
 
 def ssh_client_creation(host, port, username, password):
@@ -80,10 +82,9 @@ def download_folder(remote_host, remote_path, local_path, username, password):
         # Fermer la connexion SSH
         ssh_client.close()
 
-def fetch(machine_name, ip_add, local_path_in):
+def fetch(machine_name, ip_add, local_path_in,csv_file):
 
-    
-    csv_file = "C:\Users\BALLS2 (rip BALLS)\Desktop\REMT\Tests\LOGS\users.csv"
+
     
     with open(csv_file, 'r') as file:
         reader = csv.DictReader(file)
@@ -122,10 +123,24 @@ def fetch(machine_name, ip_add, local_path_in):
     machine_name = results3[0]
     
     # Récupérer la date du jour
-    date_aujourdhui = datetime.now().strftime("%Y-%m-%d")  
+    date_aujourdhui = datetime.now().strftime("%Y-%m-%d")
+    
+    maintenant = datetime.now()
+
+    # Formater la date et l'heure selon vos besoins
+    heure = maintenant.strftime("%H-%M")
+
 
     # Spécifier le chemin local en utilisant le nom de la machine
-    local_path_verify = rf'../../REMT/Tests/LOGS/var/logs/{machine_name}/{machine_name}__{date_aujourdhui}'
+    
+    # Définition de la variable add
+    add = rf'{machine_name}/{machine_name}_{date_aujourdhui}_{heure}'
+    
+    filename=rf'{machine_name}_{date_aujourdhui}_{heure}'
+    
+
+    # Spécifier le chemin local en utilisant le nom de la machine
+    local_path_verify = local_path_in + add
     
 
     # Supprimer le dossier existant s'il existe déjà
@@ -133,10 +148,7 @@ def fetch(machine_name, ip_add, local_path_in):
         shutil.rmtree(local_path_verify)
         print("Le dossier existant a été supprimé.")
 
-    # Spécifier le chemin local en utilisant le nom de la machine
-    
-    # Définition de la variable add
-    add = rf'{machine_name}/{machine_name}_{date_aujourdhui}_{time}'
+
 
     # local_path_in est  Chemin local initial
 
@@ -154,30 +166,30 @@ def fetch(machine_name, ip_add, local_path_in):
 
     result4 = conn.sudo('rm -r /home/journal', password=password, warn=True)
     
-    fetch2(machine_name, ip_add, local_path_in)
-    fetch3(machine_name, ip_add, local_path_in)
-    fetch4(machine_name, ip_add, local_path_in)
-    fetch5(machine_name, ip_add, local_path_in)
-    fetch6(machine_name, ip_add, local_path_in)
-    fetch7(machine_name, ip_add, local_path_in)
-    fetch8(machine_name, ip_add, local_path_in)
-    fetch9(machine_name, ip_add, local_path_in)
-    fetch10(machine_name, ip_add, local_path_in)
-    fetch11(machine_name, ip_add, local_path_in)
-    fetch12(machine_name, ip_add, local_path_in)
-    fetch13(machine_name, ip_add, local_path_in)
-    fetch14(machine_name, ip_add, local_path_in)
-    fetch15(machine_name, ip_add, local_path_in)
-    fetch16(machine_name, ip_add, local_path_in)
-    fetch17(machine_name, ip_add, local_path_in)
-    fetch18(machine_name, ip_add, local_path_in)
-    fetch19(machine_name, ip_add, local_path_in)
-    fetch20(machine_name, ip_add, local_path_in)
-    fetch21(machine_name, ip_add, local_path_in)
-    fetch22(machine_name, ip_add, local_path_in)
-    fetch23(machine_name, ip_add, local_path_in)
-    fetch24(machine_name, ip_add, local_path_in)
-    fetch25(machine_name, ip_add, local_path_in)
+    fetch2(machine_name, ip_add, local_path_in,csv_file,filename)
+    fetch3(machine_name, ip_add, local_path_in,csv_file,filename)
+    fetch4(machine_name, ip_add, local_path_in,csv_file,filename)
+    fetch5(machine_name, ip_add, local_path_in,csv_file,filename)
+    fetch6(machine_name, ip_add, local_path_in,csv_file,filename)
+    fetch7(machine_name, ip_add, local_path_in,csv_file,filename)
+    fetch8(machine_name, ip_add, local_path_in,csv_file,filename)
+    fetch9(machine_name, ip_add, local_path_in,csv_file,filename)
+    fetch10(machine_name, ip_add, local_path_in,csv_file,filename)
+    fetch11(machine_name, ip_add, local_path_in,csv_file,filename)
+    fetch12(machine_name, ip_add, local_path_in,csv_file,filename)
+    fetch13(machine_name, ip_add, local_path_in,csv_file,filename)
+    fetch14(machine_name, ip_add, local_path_in,csv_file,filename)
+    fetch15(machine_name, ip_add, local_path_in,csv_file,filename)
+    fetch16(machine_name, ip_add, local_path_in,csv_file,filename)
+    fetch17(machine_name, ip_add, local_path_in,csv_file,filename)
+    fetch18(machine_name, ip_add, local_path_in,csv_file,filename)
+    fetch19(machine_name, ip_add, local_path_in,csv_file,filename)
+    fetch20(machine_name, ip_add, local_path_in,csv_file,filename)
+    fetch21(machine_name, ip_add, local_path_in,csv_file,filename)
+    fetch22(machine_name, ip_add, local_path_in,csv_file,filename)
+    fetch23(machine_name, ip_add, local_path_in,csv_file,filename)
+    fetch24(machine_name, ip_add, local_path_in,csv_file,filename)
+    fetch25(machine_name, ip_add, local_path_in,csv_file,filename)
 
     
 

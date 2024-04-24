@@ -33,9 +33,8 @@ def add_histtimeformat(ssh_client):
     # Exécute la commande sur le serveur distant
     ssh_client.exec_command(command)
 
-def config(machine_name, ip_add):
+def config(machine_name, ip_add,csv_file):
     
-    csv_file = "Tests/LOGS/users.csv"
 
 
     with open(csv_file, 'r') as file:
