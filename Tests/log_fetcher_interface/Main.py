@@ -92,15 +92,15 @@ def add_lines(tree_widget, csv_path):
                     latest_fetch_date = datetime_obj
                     
                 child_item = QtWidgets.QTreeWidgetItem(parent_item)
-                child_item.setText(0, file)
-                child_item.setText(1, f'{date} {time}')
+                # child_item.setText(0, file)
+                child_item.setText(0, f'{date} {time}')
                 child_item_button = PushButton("Open", tree_widget)
                 font = QtGui.QFont()
                 font.setPointSize(5)
                 font.setBold(True)
                 font.setWeight(40)
                 child_item_button.setFont(font)
-                tree_widget.setItemWidget(child_item, 2, child_item_button)
+                tree_widget.setItemWidget(child_item, 1, child_item_button)
                 child_item_button.clicked.connect(lambda checked, MachineName=row['Machine_Name'], FileName=file: OpenFolder(MachineName, FileName))
             
             if latest_fetch_date is not None:
