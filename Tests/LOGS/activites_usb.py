@@ -32,9 +32,9 @@ def test_cron2(ssh_client, commands, password):
 
 
 
-def  fetch7 (machine_name, ip_add, local_path_in):
+def  fetch7 (machine_name, ip_add, local_path_in,csv_file,filename):
 
-    csv_file = "Tests/LOGS/users.csv"
+    
 
     with open(csv_file, 'r') as file:
         reader = csv.DictReader(file)
@@ -54,21 +54,21 @@ def  fetch7 (machine_name, ip_add, local_path_in):
     commands9= [f'touch /home/{username}/Desktop/test.sh']
     # Exécution des commandes sans sudo 
     results9 = test_cron2(ssh_client, commands9, password)
-    print(results9)
+    #print(results9)
     
     
     
     commands11= [f'chmod +x /home/{username}/Desktop/test.sh']
     # Exécution des commandes sans sudo 
     results11 = test_cron2(ssh_client, commands11, password)
-    print(results11)
+    #print(results11)
     
     
     commands2 = [f"echo '#!/bin/bash' > /home/{username}/Desktop/test.sh"]
 
     # Exécution des commandes sans sudo 
     results2 = test_cron2(ssh_client, commands2, password)
-    print(results2)
+    #print(results2)
     
 
     
@@ -76,14 +76,14 @@ def  fetch7 (machine_name, ip_add, local_path_in):
 
     # Exécution des commandes sans sudo 
     results4 = test_cron2(ssh_client, commands4, password)
-    print(results4)
+    #print(results4)
     
 
     
     commands6 = [f'./Desktop/test.sh']
     # Exécution des commandes sans sudo 
     results6 = test_cron2(ssh_client, commands6, password)
-    print(results6)
+    #print(results6)
 
     # Création d'une instance de la classe Transfer
     transfer = Transfer()
@@ -101,9 +101,14 @@ def  fetch7 (machine_name, ip_add, local_path_in):
     # Récupérer la date du jour
     date_aujourdhui = datetime.now().strftime("%Y-%m-%d") 
     
+    maintenant = datetime.now()
+
+    # Formater la date et l'heure selon vos besoins
+    heure = maintenant.strftime("%H-%M")
+    
     
     # Définition de la variable add
-    add = rf'{machine_name}/{machine_name}__{date_aujourdhui}/journal/usb_events.txt'
+    add = rf'{machine_name}/{filename}/journal/usb_events.txt'
 
     # local_path_in est  Chemin local initial
 
@@ -123,12 +128,12 @@ def  fetch7 (machine_name, ip_add, local_path_in):
     commands7 = [f'rm  Desktop/test.sh']
     # Exécution des commandes sans sudo 
     results7 = test_cron2(ssh_client, commands7, password)
-    print(results7)
+    #print(results7)
     
     commands8= [f'rm Desktop/usb_events.txt']
     # Exécution des commandes sans sudo 
     results8 = test_cron2(ssh_client, commands8, password)
-    print(results8)
+    #print(results8)
     
 
 
