@@ -32,21 +32,11 @@ def test_cron2(ssh_client, commands, password):
 
 
 
-def  fetch6 (machine_name, ip_add, local_path_in,csv_file,filename):
+def  fetch6 (machine_name, ip_add, password,port,username,host,hostname,local_path_in,csv_file,filename):
     
     
 
-    with open(csv_file, 'r') as file:
-        reader = csv.DictReader(file)
-        for row in reader:
-            if machine_name == row['Machine_Name'] and ip_add == row['ip_add']:
-                port = row['port']
-                username = row['linux_username']
-                password = row['password']
-                host=ip_add
-                hostname=ip_add
-            else:
-                pass
+
     
     # Connexion SSH
     ssh_client = ssh_client_creation(host, port, username, password)

@@ -3,6 +3,7 @@
 
 import paramiko
 import csv 
+from cipher_decipher_logic.AES_cipher_decipher import get_password
 
 def ssh_client_creation(host, port, username, password):
     ssh_client = paramiko.SSHClient()
@@ -43,7 +44,11 @@ def config(machine_name, ip_add,csv_file):
             if machine_name == row['Machine_Name'] and ip_add == row['ip_add']:
                 port = row['port']
                 username = row['linux_username']
-                password = row['password']
+                ciphered_password = row['password']
+                #print(ciphered_password)
+                password1 = get_password(ciphered_password)
+                #print(password1)
+                password=password1
                 host=ip_add
             else:
                 pass
