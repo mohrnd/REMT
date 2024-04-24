@@ -16,18 +16,22 @@ class Ui_Form(object):
         Form.setObjectName("Form")
         Form.resize(813, 768)
         self.TreeWidget = TreeWidget(Form)
-        self.TreeWidget.setGeometry(QtCore.QRect(20, 80, 751, 461))
+        self.TreeWidget.setGeometry(QtCore.QRect(20, 60, 771, 651))
         self.TreeWidget.setObjectName("TreeWidget")
-    
 
-        
+        self.retranslateUi(Form)
+        QtCore.QMetaObject.connectSlotsByName(Form)
+
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
         Form.setWindowTitle(_translate("Form", "Form"))
-
-        
-        
-        
-
-
+        self.TreeWidget.headerItem().setText(0, _translate("Form", "Machine name"))
+        self.TreeWidget.setColumnWidth(0, 250)
+        self.TreeWidget.headerItem().setText(1, _translate("Form", "IP"))
+        self.TreeWidget.setColumnWidth(1, 150)
+        self.TreeWidget.headerItem().setText(2, _translate("Form", "Status"))
+        self.TreeWidget.setColumnWidth(2, 100)
+        self.TreeWidget.headerItem().setText(3, _translate("Form", "Latest fetch"))
+        self.TreeWidget.setColumnWidth(3, 150)
+        self.TreeWidget.headerItem().setText(4, _translate("Form", "Actions"))
 from qfluentwidgets import TreeWidget

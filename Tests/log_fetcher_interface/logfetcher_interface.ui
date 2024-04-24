@@ -17,31 +17,36 @@
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>80</y>
-     <width>751</width>
-     <height>461</height>
+     <y>60</y>
+     <width>771</width>
+     <height>651</height>
     </rect>
    </property>
    <column>
     <property name="text">
-     <string>1</string>
+     <string>Machine name</string>
     </property>
    </column>
    <column>
     <property name="text">
-     <string>2</string>
+     <string>IP</string>
     </property>
    </column>
-   <item>
+   <column>
     <property name="text">
-     <string>item2</string>
+     <string>Status</string>
     </property>
-    <item>
-     <property name="text">
-      <string>item1</string>
-     </property>
-    </item>
-   </item>
+   </column>
+   <column>
+    <property name="text">
+     <string>Latest fetch</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>Actions</string>
+    </property>
+   </column>
   </widget>
  </widget>
  <customwidgets>
