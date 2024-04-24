@@ -111,19 +111,12 @@ def fetch(machine_name, ip_add, local_path_in,csv_file):
     commands = ['rm /home/journal/README']
     # Exécution des commandes avec sudo 
     results = test_cron(ssh_client, commands, password)
-    print(results) 
+    # print(results) 
 
 
-    # Récupérer le nom de la machine
-
-    commands3 = ['hostname -f']
-    # Exécution des commandes sans sudo 
-    results3 = test_cron(ssh_client, commands3, password)
-    # Récupérer le nom de la machine 
-    machine_name = results3[0]
     
     # Récupérer la date du jour
-    date_aujourdhui = datetime.now().strftime("%Y-%m-%d")
+    date_aujourdhui = datetime.now().strftime("%d-%m-%Y")
     
     maintenant = datetime.now()
 
@@ -166,30 +159,30 @@ def fetch(machine_name, ip_add, local_path_in,csv_file):
 
     result4 = conn.sudo('rm -r /home/journal', password=password, warn=True)
     
-    fetch2(machine_name, ip_add, local_path_in,csv_file,filename)
-    fetch3(machine_name, ip_add, local_path_in,csv_file,filename)
-    fetch4(machine_name, ip_add, local_path_in,csv_file,filename)
-    fetch5(machine_name, ip_add, local_path_in,csv_file,filename)
-    fetch6(machine_name, ip_add, local_path_in,csv_file,filename)
-    fetch7(machine_name, ip_add, local_path_in,csv_file,filename)
-    fetch8(machine_name, ip_add, local_path_in,csv_file,filename)
-    fetch9(machine_name, ip_add, local_path_in,csv_file,filename)
-    fetch10(machine_name, ip_add, local_path_in,csv_file,filename)
-    fetch11(machine_name, ip_add, local_path_in,csv_file,filename)
-    fetch12(machine_name, ip_add, local_path_in,csv_file,filename)
-    fetch13(machine_name, ip_add, local_path_in,csv_file,filename)
-    fetch14(machine_name, ip_add, local_path_in,csv_file,filename)
-    fetch15(machine_name, ip_add, local_path_in,csv_file,filename)
-    fetch16(machine_name, ip_add, local_path_in,csv_file,filename)
-    fetch17(machine_name, ip_add, local_path_in,csv_file,filename)
-    fetch18(machine_name, ip_add, local_path_in,csv_file,filename)
-    fetch19(machine_name, ip_add, local_path_in,csv_file,filename)
-    fetch20(machine_name, ip_add, local_path_in,csv_file,filename)
-    fetch21(machine_name, ip_add, local_path_in,csv_file,filename)
-    fetch22(machine_name, ip_add, local_path_in,csv_file,filename)
-    fetch23(machine_name, ip_add, local_path_in,csv_file,filename)
-    fetch24(machine_name, ip_add, local_path_in,csv_file,filename)
-    fetch25(machine_name, ip_add, local_path_in,csv_file,filename)
+    result=fetch2(machine_name, ip_add, local_path_in,csv_file,filename)
+    result=fetch3(machine_name, ip_add, local_path_in,csv_file,filename)
+    result=fetch4(machine_name, ip_add, local_path_in,csv_file,filename)
+    result=fetch5(machine_name, ip_add, local_path_in,csv_file,filename)
+    result=fetch6(machine_name, ip_add, local_path_in,csv_file,filename)
+    result=fetch7(machine_name, ip_add, local_path_in,csv_file,filename)
+    result=fetch8(machine_name, ip_add, local_path_in,csv_file,filename)
+    result=fetch9(machine_name, ip_add, local_path_in,csv_file,filename)
+    result=fetch10(machine_name, ip_add, local_path_in,csv_file,filename)
+    result=fetch11(machine_name, ip_add, local_path_in,csv_file,filename)
+    result=fetch12(machine_name, ip_add, local_path_in,csv_file,filename)
+    result=fetch13(machine_name, ip_add, local_path_in,csv_file,filename)
+    result=fetch14(machine_name, ip_add, local_path_in,csv_file,filename)
+    result=fetch15(machine_name, ip_add, local_path_in,csv_file,filename)
+    result=fetch16(machine_name, ip_add, local_path_in,csv_file,filename)
+    result=fetch17(machine_name, ip_add, local_path_in,csv_file,filename)
+    result=fetch18(machine_name, ip_add, local_path_in,csv_file,filename)
+    result=fetch19(machine_name, ip_add, local_path_in,csv_file,filename)
+    result=fetch20(machine_name, ip_add, local_path_in,csv_file,filename)
+    result=fetch21(machine_name, ip_add, local_path_in,csv_file,filename)
+    result=fetch22(machine_name, ip_add, local_path_in,csv_file,filename)
+    result=fetch23(machine_name, ip_add, local_path_in,csv_file,filename)
+    result=fetch24(machine_name, ip_add, local_path_in,csv_file,filename)
+    result=fetch25(machine_name, ip_add, local_path_in,csv_file,filename)
 
     
 

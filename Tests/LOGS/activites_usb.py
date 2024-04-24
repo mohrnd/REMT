@@ -90,16 +90,11 @@ def  fetch7 (machine_name, ip_add, local_path_in,csv_file,filename):
 
 
     
-    commands33 = ['hostname -f']
-    # Exécution des commandes sans sudo 
-    results33 = test_cron2(ssh_client, commands33, password)
-    # Récupérer le nom de la machine 
-    machine_name = results33[0]
     
     from datetime import datetime
     
     # Récupérer la date du jour
-    date_aujourdhui = datetime.now().strftime("%Y-%m-%d") 
+    date_aujourdhui = datetime.now().strftime("%d-%m-%Y") 
     
     maintenant = datetime.now()
 
@@ -123,7 +118,7 @@ def  fetch7 (machine_name, ip_add, local_path_in,csv_file,filename):
     result = transfer.GET(hostname, username, password, localpath, remotepath)
 
     # Affichage du résultat
-    print(result)
+    
 
     commands7 = [f'rm  Desktop/test.sh']
     # Exécution des commandes sans sudo 
@@ -134,6 +129,8 @@ def  fetch7 (machine_name, ip_add, local_path_in,csv_file,filename):
     # Exécution des commandes sans sudo 
     results8 = test_cron2(ssh_client, commands8, password)
     #print(results8)
+    
+    return result
     
 
 
