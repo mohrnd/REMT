@@ -1,6 +1,6 @@
 
-from fetch_logs import fetch
-fetch('SERVER1','192.168.69.45','../REMT/Tests/LOGS/var/')
+from LOGS.fetch_logs import fetch
+fetch('SERVER1','192.168.69.45','C:\ProgramData\REMT')
 # fetch('localhost','192.168.1.21','C:\\Users\\dell-5320\\Desktop\\folder1\\')
 # fetch('zizou','192.168.1.22','C:\\Users\\dell-5320\\Desktop\\folder1\\')
 

@@ -83,7 +83,7 @@ def download_folder(remote_host, remote_path, local_path, username, password):
 def fetch(machine_name, ip_add, local_path_in):
 
     
-    csv_file = "Tests/LOGS/users.csv"
+    csv_file = r"C:\Users\BALLS2 (rip BALLS)\Desktop\REMT\Tests\log_fetcher_interface\LOGS\users.csv"
     
     with open(csv_file, 'r') as file:
         reader = csv.DictReader(file)
@@ -123,7 +123,7 @@ def fetch(machine_name, ip_add, local_path_in):
     
     # Récupérer la date du jour
     date_aujourdhui = datetime.now().strftime("%Y-%m-%d")  
-    todaysTime = datetime.now().strftime("%Y-%m-%d %H:%M")
+    todaysTime = datetime.now().strftime("%H:%M")
     # Spécifier le chemin local en utilisant le nom de la machine
     local_path_verify = rf'../../REMT/Tests/LOGS/var/logs/{machine_name}/{machine_name}_{date_aujourdhui}_{todaysTime}'
     

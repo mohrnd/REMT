@@ -57,20 +57,20 @@ def  fetch17 (machine_name, ip_add, local_path_in):
     # Connexion SSH
     ssh_client = ssh_client_creation(host, port, username, password)
     
-    commands9= [f'touch /home/{username}/Bureau/test.sh']
+    commands9= [f'touch /home/{username}/Desktop/test.sh']
     # Exécution des commandes sans sudo 
     results9 = test_cron2(ssh_client, commands9, password)
     print(results9)
     
     
     
-    commands11= [f'chmod +x /home/{username}/Bureau/test.sh']
+    commands11= [f'chmod +x /home/{username}/Desktop/test.sh']
     # Exécution des commandes sans sudo 
     results11 = test_cron2(ssh_client, commands11, password)
     print(results11)
     
     
-    commands2 = [f"echo '#!/bin/bash' > /home/{username}/Bureau/test.sh"]
+    commands2 = [f"echo '#!/bin/bash' > /home/{username}/Desktop/test.sh"]
 
     # Exécution des commandes sans sudo 
     results2 = test_cron2(ssh_client, commands2, password)
@@ -78,7 +78,7 @@ def  fetch17 (machine_name, ip_add, local_path_in):
     
 
     
-    commands4 = [f"echo 'journalctl -p debug > /home/{username}/Bureau/system_debug.txt' >> /home/{username}/Bureau/test.sh"]
+    commands4 = [f"echo 'journalctl -p debug > /home/{username}/Desktop/system_debug.txt' >> /home/{username}/Desktop/test.sh"]
 
     # Exécution des commandes sans sudo 
     results4 = test_cron2(ssh_client, commands4, password)
@@ -86,7 +86,7 @@ def  fetch17 (machine_name, ip_add, local_path_in):
     
 
     
-    commands6 = [f'./Bureau/test.sh']
+    commands6 = [f'./Desktop/test.sh']
     # Exécution des commandes sans sudo 
     results6 = test_cron2(ssh_client, commands6, password)
     print(results6)
@@ -116,7 +116,7 @@ def  fetch17 (machine_name, ip_add, local_path_in):
     localpath = local_path_in + add
 
     # Chemin distant du fichier que vous souhaitez télécharger
-    remotepath = f"/home/{username}/Bureau/system_debug.txt"
+    remotepath = f"/home/{username}/Desktop/system_debug.txt"
 
     # Appel de la méthode GET pour télécharger le fichier
     result = transfer.GET(hostname, username, password, localpath, remotepath)
@@ -124,12 +124,12 @@ def  fetch17 (machine_name, ip_add, local_path_in):
     # Affichage du résultat
     print(result)
 
-    commands7 = [f'rm  Bureau/test.sh']
+    commands7 = [f'rm  Desktop/test.sh']
     # Exécution des commandes sans sudo 
     results7 = test_cron2(ssh_client, commands7, password)
     print(results7)
     
-    commands8= [f'rm Bureau/system_debug.txt']
+    commands8= [f'rm Desktop/system_debug.txt']
     # Exécution des commandes sans sudo 
     results8 = test_cron2(ssh_client, commands8, password)
     print(results8)
