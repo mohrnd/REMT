@@ -5,32 +5,20 @@ from qfluentwidgets import setTheme, setThemeColor, FluentWindow, CheckBox, Push
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QColor
-import csv
-import os
 from PyQt5.QtCore import QTimer
-from pyqt_translucent_full_loading_screen_thread import LoadingThread, LoadingTranslucentScreen
-from PyQt5.QtCore import QTimer
+from LOGS.fetch_logs import fetch
+# self.fetch('localhost','192.168.1.21','../REMT/Tests/LOGS/var/')
 
 class MainWindow(Ui_Form, QWidget):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
-        self.EndCycle = False
-        
         self.hBoxLayout = QHBoxLayout(self)
         self.hBoxLayout.addWidget(self.TreeWidget)
-        self.hBoxLayout.setContentsMargins(50, 30, 50, 30)
-
+        self.hBoxLayout.setContentsMargins(15, 15, 15, 15)
         self.TreeWidget.setBorderVisible(True)
         self.TreeWidget.setBorderRadius(8)
-        self.StartLoading('Loading')
-    def StartLoading(self, message):
-        self.__loadingTranslucentScreen = LoadingTranslucentScreen(parent=self, description_text=message)
-        self.__loadingTranslucentScreen.setDescriptionLabelDirection('Right')
-        self.__thread = LoadingThread(loading_screen=self.__loadingTranslucentScreen)
-        self.__thread.start()
-
-
+        
 
 def main():
     app = QApplication(sys.argv)

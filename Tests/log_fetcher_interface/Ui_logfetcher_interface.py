@@ -19,46 +19,15 @@ class Ui_Form(object):
         self.TreeWidget.setGeometry(QtCore.QRect(20, 80, 751, 461))
         self.TreeWidget.setObjectName("TreeWidget")
     
-        # Adding a button next to item 1
-        # item_0 = QtWidgets.QTreeWidgetItem(self.TreeWidget)
-        # item_1 = QtWidgets.QTreeWidgetItem(item_0)
-        # item_2 = QtWidgets.QTreeWidgetItem(item_0)
-        
-        # button_1 = QtWidgets.QPushButton("Open explorer")
-        # self.TreeWidget.setItemWidget(item_1, 2, button_1)
-        
-        # button_1 = QtWidgets.QPushButton("Fetch logs")
-        # self.TreeWidget.setItemWidget(item_0, 2, button_1)
-        self.retranslateUi(Form)
-        QtCore.QMetaObject.connectSlotsByName(Form)
-        
+
         
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
         Form.setWindowTitle(_translate("Form", "Form"))
-        self.TreeWidget.headerItem().setText(0, _translate("Form", "1"))  
-        self.TreeWidget.headerItem().setText(1, _translate("Form", "2"))
-        self.TreeWidget.setColumnWidth(1, 400)
-        self.TreeWidget.headerItem().setText(2, _translate("Form", "3"))
-        self.TreeWidget.setColumnWidth(2, 80)
-        __sortingEnabled = self.TreeWidget.isSortingEnabled()
-        self.TreeWidget.setSortingEnabled(__sortingEnabled)
-        self.TreeWidget.setSortingEnabled(False)
+
         
         
         
-        item_0 = QtWidgets.QTreeWidgetItem(self.TreeWidget)
-        item_1 = QtWidgets.QTreeWidgetItem(item_0)
-        item_2 = QtWidgets.QTreeWidgetItem(item_0)
-        self.TreeWidget.topLevelItem(0).setText(0, _translate("Form", "item1"))
-        self.TreeWidget.topLevelItem(0).child(0).setText(0, _translate("Form", "item2"))
-        self.TreeWidget.topLevelItem(0).child(0).setText(1, _translate("Form", "item2"))
-        self.TreeWidget.topLevelItem(0).child(1).setText(0, _translate("Form", "item3"))
-        button_1 = QtWidgets.QPushButton("Open explorer")
-        button_2 = QtWidgets.QPushButton("Open explorer")
-        self.TreeWidget.setItemWidget(item_1, 2, button_1)
-        self.TreeWidget.setItemWidget(item_2, 2, button_2)
-        button_1 = QtWidgets.QPushButton("Fetch logs")
-        self.TreeWidget.setItemWidget(item_0, 2, button_1)
+
 
 from qfluentwidgets import TreeWidget

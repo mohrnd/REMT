@@ -23,7 +23,7 @@ def generate_data(machine_name, start_month, end_month):
                 for minute in range(0, 60):
                     for second in range(0, 60, 30):
                         linenumber += 25
-                        timestamp = f'2024-{month:02d}-{day:02d} {hour:02d}:{minute:02d}:{second+2:02d}'
+                        timestamp = f'2024-{month:02d}-{day:02d} {hour:02d}:{minute:02d}:{second+4:02d}'
                         data = {
                             'timestamp': timestamp,
                             'LOAD1min': round(random.uniform(0, 10), 2),

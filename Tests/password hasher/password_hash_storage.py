@@ -8,7 +8,7 @@ def hash_password(password):
     return hashed_password
 
 def create_password_file(hashed_password):
-    file_path = 'C:\\ProgramData\\.hidden_password.txt' 
+    file_path = 'C:\\ProgramData\\.Hash1851320.txt' 
 
     with open(file_path, 'w') as file:
         file.write(hashed_password)
@@ -22,7 +22,7 @@ def create_password_file(hashed_password):
         
 def check_password(password):
     hashed_input = hash_password(password)
-    file_path = 'C:\\ProgramData\\.hidden_password.txt'
+    file_path = 'C:\\ProgramData\\.Hash1851320.txt'
 
     with open(file_path, 'r') as file:
         stored_password = file.read().strip()
