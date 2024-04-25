@@ -51,12 +51,6 @@ class MainWindow(QWidget, Ui_Form):
         self.root_password_form.exec_()
         
 
-    def StartLoading(self, message, parent=None):
-        self.__loadingTranslucentScreen = LoadingTranslucentScreen(parent=parent, description_text=message)
-        self.__loadingTranslucentScreen.setDescriptionLabelDirection('Right')
-        self.__thread = LoadingThread(loading_screen=self.__loadingTranslucentScreen)
-        self.__thread.start()
-
     
     def show_config_progress(self):
         self.config_progress_form = QDialog()
