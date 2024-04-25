@@ -31,6 +31,7 @@ from transactions_effectuees import  fetch24
 from utilisation_disque import  fetch25
 import datetime
 from datetime import datetime
+from cipher_decipher_logic.AES_cipher_decipher import get_password
 
 
 def ssh_client_creation(host, port, username, password):
@@ -92,8 +93,13 @@ def fetch(machine_name, ip_add, local_path_in,csv_file):
             if machine_name == row['Machine_Name'] and ip_add == row['ip_add']:
                 port = row['port']
                 username = row['linux_username']
-                password = row['password']
+                ciphered_password = row['password']
+                #print(ciphered_password)
+                password1 = get_password(ciphered_password)
+                password=password1
+                #print(password)
                 host=ip_add
+                hostname=ip_add
                 ssh_client = ssh_client_creation(host, port, username, password)
             else:
                 pass
@@ -159,30 +165,30 @@ def fetch(machine_name, ip_add, local_path_in,csv_file):
 
     result4 = conn.sudo('rm -r /home/journal', password=password, warn=True)
     
-    result=fetch2(machine_name, ip_add, local_path_in,csv_file,filename)
-    result=fetch3(machine_name, ip_add, local_path_in,csv_file,filename)
-    result=fetch4(machine_name, ip_add, local_path_in,csv_file,filename)
-    result=fetch5(machine_name, ip_add, local_path_in,csv_file,filename)
-    result=fetch6(machine_name, ip_add, local_path_in,csv_file,filename)
-    result=fetch7(machine_name, ip_add, local_path_in,csv_file,filename)
-    result=fetch8(machine_name, ip_add, local_path_in,csv_file,filename)
-    result=fetch9(machine_name, ip_add, local_path_in,csv_file,filename)
-    result=fetch10(machine_name, ip_add, local_path_in,csv_file,filename)
-    result=fetch11(machine_name, ip_add, local_path_in,csv_file,filename)
-    result=fetch12(machine_name, ip_add, local_path_in,csv_file,filename)
-    result=fetch13(machine_name, ip_add, local_path_in,csv_file,filename)
-    result=fetch14(machine_name, ip_add, local_path_in,csv_file,filename)
-    result=fetch15(machine_name, ip_add, local_path_in,csv_file,filename)
-    result=fetch16(machine_name, ip_add, local_path_in,csv_file,filename)
-    result=fetch17(machine_name, ip_add, local_path_in,csv_file,filename)
-    result=fetch18(machine_name, ip_add, local_path_in,csv_file,filename)
-    result=fetch19(machine_name, ip_add, local_path_in,csv_file,filename)
-    result=fetch20(machine_name, ip_add, local_path_in,csv_file,filename)
-    result=fetch21(machine_name, ip_add, local_path_in,csv_file,filename)
-    result=fetch22(machine_name, ip_add, local_path_in,csv_file,filename)
-    result=fetch23(machine_name, ip_add, local_path_in,csv_file,filename)
-    result=fetch24(machine_name, ip_add, local_path_in,csv_file,filename)
-    result=fetch25(machine_name, ip_add, local_path_in,csv_file,filename)
+    result=fetch2(machine_name, ip_add, password,port,username,host,hostname,local_path_in,csv_file,filename)
+    result=fetch3(machine_name, ip_add, password,port,username,host,hostname,local_path_in,csv_file,filename)
+    result=fetch4(machine_name, ip_add, password,port,username,host,hostname,local_path_in,csv_file,filename)
+    result=fetch5(machine_name, ip_add, password,port,username,host,hostname,local_path_in,csv_file,filename)
+    result=fetch6(machine_name, ip_add, password,port,username,host,hostname,local_path_in,csv_file,filename)
+    result=fetch7(machine_name, ip_add, password,port,username,host,hostname,local_path_in,csv_file,filename)
+    result=fetch8(machine_name, ip_add, password,port,username,host,hostname,local_path_in,csv_file,filename)
+    result=fetch9(machine_name, ip_add, password,port,username,host,hostname,local_path_in,csv_file,filename)
+    result=fetch10(machine_name, ip_add, password,port,username,host,hostname,local_path_in,csv_file,filename)
+    result=fetch11(machine_name, ip_add, password,port,username,host,hostname,local_path_in,csv_file,filename)
+    result=fetch12(machine_name, ip_add, password,port,username,host,hostname,local_path_in,csv_file,filename)
+    result=fetch13(machine_name, ip_add, password,port,username,host,hostname,local_path_in,csv_file,filename)
+    result=fetch14(machine_name, ip_add, password,port,username,host,hostname,local_path_in,csv_file,filename)
+    result=fetch15(machine_name, ip_add, password,port,username,host,hostname,local_path_in,csv_file,filename)
+    result=fetch16(machine_name, ip_add, password,port,username,host,hostname,local_path_in,csv_file,filename)
+    result=fetch17(machine_name, ip_add, password,port,username,host,hostname,local_path_in,csv_file,filename)
+    result=fetch18(machine_name, ip_add, password,port,username,host,hostname,local_path_in,csv_file,filename)
+    result=fetch19(machine_name, ip_add, password,port,username,host,hostname,local_path_in,csv_file,filename)
+    result=fetch20(machine_name, ip_add, password,port,username,host,hostname,local_path_in,csv_file,filename)
+    result=fetch21(machine_name, ip_add, password,port,username,host,hostname,local_path_in,csv_file,filename)
+    result=fetch22(machine_name, ip_add, password,port,username,host,hostname,local_path_in,csv_file,filename)
+    result=fetch23(machine_name, ip_add, password,port,username,host,hostname,local_path_in,csv_file,filename)
+    result=fetch24(machine_name, ip_add, password,port,username,host,hostname,local_path_in,csv_file,filename)
+    result=fetch25(machine_name, ip_add, password,port,username,host,hostname,local_path_in,csv_file,filename)
 
     
 
