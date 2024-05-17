@@ -1,7 +1,7 @@
 
-from fetch_logs import main
+from fetch_logs import fetch
 
-main('SERVER1','192.168.69.45','C:\\ProgramData\\REMT\\','Tests/LOGS/users.csv')
+fetch('SERVER1','192.168.69.40','C:\\ProgramData\\REMT\\','Tests/LOGS/users.csv')
 # fetch('localhost','192.168.1.21','../REMT/Tests/LOGS/var/','Tests/LOGS/users.csv')
 # # fetch('zizou','192.168.1.22','C:\\\\Users\\\\dell-5320\\\\Desktop\\\\folder1\\\\','Tests/LOGS/users.csv')
 

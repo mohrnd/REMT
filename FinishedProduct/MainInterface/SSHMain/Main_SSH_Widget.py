@@ -32,7 +32,7 @@ class MainWindow(Ui_Frame, QWidget):
         self.MainTable.setMinimumHeight(350)
         
     def show_active_machines(self):
-        CSV_File_Path = '../REMT/Tests/task_scheduling/snmp_users.csv'
+        CSV_File_Path = '../REMT/Tests/network monitoring/snmp tests/snmp_users.csv'
         with open(CSV_File_Path, 'r') as file:
             reader = csv.DictReader(file)
             for row in reader:
