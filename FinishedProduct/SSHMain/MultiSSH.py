@@ -5,7 +5,7 @@ import socket
 import logging
 import os
 import re
-from PyQt5.QtWidgets import QWidget, QTextEdit, QMessageBox, QApplication, QVBoxLayout, QPushButton, QCheckBox, QScrollArea
+from PyQt5.QtWidgets import QWidget, QTextEdit, QMessageBox, QApplication, QVBoxLayout, QPushButton, QCheckBox, QScrollArea,QLabel
 from PyQt5.QtGui import QTextCursor, QFont
 from PyQt5.QtCore import Qt
 from qfluentwidgets import PrimaryPushButton
@@ -15,11 +15,12 @@ logging.basicConfig(filename='ssh2.log', level=logging.INFO, format='%(asctime)s
 PASSWORD_PROMPT_PATTERN = re.compile(r'[Pp]assword:?\s*$')
 
 class MultiSSHWidget(QWidget):
-    def __init__(self, hostname, username, password, shared_text_edit):
+    def __init__(self, hostname, username, password, Machine_Name,shared_text_edit):
         super().__init__()
         self.hostname = hostname
         self.username = username
         self.password = password
+        self.Machine_Name = Machine_Name
         self.shared_text_edit = shared_text_edit
         self.layout = QVBoxLayout(self)
 
@@ -29,7 +30,19 @@ class MultiSSHWidget(QWidget):
         self.text_edit.setFixedHeight(200)  # Taille fixe pour le widget
         self.buffer = ""
         self.letter_count = 0  # Variable pour compter les lettres entrées
+        
+        
 
+        # Création des étiquettes pour l'adresse IP et le nom d'utilisateur
+        self.ip_label = QLabel(f"IP: {self.hostname} Name: {self.Machine_Name}")
+
+        # Définir une taille de police plus grande pour les étiquettes
+        font = QFont()
+        font.setPointSize(11)  # Changer la taille de police selon vos préférences
+        self.ip_label.setFont(font)
+
+        # Ajouter les étiquettes et le widget QTextEdit au layout
+        self.layout.addWidget(self.ip_label)
         self.layout.addWidget(self.text_edit)
 
         self.setLayout(self.layout)
@@ -219,7 +232,7 @@ class MultiSSHWindow(QWidget):
         self.shared_text_edit = SharedTextEdit()
 
         for host in self.hosts:
-            ssh_widget = MultiSSHWidget(host[0], host[1], host[2], self.shared_text_edit)
+            ssh_widget = MultiSSHWidget(host[0], host[1], host[2],host[3],self.shared_text_edit)
             self.layout.addWidget(ssh_widget)
             self.shared_text_edit.terminals.append(ssh_widget)
         self.toggle_button = QCheckBox("Toggle Input for All Terminals")

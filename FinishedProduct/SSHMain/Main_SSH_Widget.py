@@ -88,14 +88,15 @@ class MainWindow(Ui_Frame, QWidget):
         else:
             hosts = []
             for ip in selectedIPS:
-                CSV_File_Path = '../REMT/Tests/task_scheduling/snmp_users.csv'
+                CSV_File_Path = '../REMT/Tests/network monitoring/snmp tests/snmp_users.csv'
                 with open(CSV_File_Path, 'r') as file:
                     reader = csv.DictReader(file)
                     for row in reader:
                         if row['ip_add'] == ip: 
                             username = row['linux_username']
                             password = row['password']
-                            temp = [ip, username, password]
+                            Machine_Name=row['Machine_Name']
+                            temp = [ip, username, password,Machine_Name]
                             hosts.append(temp.copy())  
                             break
             if len(hosts) < 2:
@@ -107,7 +108,7 @@ class MainWindow(Ui_Frame, QWidget):
             
     def SingleSSH(self, ip_address):
         hostname = ip_address
-        CSV_File_Path = '../REMT/Tests/task_scheduling/snmp_users.csv'
+        CSV_File_Path = '../REMT/Tests/network monitoring/snmp tests/snmp_users.csv'
         with open(CSV_File_Path, 'r') as file:
             reader = csv.DictReader(file)
             for row in reader:
