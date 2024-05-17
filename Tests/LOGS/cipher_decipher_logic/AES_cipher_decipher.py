@@ -103,6 +103,31 @@ def get_password(CipheredPassword):
     else:
         Multi_Purpose_error_dialog('Your password was incorrect')
         pass
+    
+def get_password_no_form(MasterPassword,CipheredPassword):
+    status = check_password(MasterPassword)
+    if status == True:
+        try:
+            file_path = 'C:\\ProgramData\\.Vault1851320.txt'
+            with open(file_path, 'r') as file:
+                lines = file.readlines()
+            for line in lines:
+                components = line.strip().split(',')
+                if CipheredPassword == components[0]:
+                    encrypted_password = binascii.unhexlify(components[0])
+                    aesIV = binascii.unhexlify(components[1])
+                    authTag = binascii.unhexlify(components[2])
+                    decrypted_password = decrypt_AES_GCM((encrypted_password, aesIV, authTag), MasterPassword)
+                    return decrypted_password
+
+            Multi_Purpose_error_dialog("CipheredPassword not found in the file.")
+            return None
+        except Exception as e:
+            Multi_Purpose_error_dialog(f"Error occurred while getting password: {e}")
+            return None
+    else:
+        Multi_Purpose_error_dialog('Your password was incorrect')
+        pass
         
 def hash_password(password):
     hashed_password = hashlib.sha256(password.encode()).hexdigest()
@@ -157,7 +182,7 @@ def Multi_Purpose_info_dialog(Message):
     result = msg_box.exec_()
 
 # Usage 
-#print(add_new_entry('Didine.2003')) 
+# print(add_new_entry('Pa$$w0rd13')) 
 #print(get_password('bd475a48a62ecc596ec7')) 
 
 
