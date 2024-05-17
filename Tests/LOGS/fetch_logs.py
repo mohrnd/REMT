@@ -62,6 +62,7 @@ class MainWindow(QWidget, Ui_Form3):
                     #print(ciphered_password)
                     password1 = get_password(ciphered_password)
                     password=password1
+                    
                     #print(password)
                     host=ip_add
                     hostname=ip_add

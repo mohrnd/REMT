@@ -40,7 +40,7 @@ class code_editeur(QWidget):
         self.hBoxLayout.addWidget(self.code_editeur)  
         self.setObjectName(text.replace('-', '-'))
         
-        
+
 
 
 class Widget(QFrame):
