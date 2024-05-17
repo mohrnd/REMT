@@ -61,140 +61,140 @@ class MainWindow(QWidget):
         self.ui_config_progress.configprogress_finish.setDisabled(True)
         # self.ui_config_progress.Loading.hide()
         self.config_progress_form.show()
-        fetch_process = multiprocessing.Process(target=self.fetching_logs, args=(self, machine_name, ip_add, local_path_in,csv_file))
-        fetch_process.start()
+        # fetch_process = multiprocessing.Process(target=self.fetching_logs, args=(self, machine_name, ip_add, local_path_in,csv_file))
+        # fetch_process.start()
         
         
-    def fetching_logs(self, machine_name, ip_add, local_path_in,csv_file):
-        with open(csv_file, 'r') as file:
-            reader = csv.DictReader(file)
-            for row in reader:
-                if machine_name == row['Machine_Name'] and ip_add == row['ip_add']:
-                    port = row['port']
-                    username = row['linux_username']
-                    ciphered_password = row['password']
-                    #print(ciphered_password)
-                    password1 = get_password(ciphered_password)
-                    self.ui_config_progress.Loading.hide()
-    # here
-                    password=password1
-                    #print(password)
-                    host=ip_add
-                    hostname=ip_add
-                    ssh_client = ssh_client_creation(host, port, username, password)
-                else:
-                    pass
-    
-        # Établir une connexion avec les informations fournies
-        conn = Connection(host, user=username, port=port, connect_kwargs={"password": password})
-    
-    
-        # Utiliser la méthode sudo() pour exécuter la commande avec les privilèges sudo,
-        # en spécifiant le mot de passe
-        result1 = conn.sudo('rsync -av /var/log/ /home/journal', password=password, warn=True)
-            
-        result2 = conn.sudo('chmod -R a+rwx /home/journal', password=password, warn=True)
-    
-        commands = ['rm /home/journal/README']
-        # Exécution des commandes avec sudo 
-        results = test_cron(ssh_client, commands, password)
-        # print(results) 
-    
-    
+def fetching_logs(self, machine_name, ip_add, local_path_in,csv_file):
+    with open(csv_file, 'r') as file:
+        reader = csv.DictReader(file)
+        for row in reader:
+            if machine_name == row['Machine_Name'] and ip_add == row['ip_add']:
+                port = row['port']
+                username = row['linux_username']
+                ciphered_password = row['password']
+                #print(ciphered_password)
+                password1 = get_password(ciphered_password)
+                self.ui_config_progress.Loading.hide()
+# here
+                password=password1
+                #print(password)
+                host=ip_add
+                hostname=ip_add
+                ssh_client = ssh_client_creation(host, port, username, password)
+            else:
+                pass
+
+    # Établir une connexion avec les informations fournies
+    conn = Connection(host, user=username, port=port, connect_kwargs={"password": password})
+
+
+    # Utiliser la méthode sudo() pour exécuter la commande avec les privilèges sudo,
+    # en spécifiant le mot de passe
+    result1 = conn.sudo('rsync -av /var/log/ /home/journal', password=password, warn=True)
         
-        # Récupérer la date du jour
-        date_aujourdhui = datetime.now().strftime("%d-%m-%Y")
-        
-        maintenant = datetime.now()
+    result2 = conn.sudo('chmod -R a+rwx /home/journal', password=password, warn=True)
+
+    commands = ['rm /home/journal/README']
+    # Exécution des commandes avec sudo 
+    results = test_cron(ssh_client, commands, password)
+    # print(results) 
+
+
     
-        # Formater la date et l'heure selon vos besoins
-        heure = maintenant.strftime("%H-%M")
+    # Récupérer la date du jour
+    date_aujourdhui = datetime.now().strftime("%d-%m-%Y")
     
+    maintenant = datetime.now()
+
+    # Formater la date et l'heure selon vos besoins
+    heure = maintenant.strftime("%H-%M")
+
+
+    # Spécifier le chemin local en utilisant le nom de la machine
     
-        # Spécifier le chemin local en utilisant le nom de la machine
-        
-        # Définition de la variable add
-        add = rf'{machine_name}/{machine_name}_{date_aujourdhui}_{heure}'
-        
-        filename=rf'{machine_name}_{date_aujourdhui}_{heure}'
-        
+    # Définition de la variable add
+    add = rf'{machine_name}/{machine_name}_{date_aujourdhui}_{heure}'
     
-        # Spécifier le chemin local en utilisant le nom de la machine
-        local_path_verify = local_path_in + add
-        
+    filename=rf'{machine_name}_{date_aujourdhui}_{heure}'
     
-        # Supprimer le dossier existant s'il existe déjà
-        if os.path.exists(local_path_verify):
-            shutil.rmtree(local_path_verify)
-            print("Le dossier existant a été supprimé.")
+
+    # Spécifier le chemin local en utilisant le nom de la machine
+    local_path_verify = local_path_in + add
     
+
+    # Supprimer le dossier existant s'il existe déjà
+    if os.path.exists(local_path_verify):
+        shutil.rmtree(local_path_verify)
+        print("Le dossier existant a été supprimé.")
+
+
+
+    # local_path_in est  Chemin local initial
+
+    # Ajout de la valeur de la variable add au chemin local
+    local_path = local_path_in + add
     
+    # Créer le répertoire s'il n'existe pas déjà
+    os.makedirs(local_path, exist_ok=True)
+
+
+    # Télécharger le dossier
+    remote_path = '/home/journal'
+    download_folder(ip_add, remote_path, local_path, username, password)
+
+
+    result4 = conn.sudo('rm -r /home/journal', password=password, warn=True)
     
-        # local_path_in est  Chemin local initial
-    
-        # Ajout de la valeur de la variable add au chemin local
-        local_path = local_path_in + add
-        
-        # Créer le répertoire s'il n'existe pas déjà
-        os.makedirs(local_path, exist_ok=True)
-    
-    
-        # Télécharger le dossier
-        remote_path = '/home/journal'
-        download_folder(ip_add, remote_path, local_path, username, password)
-    
-    
-        result4 = conn.sudo('rm -r /home/journal', password=password, warn=True)
-        
-        result=fetch2(machine_name, ip_add, password,port,username,host,hostname,local_path_in,csv_file,filename)
-        self.ui_config_progress.configprogress_TextEdit.append(result)
-        result=fetch3(machine_name, ip_add, password,port,username,host,hostname,local_path_in,csv_file,filename)
-        self.ui_config_progress.configprogress_TextEdit.append(result)
-        result=fetch4(machine_name, ip_add, password,port,username,host,hostname,local_path_in,csv_file,filename)
-        self.ui_config_progress.configprogress_TextEdit.append(result)
-        result=fetch5(machine_name, ip_add, password,port,username,host,hostname,local_path_in,csv_file,filename)
-        self.ui_config_progress.configprogress_TextEdit.append(result)
-        result=fetch6(machine_name, ip_add, password,port,username,host,hostname,local_path_in,csv_file,filename)
-        self.ui_config_progress.configprogress_TextEdit.append(result)
-        result=fetch7(machine_name, ip_add, password,port,username,host,hostname,local_path_in,csv_file,filename)
-        self.ui_config_progress.configprogress_TextEdit.append(result)
-        result=fetch8(machine_name, ip_add, password,port,username,host,hostname,local_path_in,csv_file,filename)
-        self.ui_config_progress.configprogress_TextEdit.append(result)
-        result=fetch9(machine_name, ip_add, password,port,username,host,hostname,local_path_in,csv_file,filename)
-        self.ui_config_progress.configprogress_TextEdit.append(result)
-        result=fetch10(machine_name, ip_add, password,port,username,host,hostname,local_path_in,csv_file,filename)
-        self.ui_config_progress.configprogress_TextEdit.append(result)
-        result=fetch11(machine_name, ip_add, password,port,username,host,hostname,local_path_in,csv_file,filename)
-        self.ui_config_progress.configprogress_TextEdit.append(result)
-        result=fetch12(machine_name, ip_add, password,port,username,host,hostname,local_path_in,csv_file,filename)
-        self.ui_config_progress.configprogress_TextEdit.append(result)
-        result=fetch13(machine_name, ip_add, password,port,username,host,hostname,local_path_in,csv_file,filename)
-        self.ui_config_progress.configprogress_TextEdit.append(result)
-        result=fetch14(machine_name, ip_add, password,port,username,host,hostname,local_path_in,csv_file,filename)
-        self.ui_config_progress.configprogress_TextEdit.append(result)
-        result=fetch15(machine_name, ip_add, password,port,username,host,hostname,local_path_in,csv_file,filename)
-        self.ui_config_progress.configprogress_TextEdit.append(result)
-        result=fetch16(machine_name, ip_add, password,port,username,host,hostname,local_path_in,csv_file,filename)
-        self.ui_config_progress.configprogress_TextEdit.append(result)
-        result=fetch17(machine_name, ip_add, password,port,username,host,hostname,local_path_in,csv_file,filename)
-        self.ui_config_progress.configprogress_TextEdit.append(result)
-        result=fetch18(machine_name, ip_add, password,port,username,host,hostname,local_path_in,csv_file,filename)
-        self.ui_config_progress.configprogress_TextEdit.append(result)
-        result=fetch19(machine_name, ip_add, password,port,username,host,hostname,local_path_in,csv_file,filename)
-        self.ui_config_progress.configprogress_TextEdit.append(result)
-        result=fetch20(machine_name, ip_add, password,port,username,host,hostname,local_path_in,csv_file,filename)
-        self.ui_config_progress.configprogress_TextEdit.append(result)
-        result=fetch21(machine_name, ip_add, password,port,username,host,hostname,local_path_in,csv_file,filename)
-        self.ui_config_progress.configprogress_TextEdit.append(result)
-        result=fetch22(machine_name, ip_add, password,port,username,host,hostname,local_path_in,csv_file,filename)
-        self.ui_config_progress.configprogress_TextEdit.append(result)
-        result=fetch23(machine_name, ip_add, password,port,username,host,hostname,local_path_in,csv_file,filename)
-        self.ui_config_progress.configprogress_TextEdit.append(result)
-        result=fetch24(machine_name, ip_add, password,port,username,host,hostname,local_path_in,csv_file,filename)
-        self.ui_config_progress.configprogress_TextEdit.append(result)
-        result=fetch25(machine_name, ip_add, password,port,username,host,hostname,local_path_in,csv_file,filename)
-        self.ui_config_progress.configprogress_TextEdit.append(result)
-    
+    # result=fetch2(machine_name, ip_add, password,port,username,host,hostname,local_path_in,csv_file,filename)
+    # self.ui_config_progress.configprogress_TextEdit.append(result)
+    # result=fetch3(machine_name, ip_add, password,port,username,host,hostname,local_path_in,csv_file,filename)
+    # self.ui_config_progress.configprogress_TextEdit.append(result)
+    # result=fetch4(machine_name, ip_add, password,port,username,host,hostname,local_path_in,csv_file,filename)
+    # self.ui_config_progress.configprogress_TextEdit.append(result)
+    # result=fetch5(machine_name, ip_add, password,port,username,host,hostname,local_path_in,csv_file,filename)
+    # self.ui_config_progress.configprogress_TextEdit.append(result)
+    # result=fetch6(machine_name, ip_add, password,port,username,host,hostname,local_path_in,csv_file,filename)
+    # self.ui_config_progress.configprogress_TextEdit.append(result)
+    # result=fetch7(machine_name, ip_add, password,port,username,host,hostname,local_path_in,csv_file,filename)
+    # self.ui_config_progress.configprogress_TextEdit.append(result)
+    # result=fetch8(machine_name, ip_add, password,port,username,host,hostname,local_path_in,csv_file,filename)
+    # self.ui_config_progress.configprogress_TextEdit.append(result)
+    # result=fetch9(machine_name, ip_add, password,port,username,host,hostname,local_path_in,csv_file,filename)
+    # self.ui_config_progress.configprogress_TextEdit.append(result)
+    # result=fetch10(machine_name, ip_add, password,port,username,host,hostname,local_path_in,csv_file,filename)
+    # self.ui_config_progress.configprogress_TextEdit.append(result)
+    # result=fetch11(machine_name, ip_add, password,port,username,host,hostname,local_path_in,csv_file,filename)
+    # self.ui_config_progress.configprogress_TextEdit.append(result)
+    # result=fetch12(machine_name, ip_add, password,port,username,host,hostname,local_path_in,csv_file,filename)
+    # self.ui_config_progress.configprogress_TextEdit.append(result)
+    # result=fetch13(machine_name, ip_add, password,port,username,host,hostname,local_path_in,csv_file,filename)
+    # self.ui_config_progress.configprogress_TextEdit.append(result)
+    # result=fetch14(machine_name, ip_add, password,port,username,host,hostname,local_path_in,csv_file,filename)
+    # self.ui_config_progress.configprogress_TextEdit.append(result)
+    # result=fetch15(machine_name, ip_add, password,port,username,host,hostname,local_path_in,csv_file,filename)
+    # self.ui_config_progress.configprogress_TextEdit.append(result)
+    # result=fetch16(machine_name, ip_add, password,port,username,host,hostname,local_path_in,csv_file,filename)
+    # self.ui_config_progress.configprogress_TextEdit.append(result)
+    # result=fetch17(machine_name, ip_add, password,port,username,host,hostname,local_path_in,csv_file,filename)
+    # self.ui_config_progress.configprogress_TextEdit.append(result)
+    # result=fetch18(machine_name, ip_add, password,port,username,host,hostname,local_path_in,csv_file,filename)
+    # self.ui_config_progress.configprogress_TextEdit.append(result)
+    # result=fetch19(machine_name, ip_add, password,port,username,host,hostname,local_path_in,csv_file,filename)
+    # self.ui_config_progress.configprogress_TextEdit.append(result)
+    # result=fetch20(machine_name, ip_add, password,port,username,host,hostname,local_path_in,csv_file,filename)
+    # self.ui_config_progress.configprogress_TextEdit.append(result)
+    # result=fetch21(machine_name, ip_add, password,port,username,host,hostname,local_path_in,csv_file,filename)
+    # self.ui_config_progress.configprogress_TextEdit.append(result)
+    # result=fetch22(machine_name, ip_add, password,port,username,host,hostname,local_path_in,csv_file,filename)
+    # self.ui_config_progress.configprogress_TextEdit.append(result)
+    # result=fetch23(machine_name, ip_add, password,port,username,host,hostname,local_path_in,csv_file,filename)
+    # self.ui_config_progress.configprogress_TextEdit.append(result)
+    # result=fetch24(machine_name, ip_add, password,port,username,host,hostname,local_path_in,csv_file,filename)
+    # self.ui_config_progress.configprogress_TextEdit.append(result)
+    # result=fetch25(machine_name, ip_add, password,port,username,host,hostname,local_path_in,csv_file,filename)
+    # self.ui_config_progress.configprogress_TextEdit.append(result)
+
 def ssh_client_creation(host, port, username, password):
     ssh_client = paramiko.SSHClient()
     ssh_client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
@@ -246,14 +246,15 @@ def download_folder(remote_host, remote_path, local_path, username, password):
 
 
 
-def main(machine_name, ip_add, local_path_in,csv_file):
-    color = QColor('#351392')
-    setThemeColor(color ,Qt.GlobalColor , '') 
+def main(machine_name, ip_add, local_path_in, csv_file):
     app = QApplication([])
-
-    window = MainWindow('SERVER1','192.168.69.45','C:\\ProgramData\\REMT\\','Tests/LOGS/users.csv')
+    window = MainWindow(machine_name, ip_add, local_path_in, csv_file)
+    window.show()
+    # Start fetching_logs in a separate process
+    fetch_process = multiprocessing.Process(target=fetching_logs, args=(machine_name, ip_add, local_path_in, csv_file))
+    fetch_process.start()
     app.exec_()
 
 if __name__ == "__main__":
-    main("SERVER1", "192.168.69.45", "C:\\ProgramData\\REMT\\", "Tests/LOGS/users.csv")
+    main("SERVER1", "192.168.69.40", "C:\\ProgramData\\REMT\\", "Tests/LOGS/users.csv")
     

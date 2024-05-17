@@ -39,6 +39,9 @@ class code_editeur(QWidget):
         self.code_editeur = editeurwindow()  
         self.hBoxLayout.addWidget(self.code_editeur)  
         self.setObjectName(text.replace('-', '-'))
+        
+        
+
 
 class Widget(QFrame):
 
@@ -66,7 +69,8 @@ class Window(MSFluentWindow):
         self.LogFetcher = Widget('Video Interface 3', self)
         self.DeployFile = Widget('Video Interface 4', self)
         self.GetFile = Widget('Video Interface 5', self)
-        self.AddMachine = Widget('Video Interface 6', self)
+        self.ViewTraps = Widget('Video Interface 6', self)
+        self.AddMachine = Widget('Video Interface 7', self)
 
         self.initNavigation()
         self.initWindow()
@@ -79,6 +83,7 @@ class Window(MSFluentWindow):
         self.addSubInterface(self.LogFetcher, QIcon(r'..\REMT\FinishedProduct\MainInterface\RemtIcons\logs.svg'), 'Log Fetcher')
         self.addSubInterface(self.DeployFile, QIcon(r'..\REMT\FinishedProduct\MainInterface\RemtIcons\upload.svg'), 'Deploy')
         self.addSubInterface(self.GetFile, QIcon(r'..\REMT\FinishedProduct\MainInterface\RemtIcons\download.svg'), 'Get')
+        self.addSubInterface(self.ViewTraps, QIcon(r'..\REMT\FinishedProduct\MainInterface\RemtIcons\view.svg'), 'View Traps')
         self.addSubInterface(self.AddMachine, QIcon(r'..\REMT\FinishedProduct\MainInterface\RemtIcons\add.svg'), 'Add server')
 
         

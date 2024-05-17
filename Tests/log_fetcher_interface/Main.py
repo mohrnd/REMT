@@ -6,7 +6,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QColor
 from PyQt5.QtCore import QTimer
-from LOGS.fetch_logs import fetch
+# from LOGS.fetch_logs import fetch
 from configparser import ConfigParser
 import os
 from pathlib import Path
@@ -102,7 +102,6 @@ def add_lines(tree_widget, csv_path):
                 child_item_button.setFont(font)
                 tree_widget.setItemWidget(child_item, 1, child_item_button)
                 child_item_button.clicked.connect(lambda checked, MachineName=row['Machine_Name'], FileName=file: OpenFolder(MachineName, FileName))
-            
             if latest_fetch_date is not None:
                 latest_fetch_date_str = latest_fetch_date.strftime("%d-%m-%Y %H:%M")
                 parent_item.setText(3, latest_fetch_date_str)
