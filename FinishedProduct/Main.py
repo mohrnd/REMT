@@ -9,12 +9,8 @@ from qfluentwidgets import (NavigationItemPosition, MessageBox, setTheme, setThe
 from qfluentwidgets import FluentIcon as FIF
 from PyQt5.QtGui import *
 from MainInterface.TaskSchedulerMain.Task_scheduler_main import MainWindow as SchedulerWindow
-
-
 # dont forget to add a dot to the files you want to import
-
 from MainInterface.SSHMain.Main_SSH_Widget import MainWindow as SSHWindow
-
 from MainInterface.editeur_de_code.editeur import MainWindowWidget as editeurwindow
 
 

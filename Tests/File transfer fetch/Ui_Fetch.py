@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'c:\Users\BALLS2 (rip BALLS)\Desktop\REMT\Tests\File transfer\Deploy_button.ui'
+# Form implementation generated from reading ui file 'c:\Users\BALLS2 (rip BALLS)\Desktop\REMT\Tests\File transfer\Fetch_button.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.9
 #
@@ -26,15 +26,15 @@ class Ui_Frame(object):
         self.MainTable.setHorizontalHeaderItem(1, item)
         item = QtWidgets.QTableWidgetItem()
         self.MainTable.setHorizontalHeaderItem(2, item)
-        self.Deploy_button = PrimaryPushButton(Frame)
-        self.Deploy_button.setGeometry(QtCore.QRect(410, 630, 161, 32))
-        self.Deploy_button.setObjectName("Deploy_button")
+        self.Fetch_button = PrimaryPushButton(Frame)
+        self.Fetch_button.setGeometry(QtCore.QRect(410, 630, 161, 32))
+        self.Fetch_button.setObjectName("Fetch_button")
         self.Localpath = LineEdit(Frame)
         self.Localpath.setGeometry(QtCore.QRect(9, 50, 431, 33))
         self.Localpath.setObjectName("Localpath")
-        self.Broswse = PushButton(Frame)
-        self.Broswse.setGeometry(QtCore.QRect(449, 50, 121, 32))
-        self.Broswse.setObjectName("Broswse")
+        self.Browse = PushButton(Frame)
+        self.Browse.setGeometry(QtCore.QRect(449, 50, 121, 32))
+        self.Browse.setObjectName("Browse")
         self.Title1 = StrongBodyLabel(Frame)
         self.Title1.setGeometry(QtCore.QRect(9, 20, 131, 19))
         self.Title1.setObjectName("Title1")
@@ -64,11 +64,11 @@ class Ui_Frame(object):
         
         item.setText(_translate("Frame", "Select"))
         
-        self.Deploy_button.setText(_translate("Frame", "Deploy"))
-        self.Localpath.setPlaceholderText(_translate("Frame", "Local path"))
-        self.Broswse.setText(_translate("Frame", "Broswse"))
-        self.Title1.setText(_translate("Frame", "Deploy a file/folder:"))
-        self.LineEdit.setPlaceholderText(_translate("Frame", "Remote path (default /home/<username>/remt/)"))
+        self.Fetch_button.setText(_translate("Frame", "Fetch"))
+        self.Localpath.setPlaceholderText(_translate("Frame", "Local path (select the destination folder)"))
+        self.Browse.setText(_translate("Frame", "Browse"))
+        self.Title1.setText(_translate("Frame", "Fetch a file/folder:"))
+        self.LineEdit.setPlaceholderText(_translate("Frame", "Remote path"))
         self.PushButton.setText(_translate("Frame", "Verify existance"))
         self.StrongBodyLabel.setText(_translate("Frame", "Machines online:"))
 from qfluentwidgets import LineEdit, PrimaryPushButton, PushButton, StrongBodyLabel, TableWidget

@@ -1,3 +1,2 @@
 username,auth_protocol,auth_password,priv_protocol,priv_password,security_engine_id,ip_add,password,linux_username,Machine_Name
-roadmin,usmHMACSHAAuthProtocol,admin123,usmAesCfb128Protocol,admin123,80001f8880ad8ba63fe904de6500000000,192.168.69.41,Pa$$w0rd,manager1,RockyLinux1
-roadmin,usmHMACSHAAuthProtocol,admin123,usmAesCfb128Protocol,admin123,80001f88804038b87722b5de6500000000,192.168.69.38,Pa$$w0rd,server1,RockyLinux2
+roadmin,usmHMACSHAAuthProtocol,admin123,usmAesCfb128Protocol,admin123,80001f8880ad8ba63fe904de6500000000,192.168.69.40,Pa$$w0rd,manager1,RockyLinux1
