@@ -42,16 +42,44 @@ from transactions_effectuees import  fetch24
 from utilisation_disque import  fetch25
 import datetime
 from datetime import datetime
-from cipher_decipher_logic.AES_cipher_decipher import get_password
-from Progress.Ui_Config_progress import Ui_Form3
+from cipher_decipher_logic.AES_cipher_decipher import get_password_no_form
+from Progress.Ui_Config_progress_2 import Ui_Form
+import threading
 
-
-class MainWindow(QWidget, Ui_Form3):
+class MainWindow(QWidget, Ui_Form):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
         
-    def fetch(self, machine_name, ip_add, local_path_in,csv_file):
+        self.ExitButton.hide()
+        self.Progress_wheel.hide()
+        
+        # Connectez le clic du bouton "Finish" à la fonction fetch
+        self.StartButton.clicked.connect(self.on_finish_button_clicked)
+        
+        
+    # Fonction exécutée lorsque le bouton "Finish" est cliqué
+    def on_finish_button_clicked(self):
+            
+        # Récupérer le mot de passe entré
+        password_entered = self.Masterpassword_input.text()
+        print(password_entered)
+        
+        # Vérifier si le mot de passe est vide
+        if not password_entered:
+            QMessageBox.warning(self, "Warning", "Please enter a password.")
+            return
+        
+        machine_name = 'zizou'
+        ip_add = '192.168.1.22'
+        local_path_in = 'C:\\Users\\dell-5320\\Desktop\\folder1\\'
+        csv_file = 'Tests/LOGS/users.csv'
+
+        # Appel de la fonction fetch avec les paramètres spécifiés
+        threading.Thread(target=self.fetch, args=(machine_name, ip_add, local_path_in, csv_file,password_entered)).start()
+        
+        
+    def fetch(self, machine_name, ip_add, local_path_in,csv_file,password_entered):
         with open(csv_file, 'r') as file:
             reader = csv.DictReader(file)
             for row in reader:
@@ -60,13 +88,13 @@ class MainWindow(QWidget, Ui_Form3):
                     username = row['linux_username']
                     ciphered_password = row['password']
                     #print(ciphered_password)
-                    password1 = get_password(ciphered_password)
+                    password1 = get_password_no_form(password_entered,ciphered_password)
                     password=password1
-                    
                     #print(password)
                     host=ip_add
                     hostname=ip_add
                     ssh_client = ssh_client_creation(host, port, username, password)
+                    self.Progress_wheel.show()
                 else:
                     pass
     
@@ -132,30 +160,56 @@ class MainWindow(QWidget, Ui_Form3):
         result4 = conn.sudo('rm -r /home/journal', password=password, warn=True)
         
         result=fetch2(machine_name, ip_add, password,port,username,host,hostname,local_path_in,csv_file,filename)
-        # self.Ui_Config_progress.configprogress_TextEdit.append(result)
+        self.configprogress_TextEdit.append(result)
         result=fetch3(machine_name, ip_add, password,port,username,host,hostname,local_path_in,csv_file,filename)
+        self.configprogress_TextEdit.append(result)
         result=fetch4(machine_name, ip_add, password,port,username,host,hostname,local_path_in,csv_file,filename)
+        self.configprogress_TextEdit.append(result)
         result=fetch5(machine_name, ip_add, password,port,username,host,hostname,local_path_in,csv_file,filename)
+        self.configprogress_TextEdit.append(result)
         result=fetch6(machine_name, ip_add, password,port,username,host,hostname,local_path_in,csv_file,filename)
+        self.configprogress_TextEdit.append(result)
         result=fetch7(machine_name, ip_add, password,port,username,host,hostname,local_path_in,csv_file,filename)
+        self.configprogress_TextEdit.append(result)
         result=fetch8(machine_name, ip_add, password,port,username,host,hostname,local_path_in,csv_file,filename)
+        self.configprogress_TextEdit.append(result)
         result=fetch9(machine_name, ip_add, password,port,username,host,hostname,local_path_in,csv_file,filename)
+        self.configprogress_TextEdit.append(result)
         result=fetch10(machine_name, ip_add, password,port,username,host,hostname,local_path_in,csv_file,filename)
+        self.configprogress_TextEdit.append(result)
         result=fetch11(machine_name, ip_add, password,port,username,host,hostname,local_path_in,csv_file,filename)
+        self.configprogress_TextEdit.append(result)
         result=fetch12(machine_name, ip_add, password,port,username,host,hostname,local_path_in,csv_file,filename)
+        self.configprogress_TextEdit.append(result)
         result=fetch13(machine_name, ip_add, password,port,username,host,hostname,local_path_in,csv_file,filename)
+        self.configprogress_TextEdit.append(result)
         result=fetch14(machine_name, ip_add, password,port,username,host,hostname,local_path_in,csv_file,filename)
+        self.configprogress_TextEdit.append(result)
         result=fetch15(machine_name, ip_add, password,port,username,host,hostname,local_path_in,csv_file,filename)
+        self.configprogress_TextEdit.append(result)
         result=fetch16(machine_name, ip_add, password,port,username,host,hostname,local_path_in,csv_file,filename)
+        self.configprogress_TextEdit.append(result)
         result=fetch17(machine_name, ip_add, password,port,username,host,hostname,local_path_in,csv_file,filename)
+        self.configprogress_TextEdit.append(result)
         result=fetch18(machine_name, ip_add, password,port,username,host,hostname,local_path_in,csv_file,filename)
+        self.configprogress_TextEdit.append(result)
         result=fetch19(machine_name, ip_add, password,port,username,host,hostname,local_path_in,csv_file,filename)
+        self.configprogress_TextEdit.append(result)
         result=fetch20(machine_name, ip_add, password,port,username,host,hostname,local_path_in,csv_file,filename)
+        self.configprogress_TextEdit.append(result)
         result=fetch21(machine_name, ip_add, password,port,username,host,hostname,local_path_in,csv_file,filename)
+        self.configprogress_TextEdit.append(result)
         result=fetch22(machine_name, ip_add, password,port,username,host,hostname,local_path_in,csv_file,filename)
+        self.configprogress_TextEdit.append(result)
         result=fetch23(machine_name, ip_add, password,port,username,host,hostname,local_path_in,csv_file,filename)
+        self.configprogress_TextEdit.append(result)
         result=fetch24(machine_name, ip_add, password,port,username,host,hostname,local_path_in,csv_file,filename)
+        self.configprogress_TextEdit.append(result)
         result=fetch25(machine_name, ip_add, password,port,username,host,hostname,local_path_in,csv_file,filename)
+        self.configprogress_TextEdit.append(result)
+        self.Progress_wheel.hide()
+        self.ExitButton.show()
+        self.ExitButton.clicked.connect(self.close)
 
     
 def ssh_client_creation(host, port, username, password):
