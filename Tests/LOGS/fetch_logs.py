@@ -5,6 +5,8 @@ from PyQt5.QtGui import *
 from qfluentwidgets import (NavigationItemPosition, MessageBox, setTheme, setThemeColor, Theme, FluentWindow,
                             NavigationAvatarWidget, SubtitleLabel, setFont, InfoBadge,
                             InfoBadgePosition, CheckBox, PushButton, IndeterminateProgressRing)
+import threading
+import multiprocessing
 import os
 import csv
 from scp import SCPClient
@@ -129,7 +131,7 @@ class MainWindow(QWidget, Ui_Form3):
         result4 = conn.sudo('rm -r /home/journal', password=password, warn=True)
         
         result=fetch2(machine_name, ip_add, password,port,username,host,hostname,local_path_in,csv_file,filename)
-        self.Ui_Config_progress.configprogress_TextEdit.append(result)
+        # self.Ui_Config_progress.configprogress_TextEdit.append(result)
         result=fetch3(machine_name, ip_add, password,port,username,host,hostname,local_path_in,csv_file,filename)
         result=fetch4(machine_name, ip_add, password,port,username,host,hostname,local_path_in,csv_file,filename)
         result=fetch5(machine_name, ip_add, password,port,username,host,hostname,local_path_in,csv_file,filename)
@@ -211,9 +213,9 @@ def main():
     setThemeColor(color ,Qt.GlobalColor , '') 
     app = QApplication(sys.argv)
     window = MainWindow()
-    window.fetch('SERVER1','192.168.69.40','C:\\ProgramData\\REMT\\','Tests/LOGS/users.csv')
     window.show()
     sys.exit(app.exec_())
+
 
 if __name__ == "__main__":
     main()
