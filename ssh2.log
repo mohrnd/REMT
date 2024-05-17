@@ -1,2 +1,8 @@
 2024-05-17 16:58:21,485 - Connected (version 2.0, client OpenSSH_8.7)
 2024-05-17 16:58:21,657 - Authentication (password) successful!
+2024-05-17 18:22:19,526 - Connected (version 2.0, client OpenSSH_8.7)
+2024-05-17 18:22:19,618 - Authentication (password) successful!
+2024-05-17 18:22:19,618 - SSH connection established to 192.168.1.21 by user dell-5320
+2024-05-17 18:22:19,740 - Connected (version 2.0, client OpenSSH_8.7)
+2024-05-17 18:22:19,933 - Authentication (password) successful!
+2024-05-17 18:22:19,933 - SSH connection established to 192.168.1.21 by user dell-5320
