@@ -1,5 +1,5 @@
 import sys
-from PyQt5.QtWidgets import QApplication, QWidget, QTableWidgetItem, QMessageBox, QAbstractItemView
+from PyQt5.QtWidgets import QApplication, QWidget, QTableWidgetItem, QMessageBox, QAbstractItemView,QVBoxLayout, QScrollArea,QSizePolicy
 from PyQt5 import QtCore
 from PyQt5.QtCore import Qt, QTimer
 from PyQt5.QtGui import *
@@ -9,6 +9,10 @@ from qfluentwidgets import (TimePicker, NavigationItemPosition, MessageBox, setT
 from Ui_Main_data_viewer_window import Ui_Form
 from PyQt5.QtWidgets import QMainWindow
 import json
+import matplotlib.pyplot as plt
+from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
+import pandas as pd
+
 
 class MainWindow(QMainWindow, Ui_Form):
     def __init__(self, Machine_Name, Machine_Ip):
@@ -16,12 +20,24 @@ class MainWindow(QMainWindow, Ui_Form):
         self.setupUi(self)
         self.Machine_Name = Machine_Name
         self.Machine_Ip = Machine_Ip
+        self.LoadsLastHour.setLayout(QVBoxLayout())  # Définir un QVBoxLayout pour LoadsLastHour
+        self.plot_load_data_last_hour("2024-01-01 16:44:04")  # Appel de la fonction load_data au démarrage
         self.FillData()
         self.timer = QTimer(self)
         self.timer.timeout.connect(self.FillData)
         self.timer.start(10000)  # 10000 milliseconds -> 10 seconds
+        
+        
+        # Redimensionner la fenêtre
+        self.resize(813, 768)
 
+
+        
+        
+        
+        
     def FillData(self):
+        
         # change the filepath !!!!
         filepath = f"..\REMT\Tests\data_viewer (DONT USE ME)\{self.Machine_Name}.json"
         
@@ -82,13 +98,132 @@ class MainWindow(QMainWindow, Ui_Form):
         self.min5LoadRing.setProperty("value", load_5min)
         self.min15LoadRing.setProperty("value", load_15min)
         
-    def plot_graphs(self):
-        '''
-        last hour
-        last 24 hours
         
-        '''
-        pass
+    def load_data(self):
+        # Chemin vers le fichier JSON
+        filepath = r"..\REMT\Tests\Data_Viewer_final version\info.json"
+        
+        # Variables pour stocker les données
+        timestamps = []
+        load1min = []
+        load5min = []
+        load15min = []
+        cpucores = []
+        cpuusage = []
+        ramtotal = []
+        ramusage = []
+        disktotal = []
+        diskusage = []
+        uptime = []
+        totalswap = []
+        availableswap = []
+        totalcachedmemory = []
+        nicnames = []
+        datain = []
+        dataout = []
+        
+        # Charge les données à partir du fichier JSON
+        with open(filepath, 'r') as f:
+            data = json.load(f)
+        
+        # Parcourt chaque entrée dans les données
+        for entry in data:
+            timestamps.append(entry["timestamp"])
+            load1min.append(entry["LOAD1min"])
+            load5min.append(entry["LOAD5min"])
+            load15min.append(entry["LOAD15min"])
+            cpucores.append(entry["CPUcores"])
+            cpuusage.append(entry["CPUusage"])
+            ramtotal.append(entry["RAMtotal"])
+            ramusage.append(entry["RAMusage"])
+            disktotal.append(entry["DISKtotal"])
+            diskusage.append(entry["DISKusage"])
+            uptime.append(entry["UPTIME"])
+            totalswap.append(entry["TotalSWAP"])
+            availableswap.append(entry["AvailableSWAP"])
+            totalcachedmemory.append(entry["TotalCachedMemory"])
+            nicnames.append(entry["NICnames"])
+            datain.append(entry["dataIN"])
+            dataout.append(entry["dataOUT"])
+        
+        # Retourne les données séparées
+        return timestamps, load1min, load5min, load15min, cpuusage,ramusage, diskusage,nicnames
+            
+
+
+
+
+    def plot_load_data_last_hour(self, Enddate):
+        # Appelle la fonction load_data pour récupérer les données
+        timestamps, load1min, load5min, load15min, cpuusage, ramusage, diskusage, nicnames = self.load_data()
+
+        # Création d'un DataFrame à partir des données
+        df = pd.DataFrame({
+            'Timestamp': timestamps,
+            'LOAD1min': load1min,
+            'LOAD5min': load5min,
+            'LOAD15min': load15min,
+            'CPUusage': cpuusage,
+            'RAMusage': ramusage,
+            'DISKusage': diskusage,
+            'NICnames': nicnames
+        })
+
+        # Convertir la colonne 'Timestamp' en index de type datetime
+        df['Timestamp'] = pd.to_datetime(df['Timestamp'])
+        df.set_index('Timestamp', inplace=True)
+
+        # Date de début pour la période d'une heure précédant Enddate
+        Startdate = pd.to_datetime(Enddate) - pd.Timedelta(hours=1)
+
+        # Vérifier si la date de début spécifiée existe dans l'index du DataFrame
+        if Startdate not in df.index:
+            # Convertir la date de type str en type datetime
+            Startdate = pd.to_datetime(Startdate)
+            # Initialiser une variable pour l'incrémentation de 1 minute
+            increment = pd.Timedelta(minutes=1)
+            # Tant que la Startdate n'existe pas dans l'index du DataFrame
+            while Startdate not in df.index:
+                # Incrémenter Startdate de 1 minute
+                Startdate += increment
+            # Convertir Startdate en str pour l'affichage
+            Startdate = Startdate.strftime('%Y-%m-%d %H:%M:%S')
+            print(Startdate)
+
+
+        # Vérifier si la date de fin spécifiée existe dans l'index du DataFrame
+        if pd.to_datetime(Enddate) not in df.index:
+            print("Error: End date not found in the data.")
+            return
+
+        # Trancher le DataFrame en fonction des dates de début et de fin
+        sliced_df = df.loc[Startdate:Enddate]
+
+        # Vérifier s'il y a suffisamment de données disponibles dans la plage spécifiée
+        if len(sliced_df) == 0:
+            print("Error: Not enough data available within the specified range.")
+            return
+
+        # Création du graphe
+        fig, ax = plt.subplots(figsize=(10, 6))
+        ax.plot(sliced_df.index, sliced_df['LOAD1min'], label='LOAD1min', marker='.')
+        ax.plot(sliced_df.index, sliced_df['LOAD5min'], label='LOAD5min', marker='.')
+        ax.plot(sliced_df.index, sliced_df['LOAD15min'], label='LOAD15min', marker='.')
+        ax.set_xlabel('Time')
+        ax.set_ylabel('Load')
+        ax.set_title('Load Over Time')
+        ax.legend()
+        ax.grid(True)
+        fig.tight_layout()
+
+        # Création du canevas de dessin Matplotlib
+        self.canvas = FigureCanvas(fig)
+
+        # Ajout du canevas au layout du widget LoadsLastHour
+        self.LoadsLastHour.layout().addWidget(self.canvas)
+
+
+        
     def plot_custom_graphs(self):
         StartDate = self.StartDate.text()
         EndDate = self.EndDate.text()
