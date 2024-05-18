@@ -253,7 +253,7 @@ class Ui_Form(object):
         self.gridLayout_4.addWidget(self.StrongBodyLabel_8, 0, 0, 1, 1, QtCore.Qt.AlignHCenter)
         self.horizontalLayout_2.addWidget(self.ElevatedCardWidget_2)
         self.TimestampLabel = CaptionLabel(self.MainCard)
-        self.TimestampLabel.setGeometry(QtCore.QRect(160, 10, 70, 15))
+        self.TimestampLabel.setGeometry(QtCore.QRect(160, 10, 370, 15))
         self.TimestampLabel.setObjectName("TimestampLabel")
         self.CardWidget = CardWidget(Form)
         self.CardWidget.setGeometry(QtCore.QRect(10, 370, 1061, 521))

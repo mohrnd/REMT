@@ -607,7 +607,7 @@
           <x>0</x>
           <y>10</y>
           <width>1041</width>
-          <height>71</height>
+          <height>75</height>
          </rect>
         </property>
         <layout class="QHBoxLayout" name="horizontalLayout_3">

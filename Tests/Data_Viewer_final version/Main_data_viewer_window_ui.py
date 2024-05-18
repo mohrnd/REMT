@@ -365,7 +365,7 @@ class Ui_Form(object):
         self.CustomTab.setObjectName(u"CustomTab")
         self.horizontalLayoutWidget_3 = QWidget(self.CustomTab)
         self.horizontalLayoutWidget_3.setObjectName(u"horizontalLayoutWidget_3")
-        self.horizontalLayoutWidget_3.setGeometry(QRect(0, 10, 1041, 71))
+        self.horizontalLayoutWidget_3.setGeometry(QRect(0, 10, 1041, 75))
         self.horizontalLayout_3 = QHBoxLayout(self.horizontalLayoutWidget_3)
         self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
         self.horizontalLayout_3.setContentsMargins(0, 0, 0, 0)
