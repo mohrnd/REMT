@@ -25,7 +25,7 @@ class MainWindow(QMainWindow, Ui_Form):
     def FillData(self):
         
         # change the filepath !!!!
-        filepath = f"../REMT/Tests/data_viewer/{self.Machine_Name}.json"
+        filepath = f"..\REMT\Tests\data_viewer (DONT USE ME)\{self.Machine_Name}.json"
         
         
         with open(filepath, 'r') as f:
