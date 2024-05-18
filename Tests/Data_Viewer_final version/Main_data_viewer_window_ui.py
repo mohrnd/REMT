@@ -28,7 +28,7 @@ class Ui_Form(object):
     def setupUi(self, Form):
         if not Form.objectName():
             Form.setObjectName(u"Form")
-        Form.resize(1047, 1321)
+        Form.resize(1081, 934)
         self.MainCard = CardWidget(Form)
         self.MainCard.setObjectName(u"MainCard")
         self.MainCard.setGeometry(QRect(10, 10, 1061, 351))
@@ -335,7 +335,7 @@ class Ui_Form(object):
         self.TimestampLabel.setGeometry(QRect(160, 10, 471, 16))
         self.CardWidget = CardWidget(Form)
         self.CardWidget.setObjectName(u"CardWidget")
-        self.CardWidget.setGeometry(QRect(10, 370, 1061, 941))
+        self.CardWidget.setGeometry(QRect(10, 370, 1061, 561))
         self.gridLayout_8 = QGridLayout(self.CardWidget)
         self.gridLayout_8.setObjectName(u"gridLayout_8")
         self.tabWidget = QTabWidget(self.CardWidget)
@@ -453,7 +453,7 @@ class Ui_Form(object):
 
         self.verticalLayoutWidget_8 = QWidget(self.CustomTab)
         self.verticalLayoutWidget_8.setObjectName(u"verticalLayoutWidget_8")
-        self.verticalLayoutWidget_8.setGeometry(QRect(0, 90, 1041, 771))
+        self.verticalLayoutWidget_8.setGeometry(QRect(0, 90, 1041, 381))
         self.verticalLayout_10 = QVBoxLayout(self.verticalLayoutWidget_8)
         self.verticalLayout_10.setObjectName(u"verticalLayout_10")
         self.verticalLayout_10.setContentsMargins(0, 0, 0, 0)

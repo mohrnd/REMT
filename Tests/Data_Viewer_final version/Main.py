@@ -20,10 +20,8 @@ class MainWindow(QMainWindow, Ui_Form):
         self.timer = QTimer(self)
         self.timer.timeout.connect(self.FillData)
         self.timer.start(10000)  # 10000 milliseconds -> 10 seconds
-        
-        
+
     def FillData(self):
-        
         # change the filepath !!!!
         filepath = f"..\REMT\Tests\data_viewer (DONT USE ME)\{self.Machine_Name}.json"
         

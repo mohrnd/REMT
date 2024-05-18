@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_Form(object):
     def setupUi(self, Form):
         Form.setObjectName("Form")
-        Form.resize(1047, 1321)
+        Form.resize(1080, 1321)
         self.MainCard = CardWidget(Form)
         self.MainCard.setGeometry(QtCore.QRect(10, 10, 1061, 351))
         self.MainCard.setObjectName("MainCard")
