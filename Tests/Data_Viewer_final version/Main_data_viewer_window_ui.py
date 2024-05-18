@@ -15,8 +15,8 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QGridLayout, QHBoxLayout, QSizePolicy,
-    QSpacerItem, QStackedWidget, QTabWidget, QVBoxLayout,
+from PySide6.QtWidgets import (QApplication, QFrame, QGridLayout, QHBoxLayout,
+    QSizePolicy, QSpacerItem, QTabWidget, QVBoxLayout,
     QWidget)
 
 from qfluentwidgets import (BodyLabel, CalendarPicker, CaptionLabel, CardWidget,
@@ -28,7 +28,7 @@ class Ui_Form(object):
     def setupUi(self, Form):
         if not Form.objectName():
             Form.setObjectName(u"Form")
-        Form.resize(1080, 916)
+        Form.resize(1047, 1321)
         self.MainCard = CardWidget(Form)
         self.MainCard.setObjectName(u"MainCard")
         self.MainCard.setGeometry(QRect(10, 10, 1061, 351))
@@ -335,31 +335,70 @@ class Ui_Form(object):
         self.TimestampLabel.setGeometry(QRect(160, 10, 70, 15))
         self.CardWidget = CardWidget(Form)
         self.CardWidget.setObjectName(u"CardWidget")
-        self.CardWidget.setGeometry(QRect(10, 370, 1061, 541))
+        self.CardWidget.setGeometry(QRect(10, 370, 1061, 941))
         self.gridLayout_8 = QGridLayout(self.CardWidget)
         self.gridLayout_8.setObjectName(u"gridLayout_8")
         self.tabWidget = QTabWidget(self.CardWidget)
         self.tabWidget.setObjectName(u"tabWidget")
         self.LastHourTab = QWidget()
         self.LastHourTab.setObjectName(u"LastHourTab")
-        self.LastHourTabGraphs = QStackedWidget(self.LastHourTab)
-        self.LastHourTabGraphs.setObjectName(u"LastHourTabGraphs")
-        self.LastHourTabGraphs.setGeometry(QRect(0, 0, 1041, 531))
-        self.NetworkGraphs = QWidget()
-        self.NetworkGraphs.setObjectName(u"NetworkGraphs")
-        self.LastHourTabGraphs.addWidget(self.NetworkGraphs)
-        self.LoadAveragesgraphs = QWidget()
-        self.LoadAveragesgraphs.setObjectName(u"LoadAveragesgraphs")
-        self.LastHourTabGraphs.addWidget(self.LoadAveragesgraphs)
-        self.CPUandRamGraphs = QWidget()
-        self.CPUandRamGraphs.setObjectName(u"CPUandRamGraphs")
-        self.LastHourTabGraphs.addWidget(self.CPUandRamGraphs)
-        self.DiskGraphs = QWidget()
-        self.DiskGraphs.setObjectName(u"DiskGraphs")
-        self.LastHourTabGraphs.addWidget(self.DiskGraphs)
+        self.verticalLayoutWidget_2 = QWidget(self.LastHourTab)
+        self.verticalLayoutWidget_2.setObjectName(u"verticalLayoutWidget_2")
+        self.verticalLayoutWidget_2.setGeometry(QRect(0, 0, 1041, 861))
+        self.verticalLayout_4 = QVBoxLayout(self.verticalLayoutWidget_2)
+        self.verticalLayout_4.setObjectName(u"verticalLayout_4")
+        self.verticalLayout_4.setContentsMargins(0, 0, 0, 0)
+        self.CPURAMDISKLastHour = QFrame(self.verticalLayoutWidget_2)
+        self.CPURAMDISKLastHour.setObjectName(u"CPURAMDISKLastHour")
+        self.CPURAMDISKLastHour.setFrameShape(QFrame.StyledPanel)
+        self.CPURAMDISKLastHour.setFrameShadow(QFrame.Raised)
+
+        self.verticalLayout_4.addWidget(self.CPURAMDISKLastHour)
+
+        self.LoadsLastHour = QFrame(self.verticalLayoutWidget_2)
+        self.LoadsLastHour.setObjectName(u"LoadsLastHour")
+        self.LoadsLastHour.setFrameShape(QFrame.StyledPanel)
+        self.LoadsLastHour.setFrameShadow(QFrame.Raised)
+
+        self.verticalLayout_4.addWidget(self.LoadsLastHour)
+
+        self.NetworkLastHour = QFrame(self.verticalLayoutWidget_2)
+        self.NetworkLastHour.setObjectName(u"NetworkLastHour")
+        self.NetworkLastHour.setFrameShape(QFrame.StyledPanel)
+        self.NetworkLastHour.setFrameShadow(QFrame.Raised)
+
+        self.verticalLayout_4.addWidget(self.NetworkLastHour)
+
         self.tabWidget.addTab(self.LastHourTab, "")
         self.Last24HoursTab = QWidget()
         self.Last24HoursTab.setObjectName(u"Last24HoursTab")
+        self.verticalLayoutWidget_3 = QWidget(self.Last24HoursTab)
+        self.verticalLayoutWidget_3.setObjectName(u"verticalLayoutWidget_3")
+        self.verticalLayoutWidget_3.setGeometry(QRect(0, 0, 1041, 861))
+        self.verticalLayout_5 = QVBoxLayout(self.verticalLayoutWidget_3)
+        self.verticalLayout_5.setObjectName(u"verticalLayout_5")
+        self.verticalLayout_5.setContentsMargins(0, 0, 0, 0)
+        self.CPURAMDISKLast24Hours = QFrame(self.verticalLayoutWidget_3)
+        self.CPURAMDISKLast24Hours.setObjectName(u"CPURAMDISKLast24Hours")
+        self.CPURAMDISKLast24Hours.setFrameShape(QFrame.StyledPanel)
+        self.CPURAMDISKLast24Hours.setFrameShadow(QFrame.Raised)
+
+        self.verticalLayout_5.addWidget(self.CPURAMDISKLast24Hours)
+
+        self.LoadsLast24Hours = QFrame(self.verticalLayoutWidget_3)
+        self.LoadsLast24Hours.setObjectName(u"LoadsLast24Hours")
+        self.LoadsLast24Hours.setFrameShape(QFrame.StyledPanel)
+        self.LoadsLast24Hours.setFrameShadow(QFrame.Raised)
+
+        self.verticalLayout_5.addWidget(self.LoadsLast24Hours)
+
+        self.NetworkLast24Hours = QFrame(self.verticalLayoutWidget_3)
+        self.NetworkLast24Hours.setObjectName(u"NetworkLast24Hours")
+        self.NetworkLast24Hours.setFrameShape(QFrame.StyledPanel)
+        self.NetworkLast24Hours.setFrameShadow(QFrame.Raised)
+
+        self.verticalLayout_5.addWidget(self.NetworkLast24Hours)
+
         self.tabWidget.addTab(self.Last24HoursTab, "")
         self.CustomTab = QWidget()
         self.CustomTab.setObjectName(u"CustomTab")
@@ -412,6 +451,33 @@ class Ui_Form(object):
 
         self.horizontalLayout_3.addLayout(self.gridLayout_9)
 
+        self.verticalLayoutWidget_8 = QWidget(self.CustomTab)
+        self.verticalLayoutWidget_8.setObjectName(u"verticalLayoutWidget_8")
+        self.verticalLayoutWidget_8.setGeometry(QRect(0, 90, 1041, 771))
+        self.verticalLayout_10 = QVBoxLayout(self.verticalLayoutWidget_8)
+        self.verticalLayout_10.setObjectName(u"verticalLayout_10")
+        self.verticalLayout_10.setContentsMargins(0, 0, 0, 0)
+        self.CPURAMDISKCustom = QFrame(self.verticalLayoutWidget_8)
+        self.CPURAMDISKCustom.setObjectName(u"CPURAMDISKCustom")
+        self.CPURAMDISKCustom.setFrameShape(QFrame.StyledPanel)
+        self.CPURAMDISKCustom.setFrameShadow(QFrame.Raised)
+
+        self.verticalLayout_10.addWidget(self.CPURAMDISKCustom)
+
+        self.LoadsCustom = QFrame(self.verticalLayoutWidget_8)
+        self.LoadsCustom.setObjectName(u"LoadsCustom")
+        self.LoadsCustom.setFrameShape(QFrame.StyledPanel)
+        self.LoadsCustom.setFrameShadow(QFrame.Raised)
+
+        self.verticalLayout_10.addWidget(self.LoadsCustom)
+
+        self.NetworkCustom = QFrame(self.verticalLayoutWidget_8)
+        self.NetworkCustom.setObjectName(u"NetworkCustom")
+        self.NetworkCustom.setFrameShape(QFrame.StyledPanel)
+        self.NetworkCustom.setFrameShadow(QFrame.Raised)
+
+        self.verticalLayout_10.addWidget(self.NetworkCustom)
+
         self.tabWidget.addTab(self.CustomTab, "")
 
         self.gridLayout_8.addWidget(self.tabWidget, 1, 0, 1, 1)
@@ -434,7 +500,6 @@ class Ui_Form(object):
         self.retranslateUi(Form)
 
         self.tabWidget.setCurrentIndex(0)
-        self.LastHourTabGraphs.setCurrentIndex(2)
 
 
         QMetaObject.connectSlotsByName(Form)
