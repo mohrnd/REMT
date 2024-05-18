@@ -83,7 +83,25 @@ class MainWindow(QMainWindow, Ui_Form):
         self.min1LoadRing.setProperty("value", load_1min)
         self.min5LoadRing.setProperty("value", load_5min)
         self.min15LoadRing.setProperty("value", load_15min)
-
+        
+    def plot_graphs(self):
+        '''
+        last hour
+        last 24 hours
+        
+        '''
+        pass
+    def plot_custom_graphs(self):
+        StartDate = self.StartDate.text()
+        EndDate = self.EndDate.text()
+        start_time = self.StartTime.time.toString()
+        end_time = self.EndTime.time.toString()
+        Ticks = self.TicksForm.text() 
+        print(StartDate, EndDate, start_time, end_time, Ticks)
+        '''
+        
+        '''
+        pass
 def convert_to_gb_or_mb(value):
     value = int(value)
     if value >= 1024 * 1024: 
