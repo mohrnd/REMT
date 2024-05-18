@@ -332,7 +332,7 @@ class Ui_Form(object):
 
         self.TimestampLabel = CaptionLabel(self.MainCard)
         self.TimestampLabel.setObjectName(u"TimestampLabel")
-        self.TimestampLabel.setGeometry(QRect(160, 10, 70, 15))
+        self.TimestampLabel.setGeometry(QRect(160, 10, 471, 16))
         self.CardWidget = CardWidget(Form)
         self.CardWidget.setObjectName(u"CardWidget")
         self.CardWidget.setGeometry(QRect(10, 370, 1061, 941))
@@ -499,7 +499,7 @@ class Ui_Form(object):
 
         self.retranslateUi(Form)
 
-        self.tabWidget.setCurrentIndex(0)
+        self.tabWidget.setCurrentIndex(2)
 
 
         QMetaObject.connectSlotsByName(Form)
