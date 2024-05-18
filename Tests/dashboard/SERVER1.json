@@ -1,0 +1,86 @@
+[
+    {
+        "timestamp": "2024-04-12 05:30:43",
+        "LOAD1min": "0.08",
+        "LOAD5min": "0.02",
+        "LOAD15min": "0.01",
+        "CPUcores": "2",
+        "CPUusage": "23",
+        "RAMtotal": "1754368",
+        "RAMusage": "11",
+        "DISKtotal": "17811456",
+        "DISKusage": "36",
+        "UPTIME": "363312",
+        "TotalSWAP": "2097148",
+        "AvailableSWAP": "2093796",
+        "TotalCachedMemory": "499600",
+        "NICnames": [
+            "lo",
+            "eth0"
+        ],
+        "dataIN": [
+            "13527",
+            "23858158"
+        ],
+        "dataOUT": [
+            "13527",
+            "809128"
+        ]
+    }
+,{
+    "timestamp": "2024-04-12 05:30:54",
+    "LOAD1min": "0.07",
+    "LOAD5min": "0.02",
+    "LOAD15min": "0.00",
+    "CPUcores": "2",
+    "CPUusage": "24",
+    "RAMtotal": "1754368",
+    "RAMusage": "11",
+    "DISKtotal": "17811456",
+    "DISKusage": "36",
+    "UPTIME": "364318",
+    "TotalSWAP": "2097148",
+    "AvailableSWAP": "2093796",
+    "TotalCachedMemory": "499652",
+    "NICnames": [
+        "lo",
+        "eth0"
+    ],
+    "dataIN": [
+        "20210",
+        "23864572"
+    ],
+    "dataOUT": [
+        "20210",
+        "817193"
+    ]
+}
+,{
+    "timestamp": "2024-04-12 05:31:14",
+    "LOAD1min": "0.05",
+    "LOAD5min": "0.01",
+    "LOAD15min": "0.00",
+    "CPUcores": "2",
+    "CPUusage": "25",
+    "RAMtotal": "1754368",
+    "RAMusage": "10",
+    "DISKtotal": "17811456",
+    "DISKusage": "36",
+    "UPTIME": "366330",
+    "TotalSWAP": "2097148",
+    "AvailableSWAP": "2093796",
+    "TotalCachedMemory": "499720",
+    "NICnames": [
+        "lo",
+        "eth0"
+    ],
+    "dataIN": [
+        "61104",
+        "23893274"
+    ],
+    "dataOUT": [
+        "61104",
+        "854413"
+    ]
+}
+]
