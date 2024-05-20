@@ -1,7 +1,7 @@
 import sys
 from PyQt5.QtWidgets import QApplication, QWidget, QTableWidgetItem, QMessageBox, QAbstractItemView,QVBoxLayout, QScrollArea,QSizePolicy
 from PyQt5 import QtCore
-from PyQt5.QtCore import Qt, QTimer
+from PyQt5.QtCore import Qt, QTimer,QTime
 from PyQt5.QtGui import *
 from qfluentwidgets import (TimePicker, NavigationItemPosition, MessageBox, setTheme, setThemeColor, Theme, FluentWindow,
                             NavigationAvatarWidget, SubtitleLabel, setFont, InfoBadge,
@@ -12,7 +12,7 @@ import json
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 import pandas as pd
-
+from datetime import datetime
 
 class MainWindow(QMainWindow, Ui_Form):
     def __init__(self, Machine_Name, Machine_Ip):
@@ -21,7 +21,21 @@ class MainWindow(QMainWindow, Ui_Form):
         self.Machine_Name = Machine_Name
         self.Machine_Ip = Machine_Ip
         self.LoadsLastHour.setLayout(QVBoxLayout())  # Définir un QVBoxLayout pour LoadsLastHour
-        self.plot_load_data_last_hour("2024-01-01 16:44:04")  # Appel de la fonction load_data au démarrage
+        self.plot_load_data_last_hour("2024-01-01 16:44:04")  # Appel de la fonction  au démarrage
+        self.CPULastHour.setLayout(QVBoxLayout())
+        self.plot_CPU_last_hour("2024-01-01 16:44:04")  # Appel de la fonction  au démarrage
+        self.NetworkLastHour.setLayout(QVBoxLayout())
+        self.plot_data_in_out_last_hour("2024-01-01 16:44:04") 
+        self.LoadsLast24Hours.setLayout(QVBoxLayout())
+        self.plot_load_data_last_24hours("2024-01-01 16:44:04")  # Appel de la fonction  au démarrage
+        self.CPULast24Hours.setLayout(QVBoxLayout())
+        self.plot_CPU_last_24hours("2024-01-01 16:44:04")  # Appel de la fonction  au démarrage
+        self.NetworkLast24Hours.setLayout(QVBoxLayout())
+        self.plot_data_in_out_last_24hours("2024-01-01 16:44:04")
+        self.PlotButton.clicked.connect(self.plot_custom_graphs)
+        self.LoadsCustom.setLayout(QVBoxLayout())
+        self.CPUCustom.setLayout(QVBoxLayout())
+        self.NetworkCustom.setLayout(QVBoxLayout())
         self.FillData()
         self.timer = QTimer(self)
         self.timer.timeout.connect(self.FillData)
@@ -147,7 +161,7 @@ class MainWindow(QMainWindow, Ui_Form):
             dataout.append(entry["dataOUT"])
         
         # Retourne les données séparées
-        return timestamps, load1min, load5min, load15min, cpuusage,ramusage, diskusage,nicnames
+        return timestamps, load1min, load5min, load15min, cpuusage,ramusage, diskusage,nicnames,datain,dataout
             
 
 
@@ -155,7 +169,7 @@ class MainWindow(QMainWindow, Ui_Form):
 
     def plot_load_data_last_hour(self, Enddate):
         # Appelle la fonction load_data pour récupérer les données
-        timestamps, load1min, load5min, load15min, cpuusage, ramusage, diskusage, nicnames = self.load_data()
+        timestamps, load1min, load5min, load15min, cpuusage,ramusage, diskusage,nicnames,datain,dataout = self.load_data()
 
         # Création d'un DataFrame à partir des données
         df = pd.DataFrame({
@@ -166,7 +180,7 @@ class MainWindow(QMainWindow, Ui_Form):
             'CPUusage': cpuusage,
             'RAMusage': ramusage,
             'DISKusage': diskusage,
-            'NICnames': nicnames
+            'NICnames': nicnames,
         })
 
         # Convertir la colonne 'Timestamp' en index de type datetime
@@ -175,20 +189,21 @@ class MainWindow(QMainWindow, Ui_Form):
 
         # Date de début pour la période d'une heure précédant Enddate
         Startdate = pd.to_datetime(Enddate) - pd.Timedelta(hours=1)
+        print("REAL_load_last_hour = ",Startdate)
 
         # Vérifier si la date de début spécifiée existe dans l'index du DataFrame
         if Startdate not in df.index:
             # Convertir la date de type str en type datetime
             Startdate = pd.to_datetime(Startdate)
             # Initialiser une variable pour l'incrémentation de 1 minute
-            increment = pd.Timedelta(minutes=1)
+            increment = pd.Timedelta(seconds=1)
             # Tant que la Startdate n'existe pas dans l'index du DataFrame
             while Startdate not in df.index:
                 # Incrémenter Startdate de 1 minute
                 Startdate += increment
             # Convertir Startdate en str pour l'affichage
             Startdate = Startdate.strftime('%Y-%m-%d %H:%M:%S')
-            print(Startdate)
+            print("NEAREST_load_last_hour = ",Startdate)
 
 
         # Vérifier si la date de fin spécifiée existe dans l'index du DataFrame
@@ -222,19 +237,523 @@ class MainWindow(QMainWindow, Ui_Form):
         # Ajout du canevas au layout du widget LoadsLastHour
         self.LoadsLastHour.layout().addWidget(self.canvas)
 
+    def plot_CPU_last_hour(self, Enddate):
+        # Appelle la fonction load_data pour récupérer les données
+        timestamps, load1min, load5min, load15min, cpuusage,ramusage, diskusage,nicnames,datain,dataout = self.load_data()
 
+        # Création d'un DataFrame à partir des données
+        df = pd.DataFrame({
+            'Timestamp': timestamps,
+            'LOAD1min': load1min,
+            'LOAD5min': load5min,
+            'LOAD15min': load15min,
+            'CPUusage': cpuusage,
+            'RAMusage': ramusage,
+            'DISKusage': diskusage,
+            'NICnames': nicnames
+        })
+
+        # Convertir la colonne 'Timestamp' en index de type datetime
+        df['Timestamp'] = pd.to_datetime(df['Timestamp'])
+        df.set_index('Timestamp', inplace=True)
+
+        # Date de début pour la période d'une heure précédant Enddate
+        Startdate = pd.to_datetime(Enddate) - pd.Timedelta(hours=1)
+        print("REAL_cpu_last_hour = ",Startdate)
+
+        # Vérifier si la date de début spécifiée existe dans l'index du DataFrame
+        if Startdate not in df.index:
+            # Convertir la date de type str en type datetime
+            Startdate = pd.to_datetime(Startdate)
+            # Initialiser une variable pour l'incrémentation de 1 minute
+            increment = pd.Timedelta(minutes=1)
+            # Tant que la Startdate n'existe pas dans l'index du DataFrame
+            while Startdate not in df.index:
+                # Incrémenter Startdate de 1 minute
+                Startdate += increment
+            # Convertir Startdate en str pour l'affichage
+            Startdate = Startdate.strftime('%Y-%m-%d %H:%M:%S')
+            print("NEAREST_cpu_last_hour = ",Startdate)
+
+
+        # Vérifier si la date de fin spécifiée existe dans l'index du DataFrame
+        if pd.to_datetime(Enddate) not in df.index:
+            print("Error: End date not found in the data.")
+            return
+
+        # Trancher le DataFrame en fonction des dates de début et de fin
+        sliced_df = df.loc[Startdate:Enddate]
+
+        # Vérifier s'il y a suffisamment de données disponibles dans la plage spécifiée
+        if len(sliced_df) == 0:
+            print("Error: Not enough data available within the specified range.")
+            return
+
+        # Création du graphe
+        fig, ax = plt.subplots(figsize=(10, 6))
+        ax.plot(sliced_df.index, sliced_df['CPUusage'], label='CPUusage', marker='.')
+        ax.plot(sliced_df.index, sliced_df['RAMusage'], label='RAMusage', marker='.')
+        ax.plot(sliced_df.index, sliced_df['DISKusage'], label='DISKusage', marker='.')
+        ax.set_xlabel('Time')
+        ax.set_ylabel('Usage')
+        ax.set_title('Usage Over Time')
+        ax.legend()
+        ax.grid(True)
+        fig.tight_layout()
+
+        # Création du canevas de dessin Matplotlib
+        self.canvas = FigureCanvas(fig)
+
+        # Ajout du canevas au layout du widget LoadsLastHour
+        self.CPULastHour.layout().addWidget(self.canvas)
+        
+        
+    def plot_data_in_out_last_hour(self, Enddate):
+        timestamps, load1min, load5min, load15min, cpuusage, ramusage, diskusage, nicnames, datain, dataout = self.load_data()
+
+        df = pd.DataFrame({
+            'Timestamp': timestamps,
+            'NICnames': nicnames,
+            'datain': datain,
+            'dataout': dataout
+        })
+
+        df['Timestamp'] = pd.to_datetime(df['Timestamp'])
+        df.set_index('Timestamp', inplace=True)
+
+        # Date de début pour la période d'une heure précédant Enddate
+        Startdate = pd.to_datetime(Enddate) - pd.Timedelta(hours=1)
+        print("REAL_network_last_hour = ",Startdate)
+
+        # Vérifier si la date de début spécifiée existe dans l'index du DataFrame
+        if Startdate not in df.index:
+            # Convertir la date de type str en type datetime
+            Startdate = pd.to_datetime(Startdate)
+            # Initialiser une variable pour l'incrémentation de 1 minute
+            increment = pd.Timedelta(seconds=1)
+            # Tant que la Startdate n'existe pas dans l'index du DataFrame
+            while Startdate not in df.index:
+                # Incrémenter Startdate de 1 minute
+                Startdate += increment
+            # Convertir Startdate en str pour l'affichage
+            Startdate = Startdate.strftime('%Y-%m-%d %H:%M:%S')
+            print("NEAREST_network_last_hour = ",Startdate)
+
+        # Vérifier si la date de fin spécifiée existe dans l'index du DataFrame
+        if pd.to_datetime(Enddate) not in df.index:
+            print("Error: End date not found in the data.")
+            return
+
+        # Trancher le DataFrame en fonction des dates de début et de fin
+        sliced_df = df.loc[Startdate:Enddate]
+
+        # Vérifier s'il y a suffisamment de données disponibles dans la plage spécifiée
+        if len(sliced_df) == 0:
+            print("Error: Not enough data available within the specified range.")
+            return
+
+        nicnames_unique = set([nic for sublist in df['NICnames'] for nic in sublist])
+
+        for nic in nicnames_unique:
+            data_in = []
+            data_out = []
+            for idx, row in sliced_df.iterrows():
+                if nic in row['NICnames']:
+                    nic_index = row['NICnames'].index(nic)
+                    data_in.append((idx, int(row['datain'][nic_index])))
+                    data_out.append((idx, int(row['dataout'][nic_index])))
+
+            data_in_df = pd.DataFrame(data_in, columns=['Timestamp', 'DataIN']).set_index('Timestamp')
+            data_out_df = pd.DataFrame(data_out, columns=['Timestamp', 'DataOUT']).set_index('Timestamp')
+
+            fig, ax = plt.subplots(figsize=(10, 5))
+            ax.plot(data_in_df.index, data_in_df['DataIN'], label='Data IN')
+            ax.plot(data_out_df.index, data_out_df['DataOUT'], label='Data OUT')
+            ax.set_title(f'Data IN/OUT for {nic}')
+            ax.set_xlabel('Timestamp')
+            ax.set_ylabel('Data (bytes)')
+            ax.legend()
+            ax.grid(True)
+            fig.tight_layout()
+
+            # Ajouter le canevas de dessin Matplotlib au layout PyQt5
+            self.canvas = FigureCanvas(fig)
+            self.NetworkLastHour.layout().addWidget(self.canvas)
+        
+    def plot_load_data_last_24hours(self, Enddate):
+        # Appelle la fonction load_data pour récupérer les données
+        timestamps, load1min, load5min, load15min, cpuusage,ramusage, diskusage,nicnames,datain,dataout = self.load_data()
+
+        # Création d'un DataFrame à partir des données
+        df = pd.DataFrame({
+            'Timestamp': timestamps,
+            'LOAD1min': load1min,
+            'LOAD5min': load5min,
+            'LOAD15min': load15min,
+            'CPUusage': cpuusage,
+            'RAMusage': ramusage,
+            'DISKusage': diskusage,
+            'NICnames': nicnames
+        })
+
+        # Convertir la colonne 'Timestamp' en index de type datetime
+        df['Timestamp'] = pd.to_datetime(df['Timestamp'])
+        df.set_index('Timestamp', inplace=True)
+
+        # Date de début pour la période d'un jour précédant Enddate
+        Startdate = pd.to_datetime(Enddate) - pd.Timedelta(days=1)
+        print("REAL_load_last_24hours = ",Startdate)
+
+        # Vérifier si la date de début spécifiée existe dans l'index du DataFrame
+        if Startdate not in df.index:
+            # Convertir la date de type str en type datetime
+            Startdate = pd.to_datetime(Startdate)
+            # Initialiser une variable pour l'incrémentation de 1 minute
+            increment = pd.Timedelta(seconds=1)
+            # Tant que la Startdate n'existe pas dans l'index du DataFrame
+            while Startdate not in df.index:
+                # Incrémenter Startdate de 1 minute
+                Startdate += increment
+            # Convertir Startdate en str pour l'affichage
+            Startdate = Startdate.strftime('%Y-%m-%d %H:%M:%S')
+            print("NEAREST_load_last_24hours = ",Startdate)
+
+
+        # Vérifier si la date de fin spécifiée existe dans l'index du DataFrame
+        if pd.to_datetime(Enddate) not in df.index:
+            print("Error: End date not found in the data.")
+            return
+
+        # Trancher le DataFrame en fonction des dates de début et de fin
+        sliced_df = df.loc[Startdate:Enddate]
+
+        # Vérifier s'il y a suffisamment de données disponibles dans la plage spécifiée
+        if len(sliced_df) == 0:
+            print("Error: Not enough data available within the specified range.")
+            return
+
+        # Création du graphe
+        fig, ax = plt.subplots(figsize=(10, 6))
+        ax.plot(sliced_df.index, sliced_df['LOAD1min'], label='LOAD1min', marker='.')
+        ax.plot(sliced_df.index, sliced_df['LOAD5min'], label='LOAD5min', marker='.')
+        ax.plot(sliced_df.index, sliced_df['LOAD15min'], label='LOAD15min', marker='.')
+        ax.set_xlabel('Time')
+        ax.set_ylabel('Load')
+        ax.set_title('Load Over Time')
+        ax.legend()
+        ax.grid(True)
+        fig.tight_layout()
+
+        # Création du canevas de dessin Matplotlib
+        self.canvas = FigureCanvas(fig)
+
+        # Ajout du canevas au layout du widget LoadsLastHour
+        self.LoadsLast24Hours.layout().addWidget(self.canvas)
+        
+        
+    def plot_CPU_last_24hours(self, Enddate):
+        # Appelle la fonction load_data pour récupérer les données
+        timestamps, load1min, load5min, load15min, cpuusage,ramusage, diskusage,nicnames,datain,dataout = self.load_data()
+
+        # Création d'un DataFrame à partir des données
+        df = pd.DataFrame({
+            'Timestamp': timestamps,
+            'LOAD1min': load1min,
+            'LOAD5min': load5min,
+            'LOAD15min': load15min,
+            'CPUusage': cpuusage,
+            'RAMusage': ramusage,
+            'DISKusage': diskusage,
+            'NICnames': nicnames
+        })
+
+        # Convertir la colonne 'Timestamp' en index de type datetime
+        df['Timestamp'] = pd.to_datetime(df['Timestamp'])
+        df.set_index('Timestamp', inplace=True)
+
+        # Date de début pour la période d'un jour précédant Enddate
+        Startdate = pd.to_datetime(Enddate) - pd.Timedelta(days=1)
+        print("REAL_cpu_last_24hours = ",Startdate)
+
+        # Vérifier si la date de début spécifiée existe dans l'index du DataFrame
+        if Startdate not in df.index:
+            # Convertir la date de type str en type datetime
+            Startdate = pd.to_datetime(Startdate)
+            # Initialiser une variable pour l'incrémentation de 1 minute
+            increment = pd.Timedelta(seconds=1)
+            # Tant que la Startdate n'existe pas dans l'index du DataFrame
+            while Startdate not in df.index:
+                # Incrémenter Startdate de 1 minute
+                Startdate += increment
+            # Convertir Startdate en str pour l'affichage
+            Startdate = Startdate.strftime('%Y-%m-%d %H:%M:%S')
+            print("NEAREST_cpu_last_24hours = ",Startdate)
+
+
+        # Vérifier si la date de fin spécifiée existe dans l'index du DataFrame
+        if pd.to_datetime(Enddate) not in df.index:
+            print("Error: End date not found in the data.")
+            return
+
+        # Trancher le DataFrame en fonction des dates de début et de fin
+        sliced_df = df.loc[Startdate:Enddate]
+
+        # Vérifier s'il y a suffisamment de données disponibles dans la plage spécifiée
+        if len(sliced_df) == 0:
+            print("Error: Not enough data available within the specified range.")
+            return
+
+        # Création du graphe
+        fig, ax = plt.subplots(figsize=(10, 6))
+        ax.plot(sliced_df.index, sliced_df['CPUusage'], label='CPUusage', marker='.')
+        ax.plot(sliced_df.index, sliced_df['RAMusage'], label='RAMusage', marker='.')
+        ax.plot(sliced_df.index, sliced_df['DISKusage'], label='DISKusage', marker='.')
+        ax.set_xlabel('Time')
+        ax.set_ylabel('Usage')
+        ax.set_title('Usage Over Time')
+        ax.legend()
+        ax.grid(True)
+        fig.tight_layout()
+
+        # Création du canevas de dessin Matplotlib
+        self.canvas = FigureCanvas(fig)
+
+        # Ajout du canevas au layout du widget LoadsLastHour
+        self.CPULast24Hours.layout().addWidget(self.canvas)
+        
+    def plot_data_in_out_last_24hours(self, Enddate):
+        timestamps, load1min, load5min, load15min, cpuusage, ramusage, diskusage, nicnames, datain, dataout = self.load_data()
+
+        df = pd.DataFrame({
+            'Timestamp': timestamps,
+            'NICnames': nicnames,
+            'datain': datain,
+            'dataout': dataout
+        })
+
+        df['Timestamp'] = pd.to_datetime(df['Timestamp'])
+        df.set_index('Timestamp', inplace=True)
+
+        # Date de début pour la période d'une heure précédant Enddate
+        Startdate = pd.to_datetime(Enddate) - pd.Timedelta(days=1)
+        print("REAL_network_last_24hours = ",Startdate)
+
+        # Vérifier si la date de début spécifiée existe dans l'index du DataFrame
+        if Startdate not in df.index:
+            # Convertir la date de type str en type datetime
+            Startdate = pd.to_datetime(Startdate)
+            # Initialiser une variable pour l'incrémentation de 1 minute
+            increment = pd.Timedelta(seconds=1)
+            # Tant que la Startdate n'existe pas dans l'index du DataFrame
+            while Startdate not in df.index:
+                # Incrémenter Startdate de 1 minute
+                Startdate += increment
+            # Convertir Startdate en str pour l'affichage
+            Startdate = Startdate.strftime('%Y-%m-%d %H:%M:%S')
+            print("NEAREST_network_last_24hours = ",Startdate)
+
+        # Vérifier si la date de fin spécifiée existe dans l'index du DataFrame
+        if pd.to_datetime(Enddate) not in df.index:
+            print("Error: End date not found in the data.")
+            return
+
+        # Trancher le DataFrame en fonction des dates de début et de fin
+        sliced_df = df.loc[Startdate:Enddate]
+
+        # Vérifier s'il y a suffisamment de données disponibles dans la plage spécifiée
+        if len(sliced_df) == 0:
+            print("Error: Not enough data available within the specified range.")
+            return
+
+        nicnames_unique = set([nic for sublist in df['NICnames'] for nic in sublist])
+
+        for nic in nicnames_unique:
+            data_in = []
+            data_out = []
+            for idx, row in sliced_df.iterrows():
+                if nic in row['NICnames']:
+                    nic_index = row['NICnames'].index(nic)
+                    data_in.append((idx, int(row['datain'][nic_index])))
+                    data_out.append((idx, int(row['dataout'][nic_index])))
+
+            data_in_df = pd.DataFrame(data_in, columns=['Timestamp', 'DataIN']).set_index('Timestamp')
+            data_out_df = pd.DataFrame(data_out, columns=['Timestamp', 'DataOUT']).set_index('Timestamp')
+
+            fig, ax = plt.subplots(figsize=(10, 5))
+            ax.plot(data_in_df.index, data_in_df['DataIN'], label='Data IN')
+            ax.plot(data_out_df.index, data_out_df['DataOUT'], label='Data OUT')
+            ax.set_title(f'Data IN/OUT for {nic}')
+            ax.set_xlabel('Timestamp')
+            ax.set_ylabel('Data (bytes)')
+            ax.legend()
+            ax.grid(True)
+            fig.tight_layout()
+
+            # Ajouter le canevas de dessin Matplotlib au layout PyQt5
+            self.canvas = FigureCanvas(fig)
+            self.NetworkLast24Hours.layout().addWidget(self.canvas)
+        
         
     def plot_custom_graphs(self):
+        
+        # Supprimer directement le graphe existant
+        try:
+            self.canvas.setParent(None)
+        except AttributeError:
+            pass  # Si self.canvas n'existe pas encore, ignorer l'erreur
+        
         StartDate = self.StartDate.text()
         EndDate = self.EndDate.text()
         start_time = self.StartTime.time.toString()
         end_time = self.EndTime.time.toString()
-        Ticks = self.TicksForm.text() 
-        print(StartDate, EndDate, start_time, end_time, Ticks)
-        '''
+        Ticks = self.Ticks.text()
         
-        '''
-        pass
+        StartDate = f"{StartDate} {start_time}"
+        EndDate = f"{EndDate} {end_time}"
+
+        # Faire quelque chose avec les valeurs récupérées, comme par exemple tracer un graphique
+        # print("StartDate:", StartDate)
+        # print("EndDate:", EndDate)
+        # print("StartTime:", start_time)
+        # print("EndTime:", end_time)
+        # print("Ticks:", Ticks)
+        
+        print("StartDate_load_custom:", StartDate)
+        print("EndDate_load_custom:", EndDate)
+        
+        
+        # Appelle la fonction load_data pour récupérer les données
+        timestamps, load1min, load5min, load15min, cpuusage,ramusage, diskusage,nicnames,datain,dataout = self.load_data()
+
+        # Création d'un DataFrame à partir des données
+        df = pd.DataFrame({
+            'Timestamp': timestamps,
+            'LOAD1min': load1min,
+            'LOAD5min': load5min,
+            'LOAD15min': load15min,
+            'CPUusage': cpuusage,
+            'RAMusage': ramusage,
+            'DISKusage': diskusage,
+            'NICnames': nicnames,
+            'datain': datain,
+            'dataout': dataout
+        })
+
+        # Convertir la colonne 'Timestamp' en index de type datetime
+        df['Timestamp'] = pd.to_datetime(df['Timestamp'])
+        df.set_index('Timestamp', inplace=True)
+
+
+        # Vérifier si la date de début spécifiée existe dans l'index du DataFrame
+        if StartDate not in df.index:
+            # Convertir la date de type str en type datetime
+            StartDate = pd.to_datetime(StartDate)
+            # Initialiser une variable pour l'incrémentation de 1 minute
+            increment = pd.Timedelta(seconds=1)
+            # Tant que la Startdate n'existe pas dans l'index du DataFrame
+            while StartDate not in df.index:
+                # Incrémenter Startdate de 1 minute
+                StartDate += increment
+            # Convertir Startdate en str pour l'affichage
+            StartDate = StartDate.strftime('%Y-%m-%d %H:%M:%S')
+            print("NEAREST_start_load_custom = ",StartDate)
+            
+            
+        # Vérifier si la date de début spécifiée existe dans l'index du DataFrame
+        if EndDate not in df.index:
+            # Convertir la date de type str en type datetime
+            EndDate = pd.to_datetime(EndDate)
+            # Initialiser une variable pour l'incrémentation de 1 minute
+            increment = pd.Timedelta(seconds=1)
+            # Tant que la Startdate n'existe pas dans l'index du DataFrame
+            while EndDate not in df.index:
+                # Incrémenter Startdate de 1 minute
+                EndDate -= increment
+            # Convertir Startdate en str pour l'affichage
+            EndDate = EndDate.strftime('%Y-%m-%d %H:%M:%S')
+            print("NEAREST_end_load_custom = ",EndDate)
+
+
+        # Vérifier si la date de fin spécifiée existe dans l'index du DataFrame
+        if pd.to_datetime(EndDate ) not in df.index:
+            print("Error: End date not found in the data.")
+            return
+
+        # Trancher le DataFrame en fonction des dates de début et de fin
+        sliced_df = df.loc[StartDate:EndDate]
+
+        # Vérifier s'il y a suffisamment de données disponibles dans la plage spécifiée
+        if len(sliced_df) == 0:
+            print("Error: Not enough data available within the specified range.")
+            return
+
+        # Création du graphe
+        fig, ax = plt.subplots(figsize=(10, 6))
+        ax.plot(sliced_df.index, sliced_df['LOAD1min'], label='LOAD1min', marker='.')
+        ax.plot(sliced_df.index, sliced_df['LOAD5min'], label='LOAD5min', marker='.')
+        ax.plot(sliced_df.index, sliced_df['LOAD15min'], label='LOAD15min', marker='.')
+        ax.set_xlabel('Time')
+        ax.set_ylabel('Load')
+        ax.set_title('Load Over Time')
+        ax.legend()
+        ax.grid(True)
+        fig.tight_layout()
+
+        # Création du canevas de dessin Matplotlib
+        self.canvas = FigureCanvas(fig)
+
+        # Ajout du canevas au layout du widget LoadsLastHour
+        self.LoadsCustom.layout().addWidget(self.canvas)
+        
+        # Création du graphe
+        fig, ax = plt.subplots(figsize=(10, 6))
+        ax.plot(sliced_df.index, sliced_df['CPUusage'], label='CPUusage', marker='.')
+        ax.plot(sliced_df.index, sliced_df['RAMusage'], label='RAMusage', marker='.')
+        ax.plot(sliced_df.index, sliced_df['DISKusage'], label='DISKusage', marker='.')
+        ax.set_xlabel('Time')
+        ax.set_ylabel('Usage')
+        ax.set_title('Usage Over Time')
+        ax.legend()
+        ax.grid(True)
+        fig.tight_layout()
+
+        # Création du canevas de dessin Matplotlib
+        self.canvas = FigureCanvas(fig)
+
+        # Ajout du canevas au layout du widget LoadsLastHour
+        self.CPUCustom.layout().addWidget(self.canvas)
+        
+        nicnames_unique = set([nic for sublist in df['NICnames'] for nic in sublist])
+
+        for nic in nicnames_unique:
+            data_in = []
+            data_out = []
+            for idx, row in sliced_df.iterrows():
+                if nic in row['NICnames']:
+                    nic_index = row['NICnames'].index(nic)
+                    data_in.append((idx, int(row['datain'][nic_index])))
+                    data_out.append((idx, int(row['dataout'][nic_index])))
+
+            data_in_df = pd.DataFrame(data_in, columns=['Timestamp', 'DataIN']).set_index('Timestamp')
+            data_out_df = pd.DataFrame(data_out, columns=['Timestamp', 'DataOUT']).set_index('Timestamp')
+
+            fig, ax = plt.subplots(figsize=(10, 5))
+            ax.plot(data_in_df.index, data_in_df['DataIN'], label='Data IN')
+            ax.plot(data_out_df.index, data_out_df['DataOUT'], label='Data OUT')
+            ax.set_title(f'Data IN/OUT for {nic}')
+            ax.set_xlabel('Timestamp')
+            ax.set_ylabel('Data (bytes)')
+            ax.legend()
+            ax.grid(True)
+            fig.tight_layout()
+
+            # Ajouter le canevas de dessin Matplotlib au layout PyQt5
+            self.canvas = FigureCanvas(fig)
+            self.NetworkCustom.layout().addWidget(self.canvas)
+
+        
+
+
 def convert_to_gb_or_mb(value):
     value = int(value)
     if value >= 1024 * 1024: 
