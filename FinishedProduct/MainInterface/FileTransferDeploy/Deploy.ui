@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Frame</class>
+ <widget class="QWidget" name="Frame">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>579</width>
+    <height>768</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <widget class="TableWidget" name="MainTable">
+   <property name="geometry">
+    <rect>
+     <x>9</x>
+     <y>190</y>
+     <width>561</width>
+     <height>431</height>
+    </rect>
+   </property>
+   <column>
+    <property name="text">
+     <string>Machine Name</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>IP Address</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>Select</string>
+    </property>
+   </column>
+  </widget>
+  <widget class="PrimaryPushButton" name="Deploy">
+   <property name="geometry">
+    <rect>
+     <x>410</x>
+     <y>650</y>
+     <width>161</width>
+     <height>32</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Deploy</string>
+   </property>
+  </widget>
+  <widget class="LineEdit" name="Localpath">
+   <property name="geometry">
+    <rect>
+     <x>9</x>
+     <y>50</y>
+     <width>431</width>
+     <height>33</height>
+    </rect>
+   </property>
+   <property name="placeholderText">
+    <string>Local path</string>
+   </property>
+  </widget>
+  <widget class="PushButton" name="Broswse">
+   <property name="geometry">
+    <rect>
+     <x>449</x>
+     <y>50</y>
+     <width>121</width>
+     <height>32</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Browse</string>
+   </property>
+  </widget>
+  <widget class="StrongBodyLabel" name="Title1">
+   <property name="geometry">
+    <rect>
+     <x>9</x>
+     <y>20</y>
+     <width>131</width>
+     <height>19</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Deploy a file/folder:</string>
+   </property>
+  </widget>
+  <widget class="LineEdit" name="LineEdit">
+   <property name="geometry">
+    <rect>
+     <x>9</x>
+     <y>100</y>
+     <width>431</width>
+     <height>33</height>
+    </rect>
+   </property>
+   <property name="placeholderText">
+    <string>Remote path (default /home/&lt;username&gt;/remt/)</string>
+   </property>
+  </widget>
+  <widget class="PushButton" name="PushButton">
+   <property name="geometry">
+    <rect>
+     <x>450</x>
+     <y>100</y>
+     <width>121</width>
+     <height>32</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Verify existance</string>
+   </property>
+  </widget>
+  <widget class="StrongBodyLabel" name="StrongBodyLabel">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>170</y>
+     <width>111</width>
+     <height>19</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Machines online:</string>
+   </property>
+  </widget>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>PushButton</class>
+   <extends>QPushButton</extends>
+   <header>qfluentwidgets</header>
+  </customwidget>
+  <customwidget>
+   <class>PrimaryPushButton</class>
+   <extends>PushButton</extends>
+   <header>qfluentwidgets</header>
+  </customwidget>
+  <customwidget>
+   <class>StrongBodyLabel</class>
+   <extends>QLabel</extends>
+   <header>qfluentwidgets</header>
+  </customwidget>
+  <customwidget>
+   <class>LineEdit</class>
+   <extends>QLineEdit</extends>
+   <header>qfluentwidgets</header>
+  </customwidget>
+  <customwidget>
+   <class>TableWidget</class>
+   <extends>QTableWidget</extends>
+   <header>qfluentwidgets</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>

@@ -1,0 +1,65 @@
+Confirmed: 
+
+-usr-md5-des, auth: MD5, priv DES
+AUTH: usmHMACMD5AuthProtocol
+PRIV: usmDESPrivProtocol
+
+-usr-md5-none, auth: MD5, priv NONE
+AUTH: usmHMACMD5AuthProtocol
+PRIV: None
+
+-usr-sha-aes128, auth: SHA, priv AES
+AUTH: usmHMACSHAAuthProtocol
+PRIV: usmAesCfb128Protocol
+
+VERIFY:
+SHA Authentication with AES Privacy:
+Authentication: SHA (usmHMACSHAAuthProtocol)
+Privacy: AES (usmAesCfb128Protocol)
+
+SHA Authentication with Triple DES Privacy:
+Authentication: SHA (usmHMACSHAAuthProtocol)
+Privacy: Triple DES (usm3DESEDEPrivProtocol)
+
+MD5 Authentication with AES Privacy:
+Authentication: MD5 (usmHMACMD5AuthProtocol)
+Privacy: AES (usmAesCfb128Protocol)
+
+MD5 Authentication with DES Privacy:
+Authentication: MD5 (usmHMACMD5AuthProtocol)
+Privacy: DES (usmDESPrivProtocol)
+
+SHA Authentication with No Privacy (Clear Text):
+Authentication: SHA (usmHMACSHAAuthProtocol)
+Privacy: None
+
+MD5 Authentication with No Privacy (Clear Text):
+Authentication: MD5 (usmHMACMD5AuthProtocol)
+Privacy: None
+
+
+CONFIRMED: 
+Supported authentication protocol identifiers are:
+usmNoAuthProtocol (default is authKey not given)
+usmHMACMD5AuthProtocol (default if authKey is given)
+usmHMACSHAAuthProtocol
+usmHMAC128SHA224AuthProtocol
+usmHMAC192SHA256AuthProtocol
+usmHMAC256SHA384AuthProtocol
+usmHMAC384SHA512AuthProtocol
+
+Supported encryption protocol identifiers are:
+usmNoPrivProtocol (default is privhKey not given)
+usmDESPrivProtocol (default if privKey is given)
+usm3DESEDEPrivProtocol
+usmAesCfb128Protocol
+usmAesCfb192Protocol
+usmAesCfb256Protocol
+
+the ones i am going to use: 
+usmHMACMD5AuthProtocol
+usmHMAC384SHA512AuthProtocol
+
+usmDESPrivProtocol
+usmAesCfb256Protocol
+

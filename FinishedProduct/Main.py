@@ -12,9 +12,13 @@ from MainInterface.TaskSchedulerMain.Task_scheduler_main import MainWindow as Sc
 # dont forget to add a dot to the files you want to import
 from MainInterface.SSHMain.Main_SSH_Widget import MainWindow as SSHWindow
 from MainInterface.editeur_de_code.editeur import MainWindowWidget as editeurwindow
-
-
-
+from MainInterface.MainDashboard.Main import MainWindow as Dashboard
+from MainInterface.log_fetcher_interface.Main import MainWindow as LogFetcher
+from MainInterface.Passwordvault.Main import MainWindow as Passvault
+from MainInterface.adding_machines.adding_machines_forms_main import MainWindow as MachineAdder
+from MainInterface.FileTransferDeploy.Deploy_MAIN import MainWindow as Deploy
+from MainInterface.FileTransferFetch.Fetch_MAIN import MainWindow as Fetch
+from MainInterface.Trapsviewer.Main_Trap_Viewer import MainWindow as TrapsViewer
 class TaskScheduler(QWidget):
 #Task Scheduler
     def __init__(self, text: str, parent=None):
@@ -39,12 +43,66 @@ class code_editeur(QWidget):
         self.code_editeur = editeurwindow()  
         self.hBoxLayout.addWidget(self.code_editeur)  
         self.setObjectName(text.replace('-', '-'))
+
+
+class New_Dashboard(QWidget):
+    def __init__(self, text: str, parent=None):
+        super().__init__(parent=parent)
+        self.hBoxLayout = QHBoxLayout(self)
+        self.dashboard = Dashboard()  
+        self.hBoxLayout.addWidget(self.dashboard)  
+        self.setObjectName(text.replace('-', '-'))
+
+class New_LogFetcher(QWidget):
+    def __init__(self, text: str, parent=None):
+        super().__init__(parent=parent)
+        self.hBoxLayout = QHBoxLayout(self)
+        self.logfetcher = LogFetcher()  
+        self.hBoxLayout.addWidget(self.logfetcher)  
+        self.setObjectName(text.replace('-', '-'))
+
+
+class New_PassVault(QWidget):
+    def __init__(self, text: str, parent=None):
+        super().__init__(parent=parent)
+        self.hBoxLayout = QHBoxLayout(self)
+        self.passvault = Passvault()  
+        self.hBoxLayout.addWidget(self.passvault)  
+        self.setObjectName(text.replace('-', '-'))
         
+class New_MachineAdder(QWidget):
+    def __init__(self, text: str, parent=None):
+        super().__init__(parent=parent)
+        self.hBoxLayout = QHBoxLayout(self)
+        self.widget = MachineAdder()  
+        self.hBoxLayout.addWidget(self.widget)  
+        self.setObjectName(text.replace('-', '-'))
+        
+class New_Deploy(QWidget):
+    def __init__(self, text: str, parent=None):
+        super().__init__(parent=parent)
+        self.hBoxLayout = QHBoxLayout(self)
+        self.widget = Deploy()  
+        self.hBoxLayout.addWidget(self.widget)  
+        self.setObjectName(text.replace('-', '-'))
 
-
+class New_Fetch(QWidget):
+    def __init__(self, text: str, parent=None):
+        super().__init__(parent=parent)
+        self.hBoxLayout = QHBoxLayout(self)
+        self.widget = Fetch()  
+        self.hBoxLayout.addWidget(self.widget)  
+        self.setObjectName(text.replace('-', '-'))
+        
+class New_TrapsViewer(QWidget):
+    def __init__(self, text: str, parent=None):
+        super().__init__(parent=parent)
+        self.hBoxLayout = QHBoxLayout(self)
+        self.widget = TrapsViewer()  
+        self.hBoxLayout.addWidget(self.widget)  
+        self.setObjectName(text.replace('-', '-'))
 
 class Widget(QFrame):
-
     def __init__(self, text: str, parent=None):
         super().__init__(parent=parent)
         self.label = SubtitleLabel(text, self)
@@ -62,16 +120,16 @@ class Window(MSFluentWindow):
     def __init__(self):
         super().__init__()
 
-        self.Dashboard = Widget('Home Interface', self)
+        self.Dashboard = New_Dashboard(text='Dashboard', parent=self)
         self.SSH_window = SSH(text='Single', parent=self)
         self.TaskScheduler = TaskScheduler(text='Scheduler', parent=self)
         self.CodeEditor = code_editeur(text='code_editeur', parent=self)
-        self.LogFetcher = Widget('Video Interface 3', self)
-        self.DeployFile = Widget('Video Interface 4', self)
-        self.GetFile = Widget('Video Interface 5', self)
-        self.ViewTraps = Widget('Video Interface 6', self)
-        self.AddMachine = Widget('Video Interface 7', self)
-
+        self.LogFetcher = New_LogFetcher(text='Log', parent=self)
+        self.DeployFile = New_Deploy(text='Deploy', parent=self)
+        self.GetFile = New_Fetch(text='Fetch', parent=self)
+        self.ViewTraps = New_TrapsViewer(text='Traps', parent=self)
+        self.AddMachine = New_MachineAdder(text='machineadder', parent=self)
+        self.PasswordVault = New_PassVault(text='Pass', parent=self)
         self.initNavigation()
         self.initWindow()
 
@@ -82,8 +140,9 @@ class Window(MSFluentWindow):
         self.addSubInterface(self.CodeEditor, QIcon(r'..\REMT\FinishedProduct\MainInterface\RemtIcons\codeEditor.svg'), 'Code Editor')
         self.addSubInterface(self.LogFetcher, QIcon(r'..\REMT\FinishedProduct\MainInterface\RemtIcons\logs.svg'), 'Log Fetcher')
         self.addSubInterface(self.DeployFile, QIcon(r'..\REMT\FinishedProduct\MainInterface\RemtIcons\upload.svg'), 'Deploy')
-        self.addSubInterface(self.GetFile, QIcon(r'..\REMT\FinishedProduct\MainInterface\RemtIcons\download.svg'), 'Get')
+        self.addSubInterface(self.GetFile, QIcon(r'..\REMT\FinishedProduct\MainInterface\RemtIcons\download.svg'), 'Fetch')
         self.addSubInterface(self.ViewTraps, QIcon(r'..\REMT\FinishedProduct\MainInterface\RemtIcons\view.svg'), 'View Traps')
+        self.addSubInterface(self.PasswordVault, QIcon(r'..\REMT\FinishedProduct\MainInterface\RemtIcons\password.svg'), 'Vault')
         self.addSubInterface(self.AddMachine, QIcon(r'..\REMT\FinishedProduct\MainInterface\RemtIcons\add.svg'), 'Add server')
 
         

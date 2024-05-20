@@ -1,0 +1,466 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Form</class>
+ <widget class="QWidget" name="Form">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>581</width>
+    <height>768</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <widget class="SubtitleLabel" name="SubtitleLabel">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>20</y>
+     <width>141</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Machine info:</string>
+   </property>
+  </widget>
+  <widget class="LineEdit" name="MachineName">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>60</y>
+     <width>561</width>
+     <height>33</height>
+    </rect>
+   </property>
+   <property name="placeholderText">
+    <string>Machine name</string>
+   </property>
+  </widget>
+  <widget class="LineEdit" name="IPAddress">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>110</y>
+     <width>441</width>
+     <height>33</height>
+    </rect>
+   </property>
+   <property name="placeholderText">
+    <string>IP Address</string>
+   </property>
+  </widget>
+  <widget class="CaptionLabel" name="ipstatusONLINE">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>150</y>
+     <width>70</width>
+     <height>15</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">FluentLabelBase {
+    color: black;
+}
+
+HyperlinkLabel {
+    color: #009faa;
+    border: none;
+    background-color: transparent;
+    text-align: left;
+    padding: 0;
+    margin: 0;
+}
+
+HyperlinkLabel[underline=true] {
+    text-decoration: underline;
+}
+
+HyperlinkLabel[underline=false] {
+    text-decoration: none;
+}
+
+HyperlinkLabel:hover {
+    color: #007780;
+}
+
+HyperlinkLabel:pressed {
+    color: #00a7b3;
+}
+FluentLabelBase{color:green}</string>
+   </property>
+   <property name="text">
+    <string>IP Online !</string>
+   </property>
+  </widget>
+  <widget class="CaptionLabel" name="ipstatusOFFLINE">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>150</y>
+     <width>70</width>
+     <height>15</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">FluentLabelBase {
+    color: black;
+}
+
+HyperlinkLabel {
+    color: #009faa;
+    border: none;
+    background-color: transparent;
+    text-align: left;
+    padding: 0;
+    margin: 0;
+}
+
+HyperlinkLabel[underline=true] {
+    text-decoration: underline;
+}
+
+HyperlinkLabel[underline=false] {
+    text-decoration: none;
+}
+
+HyperlinkLabel:hover {
+    color: #007780;
+}
+
+HyperlinkLabel:pressed {
+    color: #00a7b3;
+}
+FluentLabelBase{color:red}</string>
+   </property>
+   <property name="text">
+    <string>IP Offine !</string>
+   </property>
+  </widget>
+  <widget class="LineEdit" name="MachineUsername">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>180</y>
+     <width>441</width>
+     <height>33</height>
+    </rect>
+   </property>
+   <property name="placeholderText">
+    <string>Username</string>
+   </property>
+  </widget>
+  <widget class="PasswordLineEdit" name="MachinePassword">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>230</y>
+     <width>441</width>
+     <height>33</height>
+    </rect>
+   </property>
+   <property name="placeholderText">
+    <string>Password</string>
+   </property>
+  </widget>
+  <widget class="PushButton" name="VerifyMachineInfo">
+   <property name="geometry">
+    <rect>
+     <x>470</x>
+     <y>230</y>
+     <width>102</width>
+     <height>32</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Verify info</string>
+   </property>
+  </widget>
+  <widget class="SubtitleLabel" name="SubtitleLabel_2">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>290</y>
+     <width>221</width>
+     <height>28</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>SNMPv3 configuration:</string>
+   </property>
+  </widget>
+  <widget class="HorizontalSeparator" name="HorizontalSeparator">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>280</y>
+     <width>561</width>
+     <height>3</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="LineEdit" name="SNMPv3USERNAME">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>340</y>
+     <width>561</width>
+     <height>33</height>
+    </rect>
+   </property>
+   <property name="placeholderText">
+    <string>SNMPv3 Username</string>
+   </property>
+  </widget>
+  <widget class="BodyLabel" name="AUTHTYPELabel">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>480</y>
+     <width>131</width>
+     <height>19</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Authentication Type:</string>
+   </property>
+  </widget>
+  <widget class="PasswordLineEdit" name="SNMPv3PASSWORD">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>390</y>
+     <width>561</width>
+     <height>33</height>
+    </rect>
+   </property>
+   <property name="placeholderText">
+    <string>Password</string>
+   </property>
+  </widget>
+  <widget class="CheckBox" name="MD5CheckBox">
+   <property name="geometry">
+    <rect>
+     <x>160</x>
+     <y>480</y>
+     <width>92</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>MD5</string>
+   </property>
+  </widget>
+  <widget class="CheckBox" name="SHACheckBox">
+   <property name="geometry">
+    <rect>
+     <x>240</x>
+     <y>480</y>
+     <width>92</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>SHA512</string>
+   </property>
+  </widget>
+  <widget class="BodyLabel" name="PRIVTYPELABEL">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>520</y>
+     <width>111</width>
+     <height>19</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Encryption Type:</string>
+   </property>
+  </widget>
+  <widget class="CheckBox" name="DESCheckBoX">
+   <property name="geometry">
+    <rect>
+     <x>130</x>
+     <y>520</y>
+     <width>92</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>DES</string>
+   </property>
+  </widget>
+  <widget class="CheckBox" name="AESCheckBox">
+   <property name="geometry">
+    <rect>
+     <x>210</x>
+     <y>520</y>
+     <width>92</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>AES256</string>
+   </property>
+  </widget>
+  <widget class="LineEdit" name="SNMPTIMEOUT">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>620</y>
+     <width>561</width>
+     <height>33</height>
+    </rect>
+   </property>
+   <property name="placeholderText">
+    <string>SNMP Timeout (Default 5 Sec)</string>
+   </property>
+  </widget>
+  <widget class="PrimaryPushButton" name="ADD_BUTTON">
+   <property name="geometry">
+    <rect>
+     <x>420</x>
+     <y>720</y>
+     <width>153</width>
+     <height>32</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Add</string>
+   </property>
+  </widget>
+  <widget class="LineEdit" name="Port">
+   <property name="geometry">
+    <rect>
+     <x>470</x>
+     <y>110</y>
+     <width>101</width>
+     <height>33</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="placeholderText">
+    <string>Port</string>
+   </property>
+  </widget>
+  <widget class="CheckBox" name="ReadOnly">
+   <property name="geometry">
+    <rect>
+     <x>90</x>
+     <y>440</y>
+     <width>101</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Read Only</string>
+   </property>
+  </widget>
+  <widget class="CheckBox" name="ReadWrite">
+   <property name="geometry">
+    <rect>
+     <x>200</x>
+     <y>440</y>
+     <width>121</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Read-Write</string>
+   </property>
+  </widget>
+  <widget class="BodyLabel" name="UserTypeLabel">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>440</y>
+     <width>71</width>
+     <height>19</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>User Type:</string>
+   </property>
+  </widget>
+  <widget class="PasswordLineEdit" name="EncryptionKey">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>570</y>
+     <width>561</width>
+     <height>33</height>
+    </rect>
+   </property>
+   <property name="placeholderText">
+    <string>Encryption Key</string>
+   </property>
+  </widget>
+  <widget class="LineEdit" name="ManagerIP">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>670</y>
+     <width>561</width>
+     <height>33</height>
+    </rect>
+   </property>
+   <property name="placeholderText">
+    <string>Manager IP</string>
+   </property>
+  </widget>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>CheckBox</class>
+   <extends>QCheckBox</extends>
+   <header>qfluentwidgets</header>
+  </customwidget>
+  <customwidget>
+   <class>PushButton</class>
+   <extends>QPushButton</extends>
+   <header>qfluentwidgets</header>
+  </customwidget>
+  <customwidget>
+   <class>PrimaryPushButton</class>
+   <extends>PushButton</extends>
+   <header>qfluentwidgets</header>
+  </customwidget>
+  <customwidget>
+   <class>HorizontalSeparator</class>
+   <extends>QWidget</extends>
+   <header>qfluentwidgets</header>
+  </customwidget>
+  <customwidget>
+   <class>CaptionLabel</class>
+   <extends>QLabel</extends>
+   <header>qfluentwidgets</header>
+  </customwidget>
+  <customwidget>
+   <class>BodyLabel</class>
+   <extends>QLabel</extends>
+   <header>qfluentwidgets</header>
+  </customwidget>
+  <customwidget>
+   <class>SubtitleLabel</class>
+   <extends>QLabel</extends>
+   <header>qfluentwidgets</header>
+  </customwidget>
+  <customwidget>
+   <class>LineEdit</class>
+   <extends>QLineEdit</extends>
+   <header>qfluentwidgets</header>
+  </customwidget>
+  <customwidget>
+   <class>PasswordLineEdit</class>
+   <extends>LineEdit</extends>
+   <header>qfluentwidgets</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>
