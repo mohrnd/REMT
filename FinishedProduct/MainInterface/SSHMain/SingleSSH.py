@@ -119,9 +119,9 @@ class SSHWidget(QWidget):
                 self.update_text_edit(filtered_text)
                 
                 if ("[sudo] Mot de passe" in filtered_text or
-                    "[sudo] Password" in filtered_text or 
+                    "[sudo] password" in filtered_text or 
                     "Mot de passe" in filtered_text or
-                    "Password" in filtered_text):
+                    "password" in filtered_text):
                     self.enable_password_button()  
                 else:
                     self.disable_password_button()  
