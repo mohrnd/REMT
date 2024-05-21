@@ -171,9 +171,9 @@ class MultiSSHWidget(QWidget):
                 
                 # Si une invite de mot de passe est détectée, activer le bouton
                 if ("[sudo] Mot de passe" in filtered_text or
-                    "[sudo] Password" in filtered_text or 
+                    "[sudo] password" in filtered_text or 
                     "Mot de passe" in filtered_text or
-                    "Password" in filtered_text):
+                    "password" in filtered_text):
                     self.enable_password_button()
                     
             except socket.timeout:
