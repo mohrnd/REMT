@@ -8,6 +8,8 @@ import os
 from .Ui_Fetch import Ui_Frame
 from .file_transfer import Transfer
 from .Exec_cmds_remote import run_ssh_command
+from .cipher_decipher_logic.AES_cipher_decipher import get_password_no_form
+
 
 class MainWindow(Ui_Frame, QWidget):
     def __init__(self):
@@ -20,8 +22,16 @@ class MainWindow(Ui_Frame, QWidget):
         self.Browse.clicked.connect(self.browse_files)
         self.PushButton.clicked.connect(self.verify_remote_path)
         
+        # Connect the signal to update the master password variable
+        self.Master_password.textChanged.connect(self.update_master_password)
+        
+        self.password_entered = ""
+        
+    def update_master_password(self, text):
+        self.password_entered = text
+        
     def show_active_machines(self):
-        CSV_File_Path = 'machines.csv'
+        CSV_File_Path = '../REMT/FinishedProduct/MainInterface/FileTransferFetch/user.csv'
         with open(CSV_File_Path, 'r') as file:
             reader = csv.DictReader(file)
             for row in reader:
@@ -53,6 +63,12 @@ class MainWindow(Ui_Frame, QWidget):
 
                     self.MainTable.setCellWidget(rowPositionMachines, 2, buttons_widget)
     def Fetch(self):
+        
+        password_entered = self.password_entered
+        if not password_entered:
+            QMessageBox.warning(self, "Warning", "Please enter a password.")
+            return
+        
         localpath = self.Localpath.text()
         if localpath == '':
             no_localpath_error_dialog()
@@ -71,14 +87,16 @@ class MainWindow(Ui_Frame, QWidget):
             else:
                 outputs = []
                 for hostname in selectedIPS:
-                    CSV_File_Path = 'machines.csv'
+                    CSV_File_Path = '../REMT/FinishedProduct/MainInterface/FileTransferFetch/user.csv'
                     with open(CSV_File_Path, 'r') as file:
                         reader = csv.DictReader(file)
                         for row in reader:
                             if row['ip_add'] == hostname: 
                                 remotepath = self.LineEdit.text()
                                 username = row['linux_username']
-                                password = row['password']
+                                ciphered_password = row['password']
+                                password1 = get_password_no_form(password_entered,ciphered_password)
+                                password=password1
                                 if remotepath == '':
                                     General_info_dialog('Remote path empty')
                                 else:
@@ -103,6 +121,12 @@ class MainWindow(Ui_Frame, QWidget):
 
         
     def verify_remote_path(self):
+        
+        password_entered = self.password_entered
+        if not password_entered:
+            QMessageBox.warning(self, "Warning", "Please enter a password.")
+            return
+        
         selectedIPS = []
         for row in range(self.MainTable.rowCount()):
             items = self.MainTable.cellWidget(row, 2)
@@ -117,14 +141,16 @@ class MainWindow(Ui_Frame, QWidget):
             path = self.LineEdit.text()
             not_found_ips = []  
             for hostname in selectedIPS:
-                CSV_File_Path = 'machines.csv'
+                CSV_File_Path = '../REMT/FinishedProduct/MainInterface/FileTransferFetch/user.csv'
                 with open(CSV_File_Path, 'r') as file:
                     reader = csv.DictReader(file)
                     path_found = False
                     for row in reader:
                         if row['ip_add'] == hostname:
                             username = row['linux_username']
-                            password = row['password']
+                            ciphered_password = row['password']
+                            password1 = get_password_no_form(password_entered,ciphered_password)
+                            password=password1
                             command = f'[ -f "{path}" ] && echo "True" || echo "False"'
                             output = run_ssh_command(hostname, username, password, command)
                             if output.strip() == 'True':

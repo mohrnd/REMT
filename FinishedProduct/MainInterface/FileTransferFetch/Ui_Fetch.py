@@ -16,7 +16,7 @@ class Ui_Frame(object):
         Frame.setObjectName("Frame")
         Frame.resize(579, 768)
         self.MainTable = TableWidget(Frame)
-        self.MainTable.setGeometry(QtCore.QRect(9, 190, 785, 600))
+        self.MainTable.setGeometry(QtCore.QRect(9, 210, 785,580))
         self.MainTable.setObjectName("MainTable")
         self.MainTable.setColumnCount(3)
         self.MainTable.setRowCount(0)
@@ -45,8 +45,13 @@ class Ui_Frame(object):
         self.PushButton.setGeometry(QtCore.QRect(675, 100, 121, 32))
         self.PushButton.setObjectName("PushButton")
         self.StrongBodyLabel = StrongBodyLabel(Frame)
-        self.StrongBodyLabel.setGeometry(QtCore.QRect(10, 170, 111, 19))
+        self.StrongBodyLabel.setGeometry(QtCore.QRect(10, 190, 111, 19))
         self.StrongBodyLabel.setObjectName("StrongBodyLabel")
+        self.Master_password=QtWidgets.QLineEdit(parent=Frame)
+        self.Master_password.setGeometry(QtCore.QRect(10, 150, 650, 27))
+        self.Master_password.setObjectName("Master_password")
+        self.Master_password.setEchoMode(QtWidgets.QLineEdit.Password)  #pour  masquer le mot de passe lors de lecriture avec des points
+
 
         self.retranslateUi(Frame)
         QtCore.QMetaObject.connectSlotsByName(Frame)
@@ -71,4 +76,9 @@ class Ui_Frame(object):
         self.LineEdit.setPlaceholderText(_translate("Frame", "Remote path"))
         self.PushButton.setText(_translate("Frame", "Verify existance"))
         self.StrongBodyLabel.setText(_translate("Frame", "Machines online:"))
+        self.Master_password.setPlaceholderText(_translate("Frame", "Master Password"))
 from qfluentwidgets import LineEdit, PrimaryPushButton, PushButton, StrongBodyLabel, TableWidget
+
+
+
+
