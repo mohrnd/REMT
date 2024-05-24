@@ -23,16 +23,16 @@ class MainWindow(Ui_Frame, QWidget):
         self.single_ssh_window = [] 
         self.multi_ssh_window = None  
         
-        self.MainTable.setColumnWidth(2, 915)  # Définir la largeur de la colonne "Actions" sur 200 pixels
+        self.MainTable.setColumnWidth(2, 200)  # Définir la largeur de la colonne "Actions" sur 200 pixels
         
         # Ajuster la largeur de toute la table
-        self.MainTable.setMinimumWidth(1280)
+        self.MainTable.setMinimumWidth(780)
         
         # Ajuster la hauteur de toute la table
-        self.MainTable.setMinimumHeight(350)
+        self.MainTable.setMinimumHeight(500)
         
     def show_active_machines(self):
-        CSV_File_Path = '../REMT/Tests/network monitoring/snmp tests/snmp_users.csv'
+        CSV_File_Path = 'machines.csv'
         with open(CSV_File_Path, 'r') as file:
             reader = csv.DictReader(file)
             for row in reader:
@@ -87,8 +87,9 @@ class MainWindow(Ui_Frame, QWidget):
             no_ip_error_dialog()
         else:
             hosts = []
+            print(selectedIPS)
             for ip in selectedIPS:
-                CSV_File_Path = '../REMT/Tests/network monitoring/snmp tests/snmp_users.csv'
+                CSV_File_Path = 'machines.csv'
                 with open(CSV_File_Path, 'r') as file:
                     reader = csv.DictReader(file)
                     for row in reader:
@@ -101,6 +102,8 @@ class MainWindow(Ui_Frame, QWidget):
                             break
             if len(hosts) < 2:
                 multissh_error_dialog()
+                print(len(hosts))
+                print(hosts)
             else:
                 self.multi_ssh_window = MultiSSHWindow(hosts)
                 self.multi_ssh_window.show()
@@ -108,7 +111,7 @@ class MainWindow(Ui_Frame, QWidget):
             
     def SingleSSH(self, ip_address):
         hostname = ip_address
-        CSV_File_Path = '../REMT/Tests/network monitoring/snmp tests/snmp_users.csv'
+        CSV_File_Path = 'machines.csv'
         with open(CSV_File_Path, 'r') as file:
             reader = csv.DictReader(file)
             for row in reader:
@@ -148,13 +151,13 @@ def Check_ip(hostname):
         return False
 
 
-# def main():
-#     app = QApplication(sys.argv)
-#     color = QColor('#351392')
-#     setThemeColor(color.name(), Qt.GlobalColor, '') 
-#     window = MainWindow()
-#     window.show()
-#     sys.exit(app.exec_())
+def main():
+    app = QApplication(sys.argv)
+    color = QColor('#351392')
+    setThemeColor(color.name(), Qt.GlobalColor, '') 
+    window = MainWindow()
+    window.show()
+    sys.exit(app.exec_())
 
-# if __name__ == "__main__":
-#     main()
+if __name__ == "__main__":
+    main()

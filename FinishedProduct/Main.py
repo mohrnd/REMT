@@ -8,8 +8,8 @@ from qfluentwidgets import (NavigationItemPosition, MessageBox, setTheme, setThe
                             NavigationAvatarWidget, qrouter, SubtitleLabel, setFont)
 from qfluentwidgets import FluentIcon as FIF
 from PyQt5.QtGui import *
-from MainInterface.TaskSchedulerMain.Task_scheduler_main import MainWindow as SchedulerWindow
 # dont forget to add a dot to the files you want to import
+from MainInterface.TaskSchedulerMain.Task_scheduler_main import MainWindow as SchedulerWindow
 from MainInterface.SSHMain.Main_SSH_Widget import MainWindow as SSHWindow
 from MainInterface.editeur_de_code.editeur import MainWindowWidget as editeurwindow
 from MainInterface.MainDashboard.Main import MainWindow as Dashboard
@@ -19,6 +19,7 @@ from MainInterface.adding_machines.adding_machines_forms_main import MainWindow 
 from MainInterface.FileTransferDeploy.Deploy_MAIN import MainWindow as Deploy
 from MainInterface.FileTransferFetch.Fetch_MAIN import MainWindow as Fetch
 from MainInterface.Trapsviewer.Main_Trap_Viewer import MainWindow as TrapsViewer
+
 class TaskScheduler(QWidget):
 #Task Scheduler
     def __init__(self, text: str, parent=None):
@@ -102,16 +103,16 @@ class New_TrapsViewer(QWidget):
         self.hBoxLayout.addWidget(self.widget)  
         self.setObjectName(text.replace('-', '-'))
 
-class Widget(QFrame):
-    def __init__(self, text: str, parent=None):
-        super().__init__(parent=parent)
-        self.label = SubtitleLabel(text, self)
-        self.hBoxLayout = QHBoxLayout(self)
+# class Widget(QFrame):
+#     def __init__(self, text: str, parent=None):
+#         super().__init__(parent=parent)
+#         self.label = SubtitleLabel(text, self)
+#         self.hBoxLayout = QHBoxLayout(self)
 
-        setFont(self.label, 24)
-        self.label.setAlignment(Qt.AlignCenter)
-        self.hBoxLayout.addWidget(self.label, 1, Qt.AlignCenter)
-        self.setObjectName(text.replace(' ', '-'))
+#         setFont(self.label, 24)
+#         self.label.setAlignment(Qt.AlignCenter)
+#         self.hBoxLayout.addWidget(self.label, 1, Qt.AlignCenter)
+#         self.setObjectName(text.replace(' ', '-'))
 
 
 
@@ -158,7 +159,7 @@ class Window(MSFluentWindow):
         self.navigationInterface.setCurrentItem(self.Dashboard.objectName())
         
     def initWindow(self):
-        self.resize(1200, 900)
+        self.setMinimumSize(895, 200)
         self.setWindowTitle("REMT Main Window")
         self.setWindowIcon(QIcon(r"..\REMT\FinishedProduct\MainInterface\black.png"))
 
@@ -188,5 +189,6 @@ if __name__ == '__main__':
 
     app = QApplication(sys.argv)
     w = Window()
+    w.resize(500, 900)
     w.show()
     app.exec_()

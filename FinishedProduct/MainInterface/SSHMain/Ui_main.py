@@ -16,7 +16,7 @@ class Ui_Frame(object):
         Frame.setObjectName("Frame")
         Frame.resize(579, 768)
         self.MainTable = TableWidget(Frame)
-        self.MainTable.setGeometry(QtCore.QRect(10, 50, 561, 491))
+        self.MainTable.setGeometry(QtCore.QRect(10, 50, 561, 700))
         self.MainTable.setObjectName("MainTable")
         self.MainTable.setColumnCount(3)
         self.MainTable.setRowCount(0)
@@ -27,7 +27,7 @@ class Ui_Frame(object):
         item = QtWidgets.QTableWidgetItem()
         self.MainTable.setHorizontalHeaderItem(2, item)
         self.OpenMultiSSH = PrimaryPushButton(Frame)
-        self.OpenMultiSSH.setGeometry(QtCore.QRect(950, 550, 191, 40))
+        self.OpenMultiSSH.setGeometry(QtCore.QRect(600, 770, 191, 40))
         self.OpenMultiSSH.setObjectName("OpenMultiSSH")
 
         self.retranslateUi(Frame)

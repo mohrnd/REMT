@@ -69,11 +69,11 @@ class MainWindow(QWidget, Ui_Form):
         if not password_entered:
             QMessageBox.warning(self, "Warning", "Please enter a password.")
             return
-        
-        machine_name = 'zizou'
-        ip_add = '192.168.1.22'
-        local_path_in = 'C:\\Users\\dell-5320\\Desktop\\folder1\\'
-        csv_file = 'Tests/LOGS/users.csv'
+
+        machine_name = 'SERVER2'
+        ip_add = '192.168.69.35'
+        local_path_in = 'C:\\ProgramData\\REMT\\'
+        csv_file = 'machines.csv'
 
         # Appel de la fonction fetch avec les paramètres spécifiés
         threading.Thread(target=self.fetch, args=(machine_name, ip_add, local_path_in, csv_file,password_entered)).start()
@@ -269,6 +269,7 @@ def main():
     app = QApplication(sys.argv)
     window = MainWindow()
     window.show()
+    window.setWindowIcon(QIcon(r'C:\Users\BALLS2 (rip BALLS)\Desktop\REMT\FinishedProduct\MasterPasswordInput\FirstLoginInterface\black.png'))
     sys.exit(app.exec_())
 
 

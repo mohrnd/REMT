@@ -44,7 +44,7 @@ class MainWindow(QWidget, Ui_Frame):
                 if ip_address_item and job_item:
                     ip_address = ip_address_item.text()
                     job = job_item.text()
-                    CSV_File_Path = '../REMT/Tests/task_scheduling/snmp_users.csv'
+                    CSV_File_Path = 'machines.csv'
                     with open(CSV_File_Path, 'r') as file:
                         reader = csv.DictReader(file)
                         for row in reader:
@@ -59,7 +59,7 @@ class MainWindow(QWidget, Ui_Frame):
 
         
     def show_active_crons(self):
-        CSV_File_Path = '../REMT/Tests/task_scheduling/snmp_users.csv'
+        CSV_File_Path = 'machines.csv'
         with open(CSV_File_Path, 'r') as file:
             reader = csv.DictReader(file)
             for row in reader:
@@ -90,7 +90,7 @@ class MainWindow(QWidget, Ui_Frame):
 
     
     def show_active_machines(self):
-        CSV_File_Path = '../REMT/Tests/task_scheduling/snmp_users.csv'
+        CSV_File_Path = 'machines.csv'
         with open(CSV_File_Path, 'r') as file:
             reader = csv.DictReader(file)
             for row in reader:
@@ -121,7 +121,7 @@ class MainWindow(QWidget, Ui_Frame):
             preview_lines = preview_text.split('\n')
             job = preview_lines[0]
             for IP in selectedIPS:
-                CSV_File_Path = '../REMT/Tests/task_scheduling/snmp_users.csv'
+                CSV_File_Path = 'machines.csv'
                 with open(CSV_File_Path, 'r') as file:
                     reader = csv.DictReader(file)
                     for row in reader:

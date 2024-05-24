@@ -13,7 +13,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 
 class Ui_Form2(object):
     def setupUi(self, Form):
-        Form.setObjectName("Form")
+        Form.setObjectName("Root Password Form")
         Form.resize(413, 280)
         self.RootPassword_config = PasswordLineEdit(Form)
         self.RootPassword_config.setGeometry(QtCore.QRect(10, 140, 391, 33))

@@ -42,6 +42,8 @@ class MainWindow(QWidget, Ui_Form):
 
     def show_root_password_form(self):
         self.root_password_form = QDialog()
+        self.root_password_form.setWindowIcon(QIcon(r'C:\Users\BALLS2 (rip BALLS)\Desktop\REMT\FinishedProduct\MasterPasswordInput\FirstLoginInterface\black.png'))
+        self.root_password_form.setWindowTitle("Root Password Form")
         self.show_root_password_form_ui = Ui_Form2()
         self.show_root_password_form_ui.setupUi(self.root_password_form)
         self.show_root_password_form_ui.StartTheConf_config.clicked.connect(self.fetch_root_values)

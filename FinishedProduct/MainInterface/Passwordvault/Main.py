@@ -21,7 +21,7 @@ class MainWindow(Ui_Form, QWidget):
     def flush(self):
         self.output_TextEdit.setText('')
     def Fill_Table(self):
-        CSV_File_Path = '../REMT/Tests/task_scheduling/snmp_users.csv'
+        CSV_File_Path = 'machines.csv'
         with open(CSV_File_Path, 'r') as file:
             reader = csv.DictReader(file)
             for row in reader:
@@ -57,7 +57,7 @@ class MainWindow(Ui_Form, QWidget):
             no_ip_error_dialog()
         else:
             for ip in selectedIPS:
-                CSV_File_Path = '../REMT/Tests/task_scheduling/snmp_users.csv'
+                CSV_File_Path = 'machines.csv'
                 with open(CSV_File_Path, 'r') as file:
                     reader = csv.DictReader(file)
                     for row in reader:

@@ -111,7 +111,7 @@ class Ui_Frame(object):
         self.Preview.setReadOnly(True)
         self.Preview.setObjectName("Preview")
         self.Active_jobs = QtWidgets.QFrame(Frame)
-        self.Active_jobs.setGeometry(QtCore.QRect(0, 0, 811, 271))
+        self.Active_jobs.setGeometry(QtCore.QRect(0, 0, 795, 271))
         self.Active_jobs.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.Active_jobs.setFrameShadow(QtWidgets.QFrame.Raised)
         self.Active_jobs.setObjectName("Active_jobs")

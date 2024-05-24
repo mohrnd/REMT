@@ -258,7 +258,7 @@ class MainWindowWidget(QWidget):
         
         self.editor = self.editorWidget.editor  # Accès à l'éditeur de code à partir de editorWidget
         
-        self.setFixedSize(900,580) 
+        self.setFixedSize(820,850) 
         # Changer le style de la classe MainWindowWidget
         self.setStyleSheet("background-color: #1a1a1a; color: white;")
 
@@ -435,7 +435,7 @@ class MainWindowWidget(QWidget):
             return online_ips
 
     def show_online_ips(self):
-            csv_path = "../REMT/Tests/editeur_de_code/snmp_users.csv"
+            csv_path = "machines.csv"
             online_ips = self.ping_online_ips(csv_path)
             dialog = OnlineIPDialog(online_ips, self.path)
             dialog.exec_()

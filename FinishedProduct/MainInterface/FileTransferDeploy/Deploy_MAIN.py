@@ -21,7 +21,7 @@ class MainWindow(Ui_Frame, QWidget):
         self.PushButton.clicked.connect(self.verify_remote_path)
         
     def show_active_machines(self):
-        CSV_File_Path = '../REMT/Tests/task_scheduling/snmp_users.csv'
+        CSV_File_Path = 'machines.csv'
         with open(CSV_File_Path, 'r') as file:
             reader = csv.DictReader(file)
             for row in reader:
@@ -71,7 +71,7 @@ class MainWindow(Ui_Frame, QWidget):
             else:
                 outputs = []
                 for hostname in selectedIPS:
-                    CSV_File_Path = '../REMT/Tests/task_scheduling/snmp_users.csv'
+                    CSV_File_Path = 'machines.csv'
                     with open(CSV_File_Path, 'r') as file:
                         reader = csv.DictReader(file)
                         for row in reader:
@@ -115,7 +115,7 @@ class MainWindow(Ui_Frame, QWidget):
             path = self.LineEdit.text()
             not_found_ips = []  
             for hostname in selectedIPS:
-                CSV_File_Path = '../REMT/Tests/task_scheduling/snmp_users.csv'
+                CSV_File_Path = 'machines.csv'
                 with open(CSV_File_Path, 'r') as file:
                     reader = csv.DictReader(file)
                     path_found = False

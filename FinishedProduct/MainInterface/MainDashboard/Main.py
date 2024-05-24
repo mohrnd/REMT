@@ -28,7 +28,7 @@ class MainWindow(QMainWindow, Ui_Form):
         self.Machines_Online = 0
         self.MainTable.clearContents()
         self.MainTable.setRowCount(0)
-        csv_file = r'../REMT/Tests/task_scheduling/snmp_users.csv'
+        csv_file = r'machines.csv'
         with open(csv_file, 'r') as file:
             csv_reader = csv.DictReader(file) 
             for row in csv_reader:

@@ -16,7 +16,7 @@ class Ui_Form(object):
         Form.setObjectName("Form")
         Form.resize(813, 768)
         self.All_Traps_received = TextEdit(Form)
-        self.All_Traps_received.setGeometry(QtCore.QRect(10, 50, 791, 711))
+        self.All_Traps_received.setGeometry(QtCore.QRect(10, 50, 791, 770))
         self.All_Traps_received.setReadOnly(True)
         self.All_Traps_received.setObjectName("All_Traps_received")
         self.Filter = SearchLineEdit(Form)

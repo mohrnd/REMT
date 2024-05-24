@@ -25,7 +25,7 @@ class MainWindow(Ui_Form, QWidget):
         self.TreeWidget.setBorderVisible(True)
         self.TreeWidget.setBorderRadius(5)
 
-        csv_path = r'../REMT/Tests/network monitoring/snmp tests/snmp_users.csv'
+        csv_path = r'machines.csv'
         add_lines(self.TreeWidget, csv_path)
 
 def OpenFolder(MachineName, FileName):

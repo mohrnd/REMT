@@ -88,7 +88,7 @@ def main(masterpassword):
     snmpEngine = engine.SnmpEngine()
 
     # Add SNMP users from CSV
-    csv_file_path = '../REMT/Tests/network monitoring/snmp tests/snmp_users.csv'
+    csv_file_path = 'machines.csv'
     add_snmp_users_from_csv(csv_file_path, snmpEngine)
 
     # Transport setup
