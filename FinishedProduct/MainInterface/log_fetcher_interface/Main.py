@@ -13,6 +13,8 @@ from pathlib import Path
 import subprocess
 import csv
 from datetime import datetime
+from .LOGS.fetch_logs import main as FetchLogsMain
+import threading
 # self.fetch('localhost','192.168.1.21','../REMT/Tests/LOGS/var/')
 
 class MainWindow(Ui_Form, QWidget):
@@ -24,7 +26,12 @@ class MainWindow(Ui_Form, QWidget):
         self.hBoxLayout.setContentsMargins(15, 15, 15, 15)
         self.TreeWidget.setBorderVisible(True)
         self.TreeWidget.setBorderRadius(5)
-
+        self.extr()
+        self.timer = QTimer(self)
+        self.timer.timeout.connect(self.extr)
+        self.timer.start(10000)
+        
+    def extr(self):
         csv_path = r'machines.csv'
         add_lines(self.TreeWidget, csv_path)
 
@@ -46,6 +53,7 @@ def Check_ip(hostname):
         return False
 
 def add_lines(tree_widget, csv_path):
+    tree_widget.clear()  
     with open(csv_path, 'r') as file:
         reader = csv.DictReader(file)
         for row in reader:
@@ -107,7 +115,18 @@ def add_lines(tree_widget, csv_path):
                 parent_item.setText(3, latest_fetch_date_str)
                 
 def FetchLogs(Machinename, Ip):
-    print("Parent clicked:", Machinename, Ip)
+    local_path_in = 'C:\\ProgramData\\REMT\\'
+    csv_file = 'machines.csv'
+    
+    def fetch_logs_thread():
+        try:
+            FetchLogsMain(Machinename, Ip, local_path_in, csv_file)
+        except Exception as e:
+            print(f"Error fetching logs: {e}")
+    
+    fetch_thread = threading.Thread(target=fetch_logs_thread)
+    fetch_thread.start()
+
 
 
 def main():
@@ -118,5 +137,5 @@ def main():
     window.show()
     sys.exit(app.exec_())
 
-if __name__ == "__main__":
-    main()
+# if __name__ == "__main__":
+#     main()
