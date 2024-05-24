@@ -37,13 +37,13 @@ class MainWindow(QMainWindow, Ui_Form):
         self.CPUCustom.setLayout(QVBoxLayout())
         self.NetworkCustom.setLayout(QVBoxLayout())
         self.FillData()
-        self.timer = QTimer(self)
-        self.timer.timeout.connect(self.FillData)
-        self.timer.start(10000)  # 10000 milliseconds -> 10 seconds
+        # self.timer = QTimer(self)
+        # self.timer.timeout.connect(self.FillData)
+        # self.timer.start(10000)  # 10000 milliseconds -> 10 seconds
         
         
         # Redimensionner la fenêtre
-        self.resize(813, 768)
+        self.resize(1080, 850)
 
 
         
@@ -777,14 +777,14 @@ def convert_uptime(uptime_hundredths):
         uptime_days = uptime_seconds / 86400
         return f"{uptime_days:.2f} days"
 
-def main():
+def main(MachineName, MachineIP):
     color = QColor('#351392')
     setThemeColor(color ,Qt.GlobalColor , '') 
     app = QApplication(sys.argv)
-    window = MainWindow('SERVER1', '192.168.69.40') 
+    window = MainWindow(MachineName, MachineIP) 
     window.show()
 
     sys.exit(app.exec_())
 
 if __name__ == "__main__":
-    main()
+    main('SERVER1', '192.168.69.44')

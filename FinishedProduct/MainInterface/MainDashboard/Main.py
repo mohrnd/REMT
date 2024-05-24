@@ -6,10 +6,11 @@ from PyQt5.QtGui import *
 from qfluentwidgets import (TimePicker, NavigationItemPosition, MessageBox, setTheme, setThemeColor, Theme, FluentWindow,
                             NavigationAvatarWidget, SubtitleLabel, setFont, InfoBadge,
                             InfoBadgePosition, CheckBox, PushButton, PrimaryPushButton)
-from .Ui_Dashboard import Ui_Form
+from Ui_Dashboard import Ui_Form
 from PyQt5.QtWidgets import QMainWindow
 import json, os, csv, time, threading
 import re
+from Machine_Details.Main import main as OpenMachineDetails
 
 class MainWindow(QMainWindow, Ui_Form):
     def __init__(self):
@@ -18,6 +19,27 @@ class MainWindow(QMainWindow, Ui_Form):
         self.MainTable.setStyleSheet("QTableWidget { border: 1px solid gray; selection-background-color: #AF9BE5;  }")
         self.MainTable.setEditTriggers(QAbstractItemView.NoEditTriggers) 
         self.FillData()
+        self.timer = QTimer(self)
+        self.timer.timeout.connect(self.FillData)
+        self.timer.start(10000)
+        self.start_thread()
+
+        
+    def start_thread(self):
+        def thread_function():
+            from data_fetcher import main
+            masterpassword = 'MASTERPASSWORD'
+            main(masterpassword)
+        # Create and start the thread
+        self.thread = threading.Thread(target=thread_function)
+        self.thread.start()
+        
+    def start_thread2(self, machine_name, ip_address):
+        def thread_function2(machine_name, ip_address):
+            OpenMachineDetails(machine_name, ip_address)
+        # Create and start the thread
+        self.thread = threading.Thread(target=thread_function2, args=(machine_name, ip_address))
+        self.thread.start()
 
     def FillData(self):
         log_file = r"..\REMT\TrapsReceived.log"
@@ -39,16 +61,25 @@ class MainWindow(QMainWindow, Ui_Form):
                 with open(json_file, 'r') as f:
                     data = json.load(f)
                     Latest_line = data[-1]
-                CpuUsage = Latest_line['CPUusage']
-                RamUsage = Latest_line['RAMusage']
-                DiskUsage = Latest_line['DISKusage']
-                Uptime = Latest_line['UPTIME']
-                Uptime = convert_uptime(Uptime)
-                Status = online_Check(ip_address)
-                if Status == '🟢Online':
-                    self.Machines_Online = self.Machines_Online + 1
-                self.addRow(machine_name, ip_address, Status, Uptime, CpuUsage, RamUsage, DiskUsage)
-                print(machine_name, ip_address)
+                    Status = online_Check(ip_address)
+                    if Status == '🟢Online':
+                        self.Machines_Online = self.Machines_Online + 1
+                        CpuUsage = Latest_line['CPUusage']
+                        print(CpuUsage)
+                        RamUsage = Latest_line['RAMusage']
+                        print(RamUsage)
+                        DiskUsage = Latest_line['DISKusage']
+                        print(DiskUsage)
+                        Uptime = Latest_line['UPTIME']
+                        Uptime = convert_uptime(Uptime)
+                        print(Uptime)
+                    else:
+                        CpuUsage = None
+                        RamUsage = None
+                        DiskUsage = None
+                        Uptime = None
+                    self.addRow(machine_name, ip_address, Status, Uptime, CpuUsage, RamUsage, DiskUsage)
+                    print(machine_name, ip_address)
         self.TotalMachines.setText(str(self.Total_Machines))
         self.MachinesOnline.setText(str(self.Machines_Online))
 
@@ -67,7 +98,7 @@ class MainWindow(QMainWindow, Ui_Form):
         self.MainTable.setCellWidget(rowPosition, 7, more_button)
 
     def onMoreClicked(self, machine_name, ip_address):
-        print(machine_name, ip_address)
+        self.start_thread2(machine_name, ip_address)
 
 def convert_uptime(uptime_hundredths):
     uptime_seconds = int(uptime_hundredths) / 100  # Convert to seconds
@@ -116,14 +147,14 @@ def online_Check(ip_address):
     else:
         return '🔴Offline'
 
-# def main():
-#     color = QColor('#351392')
-#     setThemeColor(color ,Qt.GlobalColor , '') 
-#     app = QApplication(sys.argv)
-#     window = MainWindow() 
-#     window.show()
+def main():
+    color = QColor('#351392')
+    setThemeColor(color ,Qt.GlobalColor , '') 
+    app = QApplication(sys.argv)
+    window = MainWindow() 
+    window.show()
 
-#     sys.exit(app.exec_())
+    sys.exit(app.exec_())
 
-# if __name__ == "__main__":
-#     main()
+if __name__ == "__main__":
+    main()

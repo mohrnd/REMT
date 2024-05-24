@@ -2,7 +2,7 @@ from Cryptodome.Cipher import AES
 from Cryptodome.Protocol.KDF import PBKDF2
 import binascii
 import os
-from .LoginInterface.Ui_LoginMasterPasswordInput import Ui_Form
+from LoginInterface.Ui_LoginMasterPasswordInput import Ui_Form
 import sys
 from PyQt5.QtWidgets import QApplication, QWidget, QTableWidgetItem, QMessageBox, QAbstractItemView
 from PyQt5 import QtCore
@@ -183,7 +183,7 @@ def Multi_Purpose_info_dialog(Message):
 
 # Usage 
 # print(add_new_entry('Pa$$w0rd13')) 
-#print(get_password('bd475a48a62ecc596ec7')) 
+# print(get_password('b6314c07c41224a1')) 
 
 # add_new_entry('admin123')
 # hasher usage: 

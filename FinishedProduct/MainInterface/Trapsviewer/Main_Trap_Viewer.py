@@ -5,12 +5,15 @@ from PyQt5.QtCore import Qt, QTimer
 from PyQt5.QtGui import QColor
 import re
 from .Ui_Traps_Viewer_interface import Ui_Form
-
+import threading
 class MainWindow(Ui_Form, QWidget):
+    # def __init__(self, masterpassword):
     def __init__(self):
         super().__init__()
+        # self.masterpassword = masterpassword
         self.setupUi(self)
-        self.log_file_path = r"..\REMT\TrapsReceived.log"  # Update with the actual log file path
+
+        self.log_file_path = 'TrapsReceived.log'  # Update with the actual log file path
         self.stands = ["SystemStartup", "SystemShutdown"]
         self.ip_addresses = set()
         self.load_log_file()
@@ -24,9 +27,11 @@ class MainWindow(Ui_Form, QWidget):
         self.Filter.setCompleter(self.completer)
 
         # Create a QTimer for updating every 60 seconds
+        
         self.timer = QTimer(self)
         self.timer.timeout.connect(self.update_content)
-        self.timer.start(60000)  # 60000 milliseconds = 60 seconds
+        self.timer.start(10000)  # 60000 milliseconds = 60 seconds
+        self.start_thread()
 
     def load_log_file(self):
         try:
@@ -68,6 +73,19 @@ class MainWindow(Ui_Form, QWidget):
     def update_content(self):
         # Call load_log_file to update the content
         self.load_log_file()
+        
+
+    def start_thread(self):
+        # Define a function that the thread will run
+        def thread_function():
+            # Here you can import and call the external function
+            from .TrapReceiver.SNMPV3_trap_receiver_v3 import main
+            masterpassword = 'MASTERPASSWORD'
+            main(masterpassword)
+
+        # Create and start the thread
+        self.thread = threading.Thread(target=thread_function)
+        self.thread.start()
 
 
 def main():
@@ -78,5 +96,5 @@ def main():
     window.show()
     sys.exit(app.exec_())
 
-if __name__ == "__main__":
-    main()
+# if __name__ == "__main__":
+#     main()
