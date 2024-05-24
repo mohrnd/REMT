@@ -1,14 +1,14 @@
 import sys
 from PyQt5.QtWidgets import QApplication, QWidget, QTableWidgetItem, QHBoxLayout, QSpacerItem, QSizePolicy, QAbstractItemView, QMessageBox,QDialogButtonBox,QDialog,QVBoxLayout, QLabel,QLineEdit
-from .Ui_main import Ui_Frame
-from qfluentwidgets import setTheme, setThemeColor, FluentWindow, CheckBox, PushButton, ToggleButton
-
+from qfluentwidgets import setTheme, setThemeColor, FluentWindow, CheckBox, PushButton, ToggleButton,PasswordLineEdit
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QColor
 import csv
 import os
-from .SingleSSH import SSHWidget
-from .MultiSSH import MultiSSHWidget, MultiSSHWindow
+from SingleSSH import SSHWidget
+from MultiSSH import MultiSSHWidget, MultiSSHWindow
+from Ui_main import Ui_Frame
+from cipher_decipher_logic.AES_cipher_decipher import get_password_no_form
 # The dot (.) in the import statement indicates that you want to import the module relative to the current package or directory.
 
 
@@ -21,7 +21,17 @@ class MainWindow(Ui_Frame, QWidget):
         self.MainTable.setEditTriggers(QAbstractItemView.NoEditTriggers) 
         self.OpenMultiSSH.clicked.connect(self.MultiSSH)
         self.single_ssh_window = [] 
-        self.multi_ssh_window = None  
+        self.multi_ssh_window = None 
+        
+        # Add the Masterpassword_input field
+        self.master_password_input = PasswordLineEdit(self)
+        self.master_password_input.setPlaceholderText("Master password")
+        self.password_entered = None 
+        
+        self.master_password_input.setGeometry(400, 770, 191, 50) 
+        
+        # Connect the signal to update the master password variable
+        self.master_password_input.textChanged.connect(self.update_master_password) 
         
         self.MainTable.setColumnWidth(2, 200)  # Définir la largeur de la colonne "Actions" sur 200 pixels
         
@@ -31,8 +41,11 @@ class MainWindow(Ui_Frame, QWidget):
         # Ajuster la hauteur de toute la table
         self.MainTable.setMinimumHeight(500)
         
+    def update_master_password(self, text):
+        self.password_entered = text
+        
     def show_active_machines(self):
-        CSV_File_Path = 'machines.csv'
+        CSV_File_Path = '../REMT/FinishedProduct/MainInterface/FileTransferFetch/user.csv'
         with open(CSV_File_Path, 'r') as file:
             reader = csv.DictReader(file)
             for row in reader:
@@ -75,6 +88,12 @@ class MainWindow(Ui_Frame, QWidget):
     
     
     def MultiSSH(self):
+        
+        password_entered = self.password_entered
+        if not password_entered:
+            QMessageBox.warning(self, "Warning", "Please enter a password.")
+            return
+        
         selectedIPS = []
         for row in range(self.MainTable.rowCount()):
             items = self.MainTable.cellWidget(row, 2)
@@ -89,13 +108,16 @@ class MainWindow(Ui_Frame, QWidget):
             hosts = []
             print(selectedIPS)
             for ip in selectedIPS:
-                CSV_File_Path = 'machines.csv'
+                CSV_File_Path = '../REMT/FinishedProduct/MainInterface/FileTransferFetch/user.csv'
                 with open(CSV_File_Path, 'r') as file:
                     reader = csv.DictReader(file)
                     for row in reader:
                         if row['ip_add'] == ip: 
                             username = row['linux_username']
-                            password = row['password']
+                            ciphered_password = row['password']
+                            Machine_Name=row['Machine_Name']
+                            password1 = get_password_no_form(password_entered,ciphered_password)
+                            password=password1
                             Machine_Name=row['Machine_Name']
                             temp = [ip, username, password,Machine_Name]
                             hosts.append(temp.copy())  
@@ -110,14 +132,22 @@ class MainWindow(Ui_Frame, QWidget):
             
             
     def SingleSSH(self, ip_address):
+        
+        password_entered = self.password_entered
+        if not password_entered:
+            QMessageBox.warning(self, "Warning", "Please enter a password.")
+            return
+        
         hostname = ip_address
-        CSV_File_Path = 'machines.csv'
+        CSV_File_Path = '../REMT/FinishedProduct/MainInterface/FileTransferFetch/user.csv'
         with open(CSV_File_Path, 'r') as file:
             reader = csv.DictReader(file)
             for row in reader:
                 if row['ip_add'] == hostname: 
                     username = row['linux_username']
-                    password = row['password']
+                    ciphered_password = row['password']      
+                    password1 = get_password_no_form(password_entered,ciphered_password)
+                    password=password1
                     single_ssh_window = SSHWidget(hostname, username, password)
                     single_ssh_window.setGeometry(200, 200, 1200, 900) 
                     single_ssh_window.show()

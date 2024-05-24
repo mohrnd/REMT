@@ -76,7 +76,7 @@ class SSHWidget(QWidget):
             self.show_connection_error_dialog()
         except paramiko.SSHException as e:
             self.text_edit.append("SSH connection failed to " + self.hostname + ": " + str(e))
-            logging.error(f"SSH connection established by {current_user} failed {self.hostname}: {e}")
+            logging.error(f"SSH connection established by failed")
             self.show_connection_error_dialog()
         except socket.timeout:
             self.text_edit.append("Connection timed out while trying to connect to " + self.hostname)
@@ -152,16 +152,11 @@ class SSHWidget(QWidget):
     def show_connection_error_dialog(self):
         msg_box = QMessageBox()
         msg_box.setIcon(QMessageBox.Critical)
-        msg_box.setText(f"Failed to connect to {self.hostname}")
+        msg_box.setText(f"Your password was incorrect \nFailed to connect to {self.hostname}")
         msg_box.setWindowTitle("Connection Error")
-        msg_box.setStandardButtons(QMessageBox.Retry | QMessageBox.Cancel)
-        msg_box.setDefaultButton(QMessageBox.Retry)
+        msg_box.setStandardButtons(QMessageBox.Cancel)
 
-        result = msg_box.exec_()
-        if result == QMessageBox.Retry:
-            self.connect()
-        else:
-            sys.exit()
+        msg_box.exec_()
 
     def insert_password(self):
         self.buffer = self.password

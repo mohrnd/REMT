@@ -9,6 +9,7 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+from qfluentwidgets import PasswordLineEdit
 
 
 class Ui_Frame(object):
@@ -48,10 +49,9 @@ class Ui_Frame(object):
         self.StrongBodyLabel.setGeometry(QtCore.QRect(10, 190, 111, 19))
         self.StrongBodyLabel.setObjectName("StrongBodyLabel")
         self.StrongBodyLabel.setObjectName("StrongBodyLabel")
-        self.Master_password=QtWidgets.QLineEdit(parent=Frame)
+        self.Master_password=PasswordLineEdit(parent=Frame)
         self.Master_password.setGeometry(QtCore.QRect(10, 150, 650, 27))
         self.Master_password.setObjectName("Master_password")
-        self.Master_password.setEchoMode(QtWidgets.QLineEdit.Password)  #pour  masquer le mot de passe lors de lecriture avec des points
 
 
         self.retranslateUi(Frame)
