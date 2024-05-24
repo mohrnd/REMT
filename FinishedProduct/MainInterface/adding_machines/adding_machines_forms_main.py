@@ -1,6 +1,6 @@
 import sys
 from PyQt5.QtWidgets import QApplication, QWidget, QTableWidgetItem, QMessageBox, QAbstractItemView, QDialog
-from .Ui_Add_machine import Ui_Form
+from Ui_Add_machine import Ui_Form
 from PyQt5.QtCore import Qt, QTimer, QThread, pyqtSignal, QRect
 from PyQt5.QtGui import *
 from qfluentwidgets import (NavigationItemPosition, MessageBox, setTheme, setThemeColor, Theme, FluentWindow,
@@ -11,13 +11,14 @@ import csv
 import paramiko
 from paramiko import SSHException
 from fabric import Connection
-from .Ui_root_password_master_password_forms import *
-from .password_hash_storage import check_password 
-from .Ui_Config_progress import *
+from Ui_root_password_master_password_forms import *
+from cipher_decipher_logic.CipherDecipher import get_password_no_form, add_new_entry, check_password
+from Ui_Config_progress import *
 from PyQt5.QtCore import QTimer, QThread
 import threading
-
 from qfluentwidgets import StateToolTip
+import binascii
+
 """
 TODO:
 execute the config.py from the LOG folder
@@ -42,7 +43,7 @@ class MainWindow(QWidget, Ui_Form):
 
     def show_root_password_form(self):
         self.root_password_form = QDialog()
-        self.root_password_form.setWindowIcon(QIcon(r'C:\Users\BALLS2 (rip BALLS)\Desktop\REMT\FinishedProduct\MasterPasswordInput\FirstLoginInterface\black.png'))
+        self.root_password_form.setWindowIcon(QIcon(r'..\REMT\FinishedProduct\MasterPasswordInput\FirstLoginInterface\black.png'))
         self.root_password_form.setWindowTitle("Root Password Form")
         self.show_root_password_form_ui = Ui_Form2()
         self.show_root_password_form_ui.setupUi(self.root_password_form)
@@ -149,7 +150,7 @@ class MainWindow(QWidget, Ui_Form):
     def snmpconf_setup(self, root_username, root_password, master_password):
         # self.show_root_password_form_ui.ProgressBar_2.show()
         # self.show_root_password_form_ui.StrongBodyLabel_2.show()  
-        with open('../REMT/tests/adding_machines/SNMPv3_Config_template.txt', 'r') as file:
+        with open(r'..\REMT\FinishedProduct\MainInterface\adding_machines\SNMPv3_Config_template.txt', 'r') as file:
             setup_script_content = file.read()
         hostname = self.IPAddress.text()
         username = self.MachineUsername.text()
@@ -204,8 +205,6 @@ class MainWindow(QWidget, Ui_Form):
 
                 self.show_root_password_form_ui.ProgressBar_2.setValue(current_progress)
             
-                
-
                 RefreshTime = self.SNMPTIMEOUT.text()
                 if RefreshTime == '':
                     RefreshTime = 30
@@ -214,11 +213,34 @@ class MainWindow(QWidget, Ui_Form):
                     substring_to_remove = "oldEngineID 0x"
                     security_engine_id = output.replace(substring_to_remove, "")
                     
+
+            print(master_password)
+            print(SNMPv3_username)
+            print(auth_Protocole)
+            
+            print('Auth_password',Auth_password)
+            print('Priv_password',Priv_password)
+            print('password',password)
+            
+            Auth_password2 = add_new_entry(master_password, Auth_password)
+            Priv_password2 = add_new_entry(master_password, Priv_password)
+            password2 = add_new_entry(master_password,password)
+            
+            print('Auth_password3 ',Auth_password2)
+            print('Priv_password3 ',Priv_password2)
+            print('password3 ',password2)
+            
+            print(Priv_Protocole)
+            print(security_engine_id)
+            print(hostname)
+            print(username)
+            print(port)
+            print(MachineName)
+            print(RefreshTime)
+            create_or_update_csv(SNMPv3_username, auth_Protocole, Auth_password2, Priv_Protocole, Priv_password2, security_engine_id, hostname, password2, username, port ,MachineName, RefreshTime)
             QMessageBox.information(self, "Info", f"Machine {hostname} added successfully.")
             self.ui_config_progress.Loading.close()
             self.ui_config_progress.configprogress_finish.setDisabled(False)
-            create_or_update_csv(SNMPv3_username, auth_Protocole, Auth_password, Priv_Protocole, Priv_password, security_engine_id, hostname, password, username, port ,MachineName, RefreshTime)
-        
         
 def create_or_update_csv(SNMPv3_username, auth_Protocole, auth_password, Priv_Protocole, priv_password, security_engine_id, ip_add, password, linux_username, port ,Machine_Name, RefreshTime):
     columns = ['SNMPv3_username', 
@@ -258,17 +280,17 @@ def ssh_client_creation(host, port, username, password):
     ssh_client.connect(hostname=host, port=port, username=username, password=password)
     return ssh_client        
 
-# def main():
-#     color = QColor('#351392')
-#     setThemeColor(color ,Qt.GlobalColor , '') 
-#     app = QApplication(sys.argv)
-#     window = MainWindow()
-#     window.show()
+def main():
+    color = QColor('#351392')
+    setThemeColor(color ,Qt.GlobalColor , '') 
+    app = QApplication(sys.argv)
+    window = MainWindow()
+    window.show()
     
-#     sys.exit(app.exec_())
+    sys.exit(app.exec_())
 
-# if __name__ == "__main__":
-#     main()
+if __name__ == "__main__":
+    main()
     
     
     # TODO : FIX THE FREEZING ISSUE
