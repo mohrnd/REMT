@@ -9,6 +9,7 @@ from .transfert import Transfer
 import platform
 import tempfile
 from qfluentwidgets import  PushButton
+from .cipher_decipher_logic.AES_cipher_decipher import get_password_no_form
 
 def Check_ip(hostname):
     param = '-n' if os.name.lower() == 'nt' else '-c'
@@ -169,6 +170,7 @@ class OnlineIPDialog(QDialog):
         self.setWindowTitle("Online IP Addresses")
         self.online_ips = online_ips
         self.current_file_path = current_file_path
+        self.password_entered = None 
         self.initUI()
 
     def initUI(self):
@@ -181,6 +183,12 @@ class OnlineIPDialog(QDialog):
             ip_checkbox = QCheckBox(ip_data['ip'])
             layout.addWidget(ip_checkbox)
             self.checkbox_list.append(ip_checkbox)
+            
+        # Add the Masterpassword_input field
+        self.master_password_input = QLineEdit(self)
+        self.master_password_input.setEchoMode(QLineEdit.Password)  # Set the input to password mode
+        self.master_password_input.setPlaceholderText("Master password")
+        layout.addWidget(self.master_password_input)
 
         send_button = QPushButton("SEND")
         send_button.clicked.connect(self.send_files)
@@ -192,8 +200,22 @@ class OnlineIPDialog(QDialog):
         layout.addWidget(buttonBox)
 
         self.setLayout(layout)
+        
+        # Connect the signal to update the master password variable
+        self.master_password_input.textChanged.connect(self.update_master_password)
+        
+    
+    def update_master_password(self, text):
+        self.password_entered = text
 
     def send_files(self):
+        password_entered = self.password_entered
+        if not password_entered:
+            QMessageBox.warning(self, "Warning", "Please enter a password.")
+            return
+        
+        
+
         checked_ips = [checkbox.text() for checkbox in self.checkbox_list if checkbox.isChecked()]
         if not checked_ips:
             QMessageBox.warning(self, "No IP address selected", "Please select at least one IP address.")
@@ -202,10 +224,8 @@ class OnlineIPDialog(QDialog):
         if not self.current_file_path:
             QMessageBox.warning(self, "File not saved", "Please save the file first before sending it.")
             return
-        
-        
 
-        local_path = self.current_file_path  
+        local_path = self.current_file_path
         remote_path = "./" + os.path.basename(local_path)
 
         success_ips = []
@@ -213,15 +233,18 @@ class OnlineIPDialog(QDialog):
             for ip_data in self.online_ips:
                 if ip_data['ip'] == ip:
                     username = ip_data['linux_username']
-                    password = ip_data['password']
+                    ciphered_password = ip_data['password']
+                    password1 = get_password_no_form(password_entered,ciphered_password)
+                    password=password1
                     result = Transfer.PUT(ip, username, password, local_path, remote_path)
                     print(result)
                     success_ips.append(ip)
                     break
 
-        if success_ips:
-            success_message = "The file was successfully sent to the following IP addresses :\n" + "\n".join(success_ips)
-            QMessageBox.information(self, "File sent", success_message)
+        # if success_ips:
+        #     success_message = "The file was successfully sent to the following IP addresses :\n" + "\n".join(
+        #         success_ips)
+        #     QMessageBox.information(self, "File sent", success_message)
 
 class CodeEditorWidget(QWidget):
     def __init__(self):
@@ -282,20 +305,20 @@ class MainWindowWidget(QWidget):
         newBtn = PushButton(newIcon, 'New', self)
         newBtn.clicked.connect(self.newFile)
         # self.applyButtonStyle(newBtn)  # Appliquer le style au bouton New
-        newBtn.setFixedSize(120, 30)
+        newBtn.setFixedSize(100, 30)
         toolbar.addWidget(newBtn)
         
-        toolbar.addSeparator(),toolbar.addSeparator(),toolbar.addSeparator(),toolbar.addSeparator()
+        toolbar.addSeparator(),toolbar.addSeparator()
 
         
         openIcon = QIcon("../REMT/Tests/editeur_de_code/open.png")  
         openBtn = PushButton(openIcon, 'Open', self)
         openBtn.clicked.connect(self.openFile)
         # self.applyButtonStyle(openBtn)  
-        openBtn.setFixedSize(120, 30)
+        openBtn.setFixedSize(100, 30)
         toolbar.addWidget(openBtn)
         
-        toolbar.addSeparator(),toolbar.addSeparator(),toolbar.addSeparator(),toolbar.addSeparator()
+        toolbar.addSeparator(),toolbar.addSeparator()
         
         
         saveIcon = QIcon("../REMT/Tests/editeur_de_code/save.png")  
@@ -305,7 +328,7 @@ class MainWindowWidget(QWidget):
         saveBtn.setFixedSize(120, 30)
         toolbar.addWidget(saveBtn)
         
-        toolbar.addSeparator(),toolbar.addSeparator(),toolbar.addSeparator(),toolbar.addSeparator()
+        toolbar.addSeparator(),toolbar.addSeparator()
         
         executeIcon = QIcon("../REMT/Tests/editeur_de_code/execute.png")  
         executeBtn = PushButton(executeIcon, 'Verify Shell', self)
@@ -314,7 +337,7 @@ class MainWindowWidget(QWidget):
         executeBtn.setFixedSize(120, 30)
         toolbar.addWidget(executeBtn)
         
-        toolbar.addSeparator(),toolbar.addSeparator(),toolbar.addSeparator(),toolbar.addSeparator()
+        toolbar.addSeparator(),toolbar.addSeparator()
         
         verifyPythonIcon = QIcon("../REMT/Tests/editeur_de_code/Python.png")  
         verifyPythonBtn = PushButton(verifyPythonIcon, 'Verify Python', self)
@@ -323,7 +346,8 @@ class MainWindowWidget(QWidget):
         verifyPythonBtn.setFixedSize(140, 30)
         toolbar.addWidget(verifyPythonBtn)
         
-        toolbar.addSeparator(),toolbar.addSeparator(),toolbar.addSeparator(),toolbar.addSeparator()
+        toolbar.addSeparator(),toolbar.addSeparator()
+    
 
         sendIcon = QIcon("../REMT/Tests/editeur_de_code/Send.png")
         showOnlineIPsBtn = PushButton( sendIcon,'Send File',self)
@@ -332,7 +356,7 @@ class MainWindowWidget(QWidget):
         showOnlineIPsBtn.setFixedSize(120, 30)
         toolbar.addWidget(showOnlineIPsBtn)
         
-        toolbar.addSeparator(),toolbar.addSeparator(),toolbar.addSeparator(),toolbar.addSeparator()
+        
 
         # Ajoutez la barre d'outils directement à la fenêtre principale
         layout = QVBoxLayout()
@@ -438,6 +462,7 @@ class MainWindowWidget(QWidget):
             csv_path = "machines.csv"
             online_ips = self.ping_online_ips(csv_path)
             dialog = OnlineIPDialog(online_ips, self.path)
+            self.password_entered = None 
             dialog.exec_()
                     
     
