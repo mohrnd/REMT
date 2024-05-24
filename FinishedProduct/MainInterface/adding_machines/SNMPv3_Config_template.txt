@@ -40,4 +40,4 @@ firewall-cmd --reload
 echo "Firewall configured successfully."
 echo "The engine ID:"
 grep oldEngineID /var/lib/net-snmp/snmpd.conf
-echo "configuration completed."
+echo "SNMP configuration completed."

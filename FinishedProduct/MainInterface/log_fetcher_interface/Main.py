@@ -1,6 +1,6 @@
 import sys
 from PyQt5.QtWidgets import QApplication, QWidget, QTableWidgetItem, QHBoxLayout, QSpacerItem, QSizePolicy, QAbstractItemView, QMessageBox
-from .Ui_logfetcher_interface import Ui_Form
+from Ui_logfetcher_interface import Ui_Form
 from qfluentwidgets import setTheme, setThemeColor, FluentWindow, CheckBox, PushButton, ToggleButton, TreeWidget, PrimaryPushButton
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtCore import Qt
@@ -110,13 +110,13 @@ def FetchLogs(Machinename, Ip):
     print("Parent clicked:", Machinename, Ip)
 
 
-# def main():
-#     app = QApplication(sys.argv)
-#     color = QColor('#351392')
-#     setThemeColor(color.name(), Qt.GlobalColor, '') 
-#     window = MainWindow()
-#     window.show()
-#     sys.exit(app.exec_())
+def main():
+    app = QApplication(sys.argv)
+    color = QColor('#351392')
+    setThemeColor(color.name(), Qt.GlobalColor, '') 
+    window = MainWindow()
+    window.show()
+    sys.exit(app.exec_())
 
-# if __name__ == "__main__":
-#     main()
+if __name__ == "__main__":
+    main()

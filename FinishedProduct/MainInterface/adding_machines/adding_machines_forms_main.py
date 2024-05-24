@@ -237,11 +237,34 @@ class MainWindow(QWidget, Ui_Form):
             print(port)
             print(MachineName)
             print(RefreshTime)
+            dir_creation_status = create_machine_directory(MachineName)
+            self.ui_config_progress.configprogress_TextEdit.append(dir_creation_status)
             create_or_update_csv(SNMPv3_username, auth_Protocole, Auth_password2, Priv_Protocole, Priv_password2, security_engine_id, hostname, password2, username, port ,MachineName, RefreshTime)
             QMessageBox.information(self, "Info", f"Machine {hostname} added successfully.")
             self.ui_config_progress.Loading.close()
             self.ui_config_progress.configprogress_finish.setDisabled(False)
-        
+
+def create_machine_directory(machine_name):
+    remt_directory = "C:\\ProgramData\\REMT"
+    if not os.path.exists(remt_directory):
+        try:
+            os.makedirs(remt_directory)
+            return f"Directory '{remt_directory}' created successfully."
+        except FileExistsError:
+            return f"Directory '{remt_directory}' already exists."
+        except Exception as e:
+            return f"An error occurred while creating directory '{remt_directory}': {e}"
+    
+    directory_path = os.path.join(remt_directory, machine_name)
+    try:
+        os.makedirs(directory_path)
+        return f"Directory '{directory_path}' created successfully."
+    except FileExistsError:
+        return f"Directory '{directory_path}' already exists."
+    except Exception as e:
+        return f"An error occurred while creating directory '{directory_path}': {e}"
+
+
 def create_or_update_csv(SNMPv3_username, auth_Protocole, auth_password, Priv_Protocole, priv_password, security_engine_id, ip_add, password, linux_username, port ,Machine_Name, RefreshTime):
     columns = ['SNMPv3_username', 
                'auth_Protocole', 
