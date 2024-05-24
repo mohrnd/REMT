@@ -9,13 +9,14 @@ from PyQt5.QtWidgets import QWidget, QTextEdit, QMessageBox, QApplication, QVBox
 from PyQt5.QtGui import QTextCursor, QFont
 from PyQt5.QtCore import Qt
 from qfluentwidgets import PrimaryPushButton
+from PyQt5.QtGui import QKeySequence,QKeyEvent
 
 logging.basicConfig(filename='ssh2.log', level=logging.INFO, format='%(asctime)s - %(message)s')
 
 PASSWORD_PROMPT_PATTERN = re.compile(r'[Pp]assword:?\s*$')
 
 class MultiSSHWidget(QWidget):
-    def __init__(self, hostname, username, password, Machine_Name,shared_text_edit):
+    def __init__(self, hostname, username, password, Machine_Name, shared_text_edit):
         super().__init__()
         self.hostname = hostname
         self.username = username
@@ -117,12 +118,18 @@ class MultiSSHWidget(QWidget):
                         cursor = widget.text_edit.textCursor()
                         cursor.deletePreviousChar()
                 elif event.modifiers() == Qt.ControlModifier:
-                    if event.key() == Qt.Key_C:
-                        widget.channel.send('\x03')
-                    elif event.key() == Qt.Key_D:
-                        widget.channel.send('\x04')
-                    elif event.key() == Qt.Key_L:
-                        widget.text_edit.clear()
+                    if event.key() == Qt.Key_C:  
+                        clipboard = QApplication.clipboard()
+                        selected_text = self.text_edit.textCursor().selectedText()
+                        clipboard.setText(selected_text)
+                    elif event.key() == Qt.Key_D:  
+                        self.channel.send('\x04')
+                    elif event.key() == Qt.Key_L:  
+                        self.text_edit.clear()
+                    elif event.key() == Qt.Key_V:  # Handle Ctrl+V (paste)
+                        clipboard_text = QApplication.clipboard().text()
+                        self.text_edit.insertPlainText(clipboard_text)
+                        self.buffer += clipboard_text
                 else:
                     widget.text_edit.insertPlainText(event.text())
                     if event.key() == Qt.Key_Enter or event.key() == Qt.Key_Return:
@@ -140,12 +147,18 @@ class MultiSSHWidget(QWidget):
                     cursor = self.text_edit.textCursor()
                     cursor.deletePreviousChar()
             elif event.modifiers() == Qt.ControlModifier:
-                if event.key() == Qt.Key_C:
-                    self.channel.send('\x03')
-                elif event.key() == Qt.Key_D:
+                if event.key() == Qt.Key_C:  
+                    clipboard = QApplication.clipboard()
+                    selected_text = self.text_edit.textCursor().selectedText()
+                    clipboard.setText(selected_text)
+                elif event.key() == Qt.Key_D:  
                     self.channel.send('\x04')
-                elif event.key() == Qt.Key_L:
+                elif event.key() == Qt.Key_L:  
                     self.text_edit.clear()
+                elif event.key() == Qt.Key_V:  # Handle Ctrl+V (paste)
+                    clipboard_text = QApplication.clipboard().text()
+                    self.text_edit.insertPlainText(clipboard_text)
+                    self.buffer += clipboard_text
             else:
                 self.text_edit.insertPlainText(event.text())
                 if event.key() == Qt.Key_Enter or event.key() == Qt.Key_Return:

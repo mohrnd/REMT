@@ -9,6 +9,8 @@ from PyQt5.QtWidgets import QWidget, QTextEdit, QMessageBox, QVBoxLayout, QPushB
 from PyQt5.QtGui import QTextCursor, QFont
 from PyQt5.QtCore import Qt
 from qfluentwidgets import PrimaryPushButton
+from PyQt5.QtGui import QKeySequence
+
 
 logging.basicConfig(filename='ssh2.log', level=logging.INFO, format='%(asctime)s - %(message)s')
 
@@ -80,7 +82,7 @@ class SSHWidget(QWidget):
             self.text_edit.append("Connection timed out while trying to connect to " + self.hostname)
             logging.error(f"Connection timed out while trying to connect to {self.hostname}")
             self.show_connection_error_dialog()
-
+            
     def keyPressEvent(self, event):
         if event.key() == Qt.Key_Backspace:
             if self.letter_count > 0:
@@ -90,11 +92,17 @@ class SSHWidget(QWidget):
                 cursor.deletePreviousChar()  
         elif event.modifiers() == Qt.ControlModifier:
             if event.key() == Qt.Key_C:  
-                self.channel.send('\x03')
+                clipboard = QApplication.clipboard()
+                selected_text = self.text_edit.textCursor().selectedText()
+                clipboard.setText(selected_text)
             elif event.key() == Qt.Key_D:  
                 self.channel.send('\x04')
             elif event.key() == Qt.Key_L:  
                 self.text_edit.clear()
+            elif event.key() == Qt.Key_V:  # Handle Ctrl+V (paste)
+                clipboard_text = QApplication.clipboard().text()
+                self.text_edit.insertPlainText(clipboard_text)
+                self.buffer += clipboard_text
         else:
             self.text_edit.insertPlainText(event.text())
             if event.key() == Qt.Key_Enter or event.key() == Qt.Key_Return:
@@ -105,7 +113,8 @@ class SSHWidget(QWidget):
                 self.buffer = ""
             else:
                 self.buffer += event.text()
-                self.letter_count += 1  
+                self.letter_count += 1
+
 
     def read_ssh_output(self):
         while True:
