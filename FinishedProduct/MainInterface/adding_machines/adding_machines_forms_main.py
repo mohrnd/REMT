@@ -1,6 +1,6 @@
 import sys
 from PyQt5.QtWidgets import QApplication, QWidget, QTableWidgetItem, QMessageBox, QAbstractItemView, QDialog
-from .Ui_Add_machine import Ui_Form
+from Ui_Add_machine import Ui_Form
 from PyQt5.QtCore import Qt, QTimer, QThread, pyqtSignal, QRect
 from PyQt5.QtGui import *
 from qfluentwidgets import (NavigationItemPosition, MessageBox, setTheme, setThemeColor, Theme, FluentWindow,
@@ -11,18 +11,17 @@ import csv
 import paramiko
 from paramiko import SSHException
 from fabric import Connection
-from .Ui_root_password_master_password_forms import *
-from .cipher_decipher_logic.CipherDecipher import get_password_no_form, add_new_entry, check_password
-from .Ui_Config_progress import *
+from Ui_root_password_master_password_forms import *
+from cipher_decipher_logic.CipherDecipher import get_password_no_form, add_new_entry, check_password
+from Ui_Config_progress import *
 from PyQt5.QtCore import QTimer, QThread
 import threading
 from qfluentwidgets import StateToolTip
 import binascii
-
+from config import config
 """
 TODO:
 execute the config.py from the LOG folder
-
 """
 
 class MainWindow(QWidget, Ui_Form):
@@ -240,7 +239,9 @@ class MainWindow(QWidget, Ui_Form):
             dir_creation_status = create_machine_directory(MachineName)
             self.ui_config_progress.configprogress_TextEdit.append(dir_creation_status)
             create_or_update_csv(SNMPv3_username, auth_Protocole, Auth_password2, Priv_Protocole, Priv_password2, security_engine_id, hostname, password2, username, port ,MachineName, RefreshTime)
-            QMessageBox.information(self, "Info", f"Machine {hostname} added successfully.")
+            status = config(hostname, port, username, password)
+            self.ui_config_progress.configprogress_TextEdit.append(status)
+            self.ui_config_progress.configprogress_TextEdit.append(f"Machine {hostname} added successfully.")
             self.ui_config_progress.Loading.close()
             self.ui_config_progress.configprogress_finish.setDisabled(False)
 
@@ -312,8 +313,8 @@ def main():
     
     sys.exit(app.exec_())
 
-# if __name__ == "__main__":
-#     main()
+if __name__ == "__main__":
+    main()
     
     
     # TODO : FIX THE FREEZING ISSUE
