@@ -2,7 +2,7 @@ from Cryptodome.Cipher import AES
 from Cryptodome.Protocol.KDF import PBKDF2
 import binascii
 import os
-from LoginInterface.Ui_LoginMasterPasswordInput import Ui_Form
+from .LoginInterface.Ui_LoginMasterPasswordInput import Ui_Form
 import sys
 from PyQt5.QtWidgets import QApplication, QWidget, QTableWidgetItem, QMessageBox, QAbstractItemView
 from PyQt5 import QtCore

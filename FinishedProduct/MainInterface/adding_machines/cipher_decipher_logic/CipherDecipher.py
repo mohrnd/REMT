@@ -74,7 +74,7 @@ def add_new_entry(MasterPassword, Password):
         create_vault_file(*encryptedMsg) # Pass ciphertext, aesIV, and authTag separately
         return binascii.hexlify(cipher).decode('utf-8')
     else:
-        Multi_Purpose_error_dialog('Your password was incorrect')
+        Multi_Purpose_error_dialog('Your masterpassword is incorrect !')
         pass
 
 
@@ -101,7 +101,7 @@ def get_password(CipheredPassword):
             Multi_Purpose_error_dialog(f"Error occurred while getting password: {e}")
             return None
     else:
-        Multi_Purpose_error_dialog('Your password was incorrect')
+        Multi_Purpose_error_dialog('Your masterpassword is incorrect !')
         pass
     
 def get_password_no_form(MasterPassword,CipheredPassword):
@@ -126,16 +126,16 @@ def get_password_no_form(MasterPassword,CipheredPassword):
             Multi_Purpose_error_dialog(f"Error occurred while getting password: {e}")
             return None
     else:
-        Multi_Purpose_error_dialog('Your password was incorrect')
+        Multi_Purpose_error_dialog('Your masterpassword is incorrect !')
         pass
         
 def hash_password(password):
     hashed_password = hashlib.sha256(password.encode()).hexdigest()
     return hashed_password
 
-def create_password_file(hashed_password):
+def create_password_file(password):
+    hashed_password = hashlib.sha256(password.encode()).hexdigest()
     file_path = 'C:\\ProgramData\\.Hash1851320.txt' 
-
     with open(file_path, 'w') as file:
         file.write(hashed_password)
     try:
@@ -145,6 +145,7 @@ def create_password_file(hashed_password):
     except Exception as e:
         Multi_Purpose_error_dialog(f"Error occurred while setting file attributes: {e}")
         
+
 def check_password(password):
     hashed_input = hash_password(password)
     file_path = 'C:\\ProgramData\\.Hash1851320.txt'

@@ -180,15 +180,13 @@ class Window(MSFluentWindow):
             QDesktopServices.openUrl(QUrl("https://github.com/mohrnd/REMT"))
 
 
-if __name__ == '__main__':
+def main():
     QApplication.setHighDpiScaleFactorRoundingPolicy(Qt.HighDpiScaleFactorRoundingPolicy.PassThrough)
     QApplication.setAttribute(Qt.AA_EnableHighDpiScaling)
     QApplication.setAttribute(Qt.AA_UseHighDpiPixmaps)
     color = QColor('#351392')
     setThemeColor(color ,Qt.GlobalColor , '') 
-
-    app = QApplication(sys.argv)
+    # app = QApplication(sys.argv)
     w = Window()
     w.resize(500, 900)
     w.show()
-    app.exec_()

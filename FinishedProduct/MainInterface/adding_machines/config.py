@@ -32,5 +32,3 @@ def config(host, port, username, password):
         return "Line already exists in .bashrc"
 
 
-
-print(config('192.168.69.44', 22, 'manager1', 'Pa$$w0rd'))

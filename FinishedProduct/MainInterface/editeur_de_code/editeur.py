@@ -8,7 +8,7 @@ import os
 from .transfert import Transfer
 import platform
 import tempfile
-from qfluentwidgets import  PushButton
+from qfluentwidgets import  PushButton, PasswordLineEdit, CheckBox, PrimaryPushButton
 from .cipher_decipher_logic.AES_cipher_decipher import get_password_no_form
 
 def Check_ip(hostname):
@@ -171,6 +171,7 @@ class OnlineIPDialog(QDialog):
         self.online_ips = online_ips
         self.current_file_path = current_file_path
         self.password_entered = None 
+        self.setFixedWidth(300)
         self.initUI()
 
     def initUI(self):
@@ -180,24 +181,23 @@ class OnlineIPDialog(QDialog):
         transfer = Transfer()
 
         for ip_data in self.online_ips:
-            ip_checkbox = QCheckBox(ip_data['ip'])
+            ip_checkbox = CheckBox(ip_data['ip'])
             layout.addWidget(ip_checkbox)
             self.checkbox_list.append(ip_checkbox)
             
         # Add the Masterpassword_input field
-        self.master_password_input = QLineEdit(self)
-        self.master_password_input.setEchoMode(QLineEdit.Password)  # Set the input to password mode
+        self.master_password_input = PasswordLineEdit(self)
+        self.master_password_input.setEchoMode(PasswordLineEdit.Password)  # Set the input to password mode
         self.master_password_input.setPlaceholderText("Master password")
         layout.addWidget(self.master_password_input)
 
-        send_button = QPushButton("SEND")
+        send_button = PrimaryPushButton("SEND")
         send_button.clicked.connect(self.send_files)
         layout.addWidget(send_button)
 
-        buttonBox = QDialogButtonBox(QDialogButtonBox.Ok | QDialogButtonBox.Cancel)
-        buttonBox.accepted.connect(self.accept)
-        buttonBox.rejected.connect(self.reject)
-        layout.addWidget(buttonBox)
+        cancel_button = PrimaryPushButton("Cancel")
+        cancel_button.clicked.connect(self.reject)
+        layout.addWidget(cancel_button)
 
         self.setLayout(layout)
         
