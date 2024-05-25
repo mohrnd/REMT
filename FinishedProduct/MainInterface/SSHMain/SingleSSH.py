@@ -6,7 +6,7 @@ import logging
 import os
 import re
 from PyQt5.QtWidgets import QWidget, QTextEdit, QMessageBox, QVBoxLayout, QPushButton, QApplication
-from PyQt5.QtGui import QTextCursor, QFont
+from PyQt5.QtGui import QTextCursor, QFont, QIcon
 from PyQt5.QtCore import Qt
 from qfluentwidgets import PrimaryPushButton
 from PyQt5.QtGui import QKeySequence
@@ -48,6 +48,7 @@ class SSHWidget(QWidget):
         layout.addWidget(self.password_button)
 
         self.setLayout(layout)
+        self.setWindowIcon(QIcon(r'..\FinishedProduct\MasterPasswordInput\FirstLoginInterface\black.png'))
 
     def connect(self):
         self.ssh_client = paramiko.SSHClient()

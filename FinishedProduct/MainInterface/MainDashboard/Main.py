@@ -59,11 +59,17 @@ class MainWindow(QMainWindow, Ui_Form):
                 machine_name = row['Machine_Name']
                 self.Total_Machines += 1
                 json_file = fr"C:\ProgramData\REMT\{machine_name}.json"
-                with open(json_file, 'r') as f:
-                    data = json.load(f)
-                    Latest_line = data[-1]
-                    Status = online_Check(ip_address)
-                    if Status == '🟢Online':
+                if not os.path.exists(fr"C:\ProgramData\REMT\{machine_name}.json"):
+                    print(fr"C:\ProgramData\REMT\{machine_name}.json")
+                    with open(json_file, 'w') as json_file:
+                        empty_data = ''
+                        json.dump(empty_data, json_file)
+
+                Status = online_Check(ip_address)
+                if Status == '🟢Online':
+                    with open(json_file, 'r') as f:
+                        data = json.load(f)
+                        Latest_line = data[-1]
                         self.Machines_Online = self.Machines_Online + 1
                         CpuUsage = Latest_line['CPUusage']
                         print(CpuUsage)
@@ -74,13 +80,13 @@ class MainWindow(QMainWindow, Ui_Form):
                         Uptime = Latest_line['UPTIME']
                         Uptime = convert_uptime(Uptime)
                         print(Uptime)
-                    else:
-                        CpuUsage = None
-                        RamUsage = None
-                        DiskUsage = None
-                        Uptime = None
-                    self.addRow(machine_name, ip_address, Status, Uptime, CpuUsage, RamUsage, DiskUsage)
-                    print(machine_name, ip_address)
+                else:
+                    CpuUsage = None
+                    RamUsage = None
+                    DiskUsage = None
+                    Uptime = None
+                self.addRow(machine_name, ip_address, Status, Uptime, CpuUsage, RamUsage, DiskUsage)
+                print(machine_name, ip_address)
         self.TotalMachines.setText(str(self.Total_Machines))
         self.MachinesOnline.setText(str(self.Machines_Online))
 

@@ -9,12 +9,14 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-
+from PyQt5.QtGui import QIcon
 
 class Ui_Form(object):
     def setupUi(self, Form):
         Form.setObjectName("Form")
         Form.resize(404, 139)
+        icon = QtGui.QIcon(QIcon(r'..\FinishedProduct\MasterPasswordInput\FirstLoginInterface\black.png'))  # Provide the path to your icon file
+        Form.setWindowIcon(icon)
         self.MasterPassword_login = PasswordLineEdit(Form)
         self.MasterPassword_login.setGeometry(QtCore.QRect(10, 50, 381, 33))
         self.MasterPassword_login.setObjectName("MasterPassword_login")

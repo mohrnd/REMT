@@ -6,7 +6,7 @@ import logging
 import os
 import re
 from PyQt5.QtWidgets import QWidget, QTextEdit, QMessageBox, QApplication, QVBoxLayout, QPushButton, QCheckBox, QScrollArea,QLabel
-from PyQt5.QtGui import QTextCursor, QFont
+from PyQt5.QtGui import QTextCursor, QFont, QIcon
 from PyQt5.QtCore import Qt
 from qfluentwidgets import PrimaryPushButton
 from PyQt5.QtGui import QKeySequence,QKeyEvent
@@ -266,6 +266,7 @@ class MultiSSHWindow(QWidget):
         main_layout = QVBoxLayout(self)
         main_layout.addWidget(self.scroll_area)
         self.setLayout(main_layout)
+        self.setWindowIcon(QIcon(r'..\FinishedProduct\MasterPasswordInput\FirstLoginInterface\black.png'))
 
     def toggle_input(self, state):
         if state == Qt.Checked:

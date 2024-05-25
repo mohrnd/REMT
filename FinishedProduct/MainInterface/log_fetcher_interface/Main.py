@@ -115,7 +115,7 @@ def add_lines(tree_widget, csv_path):
                 parent_item.setText(3, latest_fetch_date_str)
                 
 def FetchLogs(Machinename, Ip):
-    local_path_in = 'C:\\ProgramData\\REMT\\'
+    local_path_in = 'C:\\ProgramData\\REMT'
     csv_file = 'machines.csv'
     
     def fetch_logs_thread():

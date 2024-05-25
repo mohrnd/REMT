@@ -1,3 +1,5 @@
 SNMPv3_username,auth_Protocole,auth_password,Priv_Protocole,priv_password,security_engine_id,ip_add,password,linux_username,port,Machine_Name,RefreshTime
 roadmin,SHA,c7fa89df5950e5e5,AES,c7fa89df5950e5e5,80001f8880e83e9c1a897de96500000000,192.168.69.44,b6314c07c41224a1,manager1,22,SERVER1,30
 roadmin,SHA,2888d0f9399dc596,AES,8906cf4b3278d4c0,80001f88804038b87722b5de6500000000,192.168.69.42,dfae9dbd9fc61eaa,server1,22,SERVER2,24
+roadmin,SHA,c7fa89df5950e5e5,AES,c7fa89df5950e5e5,80001f8880e83e9c1a897de96500000000,192.168.69.48,b6314c07c41224a1,manager1,22,SERVER3,30
+roadmin,SHA,2888d0f9399dc596,AES,8906cf4b3278d4c0,80001f88804038b87722b5de6500000000,192.168.69.41,dfae9dbd9fc61eaa,server1,22,SERVER4,24

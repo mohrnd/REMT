@@ -42,7 +42,7 @@ class MainWindow(QWidget, Ui_Form):
 
     def show_root_password_form(self):
         self.root_password_form = QDialog()
-        self.root_password_form.setWindowIcon(QIcon(r'..\REMT\FinishedProduct\MasterPasswordInput\FirstLoginInterface\black.png'))
+        self.root_password_form.setWindowIcon(QIcon(r'..\FinishedProduct\MasterPasswordInput\FirstLoginInterface\black.png'))
         self.root_password_form.setWindowTitle("Root Password Form")
         self.show_root_password_form_ui = Ui_Form2()
         self.show_root_password_form_ui.setupUi(self.root_password_form)
@@ -56,6 +56,7 @@ class MainWindow(QWidget, Ui_Form):
     
     def show_config_progress(self):
         self.config_progress_form = QDialog()
+        self.root_password_form.setWindowIcon(QIcon(r'..\FinishedProduct\MasterPasswordInput\FirstLoginInterface\black.png'))
         self.ui_config_progress = Ui_Form3() 
         self.ui_config_progress.setupUi(self.config_progress_form)
         self.ui_config_progress.configprogress_finish.clicked.connect(self.config_progress_form.reject)
@@ -149,7 +150,7 @@ class MainWindow(QWidget, Ui_Form):
     def snmpconf_setup(self, root_username, root_password, master_password):
         # self.show_root_password_form_ui.ProgressBar_2.show()
         # self.show_root_password_form_ui.StrongBodyLabel_2.show()  
-        with open(r'..\REMT\FinishedProduct\MainInterface\adding_machines\SNMPv3_Config_template.txt', 'r') as file:
+        with open(r'..\FinishedProduct\MainInterface\adding_machines\SNMPv3_Config_template.txt', 'r') as file:
             setup_script_content = file.read()
         hostname = self.IPAddress.text()
         username = self.MachineUsername.text()

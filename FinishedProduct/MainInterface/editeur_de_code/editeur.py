@@ -198,6 +198,8 @@ class OnlineIPDialog(QDialog):
         cancel_button = PrimaryPushButton("Cancel")
         cancel_button.clicked.connect(self.reject)
         layout.addWidget(cancel_button)
+        
+        self.setWindowIcon(QIcon(r"..\REMT\FinishedProduct\MainInterface\black.png"))
 
         self.setLayout(layout)
         
