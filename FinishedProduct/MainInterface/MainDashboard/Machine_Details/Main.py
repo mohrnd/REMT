@@ -200,6 +200,9 @@ class MainWindow(QMainWindow, Ui_Form):
             'DISKusage': diskusage,
             'NICnames': nicnames,
         })
+        
+        # Convertir les colonnes en nombres décimaux
+        df[['LOAD1min', 'LOAD5min', 'LOAD15min']] = df[['LOAD1min', 'LOAD5min', 'LOAD15min']].astype(float)
     
         # Convertir la colonne 'Timestamp' en index de type datetime
         df['Timestamp'] = pd.to_datetime(df['Timestamp'])
@@ -257,7 +260,10 @@ class MainWindow(QMainWindow, Ui_Form):
             'DISKusage': diskusage,
             'NICnames': nicnames
         })
-
+        
+        # Convertir les colonnes en nombres décimaux
+        df[['CPUusage', 'RAMusage', 'DISKusage']] = df[['CPUusage', 'RAMusage', 'DISKusage']].astype(float)
+        
         # Convertir la colonne 'Timestamp' en index de type datetime
         df['Timestamp'] = pd.to_datetime(df['Timestamp'])
         df.set_index('Timestamp', inplace=True)
@@ -322,6 +328,10 @@ class MainWindow(QMainWindow, Ui_Form):
             'datain': datain,
             'dataout': dataout
         })
+        
+        # Convertir les colonnes en nombres décimaux
+        df['datain'] = df['datain'].apply(lambda x: [float(val) for val in x])
+        df['dataout'] = df['dataout'].apply(lambda x: [float(val) for val in x])
 
         df['Timestamp'] = pd.to_datetime(df['Timestamp'])
         df.set_index('Timestamp', inplace=True)
@@ -400,6 +410,9 @@ class MainWindow(QMainWindow, Ui_Form):
             'DISKusage': diskusage,
             'NICnames': nicnames
         })
+        
+        # Convertir les colonnes en nombres décimaux
+        df[['LOAD1min', 'LOAD5min', 'LOAD15min']] = df[['LOAD1min', 'LOAD5min', 'LOAD15min']].astype(float)
 
         # Convertir la colonne 'Timestamp' en index de type datetime
         df['Timestamp'] = pd.to_datetime(df['Timestamp'])
@@ -471,6 +484,9 @@ class MainWindow(QMainWindow, Ui_Form):
             'DISKusage': diskusage,
             'NICnames': nicnames
         })
+        
+        # Convertir les colonnes en nombres décimaux
+        df[['CPUusage', 'RAMusage', 'DISKusage']] = df[['CPUusage', 'RAMusage', 'DISKusage']].astype(float)
 
         # Convertir la colonne 'Timestamp' en index de type datetime
         df['Timestamp'] = pd.to_datetime(df['Timestamp'])
@@ -535,6 +551,11 @@ class MainWindow(QMainWindow, Ui_Form):
             'datain': datain,
             'dataout': dataout
         })
+        
+        # Convertir les colonnes en nombres décimaux
+        df['datain'] = df['datain'].apply(lambda x: [float(val) for val in x])
+        df['dataout'] = df['dataout'].apply(lambda x: [float(val) for val in x])
+
 
         df['Timestamp'] = pd.to_datetime(df['Timestamp'])
         df.set_index('Timestamp', inplace=True)
@@ -643,6 +664,13 @@ class MainWindow(QMainWindow, Ui_Form):
             'datain': datain,
             'dataout': dataout
         })
+        
+        # Convertir les colonnes en nombres décimaux
+        df[['CPUusage', 'RAMusage', 'DISKusage','LOAD1min', 'LOAD5min', 'LOAD15min']] = df[['CPUusage', 'RAMusage', 'DISKusage','LOAD1min', 'LOAD5min', 'LOAD15min']].astype(float)
+        
+        # Convertir les colonnes en nombres décimaux
+        df['datain'] = df['datain'].apply(lambda x: [float(val) for val in x])
+        df['dataout'] = df['dataout'].apply(lambda x: [float(val) for val in x])
 
         # Convertir la colonne 'Timestamp' en index de type datetime
         df['Timestamp'] = pd.to_datetime(df['Timestamp'])
@@ -792,4 +820,4 @@ def main(MachineName, MachineIP):
     sys.exit(app.exec_())
 
 # if __name__ == "__main__":
-#     main('SERVER1', '192.168.69.44')
+#     main('zizou', '192.168.1.22')
