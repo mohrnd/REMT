@@ -443,3 +443,37 @@ Last login: Fri May 24 13:53:22 2024
 2024-05-24 15:38:14,475 - Connected (version 2.0, client OpenSSH_8.7)
 2024-05-24 15:38:14,638 - Authentication (password) successful!
 2024-05-24 15:38:32,849 - Trap from "192.168.69.44", SysUptime = 42727, SNMPTrapOID = 1.3.6.1.4.1.8072.4.0.2, Interpreted OID: SystemShutdown, SNMPTrapEnterprise = 1.3.6.1.4.1.8072.4
+2024-05-25 13:14:15,704 - Connected (version 2.0, client OpenSSH_8.7)
+2024-05-25 13:14:15,894 - Authentication (password) successful!
+2024-05-25 13:14:15,894 - SSH connection established to 192.168.69.44 by user BALLS2 (rip BALLS)
+2024-05-25 13:14:16,139 - Command output: Activate the web console with: systemctl enable --now cockpit.socket
+
+Last login: Sat May 25 12:50:05 2024 from 192.168.69.39
+
+2024-05-25 13:14:16,547 - Command output: [manager1@rocky-linux ~]$ 
+2024-05-25 13:14:21,992 - Connected (version 2.0, client OpenSSH_8.7)
+2024-05-25 13:14:24,716 - Authentication (password) failed.
+2024-05-25 13:14:47,241 - Connected (version 2.0, client OpenSSH_8.7)
+2024-05-25 13:14:47,419 - Authentication (password) successful!
+2024-05-25 13:14:47,419 - SSH connection established to 192.168.69.44 by user BALLS2 (rip BALLS)
+2024-05-25 13:14:47,678 - Connected (version 2.0, client OpenSSH_8.7)
+2024-05-25 13:14:47,841 - Authentication (password) successful!
+2024-05-25 13:14:47,842 - SSH connection established to 192.168.69.42 by user BALLS2 (rip BALLS)
+2024-05-25 13:15:40,329 - Connected (version 2.0, client OpenSSH_8.7)
+2024-05-25 13:15:40,523 - Authentication (password) successful!
+2024-05-25 13:15:40,523 - SSH connection established to 192.168.69.44 by user BALLS2 (rip BALLS)
+2024-05-25 13:15:40,790 - Connected (version 2.0, client OpenSSH_8.7)
+2024-05-25 13:15:40,972 - Authentication (password) successful!
+2024-05-25 13:15:40,972 - SSH connection established to 192.168.69.42 by user BALLS2 (rip BALLS)
+2024-05-25 13:15:50,583 - Connected (version 2.0, client OpenSSH_8.7)
+2024-05-25 13:15:53,308 - Authentication (password) failed.
+2024-05-25 13:17:53,053 - Connected (version 2.0, client OpenSSH_8.7)
+2024-05-25 13:17:53,229 - Authentication (password) successful!
+2024-05-25 13:17:53,229 - SSH connection established to 192.168.69.44 by user BALLS2 (rip BALLS)
+2024-05-25 13:17:53,470 - Command output: Activate the web console with: systemctl enable --now cockpit.socket
+
+Last failed login: Sat May 25 13:15:53 CET 2024 from 192.168.69.39 on ssh:notty
+There was 1 failed login attempt since the last successful login.
+Last login: Sat May 25 13:15:42 2024 from 192.168.69.39
+
+2024-05-25 13:17:53,884 - Command output: [manager1@rocky-linux ~]$ 

@@ -62,19 +62,19 @@ def create_vault_file(ciphertext, aesIV, authTag):
         file.write(binascii.hexlify(ciphertext).decode('utf-8') + ',' + binascii.hexlify(aesIV).decode('utf-8') + ',' + binascii.hexlify(authTag).decode('utf-8') + '\n')
     try:
         os.system('attrib +H "{}"'.format(file_path))
-        Multi_Purpose_info_dialog("Password file created successfully.")
     except Exception as e:
         Multi_Purpose_error_dialog(f"Error occurred while setting file attributes: {e}")
 
 
-def add_new_entry(Password):
-    MasterPassword = get_master_password()
+def add_new_entry(MasterPassword, Password):
     status = check_password(MasterPassword)
     if status == True:
         encryptedMsg = encrypt_AES_GCM(Password, MasterPassword)
+        cipher, aesIV, authTag = encryptedMsg
         create_vault_file(*encryptedMsg) # Pass ciphertext, aesIV, and authTag separately
+        return binascii.hexlify(cipher).decode('utf-8')
     else:
-        Multi_Purpose_error_dialog('Your password was incorrect')
+        Multi_Purpose_error_dialog('Your Master password is incorrect')
         pass
 
 
@@ -120,14 +120,15 @@ def get_password_no_form(MasterPassword,CipheredPassword):
                     decrypted_password = decrypt_AES_GCM((encrypted_password, aesIV, authTag), MasterPassword)
                     return decrypted_password
 
-            Multi_Purpose_error_dialog("CipheredPassword not found in the file.")
+            # Multi_Purpose_error_dialog("CipheredPassword not found in the file.")
             return None
         except Exception as e:
             Multi_Purpose_error_dialog(f"Error occurred while getting password: {e}")
             return None
     else:
-        print('Your password was incorrect')
-        pass
+        Multi_Purpose_error_dialog('Your Master password is incorrect')
+        return 'REMTM@$terP@$$w0rdErr0r'
+        
         
 def hash_password(password):
     hashed_password = hashlib.sha256(password.encode()).hexdigest()
@@ -183,9 +184,11 @@ def Multi_Purpose_info_dialog(Message):
 
 # Usage 
 # print(add_new_entry('Pa$$w0rd13')) 
-#print(get_password('bd475a48a62ecc596ec7')) 
+# print(get_password('b6314c07c41224a1')) 
+# passo= add_new_entry('MASTERPASSWORD', 'Pa$$w0rd')
+# print(passo)
 
-
+# add_new_entry('admin123')
 # hasher usage: 
 # password = input("Enter the password to be hashed: ")
 # hashed_password = hash_password(password)

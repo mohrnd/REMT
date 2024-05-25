@@ -27,8 +27,7 @@ class MainWindow(Ui_Frame, QWidget):
         self.master_password_input = PasswordLineEdit(self)
         self.master_password_input.setPlaceholderText("Master password")
         self.password_entered = None 
-        
-        self.master_password_input.setGeometry(400, 770, 191, 50) 
+        self.master_password_input.setGeometry(10, 770, 570, 80) 
         
         # Connect the signal to update the master password variable
         self.master_password_input.textChanged.connect(self.update_master_password) 
@@ -45,7 +44,7 @@ class MainWindow(Ui_Frame, QWidget):
         self.password_entered = text
         
     def show_active_machines(self):
-        CSV_File_Path = '../REMT/FinishedProduct/MainInterface/FileTransferFetch/user.csv'
+        CSV_File_Path = 'machines.csv'
         with open(CSV_File_Path, 'r') as file:
             reader = csv.DictReader(file)
             for row in reader:
@@ -106,22 +105,32 @@ class MainWindow(Ui_Frame, QWidget):
             no_ip_error_dialog()
         else:
             hosts = []
+            master_password_error = False
             print(selectedIPS)
             for ip in selectedIPS:
-                CSV_File_Path = '../REMT/FinishedProduct/MainInterface/FileTransferFetch/user.csv'
+                CSV_File_Path = 'machines.csv'
                 with open(CSV_File_Path, 'r') as file:
                     reader = csv.DictReader(file)
                     for row in reader:
                         if row['ip_add'] == ip: 
                             username = row['linux_username']
                             ciphered_password = row['password']
-                            Machine_Name=row['Machine_Name']
-                            password1 = get_password_no_form(password_entered,ciphered_password)
-                            password=password1
-                            Machine_Name=row['Machine_Name']
-                            temp = [ip, username, password,Machine_Name]
-                            hosts.append(temp.copy())  
+                            Machine_Name = row['Machine_Name']
+                            password1 = get_password_no_form(password_entered, ciphered_password)
+                            if password1 == 'REMTM@$terP@$$w0rdErr0r':
+                                master_password_error = True
+                                break
+                            else:
+                                password = password1
+                                temp = [ip, username, password, Machine_Name]
+                                hosts.append(temp.copy())  
                             break
+                if master_password_error:
+                    break
+            
+            if master_password_error:
+                return
+            
             if len(hosts) < 2:
                 multissh_error_dialog()
                 print(len(hosts))
@@ -129,7 +138,7 @@ class MainWindow(Ui_Frame, QWidget):
             else:
                 self.multi_ssh_window = MultiSSHWindow(hosts)
                 self.multi_ssh_window.show()
-            
+                
             
     def SingleSSH(self, ip_address):
         
@@ -139,19 +148,22 @@ class MainWindow(Ui_Frame, QWidget):
             return
         
         hostname = ip_address
-        CSV_File_Path = '../REMT/FinishedProduct/MainInterface/FileTransferFetch/user.csv'
+        CSV_File_Path = 'machines.csv'
         with open(CSV_File_Path, 'r') as file:
             reader = csv.DictReader(file)
             for row in reader:
                 if row['ip_add'] == hostname: 
                     username = row['linux_username']
                     ciphered_password = row['password']      
-                    password1 = get_password_no_form(password_entered,ciphered_password)
-                    password=password1
-                    single_ssh_window = SSHWidget(hostname, username, password)
-                    single_ssh_window.setGeometry(200, 200, 1200, 900) 
-                    single_ssh_window.show()
-                    return
+                    password1 = get_password_no_form(password_entered, ciphered_password)
+                    if password1 == 'REMTM@$terP@$$w0rdErr0r':
+                        return
+                    else:
+                        password = password1
+                        single_ssh_window = SSHWidget(hostname, username, password)
+                        single_ssh_window.setGeometry(200, 200, 1200, 900) 
+                        single_ssh_window.show()
+                        return
 
 
 def no_ip_error_dialog():

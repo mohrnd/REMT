@@ -27,7 +27,7 @@ class Ui_Frame(object):
         item = QtWidgets.QTableWidgetItem()
         self.MainTable.setHorizontalHeaderItem(2, item)
         self.OpenMultiSSH = PrimaryPushButton(Frame)
-        self.OpenMultiSSH.setGeometry(QtCore.QRect(600, 770, 191, 40))
+        self.OpenMultiSSH.setGeometry(QtCore.QRect(600, 770, 191, 32))
         self.OpenMultiSSH.setObjectName("OpenMultiSSH")
 
         self.retranslateUi(Frame)
@@ -37,15 +37,15 @@ class Ui_Frame(object):
         _translate = QtCore.QCoreApplication.translate
         Frame.setWindowTitle(_translate("Frame", "Frame"))
         item = self.MainTable.horizontalHeaderItem(0)
-        self.MainTable.setColumnWidth(0,150) 
+        self.MainTable.setColumnWidth(0,300) 
         
         item.setText(_translate("Frame", "Machine Name"))
         item = self.MainTable.horizontalHeaderItem(1)
-        self.MainTable.setColumnWidth(1,190) 
+        self.MainTable.setColumnWidth(1,265) 
         
         item.setText(_translate("Frame", "IP Address"))
         item = self.MainTable.horizontalHeaderItem(2)
-        self.MainTable.setColumnWidth(2,200) 
+        self.MainTable.setColumnWidth(2,150) 
         
         item.setText(_translate("Frame", "Actions"))
         self.OpenMultiSSH.setText(_translate("Frame", "Open Multi-SSH window"))
