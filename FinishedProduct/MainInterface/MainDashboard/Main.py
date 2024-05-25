@@ -6,11 +6,11 @@ from PyQt5.QtGui import *
 from qfluentwidgets import (TimePicker, NavigationItemPosition, MessageBox, setTheme, setThemeColor, Theme, FluentWindow,
                             NavigationAvatarWidget, SubtitleLabel, setFont, InfoBadge,
                             InfoBadgePosition, CheckBox, PushButton, PrimaryPushButton)
-from Ui_Dashboard import Ui_Form
+from .Ui_Dashboard import Ui_Form
 from PyQt5.QtWidgets import QMainWindow
 import json, os, csv, time, threading
 import re
-from Machine_Details.Main import main as OpenMachineDetails
+from .Machine_Details.Main import main as OpenMachineDetails
 
 class MainWindow(QMainWindow, Ui_Form):
     def __init__(self):
@@ -18,16 +18,17 @@ class MainWindow(QMainWindow, Ui_Form):
         self.setupUi(self)
         self.MainTable.setStyleSheet("QTableWidget { border: 1px solid gray; selection-background-color: #AF9BE5;  }")
         self.MainTable.setEditTriggers(QAbstractItemView.NoEditTriggers) 
+        self.start_thread()
         self.FillData()
         self.timer = QTimer(self)
         self.timer.timeout.connect(self.FillData)
         self.timer.start(10000)
-        self.start_thread()
+
 
         
     def start_thread(self):
         def thread_function():
-            from data_fetcher import main
+            from .data_fetcher import main
             masterpassword = 'MASTERPASSWORD'
             main(masterpassword)
         # Create and start the thread
@@ -57,7 +58,7 @@ class MainWindow(QMainWindow, Ui_Form):
                 ip_address = row['ip_add']
                 machine_name = row['Machine_Name']
                 self.Total_Machines += 1
-                json_file = fr'../REMT/tests/dashboard/{machine_name}.json'
+                json_file = fr"C:\ProgramData\REMT\{machine_name}.json"
                 with open(json_file, 'r') as f:
                     data = json.load(f)
                     Latest_line = data[-1]
@@ -147,14 +148,14 @@ def online_Check(ip_address):
     else:
         return '🔴Offline'
 
-def main():
-    color = QColor('#351392')
-    setThemeColor(color ,Qt.GlobalColor , '') 
-    app = QApplication(sys.argv)
-    window = MainWindow() 
-    window.show()
+# def main():
+#     color = QColor('#351392')
+#     setThemeColor(color ,Qt.GlobalColor , '') 
+#     app = QApplication(sys.argv)
+#     window = MainWindow() 
+#     window.show()
 
-    sys.exit(app.exec_())
+#     sys.exit(app.exec_())
 
-if __name__ == "__main__":
-    main()
+# if __name__ == "__main__":
+#     main()

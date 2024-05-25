@@ -6,7 +6,7 @@ from PyQt5.QtGui import *
 from qfluentwidgets import (TimePicker, NavigationItemPosition, MessageBox, setTheme, setThemeColor, Theme, FluentWindow,
                             NavigationAvatarWidget, SubtitleLabel, setFont, InfoBadge,
                             InfoBadgePosition, CheckBox, PushButton, PrimaryPushButton)
-from Ui_Main_data_viewer_window import Ui_Form
+from .Ui_Main_data_viewer_window import Ui_Form
 from PyQt5.QtWidgets import QMainWindow
 import json
 import matplotlib.pyplot as plt
@@ -54,7 +54,7 @@ class MainWindow(QMainWindow, Ui_Form):
     def FillData(self):
         
         # change the filepath !!!!
-        filepath = f"..\REMT\Tests\data_viewer (DONT USE ME)\{self.Machine_Name}.json"
+        filepath = f"C:\ProgramData\REMT\{self.Machine_Name}.json"
         
         
         with open(filepath, 'r') as f:
@@ -116,7 +116,7 @@ class MainWindow(QMainWindow, Ui_Form):
         
     def load_data(self):
         # Chemin vers le fichier JSON
-        filepath = r"..\REMT\Tests\Data_Viewer_final version\info.json"
+        filepath = fr"C:\ProgramData\REMT\{self.Machine_Name}.json"
         
         # Variables pour stocker les données
         timestamps = []
@@ -167,7 +167,7 @@ class MainWindow(QMainWindow, Ui_Form):
 
     def Enddate(self):
     
-        file_path = r"..\REMT\Tests\Data_Viewer_final version\info.json"
+        file_path = fr"C:\ProgramData\REMT\{self.Machine_Name}.json"
         with open(file_path, 'r') as file:
             data = json.load(file)
         
@@ -804,5 +804,5 @@ def main(MachineName, MachineIP):
 
     sys.exit(app.exec_())
 
-if __name__ == "__main__":
-    main('SERVER1', '192.168.69.44')
+# if __name__ == "__main__":
+#     main('SERVER1', '192.168.69.44')

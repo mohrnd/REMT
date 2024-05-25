@@ -477,3 +477,45 @@ There was 1 failed login attempt since the last successful login.
 Last login: Sat May 25 13:15:42 2024 from 192.168.69.39
 
 2024-05-25 13:17:53,884 - Command output: [manager1@rocky-linux ~]$ 
+2024-05-25 14:53:15,418 - Connected (version 2.0, client OpenSSH_8.7)
+2024-05-25 14:53:15,593 - Authentication (password) successful!
+2024-05-25 14:53:25,400 - Connected (version 2.0, client OpenSSH_8.7)
+2024-05-25 14:53:25,578 - Authentication (password) successful!
+2024-05-25 14:53:25,804 - Connected (version 2.0, client OpenSSH_8.7)
+2024-05-25 14:53:25,969 - Authentication (password) successful!
+2024-05-25 14:53:57,201 - Connected (version 2.0, client OpenSSH_8.7)
+2024-05-25 14:53:57,381 - Authentication (password) successful!
+2024-05-25 14:54:16,736 - Connected (version 2.0, client OpenSSH_8.7)
+2024-05-25 14:54:16,917 - Authentication (password) successful!
+2024-05-25 14:54:17,137 - Connected (version 2.0, client OpenSSH_8.7)
+2024-05-25 14:54:17,301 - Authentication (password) successful!
+2024-05-25 14:56:19,780 - Connected (version 2.0, client OpenSSH_8.7)
+2024-05-25 14:56:19,953 - Authentication (password) successful!
+2024-05-25 14:56:20,448 - Connected (version 2.0, client OpenSSH_8.7)
+2024-05-25 14:56:20,613 - Authentication (password) successful!
+2024-05-25 14:59:41,375 - Connected (version 2.0, client OpenSSH_8.7)
+2024-05-25 14:59:41,567 - Authentication (password) successful!
+2024-05-25 14:59:59,897 - Connected (version 2.0, client OpenSSH_8.7)
+2024-05-25 15:00:00,100 - Authentication (password) successful!
+2024-05-25 15:00:29,820 - Connected (version 2.0, client OpenSSH_8.7)
+2024-05-25 15:00:29,993 - Authentication (password) successful!
+2024-05-25 15:00:38,369 - Connected (version 2.0, client OpenSSH_8.7)
+2024-05-25 15:00:38,547 - Authentication (password) successful!
+2024-05-25 15:00:38,760 - Connected (version 2.0, client OpenSSH_8.7)
+2024-05-25 15:00:38,923 - Authentication (password) successful!
+2024-05-25 15:00:49,843 - Connected (version 2.0, client OpenSSH_8.7)
+2024-05-25 15:00:50,019 - Authentication (password) successful!
+2024-05-25 15:01:00,631 - Connected (version 2.0, client OpenSSH_8.7)
+2024-05-25 15:01:00,800 - Authentication (password) successful!
+2024-05-25 15:03:11,332 - Connected (version 2.0, client OpenSSH_8.7)
+2024-05-25 15:03:11,508 - Authentication (password) successful!
+2024-05-25 15:03:53,496 - Connected (version 2.0, client OpenSSH_8.7)
+2024-05-25 15:03:53,679 - Authentication (password) successful!
+2024-05-25 15:03:54,662 - Connected (version 2.0, client OpenSSH_8.7)
+2024-05-25 15:03:54,665 - Connected (version 2.0, client OpenSSH_8.7)
+2024-05-25 15:03:54,839 - Authentication (password) successful!
+2024-05-25 15:03:54,849 - Authentication (password) successful!
+2024-05-25 15:03:57,745 - Connected (version 2.0, client OpenSSH_8.7)
+2024-05-25 15:03:57,924 - Authentication (password) successful!
+2024-05-25 15:03:58,144 - Connected (version 2.0, client OpenSSH_8.7)
+2024-05-25 15:03:58,308 - Authentication (password) successful!

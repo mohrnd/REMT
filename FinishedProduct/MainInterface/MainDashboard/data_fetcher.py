@@ -7,7 +7,7 @@ from datetime import datetime
 import time
 import threading
 import csv
-from cipher_decipher_logic.CipherDecipher import *
+from .cipher_decipher_logic.CipherDecipher import *
 
 '''
 Notes: 
@@ -58,7 +58,7 @@ def create_or_update_json(data, MachineName):
         'dataOUT': dataOUT
     }
 
-    json_file_path = f'..\REMT\Tests\dashboard\{MachineName}.json'
+    json_file_path = fr"C:\ProgramData\REMT\{MachineName}.json"
 
     if not os.path.exists(json_file_path):
         with open(json_file_path, 'w') as file:

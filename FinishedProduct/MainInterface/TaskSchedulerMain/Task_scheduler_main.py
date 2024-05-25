@@ -18,8 +18,8 @@ class MainWindow(QWidget, Ui_Frame):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
-        self.TableWidget.setEditTriggers(QAbstractItemView.NoEditTriggers) 
-        self.Machines.setEditTriggers(QAbstractItemView.NoEditTriggers) 
+        self.TableWidget.setEditTriggers(QAbstractItemView.NoEditTriggers)
+        self.Machines.setEditTriggers(QAbstractItemView.NoEditTriggers)
         self.Machines.setStyleSheet("QTableWidget { border: 1px solid gray; selection-background-color: #AF9BE5;}")
         self.TableWidget.setStyleSheet("QTableWidget { border: 1px solid gray; selection-background-color: #AF9BE5;}")
         self.show_active_machines()
@@ -27,7 +27,7 @@ class MainWindow(QWidget, Ui_Frame):
         self.show_active_crons(self.masterpassword)
         self.add_button.clicked.connect(self.Add_to_preview)
         self.Apply.clicked.connect(self.Apply_cron)
-        
+
         self.Onstartup.clicked.connect(self.on_startup_clicked)
         self.hourly.clicked.connect(self.hourly_clicked)
         self.Daily_2.clicked.connect(self.daily_clicked)
@@ -50,7 +50,7 @@ class MainWindow(QWidget, Ui_Frame):
                 Check = row['ip_add']
                 if Check_ip(Check):
                     hostname = row['ip_add']
-                    port  = 22
+                    port = 22
                     username = row['linux_username']
                     ciphered_password = row['password']
                     password = get_password_no_form(masterpassword, ciphered_password)
@@ -69,7 +69,8 @@ class MainWindow(QWidget, Ui_Frame):
                                 self.TableWidget.setItem(rowPositionMachines, 2, QTableWidgetItem(str(Next_exec)))
                                 self.TableWidget.setItem(rowPositionMachines, 3, QTableWidgetItem(inter))
                                 DeleteButton = PushButton('Delete')
-                                self.TableWidget.setCellWidget(rowPositionMachines, 4, DeleteButton) 
+                                self.TableWidget.setCellWidget(rowPositionMachines, 4, DeleteButton)
+                                self.connect_delete_button(DeleteButton)
                         ssh_client.close()
                 else:
                     pass
@@ -87,7 +88,7 @@ class MainWindow(QWidget, Ui_Frame):
                     self.Machines.insertRow(rowPositionMachines)
                     self.Machines.setItem(rowPositionMachines, 0, QTableWidgetItem(hostname))
                     self.Machines.setItem(rowPositionMachines, 1, QTableWidgetItem(MachineName))
-                    checkbox = CheckBox()  
+                    checkbox = CheckBox()
                     checkbox.setChecked(False)
                     self.Machines.setCellWidget(rowPositionMachines, 2, checkbox)
 
@@ -105,7 +106,7 @@ class MainWindow(QWidget, Ui_Frame):
                     selectedIPS.append(ip_address_item.text())
         if selectedIPS == []:
             no_ip_error_dialog()
-        else: 
+        else:
             preview_text = self.Preview.toPlainText()
             preview_lines = preview_text.split('\n')
             job = preview_lines[0]
@@ -116,7 +117,7 @@ class MainWindow(QWidget, Ui_Frame):
                     for row in reader:
                         if row['ip_add'] == IP:
                             hostname = IP
-                            port  = 22
+                            port = 22
                             username = row['linux_username']
                             ciphered_password = row['password']
                             password = get_password_no_form(master_password, ciphered_password)
@@ -133,7 +134,8 @@ class MainWindow(QWidget, Ui_Frame):
                                 self.TableWidget.setItem(rowPositionMachines, 2, QTableWidgetItem(str(Next_exec)))
                                 self.TableWidget.setItem(rowPositionMachines, 3, QTableWidgetItem(inter))
                                 DeleteButton = PushButton('Delete')
-                                self.TableWidget.setCellWidget(rowPositionMachines, 4, DeleteButton) 
+                                self.TableWidget.setCellWidget(rowPositionMachines, 4, DeleteButton)
+                                self.connect_delete_button(DeleteButton)
                             break
 
     def delete_cron(self):
@@ -164,14 +166,17 @@ class MainWindow(QWidget, Ui_Frame):
                                     ssh_client.close()
                                     self.TableWidget.removeRow(int(table_row))
                                 break
-    
+
+    def connect_delete_button(self, button):
+        button.clicked.connect(self.delete_cron)
+
     def Add_to_preview(self):
         # add value checking
         Months = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC']
         Weekdays = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT']
-        if self.Command_input.text() == '': 
+        if self.Command_input.text() == '':
             no_cmd_error_dialog()
-        else: 
+        else:
             Minutes = '*' if not self.minute_input.text() else self.minute_input.text()
             Hours = '*' if not self.hour_input.text() else self.hour_input.text()
             Days = '*' if not self.day_input.text() else self.day_input.text()
@@ -181,8 +186,6 @@ class MainWindow(QWidget, Ui_Frame):
             inter, Next_exec = interpret_schedule(f'{Minutes} {Hours} {Days} {months} {weekdays}')
             self.Preview.setText(f"{Minutes} {Hours} {Days} {months} {weekdays} {cmd} \n Next execution: {Next_exec.strftime('%Y-%m-%d %H:%M:%S')} \n Interpretation: {inter}")
 
-    
-    
     def on_startup_clicked(self):
         cmd = self.Command_input.text()
         if cmd == '':
@@ -190,7 +193,6 @@ class MainWindow(QWidget, Ui_Frame):
         else:
             inter, Next_exec = interpret_schedule(f'@reboot')
             self.Preview.setText(f"@reboot {cmd}\n Next execution: {Next_exec} \n Interpretation: {inter}")
-
 
     def hourly_clicked(self):
         cmd = self.Command_input.text()
@@ -207,7 +209,6 @@ class MainWindow(QWidget, Ui_Frame):
         else:
             inter, Next_exec = interpret_schedule(f'@daily')
             self.Preview.setText(f"@daily {cmd} \n Next execution: {Next_exec.strftime('%Y-%m-%d %H:%M:%S')} \n Interpretation: {inter}")
-
 
     def weekly_clicked(self):
         cmd = self.Command_input.text()
@@ -232,7 +233,6 @@ class MainWindow(QWidget, Ui_Frame):
         else:
             inter, Next_exec = interpret_schedule(f'@yearly')
             self.Preview.setText(f"@yearly {cmd} \n Next execution: {Next_exec.strftime('%Y-%m-%d %H:%M:%S')} \n Interpretation: {inter}")
-
 
 def no_ip_error_dialog():
     msg_box = QMessageBox()
@@ -263,7 +263,7 @@ def value_error_dialog():
 
 def Check_ip(hostname):
     param = '-n' if os.name.lower() == 'nt' else '-c'
-    response = os.system(f"ping {param} 1 -w 100 {hostname} > NUL 2>&1")   # 100 ms wait time, might change it later
+    response = os.system(f"ping {param} 1 -w 100 {hostname} > NUL 2>&1")  # 100 ms wait time, might change it later
     if response == 0:
         return True
     else:
@@ -271,24 +271,14 @@ def Check_ip(hostname):
 
 def main():
     color = QColor('#351392')
-    setThemeColor(color ,Qt.GlobalColor , '') 
+    setThemeColor(color, Qt.GlobalColor, '')
     app = QApplication(sys.argv)
     window = MainWindow()
     window.show()
-    
-    
-    #////////////////////////////////////////////////////////////////
-    for row in range(window.TableWidget.rowCount()):
-        delete_button = window.TableWidget.cellWidget(row, 4)
-        delete_button.clicked.connect(window.delete_cron)
-    #////////////////////////////////////////////////////////////////    
-
-
     sys.exit(app.exec_())
 
 
-
-if __name__ == "__main__":
-    main()
+# if __name__ == "__main__":
+#     main()
     
     

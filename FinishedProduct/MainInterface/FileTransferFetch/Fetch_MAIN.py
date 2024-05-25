@@ -31,7 +31,7 @@ class MainWindow(Ui_Frame, QWidget):
         self.password_entered = text
         
     def show_active_machines(self):
-        CSV_File_Path = '../REMT/FinishedProduct/MainInterface/FileTransferFetch/user.csv'
+        CSV_File_Path = 'machines.csv'
         with open(CSV_File_Path, 'r') as file:
             reader = csv.DictReader(file)
             for row in reader:
@@ -87,7 +87,7 @@ class MainWindow(Ui_Frame, QWidget):
             else:
                 outputs = []
                 for hostname in selectedIPS:
-                    CSV_File_Path = '../REMT/FinishedProduct/MainInterface/FileTransferFetch/user.csv'
+                    CSV_File_Path = 'machines.csv'
                     with open(CSV_File_Path, 'r') as file:
                         reader = csv.DictReader(file)
                         for row in reader:
@@ -141,7 +141,7 @@ class MainWindow(Ui_Frame, QWidget):
             path = self.LineEdit.text()
             not_found_ips = []  
             for hostname in selectedIPS:
-                CSV_File_Path = '../REMT/FinishedProduct/MainInterface/FileTransferFetch/user.csv'
+                CSV_File_Path = 'machines.csv'
                 with open(CSV_File_Path, 'r') as file:
                     reader = csv.DictReader(file)
                     path_found = False
@@ -200,13 +200,13 @@ def Check_ip(hostname):
         return False
     
 
-def main():
-    app = QApplication(sys.argv)
-    color = QColor('#351392')
-    setThemeColor(color.name(), Qt.GlobalColor, '') 
-    window = MainWindow()
-    window.show()
-    sys.exit(app.exec_())
+# def main():
+#     app = QApplication(sys.argv)
+#     color = QColor('#351392')
+#     setThemeColor(color.name(), Qt.GlobalColor, '') 
+#     window = MainWindow()
+#     window.show()
+#     sys.exit(app.exec_())
 
-if __name__ == "__main__":
-    main()
+# if __name__ == "__main__":
+#     main()
