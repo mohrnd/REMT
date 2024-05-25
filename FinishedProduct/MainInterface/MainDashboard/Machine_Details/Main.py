@@ -187,8 +187,8 @@ class MainWindow(QMainWindow, Ui_Form):
 
     def plot_load_data_last_hour(self, Enddate):
         # Appelle la fonction load_data pour récupérer les données
-        timestamps, load1min, load5min, load15min, cpuusage,ramusage, diskusage,nicnames,datain,dataout = self.load_data()
-
+        timestamps, load1min, load5min, load15min, cpuusage, ramusage, diskusage, nicnames, datain, dataout = self.load_data()
+    
         # Création d'un DataFrame à partir des données
         df = pd.DataFrame({
             'Timestamp': timestamps,
@@ -200,43 +200,30 @@ class MainWindow(QMainWindow, Ui_Form):
             'DISKusage': diskusage,
             'NICnames': nicnames,
         })
-
+    
         # Convertir la colonne 'Timestamp' en index de type datetime
         df['Timestamp'] = pd.to_datetime(df['Timestamp'])
         df.set_index('Timestamp', inplace=True)
-
+    
+        # Trier le DataFrame par index (timestamp)
+        df.sort_index(inplace=True)
+    
         # Date de début pour la période d'une heure précédant Enddate
         Startdate = pd.to_datetime(Enddate) - pd.Timedelta(hours=1)
-        print("REAL_load_last_hour = ",Startdate)
-
-        # Vérifier si la date de début spécifiée existe dans l'index du DataFrame
-        if Startdate not in df.index:
-            # Convertir la date de type str en type datetime
-            Startdate = pd.to_datetime(Startdate)
-            # Initialiser une variable pour l'incrémentation de 1 minute
-            increment = pd.Timedelta(seconds=1)
-            # Tant que la Startdate n'existe pas dans l'index du DataFrame
-            while Startdate not in df.index:
-                # Incrémenter Startdate de 1 minute
-                Startdate += increment
-            # Convertir Startdate en str pour l'affichage
-            Startdate = Startdate.strftime('%Y-%m-%d %H:%M:%S')
-            print("NEAREST_load_last_hour = ",Startdate)
-
-
+    
         # Vérifier si la date de fin spécifiée existe dans l'index du DataFrame
         if pd.to_datetime(Enddate) not in df.index:
             print("Error: End date not found in the data.")
             return
-
+    
         # Trancher le DataFrame en fonction des dates de début et de fin
         sliced_df = df.loc[Startdate:Enddate]
-
+    
         # Vérifier s'il y a suffisamment de données disponibles dans la plage spécifiée
         if len(sliced_df) == 0:
             print("Error: Not enough data available within the specified range.")
             return
-
+    
         # Création du graphe
         fig, ax = plt.subplots(figsize=(10, 6))
         ax.plot(sliced_df.index, sliced_df['LOAD1min'], label='LOAD1min', marker='.')
@@ -248,10 +235,10 @@ class MainWindow(QMainWindow, Ui_Form):
         ax.legend()
         ax.grid(True)
         fig.tight_layout()
-
+    
         # Création du canevas de dessin Matplotlib
         self.canvas = FigureCanvas(fig)
-
+    
         # Ajout du canevas au layout du widget LoadsLastHour
         self.LoadsLastHour.layout().addWidget(self.canvas)
 

@@ -1,6 +1,6 @@
 import sys
 from PyQt5.QtWidgets import QApplication, QWidget, QTableWidgetItem, QMessageBox, QAbstractItemView, QDialog
-from .Ui_Add_machine import Ui_Form
+from Ui_Add_machine import Ui_Form
 from PyQt5.QtCore import Qt, QTimer, QThread, pyqtSignal, QRect
 from PyQt5.QtGui import *
 from qfluentwidgets import (NavigationItemPosition, MessageBox, setTheme, setThemeColor, Theme, FluentWindow,
@@ -11,14 +11,14 @@ import csv
 import paramiko
 from paramiko import SSHException
 from fabric import Connection
-from .Ui_root_password_master_password_forms import *
-from .cipher_decipher_logic.CipherDecipher import get_password_no_form, add_new_entry, check_password
-from .Ui_Config_progress import *
+from Ui_root_password_master_password_forms import *
+from cipher_decipher_logic.CipherDecipher import get_password_no_form, add_new_entry, check_password
+from Ui_Config_progress import *
 from PyQt5.QtCore import QTimer, QThread
 import threading
 from qfluentwidgets import StateToolTip
 import binascii
-from .config import config
+from config import config
 """
 TODO:
 execute the config.py from the LOG folder
@@ -42,7 +42,7 @@ class MainWindow(QWidget, Ui_Form):
 
     def show_root_password_form(self):
         self.root_password_form = QDialog()
-        self.root_password_form.setWindowIcon(QIcon(r'..\FinishedProduct\MasterPasswordInput\FirstLoginInterface\black.png'))
+        self.root_password_form.setWindowIcon(QIcon(r'..\REMT\FinishedProduct\MasterPasswordInput\FirstLoginInterface\black.png'))
         self.root_password_form.setWindowTitle("Root Password Form")
         self.show_root_password_form_ui = Ui_Form2()
         self.show_root_password_form_ui.setupUi(self.root_password_form)
@@ -56,7 +56,7 @@ class MainWindow(QWidget, Ui_Form):
     
     def show_config_progress(self):
         self.config_progress_form = QDialog()
-        self.root_password_form.setWindowIcon(QIcon(r'..\FinishedProduct\MasterPasswordInput\FirstLoginInterface\black.png'))
+        self.root_password_form.setWindowIcon(QIcon(r'..\REMT\FinishedProduct\MasterPasswordInput\FirstLoginInterface\black.png'))
         self.ui_config_progress = Ui_Form3() 
         self.ui_config_progress.setupUi(self.config_progress_form)
         self.ui_config_progress.configprogress_finish.clicked.connect(self.config_progress_form.reject)
@@ -150,7 +150,7 @@ class MainWindow(QWidget, Ui_Form):
     def snmpconf_setup(self, root_username, root_password, master_password):
         # self.show_root_password_form_ui.ProgressBar_2.show()
         # self.show_root_password_form_ui.StrongBodyLabel_2.show()  
-        with open(r'..\FinishedProduct\MainInterface\adding_machines\SNMPv3_Config_template.txt', 'r') as file:
+        with open(r'..\REMT\FinishedProduct\MainInterface\adding_machines\SNMPv3_Config_template.txt', 'r') as file:
             setup_script_content = file.read()
         hostname = self.IPAddress.text()
         username = self.MachineUsername.text()
@@ -314,8 +314,8 @@ def main():
     
     sys.exit(app.exec_())
 
-# if __name__ == "__main__":
-#     main()
+if __name__ == "__main__":
+    main()
     
     
     # TODO : FIX THE FREEZING ISSUE
