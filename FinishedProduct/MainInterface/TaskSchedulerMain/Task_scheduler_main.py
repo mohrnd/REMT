@@ -1,16 +1,18 @@
 import sys
-from PyQt5.QtWidgets import QApplication, QWidget, QTableWidgetItem, QMessageBox, QAbstractItemView
+from PyQt5.QtWidgets import QApplication, QWidget, QTableWidgetItem, QMessageBox, QAbstractItemView, QDialog, QInputDialog
 from .Ui_CrontabGUI import Ui_Frame  
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import *
 from qfluentwidgets import (NavigationItemPosition, MessageBox, setTheme, setThemeColor, Theme, FluentWindow,
                             NavigationAvatarWidget, SubtitleLabel, setFont, InfoBadge,
-                            InfoBadgePosition, CheckBox, PushButton)
+                            InfoBadgePosition, CheckBox, PushButton, PasswordLineEdit)
 from .TaskScheduler import *
 import os
 import csv
 from .cron_interpreter import interpret_schedule
 import datetime
+from .cipher_decipher_logic.CipherDecipher import *
+import threading
 
 class MainWindow(QWidget, Ui_Frame):
     def __init__(self):
@@ -21,7 +23,8 @@ class MainWindow(QWidget, Ui_Frame):
         self.Machines.setStyleSheet("QTableWidget { border: 1px solid gray; selection-background-color: #AF9BE5;}")
         self.TableWidget.setStyleSheet("QTableWidget { border: 1px solid gray; selection-background-color: #AF9BE5;}")
         self.show_active_machines()
-        self.show_active_crons()
+        self.masterpassword = self.prompt_master_password()
+        self.show_active_crons(self.masterpassword)
         self.add_button.clicked.connect(self.Add_to_preview)
         self.Apply.clicked.connect(self.Apply_cron)
         
@@ -32,63 +35,45 @@ class MainWindow(QWidget, Ui_Frame):
         self.monthly_2.clicked.connect(self.monthly_clicked)
         self.PushButton_5.clicked.connect(self.yearly_clicked)
 
+    def prompt_master_password(self):
+        master_password, ok = QInputDialog.getText(self, 'Master Password', 'Enter Master Password:', QLineEdit.Password)
+        if ok:
+            return master_password
+        else:
+            return None
 
-        
-    def delete_cron(self):
-        sender_button = self.sender()
-        for table_row in range(self.TableWidget.rowCount()):
-            delete_button = self.TableWidget.cellWidget(table_row, 4)
-            if sender_button == delete_button:
-                ip_address_item = self.TableWidget.item(table_row, 0)
-                job_item = self.TableWidget.item(table_row, 1)
-                if ip_address_item and job_item:
-                    ip_address = ip_address_item.text()
-                    job = job_item.text()
-                    CSV_File_Path = 'machines.csv'
-                    with open(CSV_File_Path, 'r') as file:
-                        reader = csv.DictReader(file)
-                        for row in reader:
-                            if row['ip_add'] == ip_address:
-                                username = row['linux_username']
-                                password = row['password']
-                                ssh_client = ssh_client_creation(ip_address, 22, username, password)
-                                remove_cron(ssh_client, job)
-                                ssh_client.close()
-                                self.TableWidget.removeRow(int(table_row));
-                                break
-
-        
-    def show_active_crons(self):
+    def show_active_crons(self, masterpassword):
         CSV_File_Path = 'machines.csv'
         with open(CSV_File_Path, 'r') as file:
             reader = csv.DictReader(file)
             for row in reader:
                 Check = row['ip_add']
-                if Check_ip(Check) == True:
+                if Check_ip(Check):
                     hostname = row['ip_add']
                     port  = 22
                     username = row['linux_username']
-                    password = row['password']
-                    ssh_client = ssh_client_creation(hostname, port, username, password)
-                    lines = print_active_jobs(ssh_client)
-                    if lines:
-                        cron_list = lines.split('\n')
-                        for cron_job in cron_list:
-                            rowPositionMachines = self.TableWidget.rowCount()
-                            self.TableWidget.insertRow(rowPositionMachines)
-                            self.TableWidget.setItem(rowPositionMachines, 0, QTableWidgetItem(hostname))
-                            self.TableWidget.setItem(rowPositionMachines, 1, QTableWidgetItem(cron_job))
-                            schedule_expression, command = splitter(cron_job)
-                            inter, Next_exec = interpret_schedule(schedule_expression)
-                            self.TableWidget.setItem(rowPositionMachines, 2, QTableWidgetItem(str(Next_exec)))
-                            self.TableWidget.setItem(rowPositionMachines, 3, QTableWidgetItem(inter))
-                            DeleteButton = PushButton('Delete')
-                            self.TableWidget.setCellWidget(rowPositionMachines, 4, DeleteButton) 
-                            
+                    ciphered_password = row['password']
+                    password = get_password_no_form(masterpassword, ciphered_password)
+                    if password:
+                        ssh_client = ssh_client_creation(hostname, port, username, password)
+                        lines = print_active_jobs(ssh_client)
+                        if lines:
+                            cron_list = lines.split('\n')
+                            for cron_job in cron_list:
+                                rowPositionMachines = self.TableWidget.rowCount()
+                                self.TableWidget.insertRow(rowPositionMachines)
+                                self.TableWidget.setItem(rowPositionMachines, 0, QTableWidgetItem(hostname))
+                                self.TableWidget.setItem(rowPositionMachines, 1, QTableWidgetItem(cron_job))
+                                schedule_expression, command = splitter(cron_job)
+                                inter, Next_exec = interpret_schedule(schedule_expression)
+                                self.TableWidget.setItem(rowPositionMachines, 2, QTableWidgetItem(str(Next_exec)))
+                                self.TableWidget.setItem(rowPositionMachines, 3, QTableWidgetItem(inter))
+                                DeleteButton = PushButton('Delete')
+                                self.TableWidget.setCellWidget(rowPositionMachines, 4, DeleteButton) 
+                        ssh_client.close()
                 else:
                     pass
 
-    
     def show_active_machines(self):
         CSV_File_Path = 'machines.csv'
         with open(CSV_File_Path, 'r') as file:
@@ -104,9 +89,13 @@ class MainWindow(QWidget, Ui_Frame):
                     self.Machines.setItem(rowPositionMachines, 1, QTableWidgetItem(MachineName))
                     checkbox = CheckBox()  
                     checkbox.setChecked(False)
-                    self.Machines.setCellWidget(rowPositionMachines, 2, checkbox)  # Set the CheckBox widget in the table cell
+                    self.Machines.setCellWidget(rowPositionMachines, 2, checkbox)
 
     def Apply_cron(self):
+        master_password = self.prompt_master_password()
+        if not master_password:
+            return
+
         selectedIPS = []
         for row in range(self.Machines.rowCount()):
             checkbox_item = self.Machines.cellWidget(row, 2)
@@ -129,21 +118,52 @@ class MainWindow(QWidget, Ui_Frame):
                             hostname = IP
                             port  = 22
                             username = row['linux_username']
-                            password = row['password']
-                            ssh_client = ssh_client_creation(hostname, port, username, password)
-                            add_cron(ssh_client, job)
-                            ssh_client.close()
-                            rowPositionMachines = self.TableWidget.rowCount()
-                            self.TableWidget.insertRow(rowPositionMachines)
-                            self.TableWidget.setItem(rowPositionMachines, 0, QTableWidgetItem(hostname))
-                            self.TableWidget.setItem(rowPositionMachines, 1, QTableWidgetItem(job))
-                            schedule_expression, command = splitter(job)
-                            inter, Next_exec = interpret_schedule(schedule_expression)
-                            self.TableWidget.setItem(rowPositionMachines, 2, QTableWidgetItem(str(Next_exec)))
-                            self.TableWidget.setItem(rowPositionMachines, 3, QTableWidgetItem(inter))
-                            DeleteButton = PushButton('Delete')
-                            self.TableWidget.setCellWidget(rowPositionMachines, 4, DeleteButton) 
+                            ciphered_password = row['password']
+                            password = get_password_no_form(master_password, ciphered_password)
+                            if password:
+                                ssh_client = ssh_client_creation(hostname, port, username, password)
+                                add_cron(ssh_client, job)
+                                ssh_client.close()
+                                rowPositionMachines = self.TableWidget.rowCount()
+                                self.TableWidget.insertRow(rowPositionMachines)
+                                self.TableWidget.setItem(rowPositionMachines, 0, QTableWidgetItem(hostname))
+                                self.TableWidget.setItem(rowPositionMachines, 1, QTableWidgetItem(job))
+                                schedule_expression, command = splitter(job)
+                                inter, Next_exec = interpret_schedule(schedule_expression)
+                                self.TableWidget.setItem(rowPositionMachines, 2, QTableWidgetItem(str(Next_exec)))
+                                self.TableWidget.setItem(rowPositionMachines, 3, QTableWidgetItem(inter))
+                                DeleteButton = PushButton('Delete')
+                                self.TableWidget.setCellWidget(rowPositionMachines, 4, DeleteButton) 
                             break
+
+    def delete_cron(self):
+        master_password = self.prompt_master_password()
+        if not master_password:
+            return
+
+        sender_button = self.sender()
+        for table_row in range(self.TableWidget.rowCount()):
+            delete_button = self.TableWidget.cellWidget(table_row, 4)
+            if sender_button == delete_button:
+                ip_address_item = self.TableWidget.item(table_row, 0)
+                job_item = self.TableWidget.item(table_row, 1)
+                if ip_address_item and job_item:
+                    ip_address = ip_address_item.text()
+                    job = job_item.text()
+                    CSV_File_Path = 'machines.csv'
+                    with open(CSV_File_Path, 'r') as file:
+                        reader = csv.DictReader(file)
+                        for row in reader:
+                            if row['ip_add'] == ip_address:
+                                username = row['linux_username']
+                                ciphered_password = row['password']
+                                password = get_password_no_form(master_password, ciphered_password)
+                                if password:
+                                    ssh_client = ssh_client_creation(ip_address, 22, username, password)
+                                    remove_cron(ssh_client, job)
+                                    ssh_client.close()
+                                    self.TableWidget.removeRow(int(table_row))
+                                break
     
     def Add_to_preview(self):
         # add value checking
@@ -268,13 +288,7 @@ def main():
 
 
 
-# if __name__ == "__main__":
-#     main()
+if __name__ == "__main__":
+    main()
     
     
-
-# Known issues:
-    #Cant delete jobs that were just added
-    
-# TODO: 
-    # ADD THE INTERPRETATION
