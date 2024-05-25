@@ -23,8 +23,7 @@ class MainWindow(QWidget, Ui_Frame):
         self.Machines.setStyleSheet("QTableWidget { border: 1px solid gray; selection-background-color: #AF9BE5;}")
         self.TableWidget.setStyleSheet("QTableWidget { border: 1px solid gray; selection-background-color: #AF9BE5;}")
         self.show_active_machines()
-        self.masterpassword = self.prompt_master_password()
-        self.show_active_crons(self.masterpassword)
+        self.Show_jobs.clicked.connect(self.show_active_crons)
         self.add_button.clicked.connect(self.Add_to_preview)
         self.Apply.clicked.connect(self.Apply_cron)
 
@@ -42,7 +41,10 @@ class MainWindow(QWidget, Ui_Frame):
         else:
             return None
 
-    def show_active_crons(self, masterpassword):
+    def show_active_crons(self):
+        master_password = self.prompt_master_password()
+        if not master_password:
+            return
         CSV_File_Path = 'machines.csv'
         with open(CSV_File_Path, 'r') as file:
             reader = csv.DictReader(file)
@@ -53,7 +55,7 @@ class MainWindow(QWidget, Ui_Frame):
                     port = 22
                     username = row['linux_username']
                     ciphered_password = row['password']
-                    password = get_password_no_form(masterpassword, ciphered_password)
+                    password = get_password_no_form(master_password, ciphered_password)
                     if password:
                         ssh_client = ssh_client_creation(hostname, port, username, password)
                         lines = print_active_jobs(ssh_client)
