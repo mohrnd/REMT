@@ -20,18 +20,19 @@ class MainWindow(QMainWindow, Ui_Form):
         self.setupUi(self)
         self.Machine_Name = Machine_Name
         self.Machine_Ip = Machine_Ip
+        Enddate = self.Enddate()  # Appel de la fonction pour obtenir le dernier timestamp
         self.LoadsLastHour.setLayout(QVBoxLayout())  # Définir un QVBoxLayout pour LoadsLastHour
-        self.plot_load_data_last_hour("2024-01-01 16:44:04")  # Appel de la fonction  au démarrage
+        self.plot_load_data_last_hour(Enddate)  # Appel de la fonction  au démarrage
         self.CPULastHour.setLayout(QVBoxLayout())
-        self.plot_CPU_last_hour("2024-01-01 16:44:04")  # Appel de la fonction  au démarrage
+        self.plot_CPU_last_hour(Enddate)  # Appel de la fonction  au démarrage
         self.NetworkLastHour.setLayout(QVBoxLayout())
-        self.plot_data_in_out_last_hour("2024-01-01 16:44:04") 
+        self.plot_data_in_out_last_hour(Enddate) 
         self.LoadsLast24Hours.setLayout(QVBoxLayout())
-        self.plot_load_data_last_24hours("2024-01-01 16:44:04")  # Appel de la fonction  au démarrage
+        self.plot_load_data_last_24hours(Enddate)  # Appel de la fonction  au démarrage
         self.CPULast24Hours.setLayout(QVBoxLayout())
-        self.plot_CPU_last_24hours("2024-01-01 16:44:04")  # Appel de la fonction  au démarrage
+        self.plot_CPU_last_24hours(Enddate)  # Appel de la fonction  au démarrage
         self.NetworkLast24Hours.setLayout(QVBoxLayout())
-        self.plot_data_in_out_last_24hours("2024-01-01 16:44:04")
+        self.plot_data_in_out_last_24hours(Enddate)
         self.PlotButton.clicked.connect(self.plot_custom_graphs)
         self.LoadsCustom.setLayout(QVBoxLayout())
         self.CPUCustom.setLayout(QVBoxLayout())
@@ -164,7 +165,24 @@ class MainWindow(QMainWindow, Ui_Form):
         return timestamps, load1min, load5min, load15min, cpuusage,ramusage, diskusage,nicnames,datain,dataout
             
 
+    def Enddate(self):
+    
+        file_path = r"..\REMT\Tests\Data_Viewer_final version\info.json"
+        with open(file_path, 'r') as file:
+            data = json.load(file)
+        
+        # Initialisation du timestamp le plus récent au premier timestamp de la liste
+        Enddate = data[0]['timestamp']
 
+        # Parcours de la liste d'objets pour trouver le timestamp le plus récent
+        for item in data:
+            current_timestamp = item['timestamp']
+            if current_timestamp > Enddate:
+                Enddate = current_timestamp
+        
+        print("Dernier timestamp:", Enddate)
+        
+        return Enddate
 
 
     def plot_load_data_last_hour(self, Enddate):
@@ -380,7 +398,7 @@ class MainWindow(QMainWindow, Ui_Form):
             self.canvas = FigureCanvas(fig)
             self.NetworkLastHour.layout().addWidget(self.canvas)
         
-    def plot_load_data_last_24hours(self, Enddate):
+    def plot_load_data_last_24hours(self,Enddate):
         # Appelle la fonction load_data pour récupérer les données
         timestamps, load1min, load5min, load15min, cpuusage,ramusage, diskusage,nicnames,datain,dataout = self.load_data()
 
@@ -521,7 +539,7 @@ class MainWindow(QMainWindow, Ui_Form):
         # Ajout du canevas au layout du widget LoadsLastHour
         self.CPULast24Hours.layout().addWidget(self.canvas)
         
-    def plot_data_in_out_last_24hours(self, Enddate):
+    def plot_data_in_out_last_24hours(self,Enddate):
         timestamps, load1min, load5min, load15min, cpuusage, ramusage, diskusage, nicnames, datain, dataout = self.load_data()
 
         df = pd.DataFrame({
