@@ -19,7 +19,8 @@ class MainWindow(QMainWindow, Ui_Form):
         self.setupUi(self)
         self.masterpassword = masterpassword
         self.MainTable.setStyleSheet("QTableWidget { border: 1px solid gray; selection-background-color: #AF9BE5;  }")
-        self.MainTable.setEditTriggers(QAbstractItemView.NoEditTriggers) 
+        self.MainTable.setEditTriggers(QAbstractItemView.NoEditTriggers)
+        self.stop_event = threading.Event()   
         self.start_thread(self.masterpassword)
         self.FillData()
         self.timer = QTimer(self)
@@ -35,6 +36,11 @@ class MainWindow(QMainWindow, Ui_Form):
         # Create and start the thread
         self.thread = threading.Thread(target=thread_function)
         self.thread.start()
+        
+    def stop_thread(self):
+        self.stop_event.set()
+        self.thread.join()
+        print('thread stopped')
         
     def start_thread2(self, machine_name, ip_address):
         def thread_function2(machine_name, ip_address):

@@ -18,6 +18,7 @@ machines_file_path = 'machines.csv'
 def create_vault_file_and_REMT_folder():
     file_path = 'C:\\ProgramData\\.Vault1851320.txt'
     folder_path = 'C:\\ProgramData\\REMT'
+    Trap_logs = 'TrapsReceived.log'
 
     # Check if REMT folder exists, create if it doesn't
     if not os.path.exists(folder_path):
@@ -34,6 +35,11 @@ def create_vault_file_and_REMT_folder():
             print(f"File '{file_path}' created and hidden successfully.")
         except Exception as e:
             print(f"Error occurred while setting file attributes: {e}")
+            
+    if not os.path.exists(Trap_logs):
+        with open(Trap_logs, 'w'):
+            pass
+        print(f"File '{Trap_logs}' created successfully.")
 
 def create_machines_file():
     """Check if machines.csv file exists; if not, create an empty file."""
@@ -60,14 +66,14 @@ class FirstLoginWindow(QtWidgets.QWidget, Ui_FirstLoginForm):
         super().__init__()
         self.setupUi(self)
         self.MasterPWDContinue.clicked.connect(self.save_password)
-        create_machines_file()  # Ensure machines.csv is created if it doesn't exist
-        create_vault_file_and_REMT_folder()
 
     def save_password(self):
         password = self.PasswordInput.text()
         password_confirm = self.PasswordInput2.text()
         if password == password_confirm:
             create_password_file(password)
+            create_machines_file()
+            create_vault_file_and_REMT_folder()
             self.close()
         else:
             QtWidgets.QMessageBox.warning(self, "Error", "Passwords do not match!")
