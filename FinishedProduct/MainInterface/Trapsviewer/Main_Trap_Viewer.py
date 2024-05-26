@@ -7,10 +7,10 @@ import re
 from .Ui_Traps_Viewer_interface import Ui_Form
 import threading
 class MainWindow(Ui_Form, QWidget):
-    # def __init__(self, masterpassword):
-    def __init__(self):
+    def __init__(self, masterpassword):
+    # def __init__(self):
         super().__init__()
-        # self.masterpassword = masterpassword
+        self.masterpassword = masterpassword
         self.setupUi(self)
 
         self.log_file_path = 'TrapsReceived.log'  # Update with the actual log file path
@@ -31,7 +31,7 @@ class MainWindow(Ui_Form, QWidget):
         self.timer = QTimer(self)
         self.timer.timeout.connect(self.update_content)
         self.timer.start(10000)  # 60000 milliseconds = 60 seconds
-        self.start_thread()
+        self.start_thread(self.masterpassword)
 
     def load_log_file(self):
         try:
@@ -75,15 +75,11 @@ class MainWindow(Ui_Form, QWidget):
         self.load_log_file()
         
 
-    def start_thread(self):
-        # Define a function that the thread will run
+    def start_thread(self, masterpassword):
         def thread_function():
-            # Here you can import and call the external function
             from .TrapReceiver.SNMPV3_trap_receiver_v3 import main
-            masterpassword = 'MASTERPASSWORD'
             main(masterpassword)
 
-        # Create and start the thread
         self.thread = threading.Thread(target=thread_function)
         self.thread.start()
 

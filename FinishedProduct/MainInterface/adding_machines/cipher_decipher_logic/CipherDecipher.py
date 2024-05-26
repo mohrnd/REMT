@@ -95,7 +95,7 @@ def get_password(CipheredPassword):
                     decrypted_password = decrypt_AES_GCM((encrypted_password, aesIV, authTag), MasterPassword)
                     return decrypted_password
 
-            Multi_Purpose_error_dialog("CipheredPassword not found in the file.")
+            # Multi_Purpose_error_dialog("CipheredPassword not found in the file.")
             return None
         except Exception as e:
             Multi_Purpose_error_dialog(f"Error occurred while getting password: {e}")
@@ -140,7 +140,7 @@ def create_password_file(password):
         file.write(hashed_password)
     try:
         os.system('attrib +R +H +S "{}"'.format(file_path))
-        Multi_Purpose_info_dialog("Password file created successfully.")
+        Multi_Purpose_info_dialog("Password file created successfully, Please restart REMT !")
 
     except Exception as e:
         Multi_Purpose_error_dialog(f"Error occurred while setting file attributes: {e}")

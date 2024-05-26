@@ -11,14 +11,16 @@ from PyQt5.QtWidgets import QMainWindow
 import json, os, csv, time, threading
 import re
 from .Machine_Details.Main import main as OpenMachineDetails
+from datetime import datetime
 
 class MainWindow(QMainWindow, Ui_Form):
-    def __init__(self):
+    def __init__(self, masterpassword):
         super().__init__()
         self.setupUi(self)
+        self.masterpassword = masterpassword
         self.MainTable.setStyleSheet("QTableWidget { border: 1px solid gray; selection-background-color: #AF9BE5;  }")
         self.MainTable.setEditTriggers(QAbstractItemView.NoEditTriggers) 
-        self.start_thread()
+        self.start_thread(self.masterpassword)
         self.FillData()
         self.timer = QTimer(self)
         self.timer.timeout.connect(self.FillData)
@@ -26,10 +28,9 @@ class MainWindow(QMainWindow, Ui_Form):
 
 
         
-    def start_thread(self):
+    def start_thread(self, masterpassword):
         def thread_function():
             from .data_fetcher import main
-            masterpassword = 'MASTERPASSWORD'
             main(masterpassword)
         # Create and start the thread
         self.thread = threading.Thread(target=thread_function)
@@ -62,7 +63,37 @@ class MainWindow(QMainWindow, Ui_Form):
                 if not os.path.exists(fr"C:\ProgramData\REMT\{machine_name}.json"):
                     print(fr"C:\ProgramData\REMT\{machine_name}.json")
                     with open(json_file, 'w') as json_file:
-                        empty_data = ''
+                        current_timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                        empty_data = [
+    {
+        "timestamp": current_timestamp,
+        "LOAD1min": "0.00",
+        "LOAD5min": "0.00",
+        "LOAD15min": "0.00",
+        "CPUcores": "0",
+        "CPUusage": "0",
+        "RAMtotal": "0",
+        "RAMusage": "0",
+        "DISKtotal": "0",
+        "DISKusage": "0",
+        "UPTIME": "0",
+        "TotalSWAP": "0",
+        "AvailableSWAP": "0",
+        "TotalCachedMemory": "0",
+        "NICnames": [
+            "lo",
+            "eth0"
+        ],
+        "dataIN": [
+            "0",
+            "0"
+        ],
+        "dataOUT": [
+            "0",
+            "0"
+        ]
+    }
+]
                         json.dump(empty_data, json_file)
 
                 Status = online_Check(ip_address)

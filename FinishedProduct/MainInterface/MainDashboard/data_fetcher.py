@@ -73,6 +73,7 @@ def create_or_update_json(data, MachineName):
 
 
 def fetch_monitoring_data(SNMPv3_username, auth_Protocole, auth_password, Priv_Protocole, priv_password, security_engine_id, hostname, password, user, Port,  Machine_Name, RefreshTime, Masterpassword):    
+    print('fetch_monitoring_data: ', Masterpassword)
     while True:
         try:
             date_time = datetime.now()
@@ -121,7 +122,7 @@ def fetch_monitoring_data(SNMPv3_username, auth_Protocole, auth_password, Priv_P
                 cpu_usage_per_second_per_core = 0
             else:
                 cpu_usage_per_second_per_core = current_cpu_time / system_uptime_seconds / number_of_cores
-            cpu_usage_percentage = cpu_usage_per_second_per_core * 100
+            cpu_usage_percentage = cpu_usage_per_second_per_core 
             print('cpu_usage_percentage', cpu_usage_percentage)
             print('current_cpu_time', current_cpu_time)
             print('number_of_cores', number_of_cores)
@@ -144,6 +145,7 @@ def read_params_from_csv(csv_file):
     return params
 
 def monitor_params_threads_creator(csv_file, masterpassword):
+    print('monitor_params_threads_creator: ', masterpassword)
     existing_params = set()
     while True:
         new_params = read_params_from_csv(csv_file)
@@ -158,6 +160,7 @@ def monitor_params_threads_creator(csv_file, masterpassword):
 
 def main(masterpassword):
     csv_file = 'machines.csv'
+    print('main: ', masterpassword)
     monitor_thread = threading.Thread(target=monitor_params_threads_creator, args=(csv_file,masterpassword,))
     monitor_thread.start()
 
@@ -184,4 +187,5 @@ def sort_json_file_by_timestamp(json_file_path):
 
 
 # if __name__ == "__main__":
-#     main(masterpassword)
+    
+#     main('MASTERPASSWORD')

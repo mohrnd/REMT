@@ -15,15 +15,16 @@ from .cipher_decipher_logic.CipherDecipher import *
 import threading
 
 class MainWindow(QWidget, Ui_Frame):
-    def __init__(self):
+    def __init__(self, Masterpassword):
         super().__init__()
         self.setupUi(self)
+        self.Masterpassword = Masterpassword
         self.TableWidget.setEditTriggers(QAbstractItemView.NoEditTriggers)
         self.Machines.setEditTriggers(QAbstractItemView.NoEditTriggers)
         self.Machines.setStyleSheet("QTableWidget { border: 1px solid gray; selection-background-color: #AF9BE5;}")
         self.TableWidget.setStyleSheet("QTableWidget { border: 1px solid gray; selection-background-color: #AF9BE5;}")
-        self.show_active_machines()
-        self.Show_jobs.clicked.connect(self.show_active_crons)
+
+        self.show_active_crons()
         self.add_button.clicked.connect(self.Add_to_preview)
         self.Apply.clicked.connect(self.Apply_cron)
 
@@ -33,6 +34,12 @@ class MainWindow(QWidget, Ui_Frame):
         self.weekly_2.clicked.connect(self.weekly_clicked)
         self.monthly_2.clicked.connect(self.monthly_clicked)
         self.PushButton_5.clicked.connect(self.yearly_clicked)
+                
+                
+        self.show_active_machines()
+        self.timer = QTimer(self)
+        self.timer.timeout.connect(self.show_active_machines)
+        self.timer.start(15000)
 
     def prompt_master_password(self):
         master_password, ok = QInputDialog.getText(self, 'Master Password', 'Enter Master Password:', QLineEdit.Password)
@@ -42,9 +49,6 @@ class MainWindow(QWidget, Ui_Frame):
             return None
 
     def show_active_crons(self):
-        master_password = self.prompt_master_password()
-        if not master_password:
-            return
         CSV_File_Path = 'machines.csv'
         with open(CSV_File_Path, 'r') as file:
             reader = csv.DictReader(file)
@@ -55,7 +59,7 @@ class MainWindow(QWidget, Ui_Frame):
                     port = 22
                     username = row['linux_username']
                     ciphered_password = row['password']
-                    password = get_password_no_form(master_password, ciphered_password)
+                    password = get_password_no_form(self.Masterpassword, ciphered_password)
                     if password:
                         ssh_client = ssh_client_creation(hostname, port, username, password)
                         lines = print_active_jobs(ssh_client)
@@ -78,6 +82,7 @@ class MainWindow(QWidget, Ui_Frame):
                     pass
 
     def show_active_machines(self):
+        self.Machines.setRowCount(0)
         CSV_File_Path = 'machines.csv'
         with open(CSV_File_Path, 'r') as file:
             reader = csv.DictReader(file)

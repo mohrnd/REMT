@@ -95,7 +95,7 @@ def get_password(CipheredPassword):
                     decrypted_password = decrypt_AES_GCM((encrypted_password, aesIV, authTag), MasterPassword)
                     return decrypted_password
 
-            Multi_Purpose_error_dialog("CipheredPassword not found in the file.")
+            # Multi_Purpose_error_dialog("CipheredPassword not found in the file.")
             return None
         except Exception as e:
             Multi_Purpose_error_dialog(f"Error occurred while getting password: {e}")
@@ -120,7 +120,7 @@ def get_password_no_form(MasterPassword,CipheredPassword):
                     decrypted_password = decrypt_AES_GCM((encrypted_password, aesIV, authTag), MasterPassword)
                     return decrypted_password
 
-            Multi_Purpose_error_dialog("CipheredPassword not found in the file.")
+            # Multi_Purpose_error_dialog("CipheredPassword not found in the file.")
             return None
         except Exception as e:
             Multi_Purpose_error_dialog(f"Error occurred while getting password: {e}")

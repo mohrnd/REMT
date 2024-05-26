@@ -1,7 +1,7 @@
 import sys
 from PyQt5.QtWidgets import QApplication, QWidget, QTableWidgetItem, QHBoxLayout, QSpacerItem, QSizePolicy, QAbstractItemView, QMessageBox,QDialogButtonBox,QDialog,QVBoxLayout, QLabel,QLineEdit
 from qfluentwidgets import setTheme, setThemeColor, FluentWindow, CheckBox, PushButton, ToggleButton,PasswordLineEdit
-from PyQt5.QtCore import Qt
+from PyQt5.QtCore import Qt, QTimer
 from PyQt5.QtGui import QColor
 import csv
 import os
@@ -16,7 +16,6 @@ class MainWindow(Ui_Frame, QWidget):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
-        self.show_active_machines()
         self.MainTable.setStyleSheet("QTableWidget { border: 1px solid gray; selection-background-color: #AF9BE5;  }")
         self.MainTable.setEditTriggers(QAbstractItemView.NoEditTriggers) 
         self.OpenMultiSSH.clicked.connect(self.MultiSSH)
@@ -40,10 +39,18 @@ class MainWindow(Ui_Frame, QWidget):
         # Ajuster la hauteur de toute la table
         self.MainTable.setMinimumHeight(500)
         
+        self.show_active_machines()
+        self.timer = QTimer(self)
+        self.timer.timeout.connect(self.show_active_machines)
+        self.timer.start(10000)
+        
+        
+        
     def update_master_password(self, text):
         self.password_entered = text
         
     def show_active_machines(self):
+        self.MainTable.setRowCount(0)
         CSV_File_Path = 'machines.csv'
         with open(CSV_File_Path, 'r') as file:
             reader = csv.DictReader(file)

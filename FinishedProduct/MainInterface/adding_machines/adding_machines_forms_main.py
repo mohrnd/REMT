@@ -1,6 +1,6 @@
 import sys
 from PyQt5.QtWidgets import QApplication, QWidget, QTableWidgetItem, QMessageBox, QAbstractItemView, QDialog
-from Ui_Add_machine import Ui_Form
+
 from PyQt5.QtCore import Qt, QTimer, QThread, pyqtSignal, QRect
 from PyQt5.QtGui import *
 from qfluentwidgets import (NavigationItemPosition, MessageBox, setTheme, setThemeColor, Theme, FluentWindow,
@@ -11,14 +11,15 @@ import csv
 import paramiko
 from paramiko import SSHException
 from fabric import Connection
-from Ui_root_password_master_password_forms import *
-from cipher_decipher_logic.CipherDecipher import get_password_no_form, add_new_entry, check_password
-from Ui_Config_progress import *
 from PyQt5.QtCore import QTimer, QThread
 import threading
 from qfluentwidgets import StateToolTip
 import binascii
-from config import config
+from .Ui_Add_machine import Ui_Form
+from .config import config
+from .Ui_root_password_master_password_forms import *
+from .cipher_decipher_logic.CipherDecipher import get_password_no_form, add_new_entry, check_password
+from .Ui_Config_progress import *
 """
 TODO:
 execute the config.py from the LOG folder

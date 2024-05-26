@@ -36,11 +36,7 @@ class MainWindow(Ui_Form, QWidget):
         add_lines(self.TreeWidget, csv_path)
 
 def OpenFolder(MachineName, FileName):
-    config = ConfigParser()
-    config.read(r"../REMT/Tests/log_fetcher_interface/settings.ini")
-    config_data = config["DEFAULT"]
-    DestinationPath = config_data['LogsDestinationPath']  
-    path = Path(fr"{DestinationPath}\{MachineName}\{FileName}")
+    path = Path(fr"C:\ProgramData\REMT\{MachineName}\{FileName}")
     print(path)
     subprocess.Popen(f'explorer "{path}"')
 
@@ -79,11 +75,7 @@ def add_lines(tree_widget, csv_path):
             else:
                 parent_item.setText(2, '🔴 Offline')
                 
-            config = ConfigParser()
-            config.read(r"../REMT/Tests/log_fetcher_interface/settings.ini")
-            config_data = config["DEFAULT"]
-            DestinationPath = config_data['LogsDestinationPath']  
-            path = Path(fr"{DestinationPath}\{row['Machine_Name']}")
+            path = Path(fr"C:\ProgramData\REMT\{row['Machine_Name']}")
             contents = os.listdir(path)
             print(contents)
             
@@ -115,7 +107,7 @@ def add_lines(tree_widget, csv_path):
                 parent_item.setText(3, latest_fetch_date_str)
                 
 def FetchLogs(Machinename, Ip):
-    local_path_in = 'C:\\ProgramData\\REMT'
+    local_path_in = 'C:/ProgramData/REMT/'
     csv_file = 'machines.csv'
     
     def fetch_logs_thread():

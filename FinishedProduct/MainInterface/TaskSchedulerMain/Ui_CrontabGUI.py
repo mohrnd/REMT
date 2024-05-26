@@ -49,12 +49,7 @@ class Ui_Frame(object):
         self.LineEdit.setText("")
         self.LineEdit.setObjectName("LineEdit")
         self.horizontalLayout.addWidget(self.LineEdit)
-        
-        self.Show_jobs = PrimaryPushButton(self.horizontalLayoutWidget)
-        self.Show_jobs.setObjectName("Show_jobs")
-        self.Show_jobs.setGeometry(QtCore.QRect(650, 10, 151, 31))
-        self.horizontalLayout.addWidget(self.Show_jobs)
-        
+            
         self.add_button = PrimaryPushButton(self.horizontalLayoutWidget)
         self.add_button.setObjectName("add_button")
         self.horizontalLayout.addWidget(self.add_button)
@@ -149,7 +144,6 @@ class Ui_Frame(object):
         self.month_input.setPlaceholderText(_translate("Frame", "Month"))
         self.LineEdit.setPlaceholderText(_translate("Frame", "Week"))
         self.add_button.setText(_translate("Frame", "Add"))
-        self.Show_jobs.setText(_translate("Frame", "Show active jobs"))
         self.Onstartup.setText(_translate("Frame", "On Startup"))
         self.hourly.setText(_translate("Frame", "Hourly"))
         self.Daily_2.setText(_translate("Frame", "Daily"))

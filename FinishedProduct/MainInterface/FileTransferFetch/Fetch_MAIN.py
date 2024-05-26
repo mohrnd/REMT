@@ -1,7 +1,7 @@
 import sys
 from PyQt5.QtWidgets import QApplication, QWidget, QFileDialog,QTableWidgetItem, QHBoxLayout, QSpacerItem, QSizePolicy, QAbstractItemView, QMessageBox
 from qfluentwidgets import setTheme, setThemeColor, FluentWindow, CheckBox, PushButton, ToggleButton
-from PyQt5.QtCore import Qt
+from PyQt5.QtCore import Qt, QTimer
 from PyQt5.QtGui import QColor
 import csv
 import os
@@ -17,7 +17,6 @@ class MainWindow(Ui_Frame, QWidget):
         self.setupUi(self)
         self.MainTable.setStyleSheet("QTableWidget { border: 1px solid gray; selection-background-color: #AF9BE5;  }")
         self.MainTable.setEditTriggers(QAbstractItemView.NoEditTriggers) 
-        self.show_active_machines()
         self.Fetch_button.clicked.connect(self.Fetch)
         self.Browse.clicked.connect(self.browse_files)
         self.PushButton.clicked.connect(self.verify_remote_path)
@@ -26,11 +25,15 @@ class MainWindow(Ui_Frame, QWidget):
         self.Master_password.textChanged.connect(self.update_master_password)
         
         self.password_entered = ""
-        
+        self.show_active_machines()
+        self.timer = QTimer(self)
+        self.timer.timeout.connect(self.show_active_machines)
+        self.timer.start(20000)
     def update_master_password(self, text):
         self.password_entered = text
         
     def show_active_machines(self):
+        self.MainTable.setRowCount(0)
         CSV_File_Path = 'machines.csv'
         with open(CSV_File_Path, 'r') as file:
             reader = csv.DictReader(file)

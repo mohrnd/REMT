@@ -6,12 +6,12 @@ import datetime
 import logging
 import csv
 from .cipher_decipher_logic.CipherDecipher import *
-# Import win_notif function from notifications module
 from .notifications import win_notif
 
 logging.basicConfig(filename='TrapsReceived.log', level=logging.INFO, format='%(asctime)s - %(message)s')
 
 def add_snmp_users_from_csv(CSV_File_Path, snmpEngine, MasterPassword):
+    print('add_snmp_users_from_csv: ', MasterPassword)
     with open(CSV_File_Path, 'r') as file:
         reader = csv.DictReader(file)
         for row in reader:
@@ -85,9 +85,7 @@ def cbFun(snmpEngine, stateReference, contextEngineId, contextName, varBinds, cb
     logging.info(log_message)
 
 def main(masterpassword):
-    #implement the password logic later, just make everything work now
-    
-    # Initialize SNMP engine
+    print('main: ', masterpassword)
     snmpEngine = engine.SnmpEngine()
 
     # Add SNMP users from CSV
@@ -114,6 +112,6 @@ def main(masterpassword):
     finally:
         snmpEngine.transportDispatcher.closeDispatcher()
 
-# if __name__ == "__main__":
-#     masterpassword = 'MASTERPASSWORD'
-#     main(masterpassword)
+if __name__ == "__main__":
+    masterpassword = 'MASTERPASSWORD'
+    main(masterpassword)

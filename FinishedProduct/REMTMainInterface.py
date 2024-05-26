@@ -22,10 +22,10 @@ from MainInterface.Trapsviewer.Main_Trap_Viewer import MainWindow as TrapsViewer
 
 class TaskScheduler(QWidget):
 #Task Scheduler
-    def __init__(self, text: str, parent=None):
+    def __init__(self, text: str, master_password: str, parent=None):
         super().__init__(parent=parent)
         self.hBoxLayout = QHBoxLayout(self)
-        self.Scheduler = SchedulerWindow()  
+        self.Scheduler = SchedulerWindow(master_password)  
         self.hBoxLayout.addWidget(self.Scheduler)  
         self.setObjectName(text.replace('-', '-'))
         
@@ -46,11 +46,11 @@ class code_editeur(QWidget):
         self.setObjectName(text.replace('-', '-'))
 
 
-class New_Dashboard(QWidget):
-    def __init__(self, text: str, parent=None):
+class NewDashboard(QWidget):
+    def __init__(self, text: str, master_password: str, parent=None):
         super().__init__(parent=parent)
         self.hBoxLayout = QHBoxLayout(self)
-        self.dashboard = Dashboard()  
+        self.dashboard = Dashboard(master_password)  
         self.hBoxLayout.addWidget(self.dashboard)  
         self.setObjectName(text.replace('-', '-'))
 
@@ -96,10 +96,10 @@ class New_Fetch(QWidget):
         self.setObjectName(text.replace('-', '-'))
         
 class New_TrapsViewer(QWidget):
-    def __init__(self, text: str, parent=None):
+    def __init__(self, text: str, master_password: str, parent=None):
         super().__init__(parent=parent)
         self.hBoxLayout = QHBoxLayout(self)
-        self.widget = TrapsViewer()  
+        self.widget = TrapsViewer(master_password)  
         self.hBoxLayout.addWidget(self.widget)  
         self.setObjectName(text.replace('-', '-'))
 
@@ -117,18 +117,19 @@ class New_TrapsViewer(QWidget):
 
 
 class Window(MSFluentWindow):
-
-    def __init__(self):
+    def __init__(self, masterpassword):
         super().__init__()
-
-        self.Dashboard = New_Dashboard(text='Dashboard', parent=self)
+        master_password = masterpassword
+        self.Dashboard = NewDashboard(text='Dashboard', master_password=master_password, parent=self)
+        self.ViewTraps = New_TrapsViewer(text='Traps', master_password=master_password, parent=self)
+        self.TaskScheduler = TaskScheduler(text='Scheduler',master_password=master_password, parent=self)
+        
+        
         self.SSH_window = SSH(text='Single', parent=self)
-        self.TaskScheduler = TaskScheduler(text='Scheduler', parent=self)
         self.CodeEditor = code_editeur(text='code_editeur', parent=self)
         self.LogFetcher = New_LogFetcher(text='Log', parent=self)
         self.DeployFile = New_Deploy(text='Deploy', parent=self)
         self.GetFile = New_Fetch(text='Fetch', parent=self)
-        self.ViewTraps = New_TrapsViewer(text='Traps', parent=self)
         self.AddMachine = New_MachineAdder(text='machineadder', parent=self)
         self.PasswordVault = New_PassVault(text='Pass', parent=self)
         self.initNavigation()
@@ -180,13 +181,17 @@ class Window(MSFluentWindow):
             QDesktopServices.openUrl(QUrl("https://github.com/mohrnd/REMT"))
 
 
-def main():
+def main(masterpassword):
     QApplication.setHighDpiScaleFactorRoundingPolicy(Qt.HighDpiScaleFactorRoundingPolicy.PassThrough)
     QApplication.setAttribute(Qt.AA_EnableHighDpiScaling)
     QApplication.setAttribute(Qt.AA_UseHighDpiPixmaps)
     color = QColor('#351392')
-    setThemeColor(color ,Qt.GlobalColor , '') 
+    setThemeColor(color, Qt.GlobalColor, '') 
     # app = QApplication(sys.argv)
-    w = Window()
+    w = Window(masterpassword)
     w.resize(500, 900)
     w.show()
+    # sys.exit(app.exec_())
+
+# if __name__ == "__main__":
+#     main()
