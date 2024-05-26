@@ -1,2 +1,0 @@
-SNMPv3_username,auth_Protocole,auth_password,Priv_Protocole,priv_password,security_engine_id,ip_add,password,linux_username,port,Machine_Name,RefreshTime
-roadmin,SHA,d6d6af9974c21383,AES,844e45653a433da8,80001f8880e83e9c1a897de96500000000,192.168.69.44,6eda8f596000706a,manager1,22,SERVER1,24

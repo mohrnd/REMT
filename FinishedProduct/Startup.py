@@ -15,6 +15,15 @@ from PyQt5.QtWidgets import QApplication
 
 machines_file_path = 'machines.csv'
 
+def create_vault_file():
+    file_path = 'C:\\ProgramData\\.Vault1851320.txt'
+    try:
+        with open(file_path, 'w'): 
+            pass
+        os.system('attrib +H "{}"'.format(file_path))
+    except Exception as e:
+        print(f"Error occurred while setting file attributes: {e}")
+
 def create_machines_file():
     """Check if machines.csv file exists; if not, create an empty file."""
     columns = ['SNMPv3_username', 
@@ -41,6 +50,7 @@ class FirstLoginWindow(QtWidgets.QWidget, Ui_FirstLoginForm):
         self.setupUi(self)
         self.MasterPWDContinue.clicked.connect(self.save_password)
         create_machines_file()  # Ensure machines.csv is created if it doesn't exist
+        create_vault_file()
 
     def save_password(self):
         password = self.PasswordInput.text()
