@@ -11,13 +11,9 @@ from .cipher_decipher_logic.CipherDecipher import *
 
 '''
 Notes: 
--our monitoring is more about trend analysis or identifying long-term patterns (longer refresh times or averaging data might be more suitable)
+-our monitoring is more about trend analysis or identifying long-term patterns (longer refresh times or averaging data will be more suitable)
 '''
-'''
-Known issues: 
--if a machine goes offline, the data fetching stops *FIXED*
 
-'''
 
 # this function will only append a new line to the json file
 def create_or_update_json(data, MachineName):

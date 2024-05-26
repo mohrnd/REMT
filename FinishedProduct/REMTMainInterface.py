@@ -1,6 +1,6 @@
 # coding:utf-8
 import sys
-
+from PyQt5.QtWidgets import QApplication, QMainWindow, QSystemTrayIcon, QMenu, QMessageBox
 from PyQt5.QtCore import Qt, QUrl
 from PyQt5.QtGui import QIcon, QDesktopServices
 from PyQt5.QtWidgets import QApplication, QFrame, QHBoxLayout, QWidget
@@ -8,7 +8,6 @@ from qfluentwidgets import (NavigationItemPosition, MessageBox, setTheme, setThe
                             NavigationAvatarWidget, qrouter, SubtitleLabel, setFont)
 from qfluentwidgets import FluentIcon as FIF
 from PyQt5.QtGui import *
-# dont forget to add a dot to the files you want to import
 from MainInterface.TaskSchedulerMain.Task_scheduler_main import MainWindow as SchedulerWindow
 from MainInterface.SSHMain.Main_SSH_Widget import MainWindow as SSHWindow
 from MainInterface.editeur_de_code.editeur import MainWindowWidget as editeurwindow
@@ -120,6 +119,7 @@ class Window(MSFluentWindow):
     def __init__(self, masterpassword):
         super().__init__()
         master_password = masterpassword
+        self.tray_icon = QSystemTrayIcon(QIcon(r"..\REMT\FinishedProduct\MainInterface\white.png"), self)
         self.Dashboard = NewDashboard(text='Dashboard', master_password=master_password, parent=self)
         self.ViewTraps = New_TrapsViewer(text='Traps', master_password=master_password, parent=self)
         self.TaskScheduler = TaskScheduler(text='Scheduler',master_password=master_password, parent=self)
@@ -179,7 +179,24 @@ class Window(MSFluentWindow):
 
         if w.exec():
             QDesktopServices.openUrl(QUrl("https://github.com/mohrnd/REMT"))
+            
+    def closeEvent(self, event):
+        event.ignore()
+        self.hide()
+        self.tray_icon.show()
 
+    def showWindow(self):
+        self.show()
+        self.tray_icon.hide()
+
+    def quitApplication(self):
+        reply = QMessageBox.question(self, 'Confirm Quit',
+                                     'Are you sure you want to close REMT?',
+                                     QMessageBox.Yes | QMessageBox.No,
+                                     QMessageBox.No)
+
+        if reply == QMessageBox.Yes:
+            QApplication.quit()
 
 def main(masterpassword):
     QApplication.setHighDpiScaleFactorRoundingPolicy(Qt.HighDpiScaleFactorRoundingPolicy.PassThrough)
@@ -189,6 +206,13 @@ def main(masterpassword):
     setThemeColor(color, Qt.GlobalColor, '') 
     # app = QApplication(sys.argv)
     w = Window(masterpassword)
+    tray_menu = QMenu(w)
+    show_action = tray_menu.addAction("Show")
+    quit_action = tray_menu.addAction("Quit")
+    show_action.triggered.connect(w.showWindow)
+    quit_action.triggered.connect(w.quitApplication)
+    w.tray_icon.setContextMenu(tray_menu)
+    w.tray_icon.show()
     w.resize(500, 900)
     w.show()
     # sys.exit(app.exec_())
