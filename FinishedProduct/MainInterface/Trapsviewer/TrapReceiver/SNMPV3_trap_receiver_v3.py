@@ -112,6 +112,6 @@ def main(masterpassword):
     finally:
         snmpEngine.transportDispatcher.closeDispatcher()
 
-if __name__ == "__main__":
-    masterpassword = 'MASTERPASSWORD'
-    main(masterpassword)
+# if __name__ == "__main__":
+#     masterpassword = 'MASTERPASSWORD'
+#     main(masterpassword)

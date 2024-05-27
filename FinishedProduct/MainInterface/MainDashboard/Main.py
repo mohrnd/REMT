@@ -59,16 +59,29 @@ class MainWindow(QMainWindow, Ui_Form):
         self.MainTable.clearContents()
         self.MainTable.setRowCount(0)
         csv_file = r'machines.csv'
+        online_csv_file = r'machines_online.csv'
+        online_machines = set()
+        if not os.path.exists(online_csv_file):
+            columns = ['Machine_Name','ip_add']
+            with open(online_csv_file, 'w', newline='') as file:
+                pass
+        if os.path.exists(online_csv_file):
+            with open(online_csv_file, 'r') as file:
+                csv_reader = csv.reader(file)
+                for row in csv_reader:
+                    if row:
+                        online_machines.add((row[0], row[1])) 
+                        
         with open(csv_file, 'r') as file:
             csv_reader = csv.DictReader(file) 
             for row in csv_reader:
                 ip_address = row['ip_add']
                 machine_name = row['Machine_Name']
                 self.Total_Machines += 1
-                json_file = fr"C:\ProgramData\REMT\{machine_name}.json"
-                if not os.path.exists(fr"C:\ProgramData\REMT\{machine_name}.json"):
-                    print(fr"C:\ProgramData\REMT\{machine_name}.json")
-                    with open(json_file, 'w') as json_file:
+                json_file_path = fr"C:\ProgramData\REMT\{machine_name}.json"
+                if not os.path.exists(json_file_path):
+                    print(json_file_path)
+                    with open(json_file_path, 'w') as json_file:
                         current_timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
                         empty_data = [
     {
@@ -101,10 +114,11 @@ class MainWindow(QMainWindow, Ui_Form):
     }
 ]
                         json.dump(empty_data, json_file)
-
                 Status = online_Check(ip_address)
                 if Status == '🟢Online':
-                    with open(json_file, 'r') as f:
+                    if (machine_name, ip_address) not in online_machines:
+                        online_machines.add((machine_name, ip_address))
+                    with open(json_file_path, 'r') as f:
                         data = json.load(f)
                         Latest_line = data[-1]
                         self.Machines_Online = self.Machines_Online + 1
@@ -122,10 +136,17 @@ class MainWindow(QMainWindow, Ui_Form):
                     RamUsage = None
                     DiskUsage = None
                     Uptime = None
+                    if (machine_name, ip_address) in online_machines:
+                        online_machines.remove((machine_name, ip_address))
+                    
                 self.addRow(machine_name, ip_address, Status, Uptime, CpuUsage, RamUsage, DiskUsage)
                 print(machine_name, ip_address)
         self.TotalMachines.setText(str(self.Total_Machines))
         self.MachinesOnline.setText(str(self.Machines_Online))
+        with open(online_csv_file, 'w', newline='') as file:
+            csv_writer = csv.writer(file)
+            for machine_name, ip_address in online_machines:
+                csv_writer.writerow([machine_name, ip_address])
 
     def addRow(self, machine_name, ip_address, Status, Uptime, CpuUsage, RamUsage, DiskUsage):
         rowPosition = self.MainTable.rowCount()

@@ -39,7 +39,7 @@ class MainWindow(QWidget, Ui_Frame):
         self.show_active_machines()
         self.timer = QTimer(self)
         self.timer.timeout.connect(self.show_active_machines)
-        self.timer.start(15000)
+        self.timer.start(10000)
 
     def prompt_master_password(self):
         master_password, ok = QInputDialog.getText(self, 'Master Password', 'Enter Master Password:', QLineEdit.Password)
@@ -83,19 +83,34 @@ class MainWindow(QWidget, Ui_Frame):
 
     def show_active_machines(self):
         self.Machines.setRowCount(0)
+        
+        # Load online machines from machines_online.csv
+        online_csv_file = 'machines_online.csv'
+        online_machines = set()
+        if os.path.exists(online_csv_file):
+            with open(online_csv_file, 'r') as file:
+                csv_reader = csv.reader(file)
+                for row in csv_reader:
+                    if row:
+                        online_machines.add((row[0], row[1]))  # Add (Machine_Name, ip_add) to the set
+        
+        # Load all machines from machines.csv and check if they are online
         CSV_File_Path = 'machines.csv'
         with open(CSV_File_Path, 'r') as file:
             reader = csv.DictReader(file)
             for row in reader:
                 MachineName = row['Machine_Name']
                 hostname = row['ip_add']
-                stat = Check_ip(hostname)
-                if stat:
+                
+                # Check if the machine is in the online_machines set
+                if (MachineName, hostname) in online_machines:
                     rowPositionMachines = self.Machines.rowCount()
                     self.Machines.insertRow(rowPositionMachines)
                     self.Machines.setItem(rowPositionMachines, 0, QTableWidgetItem(hostname))
                     self.Machines.setItem(rowPositionMachines, 1, QTableWidgetItem(MachineName))
-                    checkbox = CheckBox()
+                    
+                    # Create checkbox
+                    checkbox = CheckBox()  # Changed to QCheckBox
                     checkbox.setChecked(False)
                     self.Machines.setCellWidget(rowPositionMachines, 2, checkbox)
 

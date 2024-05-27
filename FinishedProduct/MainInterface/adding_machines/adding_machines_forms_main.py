@@ -244,6 +244,8 @@ class MainWindow(QWidget, Ui_Form):
             status = config(hostname, port, username, password)
             self.ui_config_progress.configprogress_TextEdit.append(status)
             self.ui_config_progress.configprogress_TextEdit.append(f"Machine {hostname} added successfully.")
+            self.ui_config_progress.configprogress_TextEdit.append(f"Machine {hostname} added successfully, please restart REMT NOW!")
+
             self.ui_config_progress.Loading.close()
             self.ui_config_progress.configprogress_finish.setDisabled(False)
 

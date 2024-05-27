@@ -49,21 +49,34 @@ def Check_ip(hostname):
         return False
 
 def add_lines(tree_widget, csv_path):
-    tree_widget.clear()  
+    tree_widget.clear()
+    online_csv_file = 'machines_online.csv'
+    online_machines = set()
+    if os.path.exists(online_csv_file):
+        with open(online_csv_file, 'r') as file:
+            csv_reader = csv.reader(file)
+            for row in csv_reader:
+                if row:
+                    online_machines.add((row[0], row[1]))
+                    
     with open(csv_path, 'r') as file:
         reader = csv.DictReader(file)
         for row in reader:
+            MachineName = row['Machine_Name']
+            ip_address = row['ip_add']
+
+            # Only add the parent item if the machine is in the online_machines set
             parent_item = QtWidgets.QTreeWidgetItem(tree_widget)
-            parent_item.setText(0, row['Machine_Name'])
-            parent_item.setText(1, row['ip_add'])
-            
+            parent_item.setText(0, MachineName)
+            parent_item.setText(1, ip_address)
+
             # Set bold font for parent item
             font = parent_item.font(0)
             font.setBold(True)
             parent_item.setFont(0, font)
-            
-            if Check_ip(row['ip_add']) is True:
-                parent_item.setText(2, '🟢 Online') 
+
+            if (MachineName, ip_address) in online_machines:
+                parent_item.setText(2, '🟢 Online')
                 button = PrimaryPushButton("Fetch", tree_widget)
                 font = QtGui.QFont()
                 font.setPointSize(7)
@@ -71,40 +84,41 @@ def add_lines(tree_widget, csv_path):
                 font.setWeight(50)
                 button.setFont(font)
                 tree_widget.setItemWidget(parent_item, 4, button)
-                button.clicked.connect(lambda checked, Machinename=row['Machine_Name'], Ip= row['ip_add']: FetchLogs(Machinename, Ip))
+                button.clicked.connect(lambda checked, Machinename=MachineName, Ip=ip_address: FetchLogs(Machinename, Ip))
             else:
                 parent_item.setText(2, '🔴 Offline')
+
+            path = Path(fr"C:\ProgramData\REMT\{MachineName}")
+            if path.exists() and path.is_dir():
+                contents = os.listdir(path)
+                print(contents)
+
+                latest_fetch_date = None  # Initialize outside the loop
+
+                for file in contents:
+                    items = file.split('_')
+                    date = items[1]
+                    time = items[2].replace('-', ':')
+                    datetime_str = f"{date} {time}"
+                    datetime_obj = datetime.strptime(datetime_str, "%d-%m-%Y %H:%M")
+
+                    if latest_fetch_date is None or datetime_obj > latest_fetch_date:
+                        latest_fetch_date = datetime_obj
+
+                    child_item = QtWidgets.QTreeWidgetItem(parent_item)
+                    child_item.setText(0, f'{date} {time}')
+                    child_item_button = PushButton("Open", tree_widget)
+                    font = QtGui.QFont()
+                    font.setPointSize(5)
+                    font.setBold(True)
+                    font.setWeight(40)
+                    child_item_button.setFont(font)
+                    tree_widget.setItemWidget(child_item, 1, child_item_button)
+                    child_item_button.clicked.connect(lambda checked, MachineName=MachineName, FileName=file: OpenFolder(MachineName, FileName))
                 
-            path = Path(fr"C:\ProgramData\REMT\{row['Machine_Name']}")
-            contents = os.listdir(path)
-            print(contents)
-            
-            latest_fetch_date = None  # Initialize outside the loop
-            
-            for file in contents:
-                items = file.split('_')
-                date = items[1]
-                time = items[2].replace('-', ':')
-                datetime_str = f"{date} {time}"
-                datetime_obj = datetime.strptime(datetime_str, "%d-%m-%Y %H:%M")
-                
-                if latest_fetch_date is None or datetime_obj > latest_fetch_date:
-                    latest_fetch_date = datetime_obj
-                    
-                child_item = QtWidgets.QTreeWidgetItem(parent_item)
-                # child_item.setText(0, file)
-                child_item.setText(0, f'{date} {time}')
-                child_item_button = PushButton("Open", tree_widget)
-                font = QtGui.QFont()
-                font.setPointSize(5)
-                font.setBold(True)
-                font.setWeight(40)
-                child_item_button.setFont(font)
-                tree_widget.setItemWidget(child_item, 1, child_item_button)
-                child_item_button.clicked.connect(lambda checked, MachineName=row['Machine_Name'], FileName=file: OpenFolder(MachineName, FileName))
-            if latest_fetch_date is not None:
-                latest_fetch_date_str = latest_fetch_date.strftime("%d-%m-%Y %H:%M")
-                parent_item.setText(3, latest_fetch_date_str)
+                if latest_fetch_date is not None:
+                    latest_fetch_date_str = latest_fetch_date.strftime("%d-%m-%Y %H:%M")
+                    parent_item.setText(3, latest_fetch_date_str)
                 
 def FetchLogs(Machinename, Ip):
     local_path_in = 'C:/ProgramData/REMT/'

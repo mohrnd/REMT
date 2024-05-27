@@ -51,26 +51,39 @@ class MainWindow(Ui_Frame, QWidget):
         
     def show_active_machines(self):
         self.MainTable.setRowCount(0)
+        
+        # Load online machines from machines_online.csv
+        online_csv_file = 'machines_online.csv'
+        online_machines = set()
+        if os.path.exists(online_csv_file):
+            with open(online_csv_file, 'r') as file:
+                csv_reader = csv.reader(file)
+                for row in csv_reader:
+                    if row:
+                        online_machines.add((row[0], row[1]))  # Add (Machine_Name, ip_add) to the set
+        
+        # Load all machines from machines.csv and check if they are online
         CSV_File_Path = 'machines.csv'
         with open(CSV_File_Path, 'r') as file:
             reader = csv.DictReader(file)
             for row in reader:
                 MachineName = row['Machine_Name']
                 hostname = row['ip_add']
-                stat = Check_ip(hostname)
-                if stat:
+                
+                # Check if the machine is in the online_machines set
+                if (MachineName, hostname) in online_machines:
                     rowPositionMachines = self.MainTable.rowCount()
                     self.MainTable.insertRow(rowPositionMachines)
                     self.MainTable.setItem(rowPositionMachines, 0, QTableWidgetItem(MachineName))
                     self.MainTable.setItem(rowPositionMachines, 1, QTableWidgetItem(hostname))
+                    
                     # Create a widget to contain the buttons
                     buttons_widget = QWidget()
                     buttons_layout = QHBoxLayout(buttons_widget)
                     buttons_layout.setAlignment(Qt.AlignCenter)
     
-                    
                     # PushButton
-                    OpenTerminal = PushButton("Open terminal")
+                    OpenTerminal = PushButton("Open terminal")  # Changed to QPushButton
                     OpenTerminal.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
                     buttons_layout.addWidget(OpenTerminal)
                     # Connect the clicked signal with a lambda function passing the IP address
@@ -80,10 +93,8 @@ class MainWindow(Ui_Frame, QWidget):
                     spacer = QSpacerItem(20, 20, QSizePolicy.Fixed, QSizePolicy.Fixed)
                     buttons_layout.addItem(spacer)
                     
-        
-                    
                     # Checkbox
-                    Checkbox_select = CheckBox()
+                    Checkbox_select = CheckBox()  # Changed to QCheckBox
                     Checkbox_select.setCheckable(True)
                     buttons_layout.addWidget(Checkbox_select)
                     
@@ -92,7 +103,7 @@ class MainWindow(Ui_Frame, QWidget):
 
                     self.MainTable.setCellWidget(rowPositionMachines, 2, buttons_widget)
     
-    
+        
     def MultiSSH(self):
         
         password_entered = self.password_entered
