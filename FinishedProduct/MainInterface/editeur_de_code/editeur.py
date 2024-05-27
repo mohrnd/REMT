@@ -265,7 +265,7 @@ class CodeEditorWidget(QWidget):
         self.setLayout(layout)
 
         # Charger le fichier de style CSS
-        style_file = QFile("../REMT/Tests/editeur_de_code/style.qss")
+        style_file = QFile(r"..\REMT\FinishedProduct\MainInterface\editeur_de_code\style.qss")
         if style_file.open(QFile.ReadOnly | QFile.Text):
             stream = QTextStream(style_file)
             self.setStyleSheet(stream.readAll())
@@ -303,7 +303,7 @@ class MainWindowWidget(QWidget):
         
         toolbar.addSeparator(),toolbar.addSeparator()
         
-        newIcon = QIcon("../REMT/Tests/editeur_de_code/new.png")  
+        newIcon = QIcon(r"..\REMT\FinishedProduct\MainInterface\editeur_de_code\new.png")  
         newBtn = PushButton(newIcon, 'New', self)
         newBtn.clicked.connect(self.newFile)
         # self.applyButtonStyle(newBtn)  # Appliquer le style au bouton New
@@ -313,7 +313,7 @@ class MainWindowWidget(QWidget):
         toolbar.addSeparator(),toolbar.addSeparator()
 
         
-        openIcon = QIcon("../REMT/Tests/editeur_de_code/open.png")  
+        openIcon = QIcon(r"..\REMT\FinishedProduct\MainInterface\editeur_de_code\open.png")  
         openBtn = PushButton(openIcon, 'Open', self)
         openBtn.clicked.connect(self.openFile)
         # self.applyButtonStyle(openBtn)  
@@ -323,7 +323,7 @@ class MainWindowWidget(QWidget):
         toolbar.addSeparator(),toolbar.addSeparator()
         
         
-        saveIcon = QIcon("../REMT/Tests/editeur_de_code/save.png")  
+        saveIcon = QIcon(r"..\REMT\FinishedProduct\MainInterface\editeur_de_code\save.png")  
         saveBtn = PushButton(saveIcon, 'Save', self)
         saveBtn.clicked.connect(self.saveFile)
         # self.applyButtonStyle(saveBtn) 
@@ -332,7 +332,7 @@ class MainWindowWidget(QWidget):
         
         toolbar.addSeparator(),toolbar.addSeparator()
         
-        executeIcon = QIcon("../REMT/Tests/editeur_de_code/execute.png")  
+        executeIcon = QIcon(r"..\REMT\FinishedProduct\MainInterface\editeur_de_code\execute.png")  
         executeBtn = PushButton(executeIcon, 'Verify Shell', self)
         executeBtn.clicked.connect(self.verifier_shell_script) 
         # self.applyButtonStyle(executeBtn) 
@@ -341,7 +341,7 @@ class MainWindowWidget(QWidget):
         
         toolbar.addSeparator(),toolbar.addSeparator()
         
-        verifyPythonIcon = QIcon("../REMT/Tests/editeur_de_code/Python.png")  
+        verifyPythonIcon = QIcon(r"..\REMT\FinishedProduct\MainInterface\editeur_de_code\Python.png")  
         verifyPythonBtn = PushButton(verifyPythonIcon, 'Verify Python', self)
         verifyPythonBtn.clicked.connect(self.verifier_python_script)
         # self.applyButtonStyle(verifyPythonBtn) 
@@ -351,7 +351,7 @@ class MainWindowWidget(QWidget):
         toolbar.addSeparator(),toolbar.addSeparator()
     
 
-        sendIcon = QIcon("../REMT/Tests/editeur_de_code/Send.png")
+        sendIcon = QIcon(r"..\REMT\FinishedProduct\MainInterface\editeur_de_code\Send.png")
         showOnlineIPsBtn = PushButton( sendIcon,'Send File',self)
         showOnlineIPsBtn.clicked.connect(self.show_online_ips)
         # self.applyButtonStyle(showOnlineIPsBtn) 
