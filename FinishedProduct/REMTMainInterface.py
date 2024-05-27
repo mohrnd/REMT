@@ -4,6 +4,7 @@ from PyQt5.QtWidgets import QApplication, QMainWindow, QSystemTrayIcon, QMenu, Q
 from PyQt5.QtCore import Qt, QUrl
 from PyQt5.QtGui import QIcon, QDesktopServices
 from PyQt5.QtWidgets import QApplication, QFrame, QHBoxLayout, QWidget
+from PyQt5 import QtWidgets
 from qfluentwidgets import (NavigationItemPosition, MessageBox, setTheme, setThemeColor,Theme, MSFluentWindow,
                             NavigationAvatarWidget, qrouter, SubtitleLabel, setFont)
 from qfluentwidgets import FluentIcon as FIF
@@ -219,6 +220,8 @@ class Window(MSFluentWindow):
                 stop_monitoring() # this stops the data fetching process
                 stop() # this stops the trap receiver
                 QApplication.quit()
+            else: 
+                QtWidgets.QMessageBox.warning(self, "Error", "Password incorrect!")
         else:
             return None
         
