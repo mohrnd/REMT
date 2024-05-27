@@ -5,10 +5,9 @@ from pysnmp.proto.api import v2c
 import datetime
 import logging
 import csv
+import os
 from .cipher_decipher_logic.CipherDecipher import *
 from .notifications import win_notif
-
-logging.basicConfig(filename='TrapsReceived.log', level=logging.INFO, format='%(asctime)s - %(message)s')
 
 def add_snmp_users_from_csv(CSV_File_Path, snmpEngine, MasterPassword):
     print('add_snmp_users_from_csv: ', MasterPassword)
@@ -59,7 +58,7 @@ def cbFun(snmpEngine, stateReference, contextEngineId, contextName, varBinds, cb
     if transport_info:
         current_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         ip_address = transport_info[1][0]
-        log_message_parts.append(f'Trap from "{ip_address}"')
+        log_message_parts.append(f'{current_time} - Trap from "{ip_address}"')
         notification_title = 'SNMP Trap Received'
         notification_message = f'Trap from {ip_address} received at {current_time}'
         notification_icon = None
@@ -82,7 +81,14 @@ def cbFun(snmpEngine, stateReference, contextEngineId, contextName, varBinds, cb
 
     log_message = ', '.join(log_message_parts)  # Join parts with ', '
     print(log_message)
-    logging.info(log_message)
+    # Check if the log file exists, if not, create it
+    log_file_path = 'TrapsReceived.log'
+    if not os.path.exists(log_file_path):
+        with open(log_file_path, 'w'):
+            pass 
+    with open(log_file_path, 'a') as log_file:
+        log_file.write(log_message + '\n')
+
 
 def main(masterpassword):
     print('main: ', masterpassword)
