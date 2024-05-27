@@ -59,10 +59,10 @@ def cbFun(snmpEngine, stateReference, contextEngineId, contextName, varBinds, cb
         current_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         ip_address = transport_info[1][0]
         log_message_parts.append(f'{current_time} - Trap from "{ip_address}"')
-        notification_title = 'SNMP Trap Received'
-        notification_message = f'Trap from {ip_address} received at {current_time}'
+        notification_title = f'SNMP Trap Received from {ip_address}'
+        
         notification_icon = None
-        win_notif(notification_title, notification_message, notification_icon)
+        
     else:
         log_message_parts.append('error')
 
@@ -77,8 +77,9 @@ def cbFun(snmpEngine, stateReference, contextEngineId, contextName, varBinds, cb
             for row in reader:
                 if value_str == row['OID']:
                     log_message_parts.append(f'Interpreted OID: {row["text"]}')
+                    notification_message = f'{row["text"]} \nCheckout the trap viewer interface to see more details.' if row["text"] == 'SystemShutdown' or 'SystemStartup' else None
                     break
-
+    win_notif(notification_title, notification_message, notification_icon)
     log_message = ', '.join(log_message_parts)  # Join parts with ', '
     print(log_message)
     # Check if the log file exists, if not, create it
