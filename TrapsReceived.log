@@ -24,3 +24,4 @@
 2024-05-27 15:38:17 - Trap from "192.168.69.44", SysUptime = 158, SNMPTrapOID = 1.3.6.1.6.3.1.1.5.1, Interpreted OID: SystemStartup, SNMPTrapEnterprise = 1.3.6.1.4.1.8072.3.2.10
 2024-05-27 15:39:52 - Trap from "192.168.69.44", SysUptime = 9614, SNMPTrapOID = 1.3.6.1.4.1.8072.4.0.2, Interpreted OID: SystemShutdown, SNMPTrapEnterprise = 1.3.6.1.4.1.8072.4
 2024-05-27 15:39:55 - Trap from "192.168.69.44", SysUptime = 180, SNMPTrapOID = 1.3.6.1.6.3.1.1.5.1, Interpreted OID: SystemStartup, SNMPTrapEnterprise = 1.3.6.1.4.1.8072.3.2.10
+2024-05-27 19:04:41 - Trap from "192.168.69.44", SysUptime = 284, SNMPTrapOID = 1.3.6.1.6.3.1.1.5.1, Interpreted OID: SystemStartup, SNMPTrapEnterprise = 1.3.6.1.4.1.8072.3.2.10

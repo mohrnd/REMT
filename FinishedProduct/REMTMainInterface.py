@@ -1,6 +1,6 @@
 # coding:utf-8
 import sys
-from PyQt5.QtWidgets import QApplication, QMainWindow, QSystemTrayIcon, QMenu, QMessageBox
+from PyQt5.QtWidgets import QApplication, QMainWindow, QSystemTrayIcon, QMenu, QMessageBox, QDialog, QInputDialog, QLineEdit
 from PyQt5.QtCore import Qt, QUrl
 from PyQt5.QtGui import QIcon, QDesktopServices
 from PyQt5.QtWidgets import QApplication, QFrame, QHBoxLayout, QWidget
@@ -9,6 +9,7 @@ from qfluentwidgets import (NavigationItemPosition, MessageBox, setTheme, setThe
 from qfluentwidgets import FluentIcon as FIF
 from PyQt5.QtGui import *
 from MainInterface.TaskSchedulerMain.Task_scheduler_main import MainWindow as SchedulerWindow
+from MainInterface.TaskSchedulerMain.cipher_decipher_logic.CipherDecipher import check_password
 from MainInterface.SSHMain.Main_SSH_Widget import MainWindow as SSHWindow
 from MainInterface.editeur_de_code.editeur import MainWindowWidget as editeurwindow
 from MainInterface.MainDashboard.Main import MainWindow as Dashboard
@@ -19,6 +20,8 @@ from MainInterface.FileTransferDeploy.Deploy_MAIN import MainWindow as Deploy
 from MainInterface.FileTransferFetch.Fetch_MAIN import MainWindow as Fetch
 from MainInterface.Trapsviewer.Main_Trap_Viewer import MainWindow as TrapsViewer
 from MainInterface.Remove_machines.Main import MainWindow as RemoveWindow
+from MainInterface.MainDashboard.data_fetcher import stop_monitoring
+from MainInterface.Trapsviewer.Main_Trap_Viewer import stop
 class TaskScheduler(QWidget):
 #Task Scheduler
     def __init__(self, text: str, master_password: str, parent=None):
@@ -199,15 +202,26 @@ class Window(MSFluentWindow):
         self.show()
         self.tray_icon.hide()
 
+    # def quitApplication(self):
+    #     reply = QMessageBox.question(self, 'Confirm Quit',
+    #                                  'Are you sure you want to close REMT? \nNote: the trap receiver will run in the background',
+    #                                  QMessageBox.Yes | QMessageBox.No,
+    #                                  QMessageBox.No)
+
+    #     if reply == QMessageBox.Yes:
+    #         stop_monitoring()
+    #         QApplication.quit()
+            
     def quitApplication(self):
-        reply = QMessageBox.question(self, 'Confirm Quit',
-                                     'Are you sure you want to close REMT?',
-                                     QMessageBox.Yes | QMessageBox.No,
-                                     QMessageBox.No)
-
-        if reply == QMessageBox.Yes:
-            QApplication.quit()
-
+        master_password, ok = QInputDialog.getText(self, 'Confirm Quit', 'Are you sure you want to close REMT?\nEnter your master password to continue.', QLineEdit.Password)
+        if ok:
+            if check_password(master_password):
+                stop_monitoring() # this stops the data fetching process
+                stop() # this stops the trap receiver
+                QApplication.quit()
+        else:
+            return None
+        
 def main(masterpassword):
     QApplication.setHighDpiScaleFactorRoundingPolicy(Qt.HighDpiScaleFactorRoundingPolicy.PassThrough)
     QApplication.setAttribute(Qt.AA_EnableHighDpiScaling)

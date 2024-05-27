@@ -6,9 +6,18 @@ from PyQt5.QtGui import QColor
 import re
 from .Ui_Traps_Viewer_interface import Ui_Form
 import threading
+import time
+from time import sleep
+
+stop_event = threading.Event()
+
+def stop():
+    print('Stopping the trap receiver threads...')
+    stop_event.set()
+    
+
 class MainWindow(Ui_Form, QWidget):
     def __init__(self, masterpassword):
-    # def __init__(self):
         super().__init__()
         self.masterpassword = masterpassword
         self.setupUi(self)
@@ -27,10 +36,9 @@ class MainWindow(Ui_Form, QWidget):
         self.Filter.setCompleter(self.completer)
 
         # Create a QTimer for updating every 60 seconds
-        
         self.timer = QTimer(self)
         self.timer.timeout.connect(self.update_content)
-        self.timer.start(10000)  # 60000 milliseconds = 60 seconds
+        self.timer.start(10000)  # 10000 milliseconds = 10 seconds
         self.start_thread(self.masterpassword)
 
     def load_log_file(self):
@@ -69,26 +77,28 @@ class MainWindow(Ui_Form, QWidget):
         except Exception as e:
             self.All_Traps_received.setPlainText(f"Error filtering log file: {e}")
 
-
     def update_content(self):
         # Call load_log_file to update the content
         self.load_log_file()
-        
 
     def start_thread(self, masterpassword):
         def thread_function():
             from .TrapReceiver.SNMPV3_trap_receiver_v3 import main
-            main(masterpassword)
+
+            while not stop_event.is_set():
+                main(masterpassword)
+                # Ajoutez un délai ou une condition pour permettre d'arrêter proprement
+                time.sleep(1)
 
         self.thread = threading.Thread(target=thread_function)
+        self.thread.setDaemon(True)
         self.thread.start()
-
 
 def main():
     app = QApplication(sys.argv)
     color = QColor('#351392')
     setThemeColor(color.name(), Qt.GlobalColor, '')
-    window = MainWindow()
+    window = MainWindow('Didine.2003')
     window.show()
     sys.exit(app.exec_())
 

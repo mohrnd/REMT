@@ -8,14 +8,11 @@ import time
 import threading
 import csv
 from .cipher_decipher_logic.CipherDecipher import *
+from time import sleep
+# Global event to signal threads to stop
+stop_event = threading.Event()
 
-'''
-Notes: 
--our monitoring is more about trend analysis or identifying long-term patterns (longer refresh times or averaging data will be more suitable)
-'''
-
-
-# this function will only append a new line to the json file
+# This function will only append a new line to the json file
 def create_or_update_json(data, MachineName):
     timestamp = data[0][0]
     LOAD1min = data[1][0]
@@ -68,9 +65,9 @@ def create_or_update_json(data, MachineName):
             file.write('\n]')  # Close the square brackets to maintain JSON format
 
 
-def fetch_monitoring_data(SNMPv3_username, auth_Protocole, auth_password, Priv_Protocole, priv_password, security_engine_id, hostname, password, user, Port,  Machine_Name, RefreshTime, Masterpassword):    
+def fetch_monitoring_data(SNMPv3_username, auth_Protocole, auth_password, Priv_Protocole, priv_password, security_engine_id, hostname, password, user, Port,  Machine_Name, RefreshTime, Masterpassword):
     print('fetch_monitoring_data: ', Masterpassword)
-    while True:
+    while not stop_event.is_set():
         try:
             date_time = datetime.now()
             formated = date_time.strftime('%Y-%m-%d %H:%M:%S')
@@ -79,7 +76,7 @@ def fetch_monitoring_data(SNMPv3_username, auth_Protocole, auth_password, Priv_P
             password_deciphered = get_password_no_form(Masterpassword,password)
             print(auth_password_deciphered, priv_password_deciphered, password_deciphered)
             conn = Connection(hostname, user=user, port=Port, connect_kwargs={"password": password_deciphered})
-            nothing = open(os.devnull, 'w')        
+            nothing = open(os.devnull, 'w')
             OIDs = ['.1.3.6.1.4.1.2021.10.1.3.1', #1 minute Load 0
                     '.1.3.6.1.4.1.2021.10.1.3.2', #5 minute Load 1
                     '.1.3.6.1.4.1.2021.10.1.3.3', #15 minute Load 2
@@ -103,34 +100,36 @@ def fetch_monitoring_data(SNMPv3_username, auth_Protocole, auth_password, Priv_P
                 values = re.findall(r'(?<=STRING: )\S+|(?<=Counter32: )\d+|(?<=INTEGER: )\d+|(?<=Timeticks: \()\d+', output.stdout)
                 outputs.append(values)
             outputs[3] = [f'{len(outputs[3])}']
-            total_ram_used = int(outputs[6][0])  
-            total_ram_in_machine = int(outputs[5][0]) 
-            ram_percentage = (total_ram_used / total_ram_in_machine) * 100  
-            outputs[6] = [f'{ram_percentage:.0f}'] 
+            total_ram_used = int(outputs[6][0])
+            total_ram_in_machine = int(outputs[5][0])
+            ram_percentage = (total_ram_used / total_ram_in_machine) * 100
+            outputs[6] = [f'{ram_percentage:.0f}']
             outputs.insert(0,[formated])
             current_cpu_time = int(outputs[5][0])
             system_uptime = int(outputs[10][0])
             system_uptime_seconds = system_uptime // 100
             number_of_cores = int(outputs[4][0])
             print(f'{Machine_Name} data fetched successfully')
-    
+
             if system_uptime_seconds == 0 or current_cpu_time == 0 or number_of_cores == 0:
                 cpu_usage_per_second_per_core = 0
             else:
                 cpu_usage_per_second_per_core = current_cpu_time / system_uptime_seconds / number_of_cores
-            cpu_usage_percentage = cpu_usage_per_second_per_core 
+            cpu_usage_percentage = cpu_usage_per_second_per_core
             print('cpu_usage_percentage', cpu_usage_percentage)
             print('current_cpu_time', current_cpu_time)
             print('number_of_cores', number_of_cores)
-            
-            outputs[5] =  [f'{cpu_usage_percentage:.0f}'] 
+
+            outputs[5] =  [f'{cpu_usage_percentage:.0f}']
             nothing.close()
             create_or_update_json(outputs, Machine_Name)
-            time.sleep(int(RefreshTime)-2)
+            
+            # Check the stop event with a timeout
+            stop_event.wait(int(RefreshTime)-2)
             
         except Exception as e:
             print(f'Error occurred: {e}. Retrying in 10 seconds ...')
-            time.sleep(10)
+            stop_event.wait(10)
 
 def read_params_from_csv(csv_file):
     params = []
@@ -143,7 +142,7 @@ def read_params_from_csv(csv_file):
 def monitor_params_threads_creator(csv_file, masterpassword):
     print('monitor_params_threads_creator: ', masterpassword)
     existing_params = set()
-    while True:
+    while not stop_event.is_set():
         new_params = read_params_from_csv(csv_file)
         for params in new_params:
             SNMPv3_username, auth_Protocole, auth_password, Priv_Protocole, priv_password, security_engine_id, ip_add, password, linux_username, port, Machine_Name, RefreshTime = params
@@ -152,7 +151,8 @@ def monitor_params_threads_creator(csv_file, masterpassword):
                 thread = threading.Thread(target=fetch_monitoring_data, args=(SNMPv3_username, auth_Protocole, auth_password, Priv_Protocole, priv_password, security_engine_id, ip_add, password, linux_username, port, Machine_Name, RefreshTime, masterpassword))
                 thread.start()
                 existing_params.add(params_key)
-        time.sleep(60)  # checks the users file for any new changes
+        # Check the stop event with a timeout
+        stop_event.wait(60)  # checks the users file for any new changes
 
 def main(masterpassword):
     csv_file = 'machines.csv'
@@ -160,28 +160,11 @@ def main(masterpassword):
     monitor_thread = threading.Thread(target=monitor_params_threads_creator, args=(csv_file,masterpassword,))
     monitor_thread.start()
 
-# expl usage for the function above
-#create_or_update_json(timestamp, LOAD1min, LOAD5min, LOAD15min, MachineName, CPUcores, CPUusage, RAMtotal, RAMusage, DISKtotal, DISKusage, UPTIME,TotalSWAP, AvailableSWAP, TotalCachedMemory, NICnames, dataIN, dataOUT)
-# idk might find a use for this later
-def timestamp_finder(json_file_path, target):
-    with open(json_file_path, 'r') as file:
-        existing_data = json.load(file)        
-        for entry in existing_data:
-            if entry['timestamp'] == target:
-                return entry
-        else:
-            return f"No data found for timestamp {target}"
+def stop_monitoring():
+    print('Stopping all threads related to the data fetching process...')
+    stop_event.set()
 
-
-# this function will be used only when drawing graphs (to sort the whole file, it is pretty fast so i dont mind executing it everytime a graph is drawn)
-def sort_json_file_by_timestamp(json_file_path):
-    with open(json_file_path, 'r') as file:
-        data = json.load(file)
-    sorted_data = sorted(data, key=lambda x: x['timestamp'])
-    with open(json_file_path, 'w') as file:
-        json.dump(sorted_data, file, indent=4)
-
-
-# if __name__ == "__main__":
-    
-#     main('MASTERPASSWORD')
+if __name__ == "__main__":
+    main('MASTERPASSWORD')
+    sleep(5)
+    stop_monitoring()
