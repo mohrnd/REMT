@@ -3,7 +3,7 @@ from PyQt5.QtWidgets import QApplication, QWidget, QTableWidgetItem, QHBoxLayout
 from .Ui_Vault_interface import Ui_Form
 from qfluentwidgets import setTheme, setThemeColor, FluentWindow, CheckBox, PushButton, ToggleButton
 
-from PyQt5.QtCore import Qt
+from PyQt5.QtCore import Qt, QTimer
 from PyQt5.QtGui import QColor
 import csv
 import os
@@ -15,12 +15,18 @@ class MainWindow(Ui_Form, QWidget):
         self.setupUi(self)
         self.MainTable.setStyleSheet("QTableWidget { border: 1px solid gray; selection-background-color: #AF9BE5;  }")
         self.MainTable.setEditTriggers(QAbstractItemView.NoEditTriggers) 
-        self.Fill_Table()
         self.FetchPasswords_Button.clicked.connect(self.fetch_passwords)
         self.Flush_TextEdit.clicked.connect(self.flush)
+        self.Fill_Table()
+        self.timer = QTimer(self)
+        self.timer.timeout.connect(self.Fill_Table)
+        self.timer.start(10000)
+        
+        
     def flush(self):
         self.output_TextEdit.setText('')
     def Fill_Table(self):
+        self.MainTable.setRowCount(0)
         CSV_File_Path = 'machines.csv'
         with open(CSV_File_Path, 'r') as file:
             reader = csv.DictReader(file)

@@ -18,7 +18,7 @@ from MainInterface.adding_machines.adding_machines_forms_main import MainWindow 
 from MainInterface.FileTransferDeploy.Deploy_MAIN import MainWindow as Deploy
 from MainInterface.FileTransferFetch.Fetch_MAIN import MainWindow as Fetch
 from MainInterface.Trapsviewer.Main_Trap_Viewer import MainWindow as TrapsViewer
-
+from MainInterface.Remove_machines.Main import MainWindow as RemoveWindow
 class TaskScheduler(QWidget):
 #Task Scheduler
     def __init__(self, text: str, master_password: str, parent=None):
@@ -78,6 +78,14 @@ class New_MachineAdder(QWidget):
         self.hBoxLayout.addWidget(self.widget)  
         self.setObjectName(text.replace('-', '-'))
         
+class New_MachineRemover(QWidget):
+    def __init__(self, text: str, parent=None):
+        super().__init__(parent=parent)
+        self.hBoxLayout = QHBoxLayout(self)
+        self.widget = RemoveWindow()  
+        self.hBoxLayout.addWidget(self.widget)  
+        self.setObjectName(text.replace('-', '-'))
+        
 class New_Deploy(QWidget):
     def __init__(self, text: str, parent=None):
         super().__init__(parent=parent)
@@ -132,6 +140,7 @@ class Window(MSFluentWindow):
         self.GetFile = New_Fetch(text='Fetch', parent=self)
         self.AddMachine = New_MachineAdder(text='machineadder', parent=self)
         self.PasswordVault = New_PassVault(text='Pass', parent=self)
+        self.RemoveMachine = New_MachineRemover(text='machinerem', parent=self)
         self.initNavigation()
         self.initWindow()
 
@@ -146,6 +155,7 @@ class Window(MSFluentWindow):
         self.addSubInterface(self.ViewTraps, QIcon(r'..\REMT\FinishedProduct\MainInterface\RemtIcons\view.svg'), 'View Traps')
         self.addSubInterface(self.PasswordVault, QIcon(r'..\REMT\FinishedProduct\MainInterface\RemtIcons\password.svg'), 'Vault')
         self.addSubInterface(self.AddMachine, QIcon(r'..\REMT\FinishedProduct\MainInterface\RemtIcons\add.svg'), 'Add server')
+        self.addSubInterface(self.RemoveMachine, QIcon(r'..\REMT\FinishedProduct\MainInterface\RemtIcons\remove3.svg'), 'remove')
 
         
         self.navigationInterface.addItem(
