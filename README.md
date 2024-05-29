@@ -2,8 +2,9 @@
   <img width="18%" align="center" src="READMEIMAGES/white.png" alt="logo">
 </p>
 
-
-# REMT - Remote Execution and Monitoring Toolkit for Linux
+  <h1 align="center">
+  REMT - Remote Execution and Monitoring Toolkit for Linux
+</h1>
 
 **REMT** is a comprehensive toolkit designed for Linux administrators to efficiently configure and manage Rocky Linux servers. This open-source project amalgamates essential tools for remote execution, file transfers, log retrieval, task scheduling, script management, and secure password handling.
 
