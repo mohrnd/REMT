@@ -66,7 +66,7 @@ python /FinishedProduct/Startup.py
 ```
 
 ## License
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
+This project is licensed under the GPL-3.0 License. See the [LICENSE](LICENSE) file for more details.
 
 
 ### Known Issues
