@@ -2,9 +2,9 @@
 
 **REMT** is a comprehensive toolkit designed for Linux administrators to efficiently configure and manage Linux servers. This open-source project amalgamates essential tools for remote execution, file transfers, log retrieval, task scheduling, script management, and secure password handling.
 
-<div style="align: center;">
-    <img src="READMEIMAGES/white.png" alt="Screenshot" style="zoom: 20%; margin: 100 auto;">
-</div>
+
+<img src="READMEIMAGES/white.png" alt="Screenshot" style="zoom: 20%; margin: 100 auto;">
+
 
 <img src="READMEIMAGES/Interfaces/Dashboard.PNG" alt="Screenshot" style="display: block; margin: 0 auto; zoom: 50%;" />
 
@@ -21,12 +21,12 @@ Facilitates the deployment and download of files between the administrator's mac
 ### Log File Retrieval
 Enables easy retrieval of log files from various remote machines, providing centralized access to logging data for analysis, performance monitoring, and troubleshooting.
 
-
+<img src="READMEIMAGES/Interfaces/LogFetcher1.PNG" alt="Screenshot" style="display: block; margin: 0 auto; zoom: 50%;" />
 
 ### Task Scheduling
 Allows administrators to schedule tasks to be executed automatically on remote machines.
 
-
+<img src="READMEIMAGES/Interfaces/TaskScheduler1.PNG" alt="Screenshot" style="display: block; margin: 0 auto; zoom: 50%;" />
 
 ### Creation, Editing, and Deployment of Python and Shell Scripts
 Offers integrated tools to create, edit, and deploy Python and Shell scripts on remote machines.
@@ -39,6 +39,8 @@ The software includes a robust password management system, eliminating the need 
 ### System Monitoring with SNMPv3
 REMT provides comprehensive system monitoring capabilities utilizing SNMPv3 protocol. It notifies administrators when a machine goes online or offline and offers real-time statistics on CPU, RAM, disk, and network usage for each machine. SNMPv3 enhances security by providing encryption and authentication features, ensuring secure communication between the REMT server and monitored devices.
 Notifies you when a machine goes online or offline, and provides real-time statistics on CPU, RAM, disk, and network usage for each machine.
+
+<img src="READMEIMAGES/Interfaces/More.PNG" alt="Screenshot" style="display: block; margin: 0 auto; zoom: 50%;" />
 
 ## Contribution
 This project is free and open-source. Anyone is allowed to use and modify it as they wish.
