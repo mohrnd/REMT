@@ -1,0 +1,223 @@
+# Details
+
+Date : 2024-05-29 16:30:42
+
+Directory ..\\REMT\\FinishedProduct
+
+Total : 208 files,  18016 codes, 1816 comments, 3474 blanks, all 23306 lines
+
+[Summary](results.md) / Details / [Diff Summary](diff.md) / [Diff Details](diff-details.md)
+
+## Files
+| filename | language | code | comment | blank | total |
+| :--- | :--- | ---: | ---: | ---: | ---: |
+| [FinishedProduct/MainInterface/FileTransferDeploy/Deploy.ui](/FinishedProduct/MainInterface/FileTransferDeploy/Deploy.ui) | XML | 162 | 0 | 1 | 163 |
+| [FinishedProduct/MainInterface/FileTransferDeploy/Deploy_MAIN.py](/FinishedProduct/MainInterface/FileTransferDeploy/Deploy_MAIN.py) | Python | 181 | 16 | 30 | 227 |
+| [FinishedProduct/MainInterface/FileTransferDeploy/Deploy_ui.py](/FinishedProduct/MainInterface/FileTransferDeploy/Deploy_ui.py) | Python | 65 | 10 | 9 | 84 |
+| [FinishedProduct/MainInterface/FileTransferDeploy/Exec_cmds_remote.py](/FinishedProduct/MainInterface/FileTransferDeploy/Exec_cmds_remote.py) | Python | 12 | 2 | 5 | 19 |
+| [FinishedProduct/MainInterface/FileTransferDeploy/Ui_Deploy.py](/FinishedProduct/MainInterface/FileTransferDeploy/Ui_Deploy.py) | Python | 64 | 7 | 11 | 82 |
+| [FinishedProduct/MainInterface/FileTransferDeploy/cipher_decipher_logic/AES_cipher_decipher.py](/FinishedProduct/MainInterface/FileTransferDeploy/cipher_decipher_logic/AES_cipher_decipher.py) | Python | 156 | 11 | 30 | 197 |
+| [FinishedProduct/MainInterface/FileTransferDeploy/cipher_decipher_logic/LoginInterface/LoginMasterPasswordInput.ui](/FinishedProduct/MainInterface/FileTransferDeploy/cipher_decipher_logic/LoginInterface/LoginMasterPasswordInput.ui) | XML | 98 | 0 | 1 | 99 |
+| [FinishedProduct/MainInterface/FileTransferDeploy/cipher_decipher_logic/LoginInterface/LoginMasterPasswordInput_ui.py](/FinishedProduct/MainInterface/FileTransferDeploy/cipher_decipher_logic/LoginInterface/LoginMasterPasswordInput_ui.py) | Python | 35 | 10 | 9 | 54 |
+| [FinishedProduct/MainInterface/FileTransferDeploy/cipher_decipher_logic/LoginInterface/Main_LoginMasterPasswordWindow.py](/FinishedProduct/MainInterface/FileTransferDeploy/cipher_decipher_logic/LoginInterface/Main_LoginMasterPasswordWindow.py) | Python | 31 | 0 | 5 | 36 |
+| [FinishedProduct/MainInterface/FileTransferDeploy/cipher_decipher_logic/LoginInterface/Ui_LoginMasterPasswordInput.py](/FinishedProduct/MainInterface/FileTransferDeploy/cipher_decipher_logic/LoginInterface/Ui_LoginMasterPasswordInput.py) | Python | 27 | 7 | 8 | 42 |
+| [FinishedProduct/MainInterface/FileTransferDeploy/file_transfer.py](/FinishedProduct/MainInterface/FileTransferDeploy/file_transfer.py) | Python | 40 | 6 | 3 | 49 |
+| [FinishedProduct/MainInterface/FileTransferFetch/Exec_cmds_remote.py](/FinishedProduct/MainInterface/FileTransferFetch/Exec_cmds_remote.py) | Python | 12 | 2 | 5 | 19 |
+| [FinishedProduct/MainInterface/FileTransferFetch/Fetch.ui](/FinishedProduct/MainInterface/FileTransferFetch/Fetch.ui) | XML | 162 | 0 | 1 | 163 |
+| [FinishedProduct/MainInterface/FileTransferFetch/Fetch_MAIN.py](/FinishedProduct/MainInterface/FileTransferFetch/Fetch_MAIN.py) | Python | 180 | 17 | 31 | 228 |
+| [FinishedProduct/MainInterface/FileTransferFetch/Fetch_ui.py](/FinishedProduct/MainInterface/FileTransferFetch/Fetch_ui.py) | Python | 65 | 10 | 9 | 84 |
+| [FinishedProduct/MainInterface/FileTransferFetch/Ui_Fetch.py](/FinishedProduct/MainInterface/FileTransferFetch/Ui_Fetch.py) | Python | 63 | 7 | 15 | 85 |
+| [FinishedProduct/MainInterface/FileTransferFetch/cipher_decipher_logic/AES_cipher_decipher.py](/FinishedProduct/MainInterface/FileTransferFetch/cipher_decipher_logic/AES_cipher_decipher.py) | Python | 156 | 11 | 30 | 197 |
+| [FinishedProduct/MainInterface/FileTransferFetch/cipher_decipher_logic/LoginInterface/LoginMasterPasswordInput.ui](/FinishedProduct/MainInterface/FileTransferFetch/cipher_decipher_logic/LoginInterface/LoginMasterPasswordInput.ui) | XML | 98 | 0 | 1 | 99 |
+| [FinishedProduct/MainInterface/FileTransferFetch/cipher_decipher_logic/LoginInterface/LoginMasterPasswordInput_ui.py](/FinishedProduct/MainInterface/FileTransferFetch/cipher_decipher_logic/LoginInterface/LoginMasterPasswordInput_ui.py) | Python | 35 | 10 | 9 | 54 |
+| [FinishedProduct/MainInterface/FileTransferFetch/cipher_decipher_logic/LoginInterface/Main_LoginMasterPasswordWindow.py](/FinishedProduct/MainInterface/FileTransferFetch/cipher_decipher_logic/LoginInterface/Main_LoginMasterPasswordWindow.py) | Python | 31 | 0 | 5 | 36 |
+| [FinishedProduct/MainInterface/FileTransferFetch/cipher_decipher_logic/LoginInterface/Ui_LoginMasterPasswordInput.py](/FinishedProduct/MainInterface/FileTransferFetch/cipher_decipher_logic/LoginInterface/Ui_LoginMasterPasswordInput.py) | Python | 27 | 7 | 8 | 42 |
+| [FinishedProduct/MainInterface/FileTransferFetch/file_transfer.py](/FinishedProduct/MainInterface/FileTransferFetch/file_transfer.py) | Python | 40 | 6 | 3 | 49 |
+| [FinishedProduct/MainInterface/MainDashboard/Dashboard.ui](/FinishedProduct/MainInterface/MainDashboard/Dashboard.ui) | XML | 296 | 0 | 1 | 297 |
+| [FinishedProduct/MainInterface/MainDashboard/Dashboard_ui.py](/FinishedProduct/MainInterface/MainDashboard/Dashboard_ui.py) | Python | 140 | 10 | 25 | 175 |
+| [FinishedProduct/MainInterface/MainDashboard/Machine_Details/Main.py](/FinishedProduct/MainInterface/MainDashboard/Machine_Details/Main.py) | Python | 536 | 135 | 153 | 824 |
+| [FinishedProduct/MainInterface/MainDashboard/Machine_Details/Main_data_viewer_window.ui](/FinishedProduct/MainInterface/MainDashboard/Machine_Details/Main_data_viewer_window.ui) | XML | 898 | 0 | 0 | 898 |
+| [FinishedProduct/MainInterface/MainDashboard/Machine_Details/Main_data_viewer_window_ui.py](/FinishedProduct/MainInterface/MainDashboard/Machine_Details/Main_data_viewer_window_ui.py) | Python | 406 | 10 | 115 | 531 |
+| [FinishedProduct/MainInterface/MainDashboard/Machine_Details/Ui_Main_data_viewer_window.py](/FinishedProduct/MainInterface/MainDashboard/Machine_Details/Ui_Main_data_viewer_window.py) | Python | 408 | 7 | 8 | 423 |
+| [FinishedProduct/MainInterface/MainDashboard/Machine_Details/info.json](/FinishedProduct/MainInterface/MainDashboard/Machine_Details/info.json) | JSON | 1,402 | 0 | 0 | 1,402 |
+| [FinishedProduct/MainInterface/MainDashboard/Main.py](/FinishedProduct/MainInterface/MainDashboard/Main.py) | Python | 194 | 11 | 21 | 226 |
+| [FinishedProduct/MainInterface/MainDashboard/Ui_Dashboard.py](/FinishedProduct/MainInterface/MainDashboard/Ui_Dashboard.py) | Python | 137 | 7 | 8 | 152 |
+| [FinishedProduct/MainInterface/MainDashboard/cipher_decipher_logic/CipherDecipher.py](/FinishedProduct/MainInterface/MainDashboard/cipher_decipher_logic/CipherDecipher.py) | Python | 155 | 12 | 27 | 194 |
+| [FinishedProduct/MainInterface/MainDashboard/cipher_decipher_logic/LoginInterface/LoginMasterPasswordInput.ui](/FinishedProduct/MainInterface/MainDashboard/cipher_decipher_logic/LoginInterface/LoginMasterPasswordInput.ui) | XML | 98 | 0 | 1 | 99 |
+| [FinishedProduct/MainInterface/MainDashboard/cipher_decipher_logic/LoginInterface/LoginMasterPasswordInput_ui.py](/FinishedProduct/MainInterface/MainDashboard/cipher_decipher_logic/LoginInterface/LoginMasterPasswordInput_ui.py) | Python | 35 | 10 | 9 | 54 |
+| [FinishedProduct/MainInterface/MainDashboard/cipher_decipher_logic/LoginInterface/Main_LoginMasterPasswordWindow.py](/FinishedProduct/MainInterface/MainDashboard/cipher_decipher_logic/LoginInterface/Main_LoginMasterPasswordWindow.py) | Python | 31 | 0 | 5 | 36 |
+| [FinishedProduct/MainInterface/MainDashboard/cipher_decipher_logic/LoginInterface/Ui_LoginMasterPasswordInput.py](/FinishedProduct/MainInterface/MainDashboard/cipher_decipher_logic/LoginInterface/Ui_LoginMasterPasswordInput.py) | Python | 27 | 7 | 8 | 42 |
+| [FinishedProduct/MainInterface/MainDashboard/data_fetcher.py](/FinishedProduct/MainInterface/MainDashboard/data_fetcher.py) | Python | 152 | 4 | 15 | 171 |
+| [FinishedProduct/MainInterface/New folder/Main.py](/FinishedProduct/MainInterface/New%20folder/Main.py) | Python | 108 | 1 | 9 | 118 |
+| [FinishedProduct/MainInterface/New folder/RemoveMachinesInterface.ui](/FinishedProduct/MainInterface/New%20folder/RemoveMachinesInterface.ui) | XML | 74 | 0 | 1 | 75 |
+| [FinishedProduct/MainInterface/New folder/RemoveMachinesInterface_ui.py](/FinishedProduct/MainInterface/New%20folder/RemoveMachinesInterface_ui.py) | Python | 46 | 10 | 13 | 69 |
+| [FinishedProduct/MainInterface/New folder/Ui_RemoveMachinesInterface.py](/FinishedProduct/MainInterface/New%20folder/Ui_RemoveMachinesInterface.py) | Python | 38 | 7 | 8 | 53 |
+| [FinishedProduct/MainInterface/New folder/cipher_decipher_logic/CipherDecipher.py](/FinishedProduct/MainInterface/New%20folder/cipher_decipher_logic/CipherDecipher.py) | Python | 156 | 14 | 27 | 197 |
+| [FinishedProduct/MainInterface/New folder/cipher_decipher_logic/LoginInterface/LoginMasterPasswordInput.ui](/FinishedProduct/MainInterface/New%20folder/cipher_decipher_logic/LoginInterface/LoginMasterPasswordInput.ui) | XML | 98 | 0 | 1 | 99 |
+| [FinishedProduct/MainInterface/New folder/cipher_decipher_logic/LoginInterface/LoginMasterPasswordInput_ui.py](/FinishedProduct/MainInterface/New%20folder/cipher_decipher_logic/LoginInterface/LoginMasterPasswordInput_ui.py) | Python | 35 | 10 | 9 | 54 |
+| [FinishedProduct/MainInterface/New folder/cipher_decipher_logic/LoginInterface/Main_LoginMasterPasswordWindow.py](/FinishedProduct/MainInterface/New%20folder/cipher_decipher_logic/LoginInterface/Main_LoginMasterPasswordWindow.py) | Python | 31 | 0 | 5 | 36 |
+| [FinishedProduct/MainInterface/New folder/cipher_decipher_logic/LoginInterface/Ui_LoginMasterPasswordInput.py](/FinishedProduct/MainInterface/New%20folder/cipher_decipher_logic/LoginInterface/Ui_LoginMasterPasswordInput.py) | Python | 27 | 7 | 8 | 42 |
+| [FinishedProduct/MainInterface/Passwordvault/Main.py](/FinishedProduct/MainInterface/Passwordvault/Main.py) | Python | 79 | 10 | 7 | 96 |
+| [FinishedProduct/MainInterface/Passwordvault/Ui_Vault_interface.py](/FinishedProduct/MainInterface/Passwordvault/Ui_Vault_interface.py) | Python | 45 | 7 | 8 | 60 |
+| [FinishedProduct/MainInterface/Passwordvault/Vault_interface.ui](/FinishedProduct/MainInterface/Passwordvault/Vault_interface.ui) | XML | 122 | 0 | 1 | 123 |
+| [FinishedProduct/MainInterface/Passwordvault/Vault_interface_ui.py](/FinishedProduct/MainInterface/Passwordvault/Vault_interface_ui.py) | Python | 51 | 10 | 9 | 70 |
+| [FinishedProduct/MainInterface/Passwordvault/cipher_decipher_logic/CipherDecipher.py](/FinishedProduct/MainInterface/Passwordvault/cipher_decipher_logic/CipherDecipher.py) | Python | 155 | 12 | 27 | 194 |
+| [FinishedProduct/MainInterface/Passwordvault/cipher_decipher_logic/LoginInterface/LoginMasterPasswordInput.ui](/FinishedProduct/MainInterface/Passwordvault/cipher_decipher_logic/LoginInterface/LoginMasterPasswordInput.ui) | XML | 98 | 0 | 1 | 99 |
+| [FinishedProduct/MainInterface/Passwordvault/cipher_decipher_logic/LoginInterface/LoginMasterPasswordInput_ui.py](/FinishedProduct/MainInterface/Passwordvault/cipher_decipher_logic/LoginInterface/LoginMasterPasswordInput_ui.py) | Python | 35 | 10 | 9 | 54 |
+| [FinishedProduct/MainInterface/Passwordvault/cipher_decipher_logic/LoginInterface/Main_LoginMasterPasswordWindow.py](/FinishedProduct/MainInterface/Passwordvault/cipher_decipher_logic/LoginInterface/Main_LoginMasterPasswordWindow.py) | Python | 31 | 0 | 5 | 36 |
+| [FinishedProduct/MainInterface/Passwordvault/cipher_decipher_logic/LoginInterface/Ui_LoginMasterPasswordInput.py](/FinishedProduct/MainInterface/Passwordvault/cipher_decipher_logic/LoginInterface/Ui_LoginMasterPasswordInput.py) | Python | 27 | 7 | 8 | 42 |
+| [FinishedProduct/MainInterface/Remove_machines/Main.py](/FinishedProduct/MainInterface/Remove_machines/Main.py) | Python | 108 | 3 | 9 | 120 |
+| [FinishedProduct/MainInterface/Remove_machines/RemoveMachinesInterface_ui.py](/FinishedProduct/MainInterface/Remove_machines/RemoveMachinesInterface_ui.py) | Python | 46 | 10 | 13 | 69 |
+| [FinishedProduct/MainInterface/Remove_machines/Ui_RemoveMachinesInterface.py](/FinishedProduct/MainInterface/Remove_machines/Ui_RemoveMachinesInterface.py) | Python | 40 | 8 | 10 | 58 |
+| [FinishedProduct/MainInterface/Remove_machines/cipher_decipher_logic/CipherDecipher.py](/FinishedProduct/MainInterface/Remove_machines/cipher_decipher_logic/CipherDecipher.py) | Python | 156 | 14 | 27 | 197 |
+| [FinishedProduct/MainInterface/Remove_machines/cipher_decipher_logic/LoginInterface/LoginMasterPasswordInput.ui](/FinishedProduct/MainInterface/Remove_machines/cipher_decipher_logic/LoginInterface/LoginMasterPasswordInput.ui) | XML | 98 | 0 | 1 | 99 |
+| [FinishedProduct/MainInterface/Remove_machines/cipher_decipher_logic/LoginInterface/LoginMasterPasswordInput_ui.py](/FinishedProduct/MainInterface/Remove_machines/cipher_decipher_logic/LoginInterface/LoginMasterPasswordInput_ui.py) | Python | 35 | 10 | 9 | 54 |
+| [FinishedProduct/MainInterface/Remove_machines/cipher_decipher_logic/LoginInterface/Main_LoginMasterPasswordWindow.py](/FinishedProduct/MainInterface/Remove_machines/cipher_decipher_logic/LoginInterface/Main_LoginMasterPasswordWindow.py) | Python | 31 | 0 | 5 | 36 |
+| [FinishedProduct/MainInterface/Remove_machines/cipher_decipher_logic/LoginInterface/Ui_LoginMasterPasswordInput.py](/FinishedProduct/MainInterface/Remove_machines/cipher_decipher_logic/LoginInterface/Ui_LoginMasterPasswordInput.py) | Python | 27 | 7 | 8 | 42 |
+| [FinishedProduct/MainInterface/RemtIcons/SSH.svg](/FinishedProduct/MainInterface/RemtIcons/SSH.svg) | XML | 2 | 0 | 0 | 2 |
+| [FinishedProduct/MainInterface/RemtIcons/add.svg](/FinishedProduct/MainInterface/RemtIcons/add.svg) | XML | 12 | 1 | 11 | 24 |
+| [FinishedProduct/MainInterface/RemtIcons/codeEditor.svg](/FinishedProduct/MainInterface/RemtIcons/codeEditor.svg) | XML | 6 | 1 | 5 | 12 |
+| [FinishedProduct/MainInterface/RemtIcons/dashboard.svg](/FinishedProduct/MainInterface/RemtIcons/dashboard.svg) | XML | 15 | 1 | 1 | 17 |
+| [FinishedProduct/MainInterface/RemtIcons/download.svg](/FinishedProduct/MainInterface/RemtIcons/download.svg) | XML | 4 | 0 | 0 | 4 |
+| [FinishedProduct/MainInterface/RemtIcons/fullscan.svg](/FinishedProduct/MainInterface/RemtIcons/fullscan.svg) | XML | 4 | 0 | 0 | 4 |
+| [FinishedProduct/MainInterface/RemtIcons/logs.svg](/FinishedProduct/MainInterface/RemtIcons/logs.svg) | XML | 116 | 1 | 3 | 120 |
+| [FinishedProduct/MainInterface/RemtIcons/multichannel.svg](/FinishedProduct/MainInterface/RemtIcons/multichannel.svg) | XML | 13 | 1 | 0 | 14 |
+| [FinishedProduct/MainInterface/RemtIcons/password.svg](/FinishedProduct/MainInterface/RemtIcons/password.svg) | XML | 2 | 0 | 0 | 2 |
+| [FinishedProduct/MainInterface/RemtIcons/remove.svg](/FinishedProduct/MainInterface/RemtIcons/remove.svg) | XML | 11 | 1 | 0 | 12 |
+| [FinishedProduct/MainInterface/RemtIcons/remove2.svg](/FinishedProduct/MainInterface/RemtIcons/remove2.svg) | XML | 5 | 0 | 0 | 5 |
+| [FinishedProduct/MainInterface/RemtIcons/remove3.svg](/FinishedProduct/MainInterface/RemtIcons/remove3.svg) | XML | 4 | 0 | 0 | 4 |
+| [FinishedProduct/MainInterface/RemtIcons/scan.svg](/FinishedProduct/MainInterface/RemtIcons/scan.svg) | XML | 4 | 1 | 0 | 5 |
+| [FinishedProduct/MainInterface/RemtIcons/scansingle.svg](/FinishedProduct/MainInterface/RemtIcons/scansingle.svg) | XML | 2 | 1 | 0 | 3 |
+| [FinishedProduct/MainInterface/RemtIcons/schedule.svg](/FinishedProduct/MainInterface/RemtIcons/schedule.svg) | XML | 4 | 0 | 0 | 4 |
+| [FinishedProduct/MainInterface/RemtIcons/singlechannel.svg](/FinishedProduct/MainInterface/RemtIcons/singlechannel.svg) | XML | 2 | 0 | 0 | 2 |
+| [FinishedProduct/MainInterface/RemtIcons/updownarr.svg](/FinishedProduct/MainInterface/RemtIcons/updownarr.svg) | XML | 2 | 0 | 0 | 2 |
+| [FinishedProduct/MainInterface/RemtIcons/upload.svg](/FinishedProduct/MainInterface/RemtIcons/upload.svg) | XML | 4 | 0 | 0 | 4 |
+| [FinishedProduct/MainInterface/RemtIcons/view.svg](/FinishedProduct/MainInterface/RemtIcons/view.svg) | XML | 5 | 1 | 0 | 6 |
+| [FinishedProduct/MainInterface/SSHMain/Main_SSH_Widget.py](/FinishedProduct/MainInterface/SSHMain/Main_SSH_Widget.py) | Python | 172 | 13 | 39 | 224 |
+| [FinishedProduct/MainInterface/SSHMain/MultiSSH.py](/FinishedProduct/MainInterface/SSHMain/MultiSSH.py) | Python | 225 | 20 | 53 | 298 |
+| [FinishedProduct/MainInterface/SSHMain/SingleSSH.py](/FinishedProduct/MainInterface/SSHMain/SingleSSH.py) | Python | 144 | 0 | 37 | 181 |
+| [FinishedProduct/MainInterface/SSHMain/Ui_main.py](/FinishedProduct/MainInterface/SSHMain/Ui_main.py) | Python | 35 | 7 | 11 | 53 |
+| [FinishedProduct/MainInterface/SSHMain/__init__.py](/FinishedProduct/MainInterface/SSHMain/__init__.py) | Python | 0 | 0 | 1 | 1 |
+| [FinishedProduct/MainInterface/SSHMain/cipher_decipher_logic/AES_cipher_decipher.py](/FinishedProduct/MainInterface/SSHMain/cipher_decipher_logic/AES_cipher_decipher.py) | Python | 155 | 14 | 28 | 197 |
+| [FinishedProduct/MainInterface/SSHMain/cipher_decipher_logic/LoginInterface/LoginMasterPasswordInput.ui](/FinishedProduct/MainInterface/SSHMain/cipher_decipher_logic/LoginInterface/LoginMasterPasswordInput.ui) | XML | 98 | 0 | 1 | 99 |
+| [FinishedProduct/MainInterface/SSHMain/cipher_decipher_logic/LoginInterface/LoginMasterPasswordInput_ui.py](/FinishedProduct/MainInterface/SSHMain/cipher_decipher_logic/LoginInterface/LoginMasterPasswordInput_ui.py) | Python | 27 | 6 | 7 | 40 |
+| [FinishedProduct/MainInterface/SSHMain/cipher_decipher_logic/LoginInterface/Main_LoginMasterPasswordWindow.py](/FinishedProduct/MainInterface/SSHMain/cipher_decipher_logic/LoginInterface/Main_LoginMasterPasswordWindow.py) | Python | 31 | 0 | 5 | 36 |
+| [FinishedProduct/MainInterface/SSHMain/cipher_decipher_logic/LoginInterface/Ui_LoginMasterPasswordInput.py](/FinishedProduct/MainInterface/SSHMain/cipher_decipher_logic/LoginInterface/Ui_LoginMasterPasswordInput.py) | Python | 27 | 7 | 8 | 42 |
+| [FinishedProduct/MainInterface/SSHMain/main.ui](/FinishedProduct/MainInterface/SSHMain/main.ui) | XML | 74 | 0 | 1 | 75 |
+| [FinishedProduct/MainInterface/SSHMain/main_ui.py](/FinishedProduct/MainInterface/SSHMain/main_ui.py) | Python | 40 | 10 | 9 | 59 |
+| [FinishedProduct/MainInterface/TaskSchedulerMain/CrontabGUI.ui](/FinishedProduct/MainInterface/TaskSchedulerMain/CrontabGUI.ui) | XML | 351 | 0 | 1 | 352 |
+| [FinishedProduct/MainInterface/TaskSchedulerMain/CrontabGUI_ui.py](/FinishedProduct/MainInterface/TaskSchedulerMain/CrontabGUI_ui.py) | Python | 163 | 10 | 33 | 206 |
+| [FinishedProduct/MainInterface/TaskSchedulerMain/TaskScheduler.py](/FinishedProduct/MainInterface/TaskSchedulerMain/TaskScheduler.py) | Python | 53 | 29 | 15 | 97 |
+| [FinishedProduct/MainInterface/TaskSchedulerMain/Task_scheduler_main.py](/FinishedProduct/MainInterface/TaskSchedulerMain/Task_scheduler_main.py) | Python | 266 | 7 | 34 | 307 |
+| [FinishedProduct/MainInterface/TaskSchedulerMain/Ui_CrontabGUI.py](/FinishedProduct/MainInterface/TaskSchedulerMain/Ui_CrontabGUI.py) | Python | 165 | 7 | 10 | 182 |
+| [FinishedProduct/MainInterface/TaskSchedulerMain/__init__.py](/FinishedProduct/MainInterface/TaskSchedulerMain/__init__.py) | Python | 0 | 0 | 1 | 1 |
+| [FinishedProduct/MainInterface/TaskSchedulerMain/cipher_decipher_logic/CipherDecipher.py](/FinishedProduct/MainInterface/TaskSchedulerMain/cipher_decipher_logic/CipherDecipher.py) | Python | 155 | 14 | 27 | 196 |
+| [FinishedProduct/MainInterface/TaskSchedulerMain/cipher_decipher_logic/LoginInterface/LoginMasterPasswordInput.ui](/FinishedProduct/MainInterface/TaskSchedulerMain/cipher_decipher_logic/LoginInterface/LoginMasterPasswordInput.ui) | XML | 98 | 0 | 1 | 99 |
+| [FinishedProduct/MainInterface/TaskSchedulerMain/cipher_decipher_logic/LoginInterface/LoginMasterPasswordInput_ui.py](/FinishedProduct/MainInterface/TaskSchedulerMain/cipher_decipher_logic/LoginInterface/LoginMasterPasswordInput_ui.py) | Python | 35 | 10 | 9 | 54 |
+| [FinishedProduct/MainInterface/TaskSchedulerMain/cipher_decipher_logic/LoginInterface/Main_LoginMasterPasswordWindow.py](/FinishedProduct/MainInterface/TaskSchedulerMain/cipher_decipher_logic/LoginInterface/Main_LoginMasterPasswordWindow.py) | Python | 31 | 0 | 5 | 36 |
+| [FinishedProduct/MainInterface/TaskSchedulerMain/cipher_decipher_logic/LoginInterface/Ui_LoginMasterPasswordInput.py](/FinishedProduct/MainInterface/TaskSchedulerMain/cipher_decipher_logic/LoginInterface/Ui_LoginMasterPasswordInput.py) | Python | 27 | 7 | 8 | 42 |
+| [FinishedProduct/MainInterface/TaskSchedulerMain/cron_interpreter.py](/FinishedProduct/MainInterface/TaskSchedulerMain/cron_interpreter.py) | Python | 47 | 4 | 8 | 59 |
+| [FinishedProduct/MainInterface/TaskSchedulerMain/snmp_users.csv](/FinishedProduct/MainInterface/TaskSchedulerMain/snmp_users.csv) | CSV | 4 | 0 | 1 | 5 |
+| [FinishedProduct/MainInterface/Trapsviewer/Main_Trap_Viewer.py](/FinishedProduct/MainInterface/Trapsviewer/Main_Trap_Viewer.py) | Python | 80 | 6 | 20 | 106 |
+| [FinishedProduct/MainInterface/Trapsviewer/TrapReceiver/OID_interpretations.csv](/FinishedProduct/MainInterface/Trapsviewer/TrapReceiver/OID_interpretations.csv) | CSV | 5 | 0 | 0 | 5 |
+| [FinishedProduct/MainInterface/Trapsviewer/TrapReceiver/SNMPV3_trap_receiver_v3.py](/FinishedProduct/MainInterface/Trapsviewer/TrapReceiver/SNMPV3_trap_receiver_v3.py) | Python | 98 | 10 | 17 | 125 |
+| [FinishedProduct/MainInterface/Trapsviewer/TrapReceiver/cipher_decipher_logic/CipherDecipher.py](/FinishedProduct/MainInterface/Trapsviewer/TrapReceiver/cipher_decipher_logic/CipherDecipher.py) | Python | 155 | 12 | 27 | 194 |
+| [FinishedProduct/MainInterface/Trapsviewer/TrapReceiver/cipher_decipher_logic/LoginInterface/LoginMasterPasswordInput.ui](/FinishedProduct/MainInterface/Trapsviewer/TrapReceiver/cipher_decipher_logic/LoginInterface/LoginMasterPasswordInput.ui) | XML | 98 | 0 | 1 | 99 |
+| [FinishedProduct/MainInterface/Trapsviewer/TrapReceiver/cipher_decipher_logic/LoginInterface/LoginMasterPasswordInput_ui.py](/FinishedProduct/MainInterface/Trapsviewer/TrapReceiver/cipher_decipher_logic/LoginInterface/LoginMasterPasswordInput_ui.py) | Python | 35 | 10 | 9 | 54 |
+| [FinishedProduct/MainInterface/Trapsviewer/TrapReceiver/cipher_decipher_logic/LoginInterface/Main_LoginMasterPasswordWindow.py](/FinishedProduct/MainInterface/Trapsviewer/TrapReceiver/cipher_decipher_logic/LoginInterface/Main_LoginMasterPasswordWindow.py) | Python | 31 | 0 | 5 | 36 |
+| [FinishedProduct/MainInterface/Trapsviewer/TrapReceiver/cipher_decipher_logic/LoginInterface/Ui_LoginMasterPasswordInput.py](/FinishedProduct/MainInterface/Trapsviewer/TrapReceiver/cipher_decipher_logic/LoginInterface/Ui_LoginMasterPasswordInput.py) | Python | 27 | 7 | 8 | 42 |
+| [FinishedProduct/MainInterface/Trapsviewer/TrapReceiver/notifications.py](/FinishedProduct/MainInterface/Trapsviewer/TrapReceiver/notifications.py) | Python | 19 | 4 | 7 | 30 |
+| [FinishedProduct/MainInterface/Trapsviewer/Traps_Viewer_interface.ui](/FinishedProduct/MainInterface/Trapsviewer/Traps_Viewer_interface.ui) | XML | 88 | 0 | 1 | 89 |
+| [FinishedProduct/MainInterface/Trapsviewer/Traps_Viewer_interface_ui.py](/FinishedProduct/MainInterface/Trapsviewer/Traps_Viewer_interface_ui.py) | Python | 32 | 10 | 9 | 51 |
+| [FinishedProduct/MainInterface/Trapsviewer/Ui_Traps_Viewer_interface.py](/FinishedProduct/MainInterface/Trapsviewer/Ui_Traps_Viewer_interface.py) | Python | 24 | 7 | 8 | 39 |
+| [FinishedProduct/MainInterface/__init__.py](/FinishedProduct/MainInterface/__init__.py) | Python | 0 | 0 | 1 | 1 |
+| [FinishedProduct/MainInterface/adding_machines/Add_machine.ui](/FinishedProduct/MainInterface/adding_machines/Add_machine.ui) | XML | 456 | 0 | 11 | 467 |
+| [FinishedProduct/MainInterface/adding_machines/Add_machine_ui.py](/FinishedProduct/MainInterface/adding_machines/Add_machine_ui.py) | Python | 182 | 10 | 9 | 201 |
+| [FinishedProduct/MainInterface/adding_machines/Config_progress.ui](/FinishedProduct/MainInterface/adding_machines/Config_progress.ui) | XML | 77 | 0 | 1 | 78 |
+| [FinishedProduct/MainInterface/adding_machines/Config_progress_ui.py](/FinishedProduct/MainInterface/adding_machines/Config_progress_ui.py) | Python | 29 | 10 | 9 | 48 |
+| [FinishedProduct/MainInterface/adding_machines/Master_Password_first_login.ui](/FinishedProduct/MainInterface/adding_machines/Master_Password_first_login.ui) | XML | 155 | 0 | 1 | 156 |
+| [FinishedProduct/MainInterface/adding_machines/Master_Password_first_login_ui.py](/FinishedProduct/MainInterface/adding_machines/Master_Password_first_login_ui.py) | Python | 51 | 10 | 9 | 70 |
+| [FinishedProduct/MainInterface/adding_machines/Master_Password_input_form.ui](/FinishedProduct/MainInterface/adding_machines/Master_Password_input_form.ui) | XML | 98 | 0 | 1 | 99 |
+| [FinishedProduct/MainInterface/adding_machines/Master_Password_input_form_ui.py](/FinishedProduct/MainInterface/adding_machines/Master_Password_input_form_ui.py) | Python | 35 | 10 | 9 | 54 |
+| [FinishedProduct/MainInterface/adding_machines/Ui_Add_machine.py](/FinishedProduct/MainInterface/adding_machines/Ui_Add_machine.py) | Python | 183 | 7 | 11 | 201 |
+| [FinishedProduct/MainInterface/adding_machines/Ui_Config_progress.py](/FinishedProduct/MainInterface/adding_machines/Ui_Config_progress.py) | Python | 22 | 7 | 8 | 37 |
+| [FinishedProduct/MainInterface/adding_machines/Ui_root_password_master_password_forms.py](/FinishedProduct/MainInterface/adding_machines/Ui_root_password_master_password_forms.py) | Python | 54 | 7 | 8 | 69 |
+| [FinishedProduct/MainInterface/adding_machines/adding_machines_forms_main.py](/FinishedProduct/MainInterface/adding_machines/adding_machines_forms_main.py) | Python | 260 | 6 | 57 | 323 |
+| [FinishedProduct/MainInterface/adding_machines/cipher_decipher_logic/CipherDecipher.py](/FinishedProduct/MainInterface/adding_machines/cipher_decipher_logic/CipherDecipher.py) | Python | 156 | 14 | 27 | 197 |
+| [FinishedProduct/MainInterface/adding_machines/cipher_decipher_logic/LoginInterface/LoginMasterPasswordInput.ui](/FinishedProduct/MainInterface/adding_machines/cipher_decipher_logic/LoginInterface/LoginMasterPasswordInput.ui) | XML | 98 | 0 | 1 | 99 |
+| [FinishedProduct/MainInterface/adding_machines/cipher_decipher_logic/LoginInterface/LoginMasterPasswordInput_ui.py](/FinishedProduct/MainInterface/adding_machines/cipher_decipher_logic/LoginInterface/LoginMasterPasswordInput_ui.py) | Python | 35 | 10 | 9 | 54 |
+| [FinishedProduct/MainInterface/adding_machines/cipher_decipher_logic/LoginInterface/Main_LoginMasterPasswordWindow.py](/FinishedProduct/MainInterface/adding_machines/cipher_decipher_logic/LoginInterface/Main_LoginMasterPasswordWindow.py) | Python | 31 | 0 | 5 | 36 |
+| [FinishedProduct/MainInterface/adding_machines/cipher_decipher_logic/LoginInterface/Ui_LoginMasterPasswordInput.py](/FinishedProduct/MainInterface/adding_machines/cipher_decipher_logic/LoginInterface/Ui_LoginMasterPasswordInput.py) | Python | 27 | 7 | 8 | 42 |
+| [FinishedProduct/MainInterface/adding_machines/config.py](/FinishedProduct/MainInterface/adding_machines/config.py) | Python | 24 | 2 | 9 | 35 |
+| [FinishedProduct/MainInterface/adding_machines/root_password_master_password_forms.ui](/FinishedProduct/MainInterface/adding_machines/root_password_master_password_forms.ui) | XML | 196 | 0 | 1 | 197 |
+| [FinishedProduct/MainInterface/adding_machines/root_password_master_password_forms_ui.py](/FinishedProduct/MainInterface/adding_machines/root_password_master_password_forms_ui.py) | Python | 62 | 10 | 9 | 81 |
+| [FinishedProduct/MainInterface/adding_machines/test.py](/FinishedProduct/MainInterface/adding_machines/test.py) | Python | 31 | 0 | 8 | 39 |
+| [FinishedProduct/MainInterface/editeur_de_code/cipher_decipher_logic/AES_cipher_decipher.py](/FinishedProduct/MainInterface/editeur_de_code/cipher_decipher_logic/AES_cipher_decipher.py) | Python | 156 | 11 | 28 | 195 |
+| [FinishedProduct/MainInterface/editeur_de_code/cipher_decipher_logic/LoginInterface/LoginMasterPasswordInput.ui](/FinishedProduct/MainInterface/editeur_de_code/cipher_decipher_logic/LoginInterface/LoginMasterPasswordInput.ui) | XML | 98 | 0 | 1 | 99 |
+| [FinishedProduct/MainInterface/editeur_de_code/cipher_decipher_logic/LoginInterface/LoginMasterPasswordInput_ui.py](/FinishedProduct/MainInterface/editeur_de_code/cipher_decipher_logic/LoginInterface/LoginMasterPasswordInput_ui.py) | Python | 35 | 10 | 9 | 54 |
+| [FinishedProduct/MainInterface/editeur_de_code/cipher_decipher_logic/LoginInterface/Main_LoginMasterPasswordWindow.py](/FinishedProduct/MainInterface/editeur_de_code/cipher_decipher_logic/LoginInterface/Main_LoginMasterPasswordWindow.py) | Python | 31 | 0 | 5 | 36 |
+| [FinishedProduct/MainInterface/editeur_de_code/cipher_decipher_logic/LoginInterface/Ui_LoginMasterPasswordInput.py](/FinishedProduct/MainInterface/editeur_de_code/cipher_decipher_logic/LoginInterface/Ui_LoginMasterPasswordInput.py) | Python | 27 | 7 | 8 | 42 |
+| [FinishedProduct/MainInterface/editeur_de_code/editeur.py](/FinishedProduct/MainInterface/editeur_de_code/editeur.py) | Python | 385 | 25 | 137 | 547 |
+| [FinishedProduct/MainInterface/editeur_de_code/snmp_users.csv](/FinishedProduct/MainInterface/editeur_de_code/snmp_users.csv) | CSV | 2 | 0 | 1 | 3 |
+| [FinishedProduct/MainInterface/editeur_de_code/style.qss](/FinishedProduct/MainInterface/editeur_de_code/style.qss) | QSS | 6 | 0 | 0 | 6 |
+| [FinishedProduct/MainInterface/editeur_de_code/text_edit_with_line_numbers.py](/FinishedProduct/MainInterface/editeur_de_code/text_edit_with_line_numbers.py) | Python | 24 | 0 | 9 | 33 |
+| [FinishedProduct/MainInterface/editeur_de_code/transfert.py](/FinishedProduct/MainInterface/editeur_de_code/transfert.py) | Python | 40 | 5 | 3 | 48 |
+| [FinishedProduct/MainInterface/log_fetcher_interface/LOGS/Advanced_Configuration_and_Power_Interface_events.py](/FinishedProduct/MainInterface/log_fetcher_interface/LOGS/Advanced_Configuration_and_Power_Interface_events.py) | Python | 45 | 29 | 58 | 132 |
+| [FinishedProduct/MainInterface/log_fetcher_interface/LOGS/Progress/Config_progress_2.ui](/FinishedProduct/MainInterface/log_fetcher_interface/LOGS/Progress/Config_progress_2.ui) | XML | 113 | 0 | 1 | 114 |
+| [FinishedProduct/MainInterface/log_fetcher_interface/LOGS/Progress/Config_progress_2_ui.py](/FinishedProduct/MainInterface/log_fetcher_interface/LOGS/Progress/Config_progress_2_ui.py) | Python | 38 | 10 | 9 | 57 |
+| [FinishedProduct/MainInterface/log_fetcher_interface/LOGS/Progress/PROGRESS_2.ui](/FinishedProduct/MainInterface/log_fetcher_interface/LOGS/Progress/PROGRESS_2.ui) | XML | 129 | 0 | 1 | 130 |
+| [FinishedProduct/MainInterface/log_fetcher_interface/LOGS/Progress/PROGRESS_2_ui.py](/FinishedProduct/MainInterface/log_fetcher_interface/LOGS/Progress/PROGRESS_2_ui.py) | Python | 50 | 10 | 9 | 69 |
+| [FinishedProduct/MainInterface/log_fetcher_interface/LOGS/Progress/Ui_Config_progress.py](/FinishedProduct/MainInterface/log_fetcher_interface/LOGS/Progress/Ui_Config_progress.py) | Python | 22 | 7 | 8 | 37 |
+| [FinishedProduct/MainInterface/log_fetcher_interface/LOGS/Progress/Ui_Config_progress_2.py](/FinishedProduct/MainInterface/log_fetcher_interface/LOGS/Progress/Ui_Config_progress_2.py) | Python | 30 | 7 | 8 | 45 |
+| [FinishedProduct/MainInterface/log_fetcher_interface/LOGS/__init__.py](/FinishedProduct/MainInterface/log_fetcher_interface/LOGS/__init__.py) | Python | 0 | 0 | 1 | 1 |
+| [FinishedProduct/MainInterface/log_fetcher_interface/LOGS/activites_de_configuration.py](/FinishedProduct/MainInterface/log_fetcher_interface/LOGS/activites_de_configuration.py) | Python | 45 | 29 | 50 | 124 |
+| [FinishedProduct/MainInterface/log_fetcher_interface/LOGS/activites_du_parefeu.py](/FinishedProduct/MainInterface/log_fetcher_interface/LOGS/activites_du_parefeu.py) | Python | 45 | 30 | 52 | 127 |
+| [FinishedProduct/MainInterface/log_fetcher_interface/LOGS/activites_memoire.py](/FinishedProduct/MainInterface/log_fetcher_interface/LOGS/activites_memoire.py) | Python | 45 | 28 | 58 | 131 |
+| [FinishedProduct/MainInterface/log_fetcher_interface/LOGS/activites_reseau.py](/FinishedProduct/MainInterface/log_fetcher_interface/LOGS/activites_reseau.py) | Python | 45 | 29 | 53 | 127 |
+| [FinishedProduct/MainInterface/log_fetcher_interface/LOGS/activites_ssh.py](/FinishedProduct/MainInterface/log_fetcher_interface/LOGS/activites_ssh.py) | Python | 45 | 29 | 54 | 128 |
+| [FinishedProduct/MainInterface/log_fetcher_interface/LOGS/activites_usb.py](/FinishedProduct/MainInterface/log_fetcher_interface/LOGS/activites_usb.py) | Python | 45 | 28 | 55 | 128 |
+| [FinishedProduct/MainInterface/log_fetcher_interface/LOGS/cipher_decipher_logic/AES_cipher_decipher.py](/FinishedProduct/MainInterface/log_fetcher_interface/LOGS/cipher_decipher_logic/AES_cipher_decipher.py) | Python | 155 | 14 | 27 | 196 |
+| [FinishedProduct/MainInterface/log_fetcher_interface/LOGS/cipher_decipher_logic/LoginInterface/LoginMasterPasswordInput.ui](/FinishedProduct/MainInterface/log_fetcher_interface/LOGS/cipher_decipher_logic/LoginInterface/LoginMasterPasswordInput.ui) | XML | 98 | 0 | 1 | 99 |
+| [FinishedProduct/MainInterface/log_fetcher_interface/LOGS/cipher_decipher_logic/LoginInterface/LoginMasterPasswordInput_ui.py](/FinishedProduct/MainInterface/log_fetcher_interface/LOGS/cipher_decipher_logic/LoginInterface/LoginMasterPasswordInput_ui.py) | Python | 35 | 10 | 9 | 54 |
+| [FinishedProduct/MainInterface/log_fetcher_interface/LOGS/cipher_decipher_logic/LoginInterface/Main_LoginMasterPasswordWindow.py](/FinishedProduct/MainInterface/log_fetcher_interface/LOGS/cipher_decipher_logic/LoginInterface/Main_LoginMasterPasswordWindow.py) | Python | 31 | 0 | 5 | 36 |
+| [FinishedProduct/MainInterface/log_fetcher_interface/LOGS/cipher_decipher_logic/LoginInterface/Ui_LoginMasterPasswordInput.py](/FinishedProduct/MainInterface/log_fetcher_interface/LOGS/cipher_decipher_logic/LoginInterface/Ui_LoginMasterPasswordInput.py) | Python | 27 | 7 | 8 | 42 |
+| [FinishedProduct/MainInterface/log_fetcher_interface/LOGS/cmd_history.py](/FinishedProduct/MainInterface/log_fetcher_interface/LOGS/cmd_history.py) | Python | 51 | 36 | 58 | 145 |
+| [FinishedProduct/MainInterface/log_fetcher_interface/LOGS/cnx_actives.py](/FinishedProduct/MainInterface/log_fetcher_interface/LOGS/cnx_actives.py) | Python | 47 | 31 | 57 | 135 |
+| [FinishedProduct/MainInterface/log_fetcher_interface/LOGS/config.py](/FinishedProduct/MainInterface/log_fetcher_interface/LOGS/config.py) | Python | 25 | 10 | 15 | 50 |
+| [FinishedProduct/MainInterface/log_fetcher_interface/LOGS/device_detection.py](/FinishedProduct/MainInterface/log_fetcher_interface/LOGS/device_detection.py) | Python | 45 | 28 | 55 | 128 |
+| [FinishedProduct/MainInterface/log_fetcher_interface/LOGS/fetch_logs.py](/FinishedProduct/MainInterface/log_fetcher_interface/LOGS/fetch_logs.py) | Python | 190 | 35 | 61 | 286 |
+| [FinishedProduct/MainInterface/log_fetcher_interface/LOGS/kernel_logs.py](/FinishedProduct/MainInterface/log_fetcher_interface/LOGS/kernel_logs.py) | Python | 46 | 29 | 60 | 135 |
+| [FinishedProduct/MainInterface/log_fetcher_interface/LOGS/processus.py](/FinishedProduct/MainInterface/log_fetcher_interface/LOGS/processus.py) | Python | 46 | 29 | 58 | 133 |
+| [FinishedProduct/MainInterface/log_fetcher_interface/LOGS/status_des_services.py](/FinishedProduct/MainInterface/log_fetcher_interface/LOGS/status_des_services.py) | Python | 54 | 37 | 72 | 163 |
+| [FinishedProduct/MainInterface/log_fetcher_interface/LOGS/sys_alert.py](/FinishedProduct/MainInterface/log_fetcher_interface/LOGS/sys_alert.py) | Python | 46 | 28 | 61 | 135 |
+| [FinishedProduct/MainInterface/log_fetcher_interface/LOGS/sys_critical.py](/FinishedProduct/MainInterface/log_fetcher_interface/LOGS/sys_critical.py) | Python | 46 | 28 | 61 | 135 |
+| [FinishedProduct/MainInterface/log_fetcher_interface/LOGS/sys_debug.py](/FinishedProduct/MainInterface/log_fetcher_interface/LOGS/sys_debug.py) | Python | 46 | 28 | 62 | 136 |
+| [FinishedProduct/MainInterface/log_fetcher_interface/LOGS/sys_emerg.py](/FinishedProduct/MainInterface/log_fetcher_interface/LOGS/sys_emerg.py) | Python | 46 | 28 | 60 | 134 |
+| [FinishedProduct/MainInterface/log_fetcher_interface/LOGS/sys_error.py](/FinishedProduct/MainInterface/log_fetcher_interface/LOGS/sys_error.py) | Python | 46 | 28 | 61 | 135 |
+| [FinishedProduct/MainInterface/log_fetcher_interface/LOGS/sys_info.py](/FinishedProduct/MainInterface/log_fetcher_interface/LOGS/sys_info.py) | Python | 46 | 28 | 62 | 136 |
+| [FinishedProduct/MainInterface/log_fetcher_interface/LOGS/sys_notice.py](/FinishedProduct/MainInterface/log_fetcher_interface/LOGS/sys_notice.py) | Python | 46 | 28 | 60 | 134 |
+| [FinishedProduct/MainInterface/log_fetcher_interface/LOGS/sys_warning.py](/FinishedProduct/MainInterface/log_fetcher_interface/LOGS/sys_warning.py) | Python | 46 | 28 | 60 | 134 |
+| [FinishedProduct/MainInterface/log_fetcher_interface/LOGS/system_boots.py](/FinishedProduct/MainInterface/log_fetcher_interface/LOGS/system_boots.py) | Python | 46 | 29 | 63 | 138 |
+| [FinishedProduct/MainInterface/log_fetcher_interface/LOGS/transactions_effectuees.py](/FinishedProduct/MainInterface/log_fetcher_interface/LOGS/transactions_effectuees.py) | Python | 46 | 29 | 60 | 135 |
+| [FinishedProduct/MainInterface/log_fetcher_interface/LOGS/transfert.py](/FinishedProduct/MainInterface/log_fetcher_interface/LOGS/transfert.py) | Python | 40 | 6 | 3 | 49 |
+| [FinishedProduct/MainInterface/log_fetcher_interface/LOGS/users.csv](/FinishedProduct/MainInterface/log_fetcher_interface/LOGS/users.csv) | CSV | 4 | 0 | 0 | 4 |
+| [FinishedProduct/MainInterface/log_fetcher_interface/LOGS/utilisation_disque.py](/FinishedProduct/MainInterface/log_fetcher_interface/LOGS/utilisation_disque.py) | Python | 46 | 30 | 58 | 134 |
+| [FinishedProduct/MainInterface/log_fetcher_interface/Main.py](/FinishedProduct/MainInterface/log_fetcher_interface/Main.py) | Python | 112 | 13 | 23 | 148 |
+| [FinishedProduct/MainInterface/log_fetcher_interface/Ui_logfetcher_interface.py](/FinishedProduct/MainInterface/log_fetcher_interface/Ui_logfetcher_interface.py) | Python | 23 | 7 | 8 | 38 |
+| [FinishedProduct/MainInterface/log_fetcher_interface/__init__.py](/FinishedProduct/MainInterface/log_fetcher_interface/__init__.py) | Python | 0 | 0 | 1 | 1 |
+| [FinishedProduct/MainInterface/log_fetcher_interface/file_explorer_opener.py](/FinishedProduct/MainInterface/log_fetcher_interface/file_explorer_opener.py) | Python | 6 | 0 | 2 | 8 |
+| [FinishedProduct/MainInterface/log_fetcher_interface/logfetcher_interface.ui](/FinishedProduct/MainInterface/log_fetcher_interface/logfetcher_interface.ui) | XML | 61 | 0 | 1 | 62 |
+| [FinishedProduct/MainInterface/log_fetcher_interface/logfetcher_interface_ui.py](/FinishedProduct/MainInterface/log_fetcher_interface/logfetcher_interface_ui.py) | Python | 28 | 10 | 9 | 47 |
+| [FinishedProduct/MainInterface/log_fetcher_interface/settings.ini](/FinishedProduct/MainInterface/log_fetcher_interface/settings.ini) | Ini | 2 | 0 | 2 | 4 |
+| [FinishedProduct/MasterPasswordInput/FirstLoginInterface/FirstLogin.ui](/FinishedProduct/MasterPasswordInput/FirstLoginInterface/FirstLogin.ui) | XML | 232 | 0 | 1 | 233 |
+| [FinishedProduct/MasterPasswordInput/FirstLoginInterface/Main_FirstLoginWindow.py](/FinishedProduct/MasterPasswordInput/FirstLoginInterface/Main_FirstLoginWindow.py) | Python | 50 | 0 | 7 | 57 |
+| [FinishedProduct/MasterPasswordInput/FirstLoginInterface/Ui_FirstLogin.py](/FinishedProduct/MasterPasswordInput/FirstLoginInterface/Ui_FirstLogin.py) | Python | 78 | 7 | 9 | 94 |
+| [FinishedProduct/MasterPasswordInput/FirstLoginInterface/password_hash_storage.py](/FinishedProduct/MasterPasswordInput/FirstLoginInterface/password_hash_storage.py) | Python | 23 | 8 | 12 | 43 |
+| [FinishedProduct/MasterPasswordInput/LoginInterface/LoginMasterPasswordInput.ui](/FinishedProduct/MasterPasswordInput/LoginInterface/LoginMasterPasswordInput.ui) | XML | 98 | 0 | 1 | 99 |
+| [FinishedProduct/MasterPasswordInput/LoginInterface/Main_LoginMasterPasswordWindow.py](/FinishedProduct/MasterPasswordInput/LoginInterface/Main_LoginMasterPasswordWindow.py) | Python | 31 | 0 | 5 | 36 |
+| [FinishedProduct/MasterPasswordInput/LoginInterface/Ui_LoginMasterPasswordInput.py](/FinishedProduct/MasterPasswordInput/LoginInterface/Ui_LoginMasterPasswordInput.py) | Python | 30 | 7 | 7 | 44 |
+| [FinishedProduct/REMTMainInterface.py](/FinishedProduct/REMTMainInterface.py) | Python | 191 | 23 | 35 | 249 |
+| [FinishedProduct/Startup.py](/FinishedProduct/Startup.py) | Python | 104 | 4 | 15 | 123 |
+| [FinishedProduct/__init__.py](/FinishedProduct/__init__.py) | Python | 0 | 0 | 1 | 1 |
+
+[Summary](results.md) / Details / [Diff Summary](diff.md) / [Diff Details](diff-details.md)
