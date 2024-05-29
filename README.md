@@ -2,7 +2,9 @@
 
 **REMT** is a comprehensive toolkit designed for Linux administrators to efficiently configure and manage Linux servers. This open-source project amalgamates essential tools for remote execution, file transfers, log retrieval, task scheduling, script management, and secure password handling.
 
-<img src="READMEIMAGES/white.png" alt="Screenshot" style="display: block; margin: 50 auto; zoom: 20%;" />
+<div style="text-align: center;">
+    <img src="READMEIMAGES/white.png" alt="Screenshot" style="zoom: 20%; margin: 100 auto;">
+</div>
 
 <img src="READMEIMAGES/Interfaces/Dashboard.PNG" alt="Screenshot" style="display: block; margin: 0 auto; zoom: 50%;" />
 
