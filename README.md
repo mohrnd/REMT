@@ -48,6 +48,7 @@ To install REMT, follow the steps below:
 ```bash
 git clone https://github.com/mohrnd/REMT.git
 cd REMT
+pip install -r requirements.txt
 python /FinishedProduct/Startup.py
 ```
 
