@@ -64,3 +64,12 @@ python /FinishedProduct/Startup.py
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
 
 
+### Known Issues
+
+| Issue                                                        | Status             |
+|--------------------------------------------------------------|--------------------|
+| Terminals (single and multi SSH) crash randomly             | Working on a fix   |
+| Clicking "more" in the dashboard leads to software crashes  | Working on a fix   |
+
+
+
