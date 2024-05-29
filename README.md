@@ -36,7 +36,8 @@ Offers integrated tools to create, edit, and deploy Python and Shell scripts on 
 The software includes a robust password management system, eliminating the need for administrators to memorize or store passwords individually.
 
 
-### System Monitoring
+### System Monitoring with SNMPv3
+REMT provides comprehensive system monitoring capabilities utilizing SNMPv3 protocol. It notifies administrators when a machine goes online or offline and offers real-time statistics on CPU, RAM, disk, and network usage for each machine. SNMPv3 enhances security by providing encryption and authentication features, ensuring secure communication between the REMT server and monitored devices.
 Notifies you when a machine goes online or offline, and provides real-time statistics on CPU, RAM, disk, and network usage for each machine.
 
 ## Contribution
