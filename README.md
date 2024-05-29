@@ -46,14 +46,14 @@ To install REMT, follow the steps below:
 ```bash
 git clone https://github.com/mohrnd/REMT.git
 cd REMT
-./FinishedProduct/Startup.py
+python /FinishedProduct/Startup.py
 ```
 
 ## Usage
 To start REMT, simply execute:
 
 ```bash
-./FinishedProduct/Startup.py
+python /FinishedProduct/Startup.py
 ```
 
 ## License
