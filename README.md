@@ -79,4 +79,4 @@ This project is licensed under the GPL-3.0 License. See the [LICENSE](LICENSE) f
 ## Collaborators
 <div>https://github.com/mohrnd</div>
 <div>https://github.com/LamariAzzeddine</div>
-<div>This project, supervised by Professor MERAZKA Fatiha, was our final project for our Bachelor's degree in Telecommunications and Networking Engineering.</div>
+<div>This project, supervised by Professor MERAZKA Fatiha, was our final project for our Bachelor's Degree in Computer Science with a specialization in Telecommunications and Networking Engineering.</div>
