@@ -77,6 +77,6 @@ This project is licensed under the GPL-3.0 License. See the [LICENSE](LICENSE) f
 | Clicking "more" in the dashboard leads to software crashes  | Working on a fix   |
 
 
-https://github.com/mohrnd
-https://github.com/LamariAzzeddine
-This project, supervised by Professor MERAZKA Fatiha, was our final project for our Bachelor's degree
+<div>https://github.com/mohrnd</div>
+<div>https://github.com/LamariAzzeddine</div>
+<div>This project, supervised by Professor MERAZKA Fatiha, was our final project for our Bachelor's degree in Telecommunications and Networking Engineering.</div>
