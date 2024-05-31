@@ -77,4 +77,5 @@ This project is licensed under the GPL-3.0 License. See the [LICENSE](LICENSE) f
 | Clicking "more" in the dashboard leads to software crashes  | Working on a fix   |
 
 
-
+https://github.com/mohrnd
+https://github.com/LamariAzzeddine
