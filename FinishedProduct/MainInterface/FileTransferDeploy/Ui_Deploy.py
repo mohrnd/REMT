@@ -74,7 +74,7 @@ class Ui_Frame(object):
         self.Localpath.setPlaceholderText(_translate("Frame", "Local path"))
         self.Broswse.setText(_translate("Frame", "Browse"))
         self.Title1.setText(_translate("Frame", "Deploy a file/folder:"))
-        self.LineEdit.setPlaceholderText(_translate("Frame", "Remote path (default /home/<username>/remt/)"))
+        self.LineEdit.setPlaceholderText(_translate("Frame", "Remote path"))
         self.PushButton.setText(_translate("Frame", "Verify existance"))
         self.StrongBodyLabel.setText(_translate("Frame", "Machines online:"))
         self.Master_password.setPlaceholderText(_translate("Frame", "Master Password"))
