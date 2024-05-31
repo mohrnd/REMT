@@ -76,7 +76,7 @@ This project is licensed under the GPL-3.0 License. See the [LICENSE](LICENSE) f
 | Terminals (single and multi SSH) crash randomly             | Working on a fix   |
 | Clicking "more" in the dashboard leads to software crashes  | Working on a fix   |
 
-
+## Collaborators
 <div>https://github.com/mohrnd</div>
 <div>https://github.com/LamariAzzeddine</div>
 <div>This project, supervised by Professor MERAZKA Fatiha, was our final project for our Bachelor's degree in Telecommunications and Networking Engineering.</div>
