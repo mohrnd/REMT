@@ -186,22 +186,26 @@ def parse_log_file(log_file):
 
     with open(log_file, 'r') as file:
         lines = file.readlines()
-        for line in lines:  
-            timestamp = re.search(r'\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}', line).group() 
-            ip_match = re.search(r'"(.*?)"', line)  
-            if ip_match:
-                ip_address = ip_match.group(1)
+        for line in reversed(lines):
+            timestamp_match = re.search(r'\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}', line)
+            if timestamp_match:
+                timestamp = timestamp_match.group()
             else:
-                ip_address = None
-            
+                continue  # If no timestamp is found, skip this line
+
+            ip_match = re.search(r'"(.*?)"', line)
+            ip_address = ip_match.group(1) if ip_match else None
+
             latest_trap = f"{timestamp}\n{ip_address}"
-            if "SystemShutdown" in line:
+
+            if "SystemShutdown" in line and latest_shutdown is None:
                 latest_shutdown = f"{timestamp}\n{ip_address}"
-            elif "SystemStartup" in line:
+            elif "SystemStartup" in line and latest_startup is None:
                 latest_startup = f"{timestamp}\n{ip_address}"
+
             if latest_shutdown and latest_startup and latest_trap:
                 break
-    
+
     return latest_trap, latest_shutdown, latest_startup
 
 def online_Check(ip_address):
